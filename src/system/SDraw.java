@@ -38,6 +38,7 @@ public final class SDraw  extends JPanel implements GameSystem{
              CPosition pos = (CPosition) entity.getComp(1);
              CSprite sprite = (CSprite) entity.getComp(2);
              int x = pos.xpos; int y = pos.ypos;
+             //test/
              int width = sprite.width; int height = sprite.height;
              g2.drawImage(sprite.image, x, y, width, height,null);
 
