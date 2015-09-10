@@ -27,6 +27,7 @@ public class Main {
                 int screenHeight = screenSize.height;
 
                 JFrame frame = new JFrame();
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 frame.setTitle("Entity Component System Alpha");
                 frame.setPreferredSize(new Dimension(screenHeight - 100, screenHeight - 100));
                 frame.setVisible(true);
