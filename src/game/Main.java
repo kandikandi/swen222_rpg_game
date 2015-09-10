@@ -2,34 +2,44 @@ package game;
 
 import component.CPosition;
 import component.CSprite;
-import entity.Entity;
-import system.GameSystem;
+import component.GameComponent;
+import entity.GameEntity;
 import system.SDraw;
 import system.SMove;
+import ui.GameFrame;
+import ui.GameKeyListener;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
 
 
 public class Main {
-
+    public static final int G_WIDTH = 800;
+    public static final int G_HEIGHT = 600;
+    public static final String TITLE = "ECS alpha 0.1";
 
     public static void main(String[] args) {
-	// write your code here
+        // This EventQueue stuff might help to stop bugs in Swing
         EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Toolkit toolkit = Toolkit.getDefaultToolkit();
-                Dimension screenSize = toolkit.getScreenSize();
-                int screenHeight = screenSize.height;
 
-                JFrame frame = new JFrame();
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.setTitle("Entity Component System Alpha");
-                frame.setPreferredSize(new Dimension(screenHeight - 100, screenHeight - 100));
-                frame.setVisible(true);
+                //create master game controller first
+                GameController controller = new GameController();
+
+                //Canvas is a innerclass of GameFrame
+                JFrame gameFrame = new GameFrame(TITLE,G_WIDTH, G_HEIGHT, controller);
+                KeyListener gameKeyListner = new GameKeyListener(controller);
+                gameFrame.addKeyListener(gameKeyListner);
+
+                //create and add systems in order they need to be executed
+                SDraw drawSystem = new SDraw(controller, (GameFrame)gameFrame);
+                SMove moveSystem = new SMove(controller);
+                controller.addSystem(moveSystem);
+                controller.addSystem(drawSystem);
 
                 Image image = null;
                 try {
@@ -38,20 +48,15 @@ public class Main {
                     e.printStackTrace();
                 }
 
-                GameController controller = new GameController();
-                Entity player1 = controller.createEntity(999);
-                player1.attachComp(new CPosition(50, 50));
-                player1.attachComp(new CSprite(image, 20, 20));
+                //temp player entity
+                GameEntity player = controller.createEntity(999);
+                GameComponent gc =  new CPosition(50,50);
+                player.attachComp(gc);
+                gc = new CSprite(image,20,20);
+                player.attachComp(gc);
 
-                JPanel drawer = new SDraw(controller);
 
-                controller.addSystem((SDraw)drawer);
-
-                frame.add(drawer);
-                frame.pack();
-                SMove moveSystem = new SMove(controller);
-                frame.addKeyListener(moveSystem);
-                controller.addSystem(moveSystem);
+                //create time to control systems loop
                 GameTimer timer = new GameTimer(controller);
                 timer.start();
 
