@@ -13,7 +13,7 @@ public class GameTimer extends Thread {
     public void run(){
         while(true){
             try {
-                Thread.sleep(50);
+                Thread.sleep(25);
                 gameController.executeAllSystems();
             }catch (Exception e){
                 System.out.println("GameTimer Error");

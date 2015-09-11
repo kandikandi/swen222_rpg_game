@@ -18,56 +18,59 @@ public final class SDraw implements GameSystem {
 
     private final GameController controller;
     private final GameFrame gameFrame;
+    private BufferedImage buffImg;
+    private Shape blackFill;
+    private Graphics2D g2d;
 
 
     public SDraw(GameController controller, GameFrame gameFrame) {
         this.controller = controller;
         this.gameFrame = gameFrame;
+        buffImg = new BufferedImage(Main.G_WIDTH, Main.G_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        g2d = buffImg.createGraphics();
+        blackFill = new Rectangle(Main.G_WIDTH, Main.G_HEIGHT);
 
+    }
+
+    /**
+     * Flushes the buffered image by filling it with black
+     */
+    private void drawBackground(){
+        g2d.setColor(Color.BLACK);
+        g2d.fill(blackFill);
     }
 
     @Override
     public void performSystem() {
-        //System.out.println("SDraw perform system");
+        //paint scene background black
+        drawBackground();
         Iterator<GameEntity> it = controller.getEntityIterator();
-        //System.out.println(it.hasNext());
         GameEntity entity;
-        //CPosition = 1 CSprite = 2
+
+        // Look for all entities that contain the two components required to draw it
         while (it.hasNext()) {
-            //System.out.println("SDraw while1");
             entity = it.next();
+            //CPosition = 1 CSprite = 2
             if (entity.containsCompID(1) && entity.containsCompID(2)) {
+                //Drawable entity found, cast and get data
                 CPosition pos = (CPosition) entity.getComp(1);
                 CSprite sprite = (CSprite) entity.getComp(2);
-                //System.out.println("SDraw while2");
+
                 int x = pos.xpos;
                 int y = pos.ypos;
                 int width = sprite.width;
                 int height = sprite.height;
                 Image image = sprite.image;
 
-                drawScene(image, x, y);
+                //draw entities to buffered image and send to canvas/frame
+                g2d.drawImage(image, x, y, null);
                 gameFrame.receiveBuffImage(buffImg);
-
-            } //else System.out.println("Entity not drawable ID:");
-        }
-        //System.out.println("Sdraw2");
-    }
-
-
-    private BufferedImage buffImg = new BufferedImage(Main.G_WIDTH, Main.G_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-    private void drawScene(Image src, int x, int y) {
-        if(buffImg == null){
-            setupBuffImage();
-        } else {
-            Graphics2D g2d = buffImg.createGraphics();
-            g2d.drawImage(src, x, y, null);
+            }
         }
     }
 
-    private void setupBuffImage() {
-        BufferedImage buffImg = new BufferedImage(Main.G_WIDTH, Main.G_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-    }
+
+
 }
 
 

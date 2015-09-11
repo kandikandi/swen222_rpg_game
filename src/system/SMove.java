@@ -29,16 +29,16 @@ public class SMove implements GameSystem {
             if (entity.containsCompID(1)) {
                 CPosition pos = (CPosition) entity.getComp(1);
                 if (keyArray[0]) {
-                    pos.ypos -= 10;
+                    pos.ypos -= 3;
                 }
                 if (keyArray[1]) {
-                    pos.ypos += 10;
+                    pos.ypos += 3;
                 }
                 if (keyArray[2]) {
-                    pos.xpos -= 10;
+                    pos.xpos -= 3;
                 }
                 if (keyArray[3]) {
-                    pos.xpos += 10;
+                    pos.xpos += 3;
                 }
             }
         }

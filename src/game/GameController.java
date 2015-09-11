@@ -11,8 +11,10 @@ import java.util.List;
  * Created by cuan on 9/9/15.
  */
 public class GameController{
+
     private final int NUM_KEYS = 4;
     public boolean[] keyArray = new boolean[NUM_KEYS];
+
     private final List<GameEntity> entityList;
     private final List<GameSystem> systemList;
 
