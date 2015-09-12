@@ -1,4 +1,4 @@
-package game;
+package control;
 
 /**
  * Created by cuan on 9/9/15.

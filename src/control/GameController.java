@@ -1,10 +1,10 @@
-package game;
+package control;
 
-import entity.GameEntity;
+import factory.TileFactory;
+import model.Tile;
 import system.GameSystem;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,33 +14,32 @@ public class GameController{
 
     private final int NUM_KEYS = 4;
     public boolean[] keyArray = new boolean[NUM_KEYS];
+    private final Tile[][] world;
 
-    private final List<GameEntity> entityList;
     private final List<GameSystem> systemList;
 
 
     public GameController(){
-        entityList = new ArrayList<>();
         systemList = new ArrayList<>();
+        if(Main.TEST_MODE){ world = TileFactory.createTestWorld();
+        }else{
+            world = TileFactory.createWorld();
+        }
     }
 
-    public Iterator<GameEntity> getEntityIterator(){
-        return entityList.iterator();
-    }
+
 
     public void executeAllSystems(){
-        systemList.forEach(system.GameSystem::performSystem);
+        systemList.forEach(GameSystem::performSystem);
 
     }
 
-    public GameEntity createEntity(int ID){
-        GameEntity result = new GameEntity(ID);
-        entityList.add(result);
-        return result;
-    }
 
     public void addSystem(GameSystem system){
         systemList.add(system);
     }
 
+    public Tile[][] getWorld() {
+        return world;
+    }
 }

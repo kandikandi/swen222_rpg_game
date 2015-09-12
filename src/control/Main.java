@@ -1,33 +1,35 @@
-package game;
+package control;
 
-import component.CPosition;
-import component.CSprite;
-import component.GameComponent;
-import entity.GameEntity;
-import system.SDraw;
+import factory.TEST_IMAGE;
+import factory.TileFactory;
+import model.Location;
+import model.Tile;
 import system.SMove;
 import ui.GameFrame;
-import ui.GameKeyListener;
-
-import javax.imageio.ImageIO;
+import view.SDraw;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.IOException;
 
 
 public class Main {
     public static final int G_WIDTH = 800;
     public static final int G_HEIGHT = 600;
+    public static final int TILE_SIZE = 40;
+    public static final int NUM_TILE_COL = G_WIDTH/TILE_SIZE;
+    public static final int NUM_TILE_ROW = G_HEIGHT/TILE_SIZE;
+    public static final int NUM_WORLD_TILES = NUM_TILE_COL+NUM_TILE_ROW;
+    public static final boolean TEST_MODE = true;
     public static final String TITLE = "ECS alpha 0.1";
 
     public static void main(String[] args) {
+        // Setting this property may help prevent/stop JPanel GUI flickering
+        System.setProperty("sun.awt.noerasebackground", "true");
         // This EventQueue stuff might help to stop bugs in Swing
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                //create master game controller first
+                //create master control controller first
                 GameController controller = new GameController();
 
                 //Canvas is a innerclass of GameFrame
@@ -35,25 +37,18 @@ public class Main {
                 KeyListener gameKeyListner = new GameKeyListener(controller);
                 gameFrame.addKeyListener(gameKeyListner);
 
+                //tempory moving object
+                //NOTE: this is not a proper actor
+                Tile tempPlayer = TileFactory.createTestProduct(40,40);
+
+
+
                 //create and add systems in order they need to be executed
-                SDraw drawSystem = new SDraw(controller, (GameFrame)gameFrame);
-                SMove moveSystem = new SMove(controller);
+                SDraw drawSystem = new SDraw(controller, (GameFrame)gameFrame, tempPlayer);
+                SMove moveSystem = new SMove(controller,tempPlayer);
                 controller.addSystem(moveSystem);
                 controller.addSystem(drawSystem);
 
-                Image image = null;
-                try {
-                    image = ImageIO.read(new File("tokenPlum.png"));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                //temp player entity
-                GameEntity player = controller.createEntity(999);
-                GameComponent gc =  new CPosition(50,50);
-                player.attachComp(gc);
-                gc = new CSprite(image,20,20);
-                player.attachComp(gc);
 
 
                 //create time to control systems loop

@@ -1,6 +1,6 @@
-package ui;
+package control;
 
-import game.GameController;
+import control.GameController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

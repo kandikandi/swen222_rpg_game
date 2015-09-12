@@ -1,10 +1,9 @@
 package system;
 
-import component.CPosition;
-import entity.GameEntity;
-import game.GameController;
-
-import java.util.Iterator;
+import control.GameController;
+import model.AbstractActor;
+import model.AbstractGameObject;
+import model.Location;
 
 
 /**
@@ -12,39 +11,35 @@ import java.util.Iterator;
  */
 public class SMove implements GameSystem {
     private final GameController gameController;
+    private final AbstractGameObject actor;
 
-    public SMove(GameController gameController) {
+    public SMove(GameController gameController, AbstractGameObject actor) {
         this.gameController = gameController;
+        this.actor = actor;
     }
 
 
     @Override
     public void performSystem() {
         boolean[] keyArray = gameController.keyArray;
+        Location loc = actor.getLocation();
 
-        GameEntity entity;
-        Iterator<GameEntity> it = gameController.getEntityIterator();
-        while (it.hasNext()) {
-            entity = it.next();
-            if (entity.containsCompID(1)) {
-                CPosition pos = (CPosition) entity.getComp(1);
-                if (keyArray[0]) {
-                    pos.ypos -= 3;
-                }
-                if (keyArray[1]) {
-                    pos.ypos += 3;
-                }
-                if (keyArray[2]) {
-                    pos.xpos -= 3;
-                }
-                if (keyArray[3]) {
-                    pos.xpos += 3;
-                }
-            }
+
+        if (keyArray[0]) {
+            loc.setyPos(loc.getyPos()-3);
+        }
+        if (keyArray[1]) {
+            loc.setyPos(loc.getyPos()+3);
+        }
+        if (keyArray[2]) {
+            loc.setxPos(loc.getxPos()-3);
+        }
+        if (keyArray[3]) {
+            loc.setxPos(loc.getxPos()+3);
         }
 
-    }
 
+    }
 
 
 }

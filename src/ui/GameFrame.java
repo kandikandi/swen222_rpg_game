@@ -1,13 +1,10 @@
 package ui;
 
-import component.CPosition;
-import component.CSprite;
-import game.GameController;
+import control.GameController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 
 /**
  * Created by cuan on 9/10/15.
@@ -26,6 +23,10 @@ public class GameFrame extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //System.setProperty("sun.awt.noerasebackground", "true");
+        //Properties prop = System.getProperties();
+        //System.out.println(prop.keySet());
+        //System.out.println(prop.getProperty("sun.awt.noerasebackground"));
         gameCanvas = new GameCanvas();
         gameCanvas.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         this.add(gameCanvas);
