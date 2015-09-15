@@ -1,8 +1,12 @@
 package control;
 
+import model.StrategyActor;
+
 /**
- * Created by cuan on 9/13/15.
+ * Strategies will be executed when Strategy-Actor is called to tick()
+ * by the GameController
  */
 public abstract class MovementStrategy {
     abstract public void executeMove();
+    abstract public void setActor(StrategyActor actor);
 }

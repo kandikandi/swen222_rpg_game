@@ -5,15 +5,20 @@ import model.StrategyActor;
 
 
 /**
- * Created by cuan on 9/13/15.
+ * Player movement strategy.
+ *
  */
 public  class PlayerMoveStrategy extends MovementStrategy {
-    private final StrategyActor strategyActor;
+    private  StrategyActor strategyActor;
     private final GameController controller;
 
-    public PlayerMoveStrategy(StrategyActor strategyActor, GameController controller) {
-        this.strategyActor = strategyActor;
+    public PlayerMoveStrategy(GameController controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public void setActor(StrategyActor actor){
+        this.strategyActor = actor;
     }
 
     @Override

@@ -2,7 +2,6 @@ package model;
 
 import control.DIR;
 import control.MovementStrategy;
-
 import java.awt.*;
 
 /**
@@ -10,10 +9,16 @@ import java.awt.*;
  */
 public class Player extends StrategyActor{
     MovementStrategy movementStrategy;
-    private final int speed = 3;
+    private final int speed = 6;
 
     public Player(ID id, Location location, Image image, boolean collidable, boolean drawable) {
         super(id, location, image, collidable, drawable);
+    }
+
+    @Override
+    public void setMoveStrat(MovementStrategy moveStrat) {
+        this.movementStrategy = moveStrat;
+        moveStrat.setActor(this);
     }
 
     @Override
@@ -25,16 +30,16 @@ public class Player extends StrategyActor{
     public void move(DIR dir) {
         switch (dir){
             case UP:
-                location.setyPos(location.getyPos() - 3);
+                location.setyPos(location.getyPos() - speed);
                 break;
             case DOWN:
-                location.setyPos(location.getyPos() + 3);
+                location.setyPos(location.getyPos() + speed);
                 break;
             case LEFT:
-                location.setxPos(location.getxPos() - 3);
+                location.setxPos(location.getxPos() - speed);
                 break;
             case RIGHT:
-                location.setxPos(location.getxPos() + 3);
+                location.setxPos(location.getxPos() + speed);
                 break;
         }
     }
@@ -44,10 +49,6 @@ public class Player extends StrategyActor{
         return false;
     }
 
-    @Override
-    public void setMoveStrat(MovementStrategy ms) {
-        this.movementStrategy = ms;
-    }
 
     @Override
     public MovementStrategy getMoveStrat() {

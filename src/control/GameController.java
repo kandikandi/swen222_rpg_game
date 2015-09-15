@@ -9,7 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by cuan on 9/9/15.
+ * This class is designed to control the game loop
+ * This is where maybe we can keep the collections of
+ * game objects
+ *
+ *
  */
 public class GameController{
 
@@ -31,12 +35,11 @@ public class GameController{
     }
 
 
-
+    //Call tick on all actors to update animation state or location
+    //them execute systems to draw and send to network maybe
     public void executeAllSystems(){
+        actorList.forEach(model.Actor::tick);
         systemList.forEach(GameSystem::performSystem);
-        for(Actor actor: actorList){
-            actor.tick();
-        }
 
     }
 

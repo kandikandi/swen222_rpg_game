@@ -46,7 +46,6 @@ public class GameKeyListener implements KeyListener {
 
             case KeyEvent.VK_DOWN:
                 gameController.keyArray[1] = false;
-                //System.out.println("SMove DOWN pressed");
                 break;
 
             case KeyEvent.VK_LEFT:

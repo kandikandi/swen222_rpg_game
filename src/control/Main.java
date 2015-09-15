@@ -35,17 +35,15 @@ public class Main {
                 gameFrame.addKeyListener(gameKeyListner);
 
                 //temp moving object
+                MovementStrategy ms = new PlayerMoveStrategy(controller);
                 Location loc = new Location(300,400);
                 StrategyActor tempPlayer = new Player(ID.PLAYER,loc, TEST_IMAGE.MR_PLUM.getImage(),false,true);
-                MovementStrategy ms = new PlayerMoveStrategy(tempPlayer,controller);
                 tempPlayer.setMoveStrat(ms);
                 controller.addActor(tempPlayer);
 
 
                 //create and add systems in order they need to be executed
                 SDraw drawSystem = new SDraw(controller, (GameFrame)gameFrame);
-                //SMove moveSystem = new SMove(controller,tempPlayer);
-                //controller.addSystem(moveSystem);
                 controller.addSystem(drawSystem);
 
 
