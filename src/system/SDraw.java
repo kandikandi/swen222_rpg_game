@@ -1,13 +1,13 @@
-package view;
+package system;
 
 import control.GameController;
-import model.Location;
+import model.Actor;
 import model.Tile;
-import system.GameSystem;
 import control.Main;
 import ui.GameFrame;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 
 /**
@@ -20,16 +20,16 @@ public final class SDraw implements GameSystem{
     private BufferedImage buffImg;
     private Shape blackFill;
     private Graphics2D g2d;
-    private Tile tempPlayer;
 
 
-    public SDraw(GameController controller, GameFrame gameFrame, Tile tempPlayer) {
+
+    public SDraw(GameController controller, GameFrame gameFrame) {
         this.controller = controller;
         this.gameFrame = gameFrame;
         buffImg = new BufferedImage(Main.G_WIDTH, Main.G_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g2d = buffImg.createGraphics();
         blackFill = new Rectangle(Main.G_WIDTH, Main.G_HEIGHT);
-        this.tempPlayer = tempPlayer;
+
 
     }
 
@@ -59,8 +59,13 @@ public final class SDraw implements GameSystem{
                 g2d.drawImage(tile.getImage(),x,y,width,width,null);
             }
         }
-        Location loc = tempPlayer.getLocation();
-        g2d.drawImage(tempPlayer.getImage(),loc.getxPos(),loc.getyPos(),Main.TILE_SIZE,Main.TILE_SIZE,null);
+        List<Actor> actors = controller.getActors();
+        for(Actor actor: actors){
+            Image image = actor.getImage();
+            int x = actor.getLocation().getxPos();
+            int y = actor.getLocation().getyPos();
+            g2d.drawImage(image,x,y,null);
+        }
         gameFrame.receiveBuffImage(buffImg);
     }
 

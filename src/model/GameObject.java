@@ -5,14 +5,14 @@ import java.awt.*;
 /**
  * Created by cuan on 9/13/15.
  */
-public abstract class AbstractGameObject {
+public abstract class GameObject {
     protected Image image;
     protected Location location;
     protected boolean collidable;
     protected boolean drawable;
     protected final ID id;
 
-    public AbstractGameObject(ID id, Location loc, Image image, boolean collidable, boolean drawable) {
+    public GameObject(ID id, Location loc, Image image, boolean collidable, boolean drawable) {
         this.location = loc;
         this.image = image;
         this.collidable = collidable;

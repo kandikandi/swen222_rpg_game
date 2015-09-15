@@ -1,19 +1,21 @@
+/*
 package system;
 
 import control.GameController;
-import model.AbstractActor;
-import model.AbstractGameObject;
+import model.GameObject;
 import model.Location;
 
 
+*/
 /**
  * Created by cuan on 9/8/15.
- */
+ *//*
+
 public class SMove implements GameSystem {
     private final GameController gameController;
-    private final AbstractGameObject actor;
+    private final GameObject actor;
 
-    public SMove(GameController gameController, AbstractGameObject actor) {
+    public SMove(GameController gameController, GameObject actor) {
         this.gameController = gameController;
         this.actor = actor;
     }
@@ -43,3 +45,4 @@ public class SMove implements GameSystem {
 
 
 }
+*/

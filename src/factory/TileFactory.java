@@ -1,15 +1,11 @@
 package factory;
 
 import control.Main;
-import model.AbstractGameObject;
 import model.Location;
 import model.Tile;
 import system.GameException;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 
 /**
@@ -38,16 +34,9 @@ public abstract class TileFactory {
                 e.printStackTrace();
             }
         }
+
         Location location = new Location(xPos,yPos);
-
-            Image image = TEST_IMAGE.SCARLET.getImage();
-            /*try {
-                image = ImageIO.read(new File("tokenPlum.png"));
-            } catch (IOException e) {
-                System.out.printf(e.getMessage());
-                e.printStackTrace();
-            }*/
-
+        Image image = TEST_IMAGE.SCARLET.getImage();
         Tile tile = new Tile(image, location, true, true, null);
         products[yPos/Main.TILE_SIZE][xPos/Main.TILE_SIZE] = tile;
         return tile;

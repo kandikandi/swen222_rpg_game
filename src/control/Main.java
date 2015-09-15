@@ -1,12 +1,9 @@
 package control;
 
 import factory.TEST_IMAGE;
-import factory.TileFactory;
-import model.Location;
-import model.Tile;
-import system.SMove;
+import model.*;
 import ui.GameFrame;
-import view.SDraw;
+import system.SDraw;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -37,16 +34,18 @@ public class Main {
                 KeyListener gameKeyListner = new GameKeyListener(controller);
                 gameFrame.addKeyListener(gameKeyListner);
 
-                //tempory moving object
-                //NOTE: this is not a proper actor
-                Tile tempPlayer = TileFactory.createTestProduct(40,40);
-
+                //temp moving object
+                Location loc = new Location(300,400);
+                StrategyActor tempPlayer = new Player(ID.PLAYER,loc, TEST_IMAGE.MR_PLUM.getImage(),false,true);
+                MovementStrategy ms = new PlayerMoveStrategy(tempPlayer,controller);
+                tempPlayer.setMoveStrat(ms);
+                controller.addActor(tempPlayer);
 
 
                 //create and add systems in order they need to be executed
-                SDraw drawSystem = new SDraw(controller, (GameFrame)gameFrame, tempPlayer);
-                SMove moveSystem = new SMove(controller,tempPlayer);
-                controller.addSystem(moveSystem);
+                SDraw drawSystem = new SDraw(controller, (GameFrame)gameFrame);
+                //SMove moveSystem = new SMove(controller,tempPlayer);
+                //controller.addSystem(moveSystem);
                 controller.addSystem(drawSystem);
 
 

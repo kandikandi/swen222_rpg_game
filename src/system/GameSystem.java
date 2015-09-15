@@ -5,6 +5,5 @@ package system;
  */
 @FunctionalInterface
 public interface GameSystem {
-    int test = 0; // wow lets go java 8!
     void performSystem();
 }
