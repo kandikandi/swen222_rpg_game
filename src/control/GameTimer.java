@@ -1,4 +1,4 @@
-package game;
+package control;
 
 /**
  * Created by cuan on 9/9/15.
@@ -13,7 +13,7 @@ public class GameTimer extends Thread {
     public void run(){
         while(true){
             try {
-                Thread.sleep(50);
+                Thread.sleep(20);
                 gameController.executeAllSystems();
             }catch (Exception e){
                 System.out.println("GameTimer Error");
