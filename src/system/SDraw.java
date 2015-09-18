@@ -52,8 +52,8 @@ public final class SDraw implements GameSystem{
             for(int col=0; col<Main.NUM_TILE_COL;col++){
                 Tile tile = world[row][col];
                 Image image = tile.getImage();
-                int x = tile.getLocation().getxPos();
-                int y = tile.getLocation().getyPos();
+                int x = tile.getPosition().getxPos();
+                int y = tile.getPosition().getyPos();
                 int width = Main.TILE_SIZE;
 
                 g2d.drawImage(tile.getImage(),x,y,width,width,null);
@@ -62,8 +62,8 @@ public final class SDraw implements GameSystem{
         List<Actor> actors = controller.getActors();
         for(Actor actor: actors){
             Image image = actor.getImage();
-            int x = actor.getLocation().getxPos();
-            int y = actor.getLocation().getyPos();
+            int x = actor.getPosition().getxPos();
+            int y = actor.getPosition().getyPos();
             g2d.drawImage(image,x,y,null);
         }
         gameFrame.receiveBuffImage(buffImg);

@@ -1,6 +1,6 @@
 package control;
 
-import model.StrategyActor;
+import model.ActorStrategy;
 
 /**
  * Strategies will be executed when Strategy-Actor is called to tick()
@@ -8,5 +8,5 @@ import model.StrategyActor;
  */
 public abstract class MovementStrategy {
     abstract public void executeMove();
-    abstract public void setActor(StrategyActor actor);
+    abstract public void setActor(ActorStrategy actor);
 }
