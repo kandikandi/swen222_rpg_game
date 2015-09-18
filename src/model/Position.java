@@ -7,15 +7,13 @@ package model;
  * position. This class is also final so it can be safely used as a
  * key for a map to a game-world object.
  */
-public final class Location {
-    private int xPos, yPos, realX, realY;
+public final class Position {
+    private int xPos, yPos;
     private int hashCode;
 
-    Location(int xPos, int yPos, int realX, int realY){
+    public Position(int xPos, int yPos){
         this.xPos = xPos;
         this.yPos = yPos;
-        this.realX = realX;
-        this.realY = realY;
         generateHash();
     }
 
@@ -35,29 +33,6 @@ public final class Location {
         this.yPos = yPos;
     }
 
-    public int getRealX() {
-        return realX;
-    }
-
-    public void setRealX(int realX) {
-        this.realX = realX;
-    }
-
-    public int getRealY() {
-        return realY;
-    }
-
-    public void setRealY(int realY) {
-        this.realY = realY;
-    }
-
-    public Location(int xPos, int yPos) {
-        this.xPos = xPos;
-        this.yPos = yPos;
-        realX = 0;
-        realY = 0;
-    }
-
     /**
      * Called on construction of location object.
      * Uses the grid co-ord and fine co-ord ints
@@ -66,9 +41,8 @@ public final class Location {
      *
      */
     private int generateHash() {
-        int hashGrid = bijectiveAlgro(xPos,yPos);
-        int hashFine = bijectiveAlgro(realX,realY);
-        return bijectiveAlgro(hashGrid,hashFine);
+        int hash = bijectiveAlgorithm(xPos,yPos);
+        return hash;
     }
 
     /**
@@ -76,7 +50,7 @@ public final class Location {
      * any X and Y.
      *
      */
-    private int bijectiveAlgro(int x, int y){
+    private int bijectiveAlgorithm(int x, int y){
         int value = ( y +  ((x+1)/2));
         return x +  ( value * value);
     }
@@ -95,9 +69,10 @@ public final class Location {
      */
     @Override
     public boolean equals(Object obj) {
-        Location other;
+        if(obj==null){return false;}
+    	Position other;
         try{
-            other = (Location) obj;
+            other = (Position) obj;
             return this.hashCode() == other.hashCode();
         } catch (ClassCastException e){
             System.out.println(toString()+" "+hashCode()+" against "+obj.toString());
@@ -107,6 +82,6 @@ public final class Location {
 
     @Override
     public String toString() {
-        return "Location; xPos:"+xPos+" yPos:"+yPos+" realX:"+realX+" realY:"+realY;
+        return "Location; xPos:"+xPos+" yPos:"+yPos;
     }
 }

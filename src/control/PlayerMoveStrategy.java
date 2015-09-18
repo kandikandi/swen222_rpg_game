@@ -1,7 +1,7 @@
 package control;
 
-import model.Location;
-import model.StrategyActor;
+import model.Position;
+import model.ActorStrategy;
 
 
 /**
@@ -9,7 +9,7 @@ import model.StrategyActor;
  *
  */
 public  class PlayerMoveStrategy extends MovementStrategy {
-    private  StrategyActor strategyActor;
+    private  ActorStrategy strategyActor;
     private final GameController controller;
 
     public PlayerMoveStrategy(GameController controller) {
@@ -17,7 +17,7 @@ public  class PlayerMoveStrategy extends MovementStrategy {
     }
 
     @Override
-    public void setActor(StrategyActor actor){
+    public void setActor(ActorStrategy actor){
         this.strategyActor = actor;
     }
 
