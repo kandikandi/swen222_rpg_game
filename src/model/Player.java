@@ -13,6 +13,7 @@ public class Player extends ActorStrategy {
 	MovementStrategy movementStrategy;
 	private final int speed = 5;
 	private Inventory inventory;
+	private boolean hasKey;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
@@ -94,6 +95,10 @@ public class Player extends ActorStrategy {
 		if(collidingObject instanceof Collectable){ // will change to using ID instead of instance of
 			pickup(((Collectable) collidingObject));
 			return true;
+		}else if(collidingObject instanceof Container){
+				return false;
+		}else if(collidingObject instanceof Door){
+			return useKeyInDoor((Door)collidingObject);
 		}
 
 
@@ -170,5 +175,24 @@ public class Player extends ActorStrategy {
 		return newPosition;
 
 	}
+
+	/**
+	 *
+	 *
+	 * @param door
+	 * @return
+	 */
+	public boolean useKeyInDoor(Door door){
+		if(inventory.containsKey()){
+			door.open();
+			Key key = inventory.getKey();
+			key.useInDoor();
+			inventory.removeItemFromContainer(key);
+			return true;
+		}
+		return false;
+	}
+
+
 
 }

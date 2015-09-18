@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class Container extends GameObject {
 
 	final private int maximumItems = 10;
-	private ArrayList<GameObject> items;
+	protected ArrayList<GameObject> items;
 
 	/**
 	 *

@@ -23,7 +23,7 @@ public class Inventory extends Container {
 	public Inventory(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize, Player inventoryOwner,
 			 Collectable... collectables) {
-		super(id, position, image, collidable, drawable, boundingBoxSize, collectables);
+		super(id, position, image, false, false, boundingBoxSize, collectables);
 		this.inventoryOwner = inventoryOwner;
 
 	}
@@ -40,6 +40,35 @@ public class Inventory extends Container {
 	@Override
 	public Position getPosition() {
 			return inventoryOwner.getPosition();
+	}
+
+	/**
+	 *  This method is used to check whether a player has a key when
+	 *  near a door.
+	 *
+	 * @return
+	 */
+	public boolean containsKey(){
+		for(GameObject gameObject : items){
+			if(gameObject instanceof Key){
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Returns (first) key found in this Inventory.
+	 *
+	 * @return
+	 */
+	public Key getKey() {
+		for(GameObject gameObject : items){
+			if(gameObject instanceof Key){
+				return (Key) gameObject;
+			}
+		}
+		return null;
 	}
 
 }

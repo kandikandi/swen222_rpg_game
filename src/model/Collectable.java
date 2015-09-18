@@ -51,7 +51,7 @@ public class Collectable extends GameObject {
 	 *
 	 */
 	public void drop(){
-		inContainer = true;
+		inContainer = false;
 		drawable = true;
 	}
 
