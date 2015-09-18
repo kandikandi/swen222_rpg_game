@@ -2,18 +2,23 @@ package control;
 
 import factory.TEST_IMAGE;
 import model.*;
+import ui.GameCanvas;
 import ui.GameFrame;
 import system.SDraw;
+
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.KeyListener;
 
 public class Main {
-	public static final int G_WIDTH = 800;
-	public static final int G_HEIGHT = 600;
+	public static final int F_WIDTH = 1000;
+	public static final int F_HEIGHT = 600;
+	public static final int C_WIDTH = 800;
+	public static final int C_HEIGHT = 600;
 	public static final int TILE_SIZE = 40;
-	public static final int NUM_TILE_COL = G_WIDTH / TILE_SIZE;
-	public static final int NUM_TILE_ROW = G_HEIGHT / TILE_SIZE;
+	public static final int NUM_TILE_COL = C_WIDTH / TILE_SIZE;
+	public static final int NUM_TILE_ROW = C_HEIGHT / TILE_SIZE;
 	public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
 	public static final boolean TEST_MODE = true;
 	public static final String TITLE = "ECS alpha 0.1";
@@ -28,9 +33,14 @@ public class Main {
 				// create master control controller first
 				GameController controller = new GameController();
 
-				// Canvas is a innerclass of GameFrame
-				JFrame gameFrame = new GameFrame(TITLE, G_WIDTH, G_HEIGHT,
+				// Set up the gameFrame
+				JFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT,
 						controller);
+
+				GameCanvas gameCanvas = new GameCanvas(C_WIDTH, C_HEIGHT);
+				gameFrame.getContentPane().add(gameCanvas);
+				gameFrame.pack();
+
 				KeyListener gameKeyListner = new GameKeyListener(controller);
 				gameFrame.addKeyListener(gameKeyListner);
 
@@ -43,7 +53,7 @@ public class Main {
 				controller.addActor(tempPlayer);
 
 				// create and add systems in order they need to be executed
-				SDraw drawSystem = new SDraw(controller, (GameFrame) gameFrame);
+				SDraw drawSystem = new SDraw(controller, (GameCanvas) gameCanvas);
 				controller.addSystem(drawSystem);
 
 				// create time to control systems loop
