@@ -20,12 +20,13 @@ public class GameCamera implements GameSystem{
     public GameCamera(GameController controller){
         this.controller = controller;
         worldTiles = controller.getWorld();
-        viewTiles = new ArrayList<>((Main.C_HEIGHT/Main.TILE_SIZE)+Main.C_WIDTH/Main.TILE_SIZE);
+        viewTiles = new ArrayList<>(/*(Main.C_HEIGHT/Main.TILE_SIZE)+Main.C_WIDTH/Main.TILE_SIZE*/);
     }
 
     @Override
     public void performSystem() {
         //get player location
+        viewTiles.clear();
         final Actor playerActor = controller.getPlayerActor();
         int colMin;
         int colMax;
@@ -84,5 +85,7 @@ public class GameCamera implements GameSystem{
         return viewTiles;
     }
 
-
+    public Actor getPlayerActor(){
+        return controller.getPlayerActor();
+    }
 }

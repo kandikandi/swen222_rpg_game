@@ -18,8 +18,8 @@ public class Main {
 	public static final int C_WIDTH = 800;
 	public static final int C_HEIGHT = 600;
 	public static final int TILE_SIZE = 40;
-	public static final int NUM_TILE_COL = 100;//C_WIDTH / TILE_SIZE;
-	public static final int NUM_TILE_ROW = 100;//C_HEIGHT / TILE_SIZE;
+	public static final int NUM_TILE_COL = 50;//C_WIDTH / TILE_SIZE;
+	public static final int NUM_TILE_ROW = 50;//C_HEIGHT / TILE_SIZE;
 	//public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
 	public static final boolean TEST_MODE = true;
 	public static final String TITLE = "ECS alpha 0.1";
@@ -47,17 +47,18 @@ public class Main {
 
 				// temp moving object
 				MovementStrategy ms = new PlayerMoveStrategy(controller);
-				Position loc = new Position(300, 400);
+				Position loc = new Position(800, 400);
 				ActorStrategy tempPlayer = new Player(ID.PLAYER, loc,
 						TEST_IMAGE.MR_PLUM.getImage(), false, true, 45);
 				tempPlayer.setMoveStrat(ms);
 				controller.addActor(tempPlayer);
+				controller.setPlayerActor(tempPlayer);
 
 				// create and add systems in order they need to be executed
 				// must create camera before drawer as drawer has no model logic
 				GameCamera camera = new GameCamera(controller);
 				controller.addSystem(camera);
-				SDraw drawSystem = new SDraw(camera, (GameCanvas) gameCanvas);
+				SDraw drawSystem = new SDraw(camera, gameCanvas);
 				controller.addSystem(drawSystem);
 
 				// create time to control systems loop

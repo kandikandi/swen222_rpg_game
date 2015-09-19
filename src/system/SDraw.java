@@ -41,20 +41,25 @@ public final class SDraw implements GameSystem{
     public void performSystem() {
         //paint scene background black
         drawBackground();
+        Actor player = camera.getPlayerActor();
+        int playerX = player.getPosition().getxPos();
+        int playerY = player.getPosition().getyPos();
+        final int HALF_C_WIDTH = Main.C_WIDTH/2;
+        final int HALF_C_HEIGHT = Main.C_HEIGHT/2;
 
         List<Tile> tiles = camera.getTileList();
         for(Tile tile: tiles){
             Image image = tile.getImage();
-            int x = tile.getPosition().getxPos();
-            int y = tile.getPosition().getyPos();
+            int x = tile.getPosition().getxPos() - playerX + HALF_C_WIDTH;
+            int y = tile.getPosition().getyPos() - playerY + HALF_C_HEIGHT;
             g2d.drawImage(image,x,y,null);
         }
 
         List<Actor> actors = camera.getActorList();
         for(Actor actor: actors){
             Image image = actor.getImage();
-            int x = actor.getPosition().getxPos();
-            int y = actor.getPosition().getyPos();
+            int x = actor.getPosition().getxPos() - playerX + HALF_C_WIDTH;
+            int y = actor.getPosition().getyPos()- playerY + HALF_C_HEIGHT;
             g2d.drawImage(image,x,y,null);
         }
         gameCanvas.receiveBuffImage(buffImg);
