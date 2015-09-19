@@ -119,7 +119,6 @@ public class TestsControl {
 	@Test public void test_13() {
 		// if a player walks over a collectable and has space in inventory, should be added to inventory.
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 45);
-		Collectable collectable = new Collectable(ID.ITEM, new Position(60,5), null, true, true,45);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
 		player.setInventory(inventory);
@@ -142,6 +141,13 @@ public class TestsControl {
 		assertTrue(player.getInventory().numberOfObjectInContainer()==1);
 	}
 
+	// SOME COIN / COINBAG TESTS
+	@Test public void test_15() {
+
+
+
+
+	}
 
 
 

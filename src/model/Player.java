@@ -8,12 +8,17 @@ import java.util.ArrayList;
 
 /**
  * Created by cuan on 9/15/15.
+ *
+ * The player class holds the data for each player including position,
  */
 public class Player extends ActorStrategy {
 	MovementStrategy movementStrategy;
 	private final int speed = 5;
 	private Inventory inventory;
 	private boolean hasKey;
+	private int fear; // if get too scared, you lose
+	private int courage; // as you get more experience etc, the impact of fights
+							// etc will be less.
 
 	public Player(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
@@ -51,58 +56,69 @@ public class Player extends ActorStrategy {
 	}
 
 	/**
-	 * This method checks whether the proposed nes position for the player is valid.
+	 * This method checks whether the proposed new position for the player is
+	 * valid.
 	 *
 	 *
 	 */
 	@Override
-    public boolean canMove(DIR dir) {
+	public boolean canMove(DIR dir) {
 
-		//////
+		// ////
 		// this logic might need to get moved to controller at some point
-		/////////
+		// ///////
 
-		//bounding box of new position
-        Rectangle newBoundingBox = new Rectangle(getProposedPosition(dir).getxPos(),getProposedPosition(dir).getyPos());
+		// bounding box of new position
+		Rectangle newBoundingBox = new Rectangle(getProposedPosition(dir)
+				.getxPos(), getProposedPosition(dir).getyPos());
 
-        //check bounding boxes against other GameObject objects' bounding boxes
-        //have checkCollision method that returns null if no collision otherwise returns gameobject you're colliding with
-        GameObject collidingObject = GameState.checkCollision(newBoundingBox);
-        if(collidingObject==null){ return true; } // there is no object at the new location, so can move there.
-
-        // if we have a GameObject at the new location, we need to check the results of impacting that type of object.
-        return checkCollisionResult(this,collidingObject);
-
-    }
-
-
-
-	private boolean checkCollisionResult(Player player,
-			GameObject collidingObject) {
-
-
-		// CASES : 	1. Collectable -> not collidable. add to inventory-> ret TRUE
-		//			2. Coin -> not collidable -> score -> ret TRUE
-		//			3. "Wall" -> nothing really happens, just return false;
-		//			4. Trap(?) -> not collidable -> bad for health/
-		//			5. Enemy 	-> can't move there -> return false
-		//						-> depends on whether are holding space ie attacking
-		//						-> if not attacking, bad for health
-		//						-> if attacking, bad for enemy health
-		//			6. Door (?) -> do you have a key, if yes-> return true
-
-
-		if(collidingObject instanceof Collectable){ // will change to using ID instead of instance of
-			pickup(((Collectable) collidingObject));
-			return true;
-		}else if(collidingObject instanceof Container){
-				return false;
-		}else if(collidingObject instanceof Door){
-			return useKeyInDoor((Door)collidingObject);
+		// check bounding boxes against other GameObject objects' bounding boxes
+		// have checkCollision method that returns null if no collision
+		// otherwise returns gameobject you're colliding with
+		GameObject collidingObject = GameState.checkCollision(newBoundingBox);
+		if (collidingObject == null) {
+			return true;// there is no object at the new location, so can move
+						// there.
 		}
 
+		// if we have a GameObject at the new location, we need to effect the
+		// impact
+		collide(collidingObject);
 
-		return true;
+		return collidingObject.isCollidable();
+
+	}
+
+	private void collide(GameObject collidingObject) {
+
+		// 2. Coin -> not collidable -> score -> ret TRUE
+		// 3. "Wall" -> nothing really happens, just return false;
+		// 4. Trap(?) -> not collidable -> bad for health/
+		// 5. Enemy -> can't move there -> return false
+		// -> depends on whether are holding space ie attacking
+		// -> if not attacking, bad for health
+		// -> if attacking, bad for enemy health
+		// 6. Door (?) -> do you have a key, if yes-> return true
+
+		// CASES : 1. Collectable -> not collidable. add to inventory-> ret TRUE
+
+		if (collidingObject instanceof Coin) {
+			pickup((Coin) collidingObject);
+		} else if (collidingObject instanceof Collectable) { // will change to
+																// using ID
+			// instead of instance
+			// of
+			pickup((Collectable) collidingObject);
+		} else if (collidingObject instanceof CoinBag) {
+			pickupCoinBag((CoinBag) collidingObject);
+		} else if (collidingObject instanceof Door) {
+			useKeyInDoor((Door) collidingObject);
+		} else if (collidingObject instanceof Enemy) {
+			// ///////////
+			return;
+		} else {
+
+		}
 	}
 
 	@Override
@@ -120,15 +136,32 @@ public class Player extends ActorStrategy {
 	 *
 	 * @param collectable
 	 */
-	public void pickup(Collectable collectable) {
+	public boolean pickup(Collectable collectable) {
 		if (collectable == null) {
-			return;
-		}
-		if (inventory == null) {
+			return false;
+		} else if (inventory == null) {
 			System.out.println("Error: Inventory not set up");
-			return;
+			return false;
+		} else {
+			return inventory.addItemToContainer(collectable);
 		}
-		inventory.addItemToContainer(collectable);
+	}
+
+	/**
+	 * This method adds a CoinBag to the inventory, if the player has an
+	 * inventory.
+	 *
+	 * @param collectable
+	 */
+	public boolean pickupCoinBag(CoinBag coinBag) {
+		if (coinBag == null) {
+			return false;
+		} else if (inventory == null) {
+			System.out.println("Error: Inventory not set up");
+			return false;
+		} else {
+			return inventory.addItemToContainer(coinBag);
+		}
 	}
 
 	/**
@@ -156,8 +189,16 @@ public class Player extends ActorStrategy {
 		return inventory;
 	}
 
+	/**
+	 * This method returns a position based on the direction of the arrow key
+	 * pushed by the user.
+	 *
+	 * @param dir
+	 * @return
+	 */
 	public Position getProposedPosition(DIR dir) {
-		Position newPosition = new Position(getPosition().getxPos(), getPosition().getyPos());
+		Position newPosition = new Position(getPosition().getxPos(),
+				getPosition().getyPos());
 		switch (dir) {
 		case UP:
 			newPosition.setyPos(position.getyPos() - speed);
@@ -177,13 +218,15 @@ public class Player extends ActorStrategy {
 	}
 
 	/**
-	 *
+	 * If a player collides with a Door object, if the player has a key the door
+	 * will open and the key will be used and disappear from the player's
+	 * inventory.
 	 *
 	 * @param door
-	 * @return
+	 * @return true if the player has a key
 	 */
-	public boolean useKeyInDoor(Door door){
-		if(inventory.containsKey()){
+	public boolean useKeyInDoor(Door door) {
+		if (inventory.containsKey()) {
 			door.open();
 			Key key = inventory.getKey();
 			key.useInDoor();
@@ -193,6 +236,33 @@ public class Player extends ActorStrategy {
 		return false;
 	}
 
+	/*
+	 * Setter for fear level.
+	 */
+	public void setFear(int fear) {
+		this.fear = fear;
+	}
 
+	/*
+	 * Setter for fear level.
+	 */
+	public void setCourage(int courage) {
+		this.courage = courage;
+	}
+
+	/*
+	 * Getter for fear level.
+	 */
+	public int getFear() {
+		return fear;
+	}
+
+	/*
+	 * Setter for courage level.
+	 */
+
+	public int getCourage() {
+		return courage;
+	}
 
 }

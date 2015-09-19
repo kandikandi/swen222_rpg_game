@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by cuan on 9/13/15.
  *
- * Players and NPC's
+ * An Actor object is a gameObject that
  *
  */
 public abstract class Actor extends GameObject implements Tickable {

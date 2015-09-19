@@ -12,7 +12,7 @@ import java.util.ArrayList;
  */
 public class Container extends GameObject {
 
-	final private int maximumItems = 10;
+	private int maximumItems = 10;
 	protected ArrayList<GameObject> items;
 
 	/**
@@ -55,13 +55,17 @@ public class Container extends GameObject {
 	 *
 	 * @param gameObject
 	 */
-	public void addItemToContainer(Collectable collectable) {
+	public boolean addItemToContainer(Collectable collectable) {
 		// check if it's the kind of thing we can add to the container
 		if (collectable == null) {
-			return;
+			return false;
 		}else if (items.size() < maximumItems) {
 			items.add(collectable);
+			return true;
+		}else{
+			return false;
 		}
+
 	}
 
 	/**
@@ -69,12 +73,15 @@ public class Container extends GameObject {
 	 *
 	 * @param gameObject
 	 */
-	public void removeItemFromContainer(Collectable collectable) {
+	public boolean removeItemFromContainer(Collectable collectable) {
 		if(collectable==null || numberOfObjectInContainer()==0){
-			return;
+			return false;
 		}else if (items.contains(collectable)) {
 			collectable.setPosition(position); //update position
 			items.remove(collectable);
+			return true;
+		}else{
+			return false;
 		}
 
 	}
