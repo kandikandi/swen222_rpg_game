@@ -2,6 +2,7 @@ package system;
 
 import control.GameController;
 import model.Actor;
+import model.GameState;
 import model.Tile;
 import control.Main;
 import ui.GameCanvas;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public final class SDraw implements GameSystem{
 
-    private final GameController controller;
+    private final GameState gameState;
     private final GameCanvas gameCanvas;
     private BufferedImage buffImg;
     private Shape blackFill;
@@ -25,8 +26,8 @@ public final class SDraw implements GameSystem{
 
 
 
-    public SDraw(GameController controller, GameCanvas gameCanvas) {
-        this.controller = controller;
+    public SDraw(GameState gameState, GameCanvas gameCanvas) {
+        this.gameState = gameState;
         this.gameCanvas = gameCanvas;
         buffImg = new BufferedImage(Main.C_WIDTH, Main.C_HEIGHT, BufferedImage.TYPE_INT_ARGB);
         g2d = buffImg.createGraphics();
@@ -47,7 +48,7 @@ public final class SDraw implements GameSystem{
     public void performSystem() {
         //paint scene background black
         drawBackground();
-        Tile[][] world = controller.getWorld();
+        Tile[][] world = gameState.getWorld();
 
         // Look for all entities that contain the two components required to draw it
         for(int row=0; row<Main.NUM_TILE_ROW; row++){
@@ -61,7 +62,7 @@ public final class SDraw implements GameSystem{
                 g2d.drawImage(tile.getImage(),x,y,width,width,null);
             }
         }
-        List<Actor> actors = controller.getActors();
+        List<Actor> actors = gameState.getAllActors();
         for(Actor actor: actors){
             Image image = actor.getImage();
             int x = actor.getPosition().getxPos();

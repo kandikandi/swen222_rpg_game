@@ -1,6 +1,5 @@
 package control;
 
-import factory.TEST_IMAGE;
 import model.*;
 import ui.GameCanvas;
 import ui.GameFrame;
@@ -22,6 +21,7 @@ public class Main {
 	public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
 	public static final boolean TEST_MODE = true;
 	public static final String TITLE = "ECS alpha 0.1";
+	public static final int PLAYER_SIZE = 45;
 
 	public static void main(String[] args) {
 		// Setting this property may help prevent/stop JPanel GUI flickering
@@ -37,23 +37,22 @@ public class Main {
 				JFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT,
 						controller);
 
+				//Setup UI
 				GameCanvas gameCanvas = new GameCanvas(C_WIDTH, C_HEIGHT);
 				gameFrame.getContentPane().add(gameCanvas);
 				gameFrame.pack();
-
-				KeyListener gameKeyListner = new GameKeyListener(controller);
+				KeyListener gameKeyListner = new GameKeyListener(/*controller*/);
 				gameFrame.addKeyListener(gameKeyListner);
 
-				// temp moving object
-				MovementStrategy ms = new PlayerMoveStrategy(controller);
-				Position loc = new Position(300, 400);
-				ActorStrategy tempPlayer = new Player(ID.PLAYER, loc,
-						TEST_IMAGE.MR_PLUM.getImage(), false, true, 45);
-				tempPlayer.setMoveStrat(ms);
-				controller.addActor(tempPlayer);
+				//this is awkward 1/2
+				GameState gameState = new GameState((GameKeyListener)gameKeyListner);
+
+				//this is awkward 2/2 (the actor list is so they can be ticked)
+				controller.addActorList(gameState.getAllActors());
+
 
 				// create and add systems in order they need to be executed
-				SDraw drawSystem = new SDraw(controller, (GameCanvas) gameCanvas);
+				SDraw drawSystem = new SDraw(gameState,gameCanvas);
 				controller.addSystem(drawSystem);
 
 				// create time to control systems loop

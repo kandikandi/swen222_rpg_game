@@ -10,10 +10,10 @@ import model.ActorStrategy;
  */
 public  class PlayerMoveStrategy extends MovementStrategy {
     private  ActorStrategy strategyActor;
-    private final GameController controller;
+    private final GameKeyListener keyListener;
 
-    public PlayerMoveStrategy(GameController controller) {
-        this.controller = controller;
+    public PlayerMoveStrategy(GameKeyListener keyListener) {
+        this.keyListener = keyListener;
     }
 
     @Override
@@ -23,7 +23,7 @@ public  class PlayerMoveStrategy extends MovementStrategy {
 
     @Override
     public void executeMove() {
-        boolean[] keyArray = controller.keyArray;
+        boolean[] keyArray = keyListener.keyArray;
 
         if (keyArray[0]) {
             strategyActor.move(DIR.UP);

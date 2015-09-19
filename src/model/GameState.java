@@ -1,6 +1,14 @@
 package model;
 
+import control.GameController;
+import control.GameKeyListener;
+import control.Main;
+import factory.AbstractFactory;
+import factory.ServerModeFactory;
+import factory.TestModeFactory;
+
 import java.awt.Rectangle;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 /**
@@ -10,13 +18,29 @@ import java.util.ArrayList;
  *
  */
 public class GameState {
+	private Tile[][] worldTiles;
+	private final Player player;
+	private static ArrayList<GameObject> objects; // list of all GameObjects in Game.
+	private static ArrayList<Actor> actors;	// list of all actors (players and enemies) in the game
+	private final AbstractFactory factory;
 
-	private static ArrayList<GameObject> objects; 		// list of all GameObjects in Game.
-	private static ArrayList<ActorStrategy> actors;		// list of all actors (players and enemies) in the game
 
-	public GameState() {
-		this.objects = new ArrayList<GameObject>();
-		this.actors = new ArrayList<ActorStrategy>();
+	public GameState(GameKeyListener keyListener) {
+
+		this.objects = new ArrayList<>();
+		this.actors = new ArrayList<>();
+		worldTiles = new Tile[Main.NUM_TILE_ROW][Main.NUM_TILE_COL];
+		if(Main.TEST_MODE){
+			factory = new TestModeFactory();
+		}
+		else{
+			factory = new ServerModeFactory();
+		}
+
+		worldTiles = factory.createWorldTiles();
+		player = factory.createPlayerActor(keyListener);
+		actors.add(player);
+
 	}
 
 	/*
@@ -50,9 +74,12 @@ public class GameState {
 	 *
 	 * @return
 	 */
-	public static ArrayList<ActorStrategy> getAllActors(){
+	public static ArrayList<Actor> getAllActors(){
 		return actors;
 	}
 
 
+	public Tile[][] getWorld() {
+		return worldTiles;
+	}
 }

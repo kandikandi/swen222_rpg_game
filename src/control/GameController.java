@@ -1,8 +1,6 @@
 package control;
 
-import factory.TileFactory;
 import model.Actor;
-import model.Tile;
 import system.GameSystem;
 
 import java.util.ArrayList;
@@ -16,21 +14,13 @@ import java.util.List;
  */
 public class GameController {
 
-	private final int NUM_KEYS = 4;
-	public boolean[] keyArray = new boolean[NUM_KEYS];
-	private final Tile[][] world;
-
 	private final List<GameSystem> systemList;
-	private final List<Actor> actorList;
+	private List<Actor> actorList;
 
 	public GameController() {
 		systemList = new ArrayList<>();
 		actorList = new ArrayList<>();
-		if (Main.TEST_MODE) {
-			world = TileFactory.createTestWorld();
-		} else {
-			world = TileFactory.createWorld();
-		}
+
 	}
 
 	// Call tick on all actors to update animation state or location
@@ -38,6 +28,14 @@ public class GameController {
 	public void executeAllSystems() {
 		actorList.forEach(model.Actor::tick);
 		systemList.forEach(GameSystem::performSystem);
+	}
+
+	/**
+	* Adds actorList to list of systems to be ticked each cycle.
+	*
+	*/
+	public void addActorList(List<Actor> actorList) {
+		this.actorList = actorList;
 	}
 
 	/**
@@ -49,25 +47,6 @@ public class GameController {
 		systemList.add(system);
 	}
 
-	/**
-	 * Adds an actor to list of systems to update each tick.
-	 *
-	 * @param actor
-	 */
 
-	public void addActor(Actor actor) {
-		actorList.add(actor);
-	}
 
-	public List<Actor> getActors() {
-		return actorList;
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	public Tile[][] getWorld() {
-		return world;
-	}
 }
