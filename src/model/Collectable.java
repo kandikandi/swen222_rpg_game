@@ -3,7 +3,8 @@ package model;
 import java.awt.Image;
 
 /**
- * Not a great name - just something that can be picked up
+ * A Collectable object is something that a player can pickup and
+ * can be placed in a container, or a plyer's inventory.
  *
  * @author dalyandr
  *
