@@ -52,7 +52,7 @@ public final class SDraw implements GameSystem{
             Image image = tile.getImage();
             int x = tile.getPosition().getxPos() - playerX + HALF_C_WIDTH;
             int y = tile.getPosition().getyPos() - playerY + HALF_C_HEIGHT;
-            g2d.drawImage(image,x,y,null);
+            g2d.drawImage(image,x,y,Main.TILE_SIZE,Main.TILE_SIZE,null);
         }
 
         List<Actor> actors = camera.getActorList();
