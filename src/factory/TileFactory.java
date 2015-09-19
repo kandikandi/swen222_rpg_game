@@ -37,7 +37,6 @@ public abstract class TileFactory {
            }
        }
        return products;
-
    }
 
    /**
@@ -55,13 +54,11 @@ public abstract class TileFactory {
             }
         }
 
-        Position location = new Position(xPos,yPos);
+        Position position = new Position(xPos,yPos);
         Image image = TEST_IMAGE.SCARLET.getImage();
-        Tile tile = new Tile(image, location, true, true, null, Main.TILE_SIZE);
+        Tile tile = new Tile(image,position);
         products[yPos/Main.TILE_SIZE][xPos/Main.TILE_SIZE] = tile;
         return tile;
-
-
     }
 
     /**

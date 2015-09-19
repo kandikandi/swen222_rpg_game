@@ -6,17 +6,12 @@ package model;
  * This enum class assigns an ID to each major object type in the game.
  */
 public enum ID {
-    TILE(0),
+//    TILE(0),
     ITEM(1),
     PLAYER(2),
     MONSTER(3),
     CONTAINER(4),
     COLLECTABLE(5);
-
-
-
-    ;
-
 
     private final int value;
 
@@ -25,6 +20,9 @@ public enum ID {
     }
 
     /**
+     *
+     * 	???
+     *
      * Getter method for ID value.
      *
      * @return ID value

@@ -75,4 +75,14 @@ public abstract class GameObject {
 		return new Rectangle(position.getxPos(),position.getyPos(),position.getxPos()+boundingBoxSize,position.getyPos()+boundingBoxSize);
     }
 
+    /**
+     * Getter for colldable field.
+     *
+     * @return whether or not collidable
+     */
+    public boolean isCollidable(){
+    	return collidable;
+    }
+
+
 }
