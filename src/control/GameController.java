@@ -2,6 +2,7 @@ package control;
 
 import factory.TileFactory;
 import model.Actor;
+import model.Position;
 import model.Tile;
 import system.GameSystem;
 
@@ -22,6 +23,7 @@ public class GameController {
 
 	private final List<GameSystem> systemList;
 	private final List<Actor> actorList;
+	private  Actor playerActor;
 
 	public GameController() {
 		systemList = new ArrayList<>();
@@ -69,5 +71,13 @@ public class GameController {
 	 */
 	public Tile[][] getWorld() {
 		return world;
+	}
+
+	public void setPlayerActor(Actor actor){
+		playerActor = actor;
+	}
+
+	public Actor getPlayerActor() {
+		return playerActor;
 	}
 }

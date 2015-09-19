@@ -2,6 +2,7 @@ package control;
 
 import factory.TEST_IMAGE;
 import model.*;
+import system.GameCamera;
 import ui.GameCanvas;
 import ui.GameFrame;
 import system.SDraw;
@@ -17,9 +18,9 @@ public class Main {
 	public static final int C_WIDTH = 800;
 	public static final int C_HEIGHT = 600;
 	public static final int TILE_SIZE = 40;
-	public static final int NUM_TILE_COL = C_WIDTH / TILE_SIZE;
-	public static final int NUM_TILE_ROW = C_HEIGHT / TILE_SIZE;
-	public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
+	public static final int NUM_TILE_COL = 100;//C_WIDTH / TILE_SIZE;
+	public static final int NUM_TILE_ROW = 100;//C_HEIGHT / TILE_SIZE;
+	//public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
 	public static final boolean TEST_MODE = true;
 	public static final String TITLE = "ECS alpha 0.1";
 
@@ -53,7 +54,10 @@ public class Main {
 				controller.addActor(tempPlayer);
 
 				// create and add systems in order they need to be executed
-				SDraw drawSystem = new SDraw(controller, (GameCanvas) gameCanvas);
+				// must create camera before drawer as drawer has no model logic
+				GameCamera camera = new GameCamera(controller);
+				controller.addSystem(camera);
+				SDraw drawSystem = new SDraw(camera, (GameCanvas) gameCanvas);
 				controller.addSystem(drawSystem);
 
 				// create time to control systems loop
