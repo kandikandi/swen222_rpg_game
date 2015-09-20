@@ -15,35 +15,35 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import model.Collectable;
+import model.GameObject;
+
 public class InventoryPanel extends JPanel {
+
 
 	private final int maxItemSlots = 9;
 	private ArrayList<JLabel> items = new ArrayList<JLabel>();
 
 	public InventoryPanel(){
-		this.update();
+		this.fullInventoryWithEmptySlots();
 		this.setPreferredSize(new Dimension(200,200));
 		this.setLayout(new GridLayout(3,3));
 		this.setBackground(new Color(10,10,10));
 	}
 
-	public void update(){
-		// Takes the inventory array and creates
-		// a JLabel for each item type.
+	private void fullInventoryWithEmptySlots() {
 
-		// for int i < 0; i < items.length; i++){
-		//	if(i<inventory.size()){
-		//		items[i].setItem(inventory.get(i));
-		//	} else {
-		//		items[i].setItem(null);
-		//	}
-	 //	}
 
-		for(int i = 0; i < maxItemSlots; i++){
+	}
+
+	public void update(ArrayList<GameObject> inventory){
+
+		for(int i = 0; i < inventory.size(); i++){
+			System.out.println("Creating the item labels");
 			items.add(new ItemLabel());
 		}
 
-		for(int i = 0; i < maxItemSlots; i++){
+		for(int i = 0; i < items.size(); i++){
 			this.add(items.get(i));
 
 		}

@@ -3,12 +3,18 @@ import control.GameController;
 
 import javax.swing.*;
 
+import model.Collectable;
+import model.GameObject;
+import model.GameState;
+import model.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class GameFrame extends JFrame {
 
@@ -35,6 +41,7 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
 //		addWindowListener(new WindowAdapter() {
 //		    @Override
@@ -94,6 +101,10 @@ public class GameFrame extends JFrame {
 		file.add(saveG);
 	}
 
+	public void updatePlayerInventory(ArrayList<GameObject> inventory){
+		this.inventory.update(inventory);
+	}
+
 //	/**
 //	 * Creates a New Game of BedTime Story and disposes of the current game
 //	 */
@@ -109,5 +120,10 @@ public class GameFrame extends JFrame {
 //		BoardFrame f = new BoardFrame();
 //		this.dispose();
 //	}
+
+	public void update(Player player){
+
+		this.updatePlayerInventory(player.getInventory().returnContents());
+	}
 
 }
