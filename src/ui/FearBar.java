@@ -8,35 +8,42 @@ import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
+/**
+ * The FearBar displays the players current fear level. If the current fear level reaches the maximum fear level then the player dies (wakes up from the dream)
+ * @author newtondavi2 (david)
+ *
+ */
 public class FearBar extends JLabel {
 
-	private int fear;
-	private int totalFear;
-	String info = "Fear: " + fear + "/" + totalFear;
-	private float displayedFear;
+	private int currentFear;
+	private int maxFear;
+	String info = "Fear: " + currentFear + "/" + maxFear; // String used to display the fear stats
+	private double displayedFear;
 
-	public FearBar(int fear, int totalFear){
-		setTotalFear(totalFear);
-		setFear(fear);
-		this.fear = fear;
-		this.totalFear = totalFear;
-		this.setForeground(Color.BLACK); // set font to white
-		this.setHorizontalAlignment(JLabel.CENTER);
-		this.setPreferredSize(new Dimension(180,40));
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
+	public FearBar(int currentFear, int maxFear){
+		setMaximumFear(maxFear);
+		setCurrentFear(currentFear);
+		this.currentFear = currentFear;
+		this.maxFear = maxFear;
+		this.setPreferredSize(new Dimension(180,50));
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(new Color(150,0,255));
-		this.displayedFear = ((float)this.fear/(float)this.totalFear) * (float)getWidth();
+		this.displayedFear = ((double)this.currentFear/(double)this.maxFear) * (double)getWidth();
 
+		// --------------------------------------------------- incomplete for now
 		if(displayedFear != 0){
 			g.fillRect(0, 0, (int)displayedFear, getHeight());
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("dialog",Font.BOLD,14));
-			g.drawString(info, 20, 20);
+			int stringLength = (int)g.getFontMetrics().getStringBounds(info, g).getWidth();
+			int stringHeight = (int)g.getFontMetrics().getStringBounds(info, g).getHeight();
+			int xPos = getWidth()/2 - stringLength/2;
+			int yPos = (getHeight()/2) + stringHeight/3;
+			g.drawString(info, xPos, yPos);
 		} else {
 			g.fillRect(0, 0, getWidth(), getHeight());
 			g.setColor(Color.BLACK);
@@ -46,17 +53,21 @@ public class FearBar extends JLabel {
 
 	}
 
-	public void setFear(int fear){
-		this.fear = fear;
-		info = "Fear: " + fear + "/" + totalFear;
-		//setText("Fear: " + fear + "/" + totalFear);
+    /**
+     * Sets the players current fear level (david)
+     * @param currentFear
+     */
+	public void setCurrentFear(int currentFear){
+		this.currentFear = currentFear;
+		info = "Fear: " + currentFear + "/" + maxFear;
 	}
 
-	public void setTotalFear(int totalFear){
-		this.totalFear = totalFear;
-		info = "Fear: " + fear + "/" + totalFear;
-		//setText("Fear: " + fear + "/" + totalFear);
+	/**
+	 * Sets the plays maximum amount of fear (david)
+	 * @param maxFear
+	 */
+	public void setMaximumFear(int maxFear){
+		this.maxFear = maxFear;
+		info = "Fear: " + currentFear + "/" + maxFear;
 	}
-
-
 }

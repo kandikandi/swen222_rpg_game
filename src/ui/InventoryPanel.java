@@ -45,7 +45,7 @@ public class InventoryPanel extends JPanel {
 
 		for(int i = 0; i < maxItemSlots; i++){
 			this.add(items.get(i));
-			System.out.println("Item set");
+
 		}
 
 	}

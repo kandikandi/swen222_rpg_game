@@ -22,11 +22,10 @@ public class PlayerStatsPanel extends JPanel {
 	private FearBar fear = new FearBar(90,150);
 	private BraveryBar bravery = new BraveryBar(120,150);
 
-	JLabel name = new JLabel("Name: ");
-	JLabel attack = new JLabel("Attack: ");
-	JLabel courage = new JLabel("Courage: ");
-	JLabel gold = new JLabel("Gold: ");
-	JLabel level = new JLabel("Level: ");
+
+	JLabel attack = new JLabel("Attack:                 ");
+	JLabel gold = new JLabel("Gold:                     ");
+	JLabel level = new JLabel("Level:                   ");
 
 
 
@@ -54,6 +53,8 @@ public class PlayerStatsPanel extends JPanel {
 
 		this.add(playerInformation);
 		this.add(bars);
+		this.setBackground(new Color(10,10,10));
+
 
 	}
 

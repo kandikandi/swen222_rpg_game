@@ -20,7 +20,6 @@ public class GameCanvas extends JPanel {
 	}
 
 	public void receiveBuffImage(BufferedImage buffImg) {
-        //System.out.println("GameFrame recieve BuffImage");
         receivedImage = buffImg;
         this.repaint();
     }

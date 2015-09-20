@@ -8,57 +8,71 @@ import java.awt.Graphics;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
+/**
+ * The BraveryBar displays the experience bar for the player. When the BraveryBar is full the players level will increase
+ * @author newtondavi2 (david)
+ *
+ */
 public class BraveryBar extends JLabel {
 
-	private int bravery = 0;
-	private int totalBravery = 0;
-	String info = "Bravery: " + bravery + "/" + totalBravery;
-	float displayedBravery;
+	private int currentBravery;
+	private int requiredBravery;
+	private String braveryStats = "Bravery: " + currentBravery + "/" + requiredBravery; //String used to display the bravery stats
+	private double displayedBravery;
 
-	public BraveryBar(int bravery, int totalBravery){
-		setTotalBravery(totalBravery);
-		setBravery(bravery);
-		this.bravery = bravery;
-		this.totalBravery = totalBravery;
-		this.setForeground(Color.BLACK); // set font to white
-		this.setHorizontalAlignment(JLabel.CENTER);
-		this.setPreferredSize(new Dimension(180,40));
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-
+	public BraveryBar(int currentBravery, int requiredBravery){
+		this.setRequiredBravery(requiredBravery);
+		this.setCurrentBravery(currentBravery);
+		this.currentBravery = currentBravery;
+		this.requiredBravery = requiredBravery;
+		this.setPreferredSize(new Dimension(180,50));
+		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+		this.displayedBravery = ((double)this.currentBravery/(double)this.requiredBravery) * (double)getWidth(); // displays the ratio of current to required bravery
 
-		this.displayedBravery = ((float)this.bravery/(float)this.totalBravery) * (float)getWidth();
-
+		// Used for when we begin leveling up ------------------- incomplete ------------------------------
 		if(displayedBravery != 0){
 			g.setColor(new Color(50,255,50));
 			g.fillRect(0, 0, (int) displayedBravery, getHeight());
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("dialog",Font.BOLD,14));
-			g.drawString(info, 20, 20);
+			int stringLength = (int)g.getFontMetrics().getStringBounds(braveryStats, g).getWidth();
+			int stringHeight = (int)g.getFontMetrics().getStringBounds(braveryStats, g).getHeight();
+			int xPos = getWidth()/2 - stringLength/2;
+			int yPos = getHeight()/2 + stringHeight/3;
+			g.drawString(braveryStats, xPos, yPos);
 		} else {
 			displayedBravery = getWidth();
 			g.setColor(new Color(50,255,50));
 			g.fillRect(0, 0, (int) displayedBravery, getHeight());
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("dialog",Font.BOLD,14));
-			g.drawString(info, 20, 20);
+			g.drawString(braveryStats, 20, 20);
 		}
 
 	}
 
-	public void setBravery(int bravery){
-		this.bravery = bravery;
-		info = "Bravery: " + bravery + "/" + totalBravery;
-		//setText("Fear: " + fear + "/" + totalFear);
+	/**
+	 * Sets the players current amount of bravery
+	 * @param bravery
+	 */
+	public void setCurrentBravery(int currentBravery){
+		this.currentBravery = currentBravery;
+		braveryStats = "Bravery: " + currentBravery + "/" + requiredBravery;
+
 	}
 
-	public void setTotalBravery(int totalBravery){
-		this.totalBravery = totalBravery;
-		info = "Bravery: " + bravery + "/" + totalBravery;
-		//setText("Fear: " + fear + "/" + totalFear);
+	/**
+	 * Sets the required amount of bravery needed for the player to go up a level (david)
+	 * @param requiredBravery
+	 */
+	public void setRequiredBravery(int requiredBravery){
+		this.requiredBravery = requiredBravery;
+		braveryStats = "Bravery: " + currentBravery + "/" + requiredBravery;
+
 	}
 
 

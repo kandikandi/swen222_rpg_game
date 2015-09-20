@@ -20,7 +20,7 @@ public class GameFrame extends JFrame {
 	private JMenu file = new JMenu("File");
 	private JPanel sidePanel = new JPanel();
 	private PlayerStatsPanel playerStats;
-	private GearPanel gear;
+	private GoldPanel container;
 
 	public GameFrame(String title, int WIDTH, int HEIGHT, GameController gc) {
 		super(title);
@@ -28,7 +28,7 @@ public class GameFrame extends JFrame {
 		this.setLayout(new BorderLayout());
 		this.inventory = new InventoryPanel();
 		this.playerStats = new PlayerStatsPanel();
-		this.gear = new GearPanel();
+		this.container = new GoldPanel();
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.controller = gc;
@@ -53,8 +53,8 @@ public class GameFrame extends JFrame {
 
 		//Set up the sidePanel to hold the Players Stats and Inventory
 			this.sidePanel.setLayout(new BorderLayout());
-			this.sidePanel.add(gear, BorderLayout.NORTH);
-			this.sidePanel.add(playerStats, BorderLayout.CENTER);
+			this.sidePanel.add(container, BorderLayout.CENTER);
+			this.sidePanel.add(playerStats, BorderLayout.NORTH);
 			this.sidePanel.add(inventory, BorderLayout.SOUTH);
 
 			this.setJMenuBar(menu);
