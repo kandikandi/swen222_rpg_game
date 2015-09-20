@@ -2,6 +2,7 @@ package system;
 
 import control.GameController;
 import model.Actor;
+import model.GameObject;
 import model.GameState;
 import model.Tile;
 import control.Main;
@@ -62,11 +63,11 @@ public final class SDraw implements GameSystem{
                 g2d.drawImage(tile.getImage(),x,y,width,width,null);
             }
         }
-        List<Actor> actors = gameState.getAllActors();
-        for(Actor actor: actors){
-            Image image = actor.getImage();
-            int x = actor.getPosition().getxPos();
-            int y = actor.getPosition().getyPos();
+        List<GameObject> gameObjects = gameState.getAllGameObjects();
+        for(GameObject go: gameObjects){
+            Image image = go.getImage();
+            int x = go.getPosition().getxPos();
+            int y = go.getPosition().getyPos();
             g2d.drawImage(image,x,y,null);
         }
         gameCanvas.receiveBuffImage(buffImg);

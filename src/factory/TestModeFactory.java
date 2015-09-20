@@ -45,9 +45,25 @@ public class TestModeFactory extends AbstractFactory{
     }
 
     @Override
-    public Inventory createInventory() {
-        return null;
+    public Inventory createInventory(boolean pickedUP, int xPos, int yPos) {
+        boolean collidable;
+        boolean drawable;
+        if(pickedUP){
+            collidable = false;
+            drawable = false;
+        }else {
+            collidable = true;
+            drawable = true;
+        }
+        int size = Main.ITEM_SIZE;
+        Position position = new Position(xPos, yPos);
+        Image image = TEST_IMAGE.INVENTORY.getImage();
+        image = image.getScaledInstance(size,size,Image.SCALE_FAST);
+        Inventory inventory = new Inventory(ID.CONTAINER,position,image,collidable,drawable,size,null);
+
+        return inventory;
     }
+
 
     @Override
     public Collectable createCollectable() {

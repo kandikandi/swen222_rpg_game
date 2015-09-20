@@ -32,14 +32,18 @@ public class GameState {
 		worldTiles = new Tile[Main.NUM_TILE_ROW][Main.NUM_TILE_COL];
 		if(Main.TEST_MODE){
 			factory = new TestModeFactory();
+			worldTiles = factory.createWorldTiles();
+			player = factory.createPlayerActor(keyListener);
+			actors.add(player);
+			objects.add(player);
+			player.setInventory(factory.createInventory(true,10,10));
+			objects.add(factory.createKey(30,30));
+
 		}
 		else{
 			factory = new ServerModeFactory();
 		}
 
-		worldTiles = factory.createWorldTiles();
-		player = factory.createPlayerActor(keyListener);
-		actors.add(player);
 
 	}
 
@@ -82,6 +86,10 @@ public class GameState {
 		return actors;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public static Player getPlayer(){
 		return player;
 	}
