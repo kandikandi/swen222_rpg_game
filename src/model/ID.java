@@ -11,7 +11,8 @@ public enum ID {
     PLAYER(2),
     MONSTER(3),
     CONTAINER(4),
-    COLLECTABLE(5);
+    COLLECTABLE(5),
+    KEY(6);
 
     private final int value;
 

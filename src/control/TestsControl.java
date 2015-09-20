@@ -142,11 +142,23 @@ public class TestsControl {
 	}
 
 	// SOME COIN / COINBAG TESTS
-	@Test public void test_15() {
+	@Test public void test_15() {}
 
 
 
 
+	// KEY / DOOR Tests
+	@Test public void test_16() {
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 45);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
+				player);
+		player.setInventory(inventory);
+		Key key = new Key(ID.KEY,new Position(15,5),null,true,true,10);
+		
+		//Key(ID id, Position position, Image image, boolean collidable, boolean drawable, int boundingBoxSize)
+		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
+		player.printState();
+		player.getInventory().getKey().printState();
 	}
 
 

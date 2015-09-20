@@ -17,7 +17,8 @@ public class Player extends ActorStrategy {
 	private Inventory inventory;
 	private boolean hasKey;
 	private int fear; // if get too scared, you lose
-	private int courage; // as you get more experience etc, the impact of fights
+	private boolean stillInGame = true;
+//	private int courage; // as you get more experience etc, the impact of fights
 							// etc will be less.
 
 	public Player(ID id, Position position, Image image, boolean collidable,
@@ -173,11 +174,11 @@ public class Player extends ActorStrategy {
 	public void drop(Collectable collectable) {
 		if (collectable == null) {
 			return;
-		}
-		if (inventory == null) {
+		} else if (inventory == null) {
 			return;
+		} else {
+			inventory.removeItemFromContainer(collectable);
 		}
-		inventory.removeItemFromContainer(collectable);
 	}
 
 	/**
@@ -241,13 +242,36 @@ public class Player extends ActorStrategy {
 	 */
 	public void setFear(int fear) {
 		this.fear = fear;
+		if(fear>=100){
+			tooScared();
+		}
 	}
 
-	/*
-	 * Setter for fear level.
+	public void increaseFear() {
+		fear += 5;
+		if(fear>=100){
+			tooScared();
+		}
+	}
+
+	public void increaseFear(int n) {
+		fear += n;
+		if(fear>=100){
+			tooScared();
+		}
+	}
+
+	/**
+	 * Deals with when fear reaches 100 and the Player loses etc.
+	 *
 	 */
-	public void setCourage(int courage) {
-		this.courage = courage;
+	private void tooScared() {
+		// game over for player
+		stillInGame = false;
+		// if only one player left, game over
+		//tell the controller it's all over
+		
+
 	}
 
 	/*
@@ -257,12 +281,19 @@ public class Player extends ActorStrategy {
 		return fear;
 	}
 
-	/*
-	 * Setter for courage level.
-	 */
-
-	public int getCourage() {
-		return courage;
-	}
+	// /*
+	// * Setter for courage level.
+	// */
+	// public void setCourage(int courage) {
+	// this.courage = courage;
+	// }
+	//
+	// /*
+	// * Setter for courage level.
+	// */
+	//
+	// public int getCourage() {
+	// return courage;
+	// }
 
 }

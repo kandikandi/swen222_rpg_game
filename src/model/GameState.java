@@ -52,6 +52,8 @@ public class GameState {
 
 		for (GameObject gameObject : objects) {
 				if (gameObject.getBoundingBox().contains(newBoundingBox)) {
+					System.out.println("Collision: ");
+					gameObject.printState();
 					return gameObject;
 				}
 			}
@@ -82,4 +84,19 @@ public class GameState {
 	public Tile[][] getWorld() {
 		return worldTiles;
 	}
+
+
+
+	//////////// Debuggin printout
+	public void printGameObjectState(){
+		for(GameObject gameObject : objects){
+			gameObject.printState();
+		}
+	}
+
+
+
+
+
+
 }

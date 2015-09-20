@@ -19,7 +19,7 @@ public abstract class AbstractFactory {
      * will either parse xml, read a text file, or if
      * in test-mode create "dummy" objects for testing
      */
-    abstract public Tile[][] createWorldTiles();
+    public abstract Tile[][] createWorldTiles();
     public abstract Player createPlayerActor(GameKeyListener keyListener);
     public abstract Coin createCoin();
     public abstract Inventory createInventory();

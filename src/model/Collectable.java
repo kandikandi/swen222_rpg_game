@@ -42,7 +42,9 @@ public class Collectable extends GameObject {
 	public void putInContainer(Container container){
 		if(inContainer) {return;}
 		drawable = false;
+		collidable = false;
 		inContainer = true;
+		System.out.println("Key Picked up");
 		this.putInContainer(container);
 	}
 
@@ -54,6 +56,7 @@ public class Collectable extends GameObject {
 	public void drop(){
 		inContainer = false;
 		drawable = true;
+		collidable = true;
 	}
 
 

@@ -64,8 +64,6 @@ public abstract class GameObject {
 		this.position = position;
 	}
 
-
-
     /**
      * Returns bounding box - currently treats everything as a square of size boundingBoxSize.
      *
@@ -76,7 +74,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Getter for colldable field.
+     * Getter for collidable field.
      *
      * @return whether or not collidable
      */
@@ -84,5 +82,21 @@ public abstract class GameObject {
     	return collidable;
     }
 
+    /**
+     * Getter for drawable field.
+     *
+     * @return whether or not drawable.
+     */
+	private boolean isDrawable() {
+		return drawable;
+	}
+
+
+    /**
+     * Mini-debug helper printout
+     */
+    public void printState(){
+    	System.out.println(this.getClass()+getPosition().toString()+"\ncollidable: "+isCollidable() + " drawable: " + isDrawable()+"\n");
+    }
 
 }
