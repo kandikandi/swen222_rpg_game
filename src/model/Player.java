@@ -72,7 +72,9 @@ public class Player extends ActorStrategy {
 	 */
 	@Override
 	public boolean canMove(DIR dir) {
-
+		
+		System.out.println("CanMove? "+dir);
+		
 		// ////
 		// this logic might need to get moved to controller at some point
 		// ///////
@@ -160,7 +162,7 @@ public class Player extends ActorStrategy {
 	 * This method adds a CoinBag to the inventory, if the player has an
 	 * inventory.
 	 *
-	 * @param collectable
+	 * @param
 	 */
 	public boolean pickupCoinBag(CoinBag coinBag) {
 		if (coinBag == null) {

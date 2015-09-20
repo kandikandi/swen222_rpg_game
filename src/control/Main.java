@@ -22,6 +22,7 @@ public class Main {
 	public static final boolean TEST_MODE = true;
 	public static final String TITLE = "ECS alpha 0.1";
 	public static final int PLAYER_SIZE = 45;
+	public static final int ITEM_SIZE = 30;
 
 	public static void main(String[] args) {
 		// Setting this property may help prevent/stop JPanel GUI flickering

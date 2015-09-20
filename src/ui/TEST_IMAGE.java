@@ -11,7 +11,8 @@ import java.io.IOException;
 public enum TEST_IMAGE {
 
     MR_PLUM("tokenPlum.png"),
-    SCARLET("tokenScarlet.png");
+    SCARLET("tokenScarlet.png"),
+    KEY("temp_key.png");
 
     private  Image image;
 

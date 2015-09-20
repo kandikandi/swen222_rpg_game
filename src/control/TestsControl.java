@@ -15,8 +15,6 @@ public class TestsControl {
 		Player player = new Player(ID.PLAYER, new Position(50,50), null, true, true, 45);
 		GameState gs = new GameState(new GameKeyListener());
 		player.move(DIR.LEFT);
-//		player.move(DIR.LEFT);
-//		player.move(DIR.RIGHT);
 		System.out.println(">>>> "+player.getPosition().toString());
 		assertTrue(player.getPosition().getxPos() == 45 && player.getPosition().getyPos() == 50);
 	}
@@ -89,6 +87,25 @@ public class TestsControl {
 		assertTrue(collectable.getPosition().getxPos()==player.getPosition().getxPos());
 	}
 
+
+	@Test public void test_07_a() {
+		//tests whether items inside container move with container / player
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
+				player);
+		player.setInventory(inventory);
+		//inventory.addItemToContainer(collectable);
+		Collectable collectable = new Collectable(ID.ITEM, new Position(55,5), null, true, true,45);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addGameObject(collectable, inventory);
+
+		player.move(DIR.RIGHT);
+		player.move(DIR.RIGHT);
+		player.move(DIR.RIGHT);
+		player.move(DIR.RIGHT);
+		player.drop(collectable);
+		assertTrue(collectable.getPosition().getxPos()==player.getPosition().getxPos());
+	}
 
 	@Test public void test_08() {
 		//tests whether items inside container move with container / player

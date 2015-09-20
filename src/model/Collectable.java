@@ -44,7 +44,7 @@ public class Collectable extends GameObject {
 		drawable = false;
 		collidable = false;
 		inContainer = true;
-		System.out.println("Key Picked up");
+		System.out.println("Collectable Picked up");
 		this.putInContainer(container);
 	}
 
