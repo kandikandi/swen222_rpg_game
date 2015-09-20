@@ -72,9 +72,9 @@ public class Player extends ActorStrategy {
 	 */
 	@Override
 	public boolean canMove(DIR dir) {
-		
+
 		System.out.println("CanMove? "+dir);
-		
+
 		// ////
 		// this logic might need to get moved to controller at some point
 		// ///////
@@ -187,6 +187,7 @@ public class Player extends ActorStrategy {
 		} else if (inventory == null) {
 			return;
 		} else {
+			inventory.setPosition(position);
 			inventory.removeItemFromContainer(collectable);
 		}
 	}
@@ -280,7 +281,7 @@ public class Player extends ActorStrategy {
 		stillInGame = false;
 		// if only one player left, game over
 		//tell the controller it's all over
-		
+
 
 	}
 
