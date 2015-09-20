@@ -105,6 +105,10 @@ public class GameFrame extends JFrame {
 		this.inventory.update(inventory);
 	}
 
+	public void updatePlayerFear(int fear){
+		this.playerStats.getFearBar().setCurrentFear(fear);
+	}
+
 //	/**
 //	 * Creates a New Game of BedTime Story and disposes of the current game
 //	 */
@@ -122,8 +126,8 @@ public class GameFrame extends JFrame {
 //	}
 
 	public void update(Player player){
-
 		this.updatePlayerInventory(player.getInventory().returnContents());
+		this.updatePlayerFear(player.getFear());
 	}
 
 }

@@ -22,7 +22,7 @@ public class InventoryPanel extends JPanel {
 
 
 	private final int maxItemSlots = 9;
-	private ArrayList<JLabel> items = new ArrayList<JLabel>();
+	private ArrayList<JLabel> items;
 
 	public InventoryPanel(){
 		this.fullInventoryWithEmptySlots();
@@ -38,14 +38,24 @@ public class InventoryPanel extends JPanel {
 
 	public void update(ArrayList<GameObject> inventory){
 
+		//clear current inventory
+		this.removeAll();
+		items = new ArrayList<JLabel>();
+
+		int itemAmount = 0;
 		for(int i = 0; i < inventory.size(); i++){
-			System.out.println("Creating the item labels");
 			items.add(new ItemLabel());
 		}
 
 		for(int i = 0; i < items.size(); i++){
 			this.add(items.get(i));
+		}
 
+		itemAmount = items.size();
+
+		for(int i = itemAmount; i < 9; i++){
+			EmptySlot empty = new EmptySlot();
+			this.add(empty);
 		}
 
 	}

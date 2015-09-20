@@ -19,7 +19,7 @@ public class PlayerStatsPanel extends JPanel {
 
 	private JPanel bars = new JPanel();
 	private JPanel playerInformation = new JPanel();
-	private FearBar fear = new FearBar(90,150);
+	private FearBar fear = new FearBar(0,150);
 	private BraveryBar bravery = new BraveryBar(120,150);
 
 
@@ -62,6 +62,10 @@ public class PlayerStatsPanel extends JPanel {
 		// Takes the player stats from
 		// passed in variables and updates
 		// them
+	}
+
+	public FearBar getFearBar(){
+		return fear;
 	}
 
 	public void setAttack(){

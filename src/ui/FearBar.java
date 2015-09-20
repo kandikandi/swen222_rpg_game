@@ -45,10 +45,14 @@ public class FearBar extends JLabel {
 			int yPos = (getHeight()/2) + stringHeight/3;
 			g.drawString(info, xPos, yPos);
 		} else {
-			g.fillRect(0, 0, getWidth(), getHeight());
+			g.fillRect(0, 0, (int)displayedFear, getHeight());
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("dialog",Font.BOLD,14));
-			g.drawString(info, 20, 20);
+			int stringLength = (int)g.getFontMetrics().getStringBounds(info, g).getWidth();
+			int stringHeight = (int)g.getFontMetrics().getStringBounds(info, g).getHeight();
+			int xPos = getWidth()/2 - stringLength/2;
+			int yPos = (getHeight()/2) + stringHeight/3;
+			g.drawString(info, xPos, yPos);
 		}
 
 	}
@@ -60,6 +64,7 @@ public class FearBar extends JLabel {
 	public void setCurrentFear(int currentFear){
 		this.currentFear = currentFear;
 		info = "Fear: " + currentFear + "/" + maxFear;
+		repaint();
 	}
 
 	/**
