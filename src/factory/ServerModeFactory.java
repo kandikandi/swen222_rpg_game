@@ -21,9 +21,10 @@ public class ServerModeFactory extends AbstractFactory {
     }
 
     @Override
-    public Inventory createInventory() {
+    public Inventory createInventory(boolean pickedUP, int xPos, int yPos) {
         return null;
     }
+
 
     @Override
     public Collectable createCollectable() {

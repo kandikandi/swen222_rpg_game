@@ -22,7 +22,16 @@ public abstract class AbstractFactory {
     public abstract Tile[][] createWorldTiles();
     public abstract Player createPlayerActor(GameKeyListener keyListener);
     public abstract Coin createCoin();
-    public abstract Inventory createInventory();
+
+    /**
+     * If pickedUP is true, the inventory will not be collidable or drawn.
+     * @param pickedUP
+     * @param xPos
+     * @param yPos
+     * @return
+     */
+    public abstract Inventory createInventory(boolean pickedUP, int xPos, int yPos);
+
     public abstract Collectable createCollectable();
 
     /**
