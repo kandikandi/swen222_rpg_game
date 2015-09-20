@@ -162,7 +162,7 @@ public class Player extends ActorStrategy {
 	 * This method adds a CoinBag to the inventory, if the player has an
 	 * inventory.
 	 *
-	 * @param collectable
+	 * @param
 	 */
 	public boolean pickupCoinBag(CoinBag coinBag) {
 		if (coinBag == null) {

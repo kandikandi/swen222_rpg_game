@@ -54,6 +54,16 @@ public class TestModeFactory extends AbstractFactory{
         return null;
     }
 
+    @Override
+    public Key createKey(int xPos, int yPos) {
+        Position pos = new Position(xPos, yPos);
+        Image image = TEST_IMAGE.KEY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size,size,Image.SCALE_FAST);
+        Key key = new Key(ID.KEY, pos, image,true,true,size);
+        return key;
+    }
+
     /**
      * Method used in testing stages
      *

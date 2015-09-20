@@ -24,4 +24,13 @@ public abstract class AbstractFactory {
     public abstract Coin createCoin();
     public abstract Inventory createInventory();
     public abstract Collectable createCollectable();
+
+    /**
+     * Creates a key at the specified x/y co-ordinates
+     *
+     * @param xPos
+     * @param yPos
+     * @return Key
+     */
+    public abstract Key createKey(int xPos, int yPos);
 }
