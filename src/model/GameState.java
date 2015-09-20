@@ -94,7 +94,14 @@ public class GameState {
 		}
 	}
 
+	//////////////// TEMPORARY FOR TESTS ONLY/////////////////////
+	public void addGameObject(GameObject ... gameObjects){
+		for(GameObject gameObject : gameObjects){
+			objects.add(gameObject);
+		}
 
+	}
+	//////////////////////////////////////////////////
 
 
 

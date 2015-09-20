@@ -13,15 +13,17 @@ public class TestsControl {
 
 	@Test public void test_01() {
 		Player player = new Player(ID.PLAYER, new Position(50,50), null, true, true, 45);
+		GameState gs = new GameState(new GameKeyListener());
 		player.move(DIR.LEFT);
-		player.move(DIR.LEFT);
-		player.move(DIR.RIGHT);
-		System.out.println(player.getPosition().toString());
+//		player.move(DIR.LEFT);
+//		player.move(DIR.RIGHT);
+		System.out.println(">>>> "+player.getPosition().toString());
 		assertTrue(player.getPosition().getxPos() == 45 && player.getPosition().getyPos() == 50);
 	}
 
 	@Test public void test_02() {
 		Player player = new Player(ID.PLAYER, new Position(50,50), null, true, true, 45);
+		GameState gs = new GameState(new GameKeyListener());
 		player.move(DIR.DOWN);
 		assertTrue(player.getPosition().getyPos() == 55 && player.getPosition().getxPos() == 50);
 	}
@@ -78,6 +80,8 @@ public class TestsControl {
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
 		inventory.addItemToContainer(collectable);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addGameObject(collectable, inventory);
 		player.setInventory(inventory);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
@@ -99,7 +103,7 @@ public class TestsControl {
 	}
 
 
-	@Test public void test_10() {
+	@Test public void test_10() { // just testing bounding box
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 45);
 		Player player2 = new Player(ID.PLAYER, new Position(15,15), null, true, true, 45);
 		assertTrue(player.getBoundingBox().contains(player2.getPosition().getxPos(),player2.getPosition().getyPos()));
@@ -110,6 +114,8 @@ public class TestsControl {
 		Collectable collectable = new Collectable(ID.ITEM, new Position(60,5), null, true, true,45);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addGameObject(collectable, inventory);
 		player.setInventory(inventory);
 		player.pickup(collectable);
 		player.drop(collectable);
@@ -118,13 +124,18 @@ public class TestsControl {
 
 	@Test public void test_13() {
 		// if a player walks over a collectable and has space in inventory, should be added to inventory.
-		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 45);
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
 		player.setInventory(inventory);
+		Collectable collectable = new Collectable(ID.ITEM, new Position(15,5), null, true, true,45);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addGameObject(inventory, collectable);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
+		System.out.println(player.getPosition().toString());
+		System.out.println(player.getInventory().numberOfObjectInContainer());
 		assertTrue(player.getInventory().numberOfObjectInContainer()==1);
 	}
 
@@ -133,19 +144,23 @@ public class TestsControl {
 		Collectable collectable = new Collectable(ID.ITEM, new Position(60,5), null, true, true,45);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addGameObject(inventory, collectable);
 		player.setInventory(inventory);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
-		player.drop(collectable);
+//		player.drop(collectable);
 		assertTrue(player.getInventory().numberOfObjectInContainer()==1);
 	}
 
+
+	//////////////////
+	// COLLISIONS   //
+	//////////////////
+
 	// SOME COIN / COINBAG TESTS
 	@Test public void test_15() {}
-
-
-
 
 	// KEY / DOOR Tests
 	@Test public void test_16() {
@@ -154,7 +169,8 @@ public class TestsControl {
 				player);
 		player.setInventory(inventory);
 		Key key = new Key(ID.KEY,new Position(15,5),null,true,true,10);
-		
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addGameObject(inventory, key);
 		//Key(ID id, Position position, Image image, boolean collidable, boolean drawable, int boundingBoxSize)
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.printState();

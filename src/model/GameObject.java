@@ -96,7 +96,7 @@ public abstract class GameObject {
      * Mini-debug helper printout
      */
     public void printState(){
-    	System.out.println(this.getClass()+getPosition().toString()+"\ncollidable: "+isCollidable() + " drawable: " + isDrawable()+"\n");
+    	System.out.println(this.getClass()+" "+getPosition().toString()+"\ncollidable: "+isCollidable() + " drawable: " + isDrawable()+"\n");
     }
 
 }

@@ -1,4 +1,4 @@
-package save.test;
+package save;
 import java.awt.Point;
 
 

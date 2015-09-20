@@ -42,16 +42,24 @@ public class Player extends ActorStrategy {
 	public void move(DIR dir) {
 		switch (dir) {
 		case UP:
+			if(canMove(DIR.UP)){
 			position.setyPos(position.getyPos() - speed);
+			}
 			break;
 		case DOWN:
+			if(canMove(DIR.DOWN)){
 			position.setyPos(position.getyPos() + speed);
+			}
 			break;
 		case LEFT:
+			if(canMove(DIR.LEFT)){
 			position.setxPos(position.getxPos() - speed);
+			}
 			break;
 		case RIGHT:
+			if(canMove(DIR.RIGHT)){
 			position.setxPos(position.getxPos() + speed);
+			}
 			break;
 		}
 	}
