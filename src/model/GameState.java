@@ -19,7 +19,7 @@ import java.util.ArrayList;
  */
 public class GameState {
 	private Tile[][] worldTiles;
-	private final Player player;
+	private static Player player;
 	private static ArrayList<GameObject> objects; // list of all GameObjects in Game.
 	private static ArrayList<Actor> actors;	// list of all actors (players and enemies) in the game
 	private final AbstractFactory factory;
@@ -82,6 +82,9 @@ public class GameState {
 		return actors;
 	}
 
+	public static Player getPlayer(){
+		return player;
+	}
 
 	public Tile[][] getWorld() {
 		return worldTiles;
