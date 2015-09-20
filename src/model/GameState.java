@@ -51,6 +51,8 @@ public class GameState {
 	public static GameObject checkCollision(Rectangle newBoundingBox) {
 
 		for (GameObject gameObject : objects) {
+			newBoundingBox.toString();	
+//			System.out.println("<<<><><><><<<<<<<< "+gameObject.toString());
 				if (gameObject.getBoundingBox().contains(newBoundingBox)) {
 					System.out.println("Collision: ");
 					gameObject.printState();
