@@ -17,10 +17,11 @@ public class Player extends ActorStrategy {
 	private final int speed = 5;
 	private Inventory inventory;
 	private boolean hasKey;
-	private int fear; // if get too scared, you lose
+	private boolean playerIsAttacking;
+	private int attackPoints = 2;
+	private int fear = 0; // if get too scared, you lose
 	private boolean stillInGame = true;
-//	private int courage; // as you get more experience etc, the impact of fights
-							// etc will be less.
+	private int bravery = 0;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
@@ -73,57 +74,47 @@ public class Player extends ActorStrategy {
 	 */
 	@Override
 	public boolean canMove(DIR dir) {
-
-//		System.out.println("CanMove? "+dir);
-
-		// ////
-		// this logic might need to get moved to controller at some point
-		// ///////
-
 		// bounding box of new position
 		Rectangle newBoundingBox = new Rectangle(
-				getProposedPosition(dir).getxPos(),
-				getProposedPosition(dir).getyPos(),
-				Main.PLAYER_SIZE,
-				Main.PLAYER_SIZE
+				getProposedPosition(dir).getxPos(),getProposedPosition(dir).getyPos(),
+				Main.PLAYER_SIZE,Main.PLAYER_SIZE
 				);
 
 		// check bounding boxes against other GameObject objects' bounding boxes
 		// have checkCollision method that returns null if no collision
-		// otherwise returns gameobject you're colliding with
+		// otherwise returns actor you're colliding with
 		Actor collidingObject = GameState.checkCollision(newBoundingBox);
 		if (collidingObject == null) {
-			return true;// there is no object at the new location, so can move
-						// there.
+			return true;// there is no object at the new location, so can move there.
 		}
 
-		// if we have a GameObject at the new location, we need to effect the
+		// if we have an Actor at the new location, we need to effect the
 		// impact
 		collide(collidingObject);
+
+		if(collidingObject instanceof Enemy){
+
+			return false;
+		}
+
+
 
 		// need to add logic for stuff we can't walk through
 		return true;
 
 	}
 
+	/**
+	 *	If there is a collision, this method carries out the
+	 *	appropriate logic for the collision type.
+	 *
+	 *
+	 * @param collidingObject
+	 */
 	private void collide(Actor collidingObject) {
-
-		// 2. Coin -> not collidable -> score -> ret TRUE
-		// 3. "Wall" -> nothing really happens, just return false;
-		// 4. Trap(?) -> not collidable -> bad for health/
-		// 5. Enemy -> can't move there -> return false
-		// -> depends on whether are holding space ie attacking
-		// -> if not attacking, bad for health
-		// -> if attacking, bad for enemy health
-		// 6. Door (?) -> do you have a key, if yes-> return true
-
-		// CASES : 1. Collectable -> not collidable. add to inventory-> ret TRUE
-
 		if (collidingObject instanceof Coin) {
 			pickup((Coin) collidingObject);
-		} else if (collidingObject instanceof Collectable) { // will change to
-																// using ID
-
+		} else if (collidingObject instanceof Collectable) {
 			pickup((Collectable) collidingObject);
 		} else if (collidingObject instanceof CoinBag) {
 			pickupCoinBag((CoinBag) collidingObject);
@@ -131,12 +122,23 @@ public class Player extends ActorStrategy {
 			useKeyInDoor((Door) collidingObject);
 		} else if (collidingObject instanceof Key) {
 			pickup((Key) collidingObject);
-			System.out.println("KEY!");
 		} else if (collidingObject instanceof Enemy) {
-			// ///////////
-			return;
+			fight(collidingObject);
 		} else {
 
+		}
+	}
+
+	private void fight(Actor collidingObject) {
+		Enemy enemy = (Enemy) collidingObject;
+
+		if(enemy.isAttacking() && !getAttacking()){
+			increaseFear(enemy.getAttackPoints()-bravery);
+		}else if(!enemy.isAttacking() && getAttacking()){// if enemy is not attacking and you are: you + monster -
+			enemy.reduceHealth(attackPoints+bravery);
+		}else{
+			enemy.reduceHealth(1);
+			increaseFear(1);
 		}
 	}
 
@@ -181,6 +183,14 @@ public class Player extends ActorStrategy {
 		} else {
 			return inventory.addItemToContainer(coinBag);
 		}
+	}
+
+
+	public void setAttacking(boolean playerIsAttacking){
+		this.playerIsAttacking = playerIsAttacking;
+	}
+	public boolean getAttacking(){
+		return playerIsAttacking;
 	}
 
 	/**
@@ -265,14 +275,19 @@ public class Player extends ActorStrategy {
 			tooScared();
 		}
 	}
-
-	public void increaseFear() {
-		fear += 5;
-		if(fear>=100){
-			tooScared();
-		}
+	/*
+	 * Getter for fear level.
+	 */
+	public int getFear() {
+		return fear;
 	}
 
+
+	/**
+	 *
+	 *
+	 * @param n
+	 */
 	public void increaseFear(int n) {
 		fear += n;
 		if(fear>=100){
@@ -281,7 +296,7 @@ public class Player extends ActorStrategy {
 	}
 
 	/**
-	 * Deals with when fear reaches 100 and the Player loses etc.
+	 * Deals with when fear reaches 100 and the Player loses.
 	 *
 	 */
 	private void tooScared() {
@@ -293,26 +308,8 @@ public class Player extends ActorStrategy {
 
 	}
 
-	/*
-	 * Getter for fear level.
-	 */
-	public int getFear() {
-		return fear;
-	}
 
-	// /*
-	// * Setter for courage level.
-	// */
-	// public void setCourage(int courage) {
-	// this.courage = courage;
-	// }
-	//
-	// /*
-	// * Setter for courage level.
-	// */
-	//
-	// public int getCourage() {
-	// return courage;
-	// }
+
+
 
 }

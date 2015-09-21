@@ -50,21 +50,12 @@ public class GameState {
 	 * object that the GameObject would collide with.
 	 */
 	public static Actor checkCollision(Rectangle newBoundingBox) {
-//			System.out.println(">>>>>>>> "+newBoundingBox.toString());
 		for (Actor actor : actors) {
-//			 System.out.println("Checking collision "+gameObject.getClass());
-//
 			if (actor.isCollidable()){
-//				 System.out.println(gameObject.getPosition().toString());
 				if (actor.getBoundingBox().intersects(newBoundingBox)
-					// && !(gameObject instanceof Player)
+					&& !(actor instanceof Player)
 					&& !(actor instanceof Inventory)) {
-//				System.out.println("***Collision: "
-//						+ gameObject.getBoundingBox().toString() + " "
-//						+ newBoundingBox.getBounds().toString());
-//				System.out.println(gameObject.getClass() + "***");
-				// gameObject.printState();
-				return actor;
+					return actor;
 			}
 					}
 		}

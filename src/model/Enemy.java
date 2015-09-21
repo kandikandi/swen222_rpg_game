@@ -9,6 +9,7 @@ public class Enemy extends ActorStrategy{
 
 	private boolean attacking;
 	private int attackPoints;
+	private int health = 10;
 	private int count; 	// just want way to alternate attacking and not attacking. Bit weird maybe.
 						//Tick will increment and set attack depending on value.
 
@@ -78,6 +79,10 @@ public class Enemy extends ActorStrategy{
 	 */
 	public void setAttackPoints(int attackPoints){
 		this.attackPoints = attackPoints;
+	}
+
+	public void reduceHealth(int n) {
+		health -= n;
 	}
 
 }
