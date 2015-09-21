@@ -68,7 +68,7 @@ public class UITests {
 				collectable5);
 
 		player.setInventory(container);
-		System.out.println(player.getInventory().returnContents());
+//		System.out.println(player.getInventory().returnContents());
 		g.update(player);
 		assert(container.numberOfObjectInContainer()==5);
 		while(true){

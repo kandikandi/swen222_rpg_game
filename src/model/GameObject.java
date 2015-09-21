@@ -82,12 +82,19 @@ public abstract class GameObject {
     	return collidable;
     }
 
+    public void setCollidable(boolean collidable){
+    	this.collidable = collidable;
+    }
+    public void setDrawable(boolean drawable){
+    	this.drawable = drawable;
+    }
+
     /**
      * Getter for drawable field.
      *
      * @return whether or not drawable.
      */
-	private boolean isDrawable() {
+	public boolean isDrawable() {
 		return drawable;
 	}
 

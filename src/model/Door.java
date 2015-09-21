@@ -33,4 +33,10 @@ public class Door extends GameObject {
 		collidable = false;
 	}
 
+	public boolean getIsOpen(){
+		return open;
+	}
+
+
+
 }

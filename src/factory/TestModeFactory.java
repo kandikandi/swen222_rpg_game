@@ -73,7 +73,7 @@ public class TestModeFactory extends AbstractFactory{
     @Override
     public Player createPlayerActor(GameKeyListener keyListener) {
         MovementStrategy ms = new PlayerMoveStrategy(keyListener);
-        Position loc = new Position(40, 40);
+        Position loc = new Position(5, 5);
         Image image = TEST_IMAGE.MR_PLUM.getImage();
         image = image.getScaledInstance(Main.PLAYER_SIZE,Main.PLAYER_SIZE,Image.SCALE_FAST);
         Player player = new Player(ID.PLAYER, loc,image, false, true, Main.PLAYER_SIZE);
