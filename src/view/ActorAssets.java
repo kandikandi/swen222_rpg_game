@@ -12,7 +12,7 @@ import java.util.Arrays;
 public enum ActorAssets {
 
     NOTHING('0',"tokenScarlet.png"),
-    PLAYER1('1',"tokenPlum.png"),
+    PLAYER1('1',"front_girl.png"),
     PLAYER2('1',"tokenPlum.png"),
     COIN('C',"coin40.jpg"),
     DOOR('D',"door.jpg"),
