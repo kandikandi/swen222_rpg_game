@@ -38,10 +38,10 @@ public class ServerModeFactory extends AbstractFactory {
         return null;
     }
 
-//    @Override
-//    public Key createKey(int xPos, int yPos) {
-//        return null;
-//    }
+    @Override
+    public Key createKey(int xPos, int yPos) {
+        return null;
+    }
 
 
 }

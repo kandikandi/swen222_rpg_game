@@ -21,12 +21,16 @@ public abstract class AbstractFactory {
      * in test-mode create "dummy" objects for testing
      */
     public abstract Tile[][] createWorldTiles();
+
     public abstract List<Actor> createActorList();
+
     public abstract Player createPlayerActor(GameKeyListener keyListener);
+
     public abstract Coin createCoin();
 
     /**
      * If pickedUP is true, the inventory will not be collidable or drawn.
+     *
      * @param pickedUP
      * @param xPos
      * @param yPos
@@ -36,12 +40,12 @@ public abstract class AbstractFactory {
 
     public abstract Collectable createCollectable();
 
-//    /**
-//     * Creates a key at the specified x/y co-ordinates
-//     *
-//     * @param xPos
-//     * @param yPos
-//     * @return Key
-//     */
-//    public abstract Key createKey(int xPos, int yPos);
+    /**
+     * Creates a key at the specified x/y co-ordinates
+     *
+     * @param xPos
+     * @param yPos
+     * @return Key
+     */
+    public abstract Key createKey(int xPos, int yPos);
 }

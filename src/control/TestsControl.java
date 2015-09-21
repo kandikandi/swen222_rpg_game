@@ -1,13 +1,10 @@
 package control;
 import static org.junit.Assert.*;
 
-import java.awt.Image;
 import java.awt.Point;
-
 import org.junit.Test;
-
-import ui.TEST_IMAGE;
 import model.*;
+import view.ActorAssets;
 
 public class TestsControl {
 
@@ -176,7 +173,7 @@ public class TestsControl {
 		player.setInventory(inventory);
 		Key key = new Key(ID.KEY,new Position(20,5),null,true,true,10);
 //		Image im = new Image;
-		Door door = new Door(ID.ITEM, new Position(35,5), TEST_IMAGE.DOOR.getImage() , true, true, 10);
+		Door door = new Door(ID.ITEM, new Position(35,5), ActorAssets.DOOR.getImage() , true, true, 10);
 		GameState gs = new GameState(new GameKeyListener());
 		gs.addActor(inventory, key, door);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
@@ -192,7 +189,7 @@ public class TestsControl {
 				player);
 		player.setInventory(inventory);
 		Key key = new Key(ID.KEY,new Position(20,5),null,true,true,10);
-		Door door = new Door(ID.ITEM, new Position(35,5), TEST_IMAGE.DOOR.getImage() , true, true, 10);
+		Door door = new Door(ID.ITEM, new Position(35,5), ActorAssets.DOOR.getImage() , true, true, 10);
 		GameState gs = new GameState(new GameKeyListener());
 		gs.addActor(inventory, key, door);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
@@ -210,7 +207,7 @@ public class TestsControl {
 				player);
 		player.setInventory(inventory);
 		Key key = new Key(ID.KEY,new Position(20,5),null,true,true,10);
-		Door door = new Door(ID.ITEM, new Position(35,5), TEST_IMAGE.DOOR.getImage() , true, true, 10);
+		Door door = new Door(ID.ITEM, new Position(35,5), ActorAssets.DOOR.getImage() , true, true, 10);
 		GameState gs = new GameState(new GameKeyListener());
 		gs.addActor(inventory, key, door);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
@@ -223,12 +220,12 @@ public class TestsControl {
 	// Coin picked up goes into inventory correctly
 	@Test public void test_20() {
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
-		Coin coin1 = new Coin(ID.ITEM, new Position(200,5), TEST_IMAGE.COIN.getImage() , true, true, 20);
-		Coin coin2 = new Coin(ID.ITEM, new Position(200,30), TEST_IMAGE.COIN.getImage() , true, true, 20);
-		Coin coin3 = new Coin(ID.ITEM, new Position(200,55), TEST_IMAGE.COIN.getImage() , true, true, 20);
-		Coin coin4 = new Coin(ID.ITEM, new Position(200,80), TEST_IMAGE.COIN.getImage() , true, true, 20);
-		Coin coin5 = new Coin(ID.ITEM, new Position(200,105), TEST_IMAGE.COIN.getImage() , true, true, 20);
-		Coin coin6 = new Coin(ID.ITEM, new Position(200,130), TEST_IMAGE.COIN.getImage() , true, true, 20);
+		Coin coin1 = new Coin(ID.ITEM, new Position(200,5), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin2 = new Coin(ID.ITEM, new Position(200,30), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin3 = new Coin(ID.ITEM, new Position(200,55), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin4 = new Coin(ID.ITEM, new Position(200,80), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin5 = new Coin(ID.ITEM, new Position(200,105), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin6 = new Coin(ID.ITEM, new Position(200,130), ActorAssets.COIN.getImage() , true, true, 20);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,player);
 		player.setInventory(inventory);
 
