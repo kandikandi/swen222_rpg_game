@@ -35,11 +35,11 @@ public class Main {
 				GameController controller = new GameController();
 
 				// Set up the gameFrame
-				JFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT,
+				GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT,
 						controller);
 
 				//Setup UI
-				GameCanvas gameCanvas = new GameCanvas(C_WIDTH, C_HEIGHT);
+				GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
 				gameFrame.getContentPane().add(gameCanvas);
 				gameFrame.pack();
 				KeyListener gameKeyListner = new GameKeyListener(/*controller*/);
@@ -50,7 +50,6 @@ public class Main {
 
 				//this is awkward 2/2 (the actor list is so they can be ticked)
 				controller.addActorList(gameState.getAllActors());
-
 
 				// create and add systems in order they need to be executed
 				SDraw drawSystem = new SDraw(gameState,gameCanvas);

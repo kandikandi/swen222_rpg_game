@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 
 /**
  * The FearBar displays the players current fear level. If the current fear level reaches the maximum fear level then the player dies (wakes up from the dream)
- * @author newtondavi2 (david)
+ * @author newtondavi2 (David)
  *
  */
 public class FearBar extends JLabel {
@@ -32,35 +32,27 @@ public class FearBar extends JLabel {
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		g.setColor(new Color(150,0,255));
-		this.displayedFear = ((double)this.currentFear/(double)this.maxFear) * (double)getWidth();
+		this.displayedFear = ((double)this.currentFear/(double)this.maxFear) * (double)getWidth(); // Keeps the ratio correct to display on (180,50)
 
-		// --------------------------------------------------- incomplete for now
-		if(displayedFear != 0){
-			g.fillRect(0, 0, (int)displayedFear, getHeight());
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("dialog",Font.BOLD,14));
-			int stringLength = (int)g.getFontMetrics().getStringBounds(info, g).getWidth();
-			int stringHeight = (int)g.getFontMetrics().getStringBounds(info, g).getHeight();
-			int xPos = getWidth()/2 - stringLength/2;
-			int yPos = (getHeight()/2) + stringHeight/3;
-			g.drawString(info, xPos, yPos);
-		} else {
-			g.fillRect(0, 0, (int)displayedFear, getHeight());
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("dialog",Font.BOLD,14));
-			int stringLength = (int)g.getFontMetrics().getStringBounds(info, g).getWidth();
-			int stringHeight = (int)g.getFontMetrics().getStringBounds(info, g).getHeight();
-			int xPos = getWidth()/2 - stringLength/2;
-			int yPos = (getHeight()/2) + stringHeight/3;
-			g.drawString(info, xPos, yPos);
-		}
+		g.fillRect(0, 0, (int)displayedFear, getHeight());
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("dialog",Font.BOLD,14));
+		int stringLength = (int)g.getFontMetrics().getStringBounds(info, g).getWidth();
+		int stringHeight = (int)g.getFontMetrics().getStringBounds(info, g).getHeight();
+		int xPos = getWidth()/2 - stringLength/2;
+		int yPos = (getHeight()/2) + stringHeight/3;
+		g.drawString(info, xPos, yPos);
+
+		/*if(displayedFear == 0){
+			WAKE UP YOU LOSE
+		}*/
 
 	}
 
-    /**
-     * Sets the players current fear level (david)
-     * @param currentFear
-     */
+	/**
+	 * Sets the players current fear level (david)
+	 * @param currentFear
+	 */
 	public void setCurrentFear(int currentFear){
 		this.currentFear = currentFear;
 		info = "Fear: " + currentFear + "/" + maxFear;

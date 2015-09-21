@@ -1,62 +1,82 @@
 package ui;
-import java.awt.BorderLayout;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-
-import model.Collectable;
 import model.GameObject;
 
+/**
+ * The InventoryPanel displays the players Inventory by creating and displaying
+ * ItemLabels which display the equivalent pictures to the players currently held items.
+ * It then fills the remaining inventory slots with EmptyLabels.
+ * @author newtondavi2 (David)
+ *
+ */
 public class InventoryPanel extends JPanel {
 
-
-	private final int maxItemSlots = 9;
-	private ArrayList<JLabel> items;
+	private final int maxItemSlots = 9; // The maximum amount of slots avaliable to the player
+	private ArrayList<JLabel> items = new ArrayList<JLabel>(); // The Inventory is made up of ItemLabels and EmptyLabels
 
 	public InventoryPanel(){
-		this.fullInventoryWithEmptySlots();
 		this.setPreferredSize(new Dimension(200,200));
 		this.setLayout(new GridLayout(3,3));
 		this.setBackground(new Color(10,10,10));
 	}
 
-	private void fullInventoryWithEmptySlots() {
-
-
-	}
-
+	/**
+	 * Updates the players inventory by clearing it and then refilling it by creating
+	 * the equivalent ItemLabels
+	 * @param inventory
+	 */
 	public void update(ArrayList<GameObject> inventory){
 
-		//clear current inventory
-		this.removeAll();
-		items = new ArrayList<JLabel>();
+		// ONLY BEING USED UNTIL WE HAVE SORTED MORE PRECISE UPDATES OF THE GUI
+//		Boolean changesMade = false;
+//		if(this.items.size() != 0){
+//			for(int i = 0; i < items.size(); i++){
+//				if(items.get(i) instanceof ItemLabel){
+//					if(((ItemLabel) items.get(i)).getItemLabelID() != inventory.get(i).getID()){
+//						changesMade = true;;
+//					}
+//				}
+//			}
+//		} else {
+//			changesMade = true;
+//			System.out.println("Setting to true");
+//		}
+//
+//		if(changesMade){
+			// Clear the Inventory every time it is updated
+			items.clear();
+			this.removeAll();
+			this.revalidate();
 
-		int itemAmount = 0;
-		for(int i = 0; i < inventory.size(); i++){
-			items.add(new ItemLabel());
-		}
+			int itemAmount = inventory.size();
 
-		for(int i = 0; i < items.size(); i++){
-			this.add(items.get(i));
-		}
+			// Put the inventory items into the inventory
+			for(int i = 0; i < inventory.size(); i++){
+				ItemLabel newItem = new ItemLabel();
+				newItem.setItemLabelID(inventory.get(i).getID()); // TESTING THE SETTING OF ITEM ID ON ITEM LABEL THIS WILL BE USED FOR IMAGE AND BEHAVIOUR
+				items.add(newItem);
+			}
 
-		itemAmount = items.size();
+			// Fill the remaining inventory slots with EmptyLabels
+			for(int i = itemAmount; i < 9; i++){
+				EmptyLabels empty = new EmptyLabels();
+				items.add(empty);
+			}
 
-		for(int i = itemAmount; i < 9; i++){
-			EmptySlot empty = new EmptySlot();
-			this.add(empty);
-		}
+			// Add all the JLabels to the InventoryPanel
+			for(int i = 0; i < items.size(); i++){
+				this.add(items.get(i));
+			}
 
+			// Update the InventoryPanel
+			this.revalidate();
+//		}
 	}
+
 }

@@ -10,7 +10,7 @@ import javax.swing.JLabel;
 
 /**
  * The BraveryBar displays the experience bar for the player. When the BraveryBar is full the players level will increase
- * @author newtondavi2 (david)
+ * @author newtondavi2 (David)
  *
  */
 public class BraveryBar extends JLabel {
@@ -34,25 +34,20 @@ public class BraveryBar extends JLabel {
 		this.displayedBravery = ((double)this.currentBravery/(double)this.requiredBravery) * (double)getWidth(); // displays the ratio of current to required bravery
 
 		// Used for when we begin leveling up ------------------- incomplete ------------------------------
-		if(displayedBravery != 0){
-			g.setColor(new Color(50,255,50));
-			g.fillRect(0, 0, (int) displayedBravery, getHeight());
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("dialog",Font.BOLD,14));
-			int stringLength = (int)g.getFontMetrics().getStringBounds(braveryStats, g).getWidth();
-			int stringHeight = (int)g.getFontMetrics().getStringBounds(braveryStats, g).getHeight();
-			int xPos = getWidth()/2 - stringLength/2;
-			int yPos = getHeight()/2 + stringHeight/3;
-			g.drawString(braveryStats, xPos, yPos);
-		} else {
-			displayedBravery = getWidth();
-			g.setColor(new Color(50,255,50));
-			g.fillRect(0, 0, (int) displayedBravery, getHeight());
-			g.setColor(Color.BLACK);
-			g.setFont(new Font("dialog",Font.BOLD,14));
-			g.drawString(braveryStats, 20, 20);
-		}
+		g.setColor(new Color(50,255,50));
+		g.fillRect(0, 0, (int) displayedBravery, getHeight());
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("dialog",Font.BOLD,14));
+		int stringLength = (int)g.getFontMetrics().getStringBounds(braveryStats, g).getWidth();
+		int stringHeight = (int)g.getFontMetrics().getStringBounds(braveryStats, g).getHeight();
+		int xPos = getWidth()/2 - stringLength/2;
+		int yPos = getHeight()/2 + stringHeight/3;
+		g.drawString(braveryStats, xPos, yPos);
 
+
+		/*if(displayedBravery == 0 ){
+			You level yay
+		}*/
 	}
 
 	/**
