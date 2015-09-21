@@ -13,7 +13,9 @@ public enum TEST_IMAGE {
     MR_PLUM("tokenPlum.png"),
     SCARLET("tokenScarlet.png"),
     KEY("temp_key.jpg"),
-    INVENTORY("temp_inv.jpg");
+    INVENTORY("temp_inv.jpg"),
+    COIN("coin20.png"),
+    DOOR("door.jpg");
 
     private  Image image;
 

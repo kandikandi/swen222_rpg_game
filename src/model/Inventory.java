@@ -7,6 +7,7 @@ public class Inventory extends Container {
 	final private Player inventoryOwner;
 	final int maximumItems = 9;
 
+
 	/**
 	 * Constructor with owning player added on construction. Also can insert
 	 * items at same time.

@@ -1,6 +1,7 @@
 package model;
 
 import control.DIR;
+import control.Main;
 import control.MovementStrategy;
 
 import java.awt.*;
@@ -73,15 +74,19 @@ public class Player extends ActorStrategy {
 	@Override
 	public boolean canMove(DIR dir) {
 
-		System.out.println("CanMove? "+dir);
+//		System.out.println("CanMove? "+dir);
 
 		// ////
 		// this logic might need to get moved to controller at some point
 		// ///////
 
 		// bounding box of new position
-		Rectangle newBoundingBox = new Rectangle(getProposedPosition(dir)
-				.getxPos(), getProposedPosition(dir).getyPos());
+		Rectangle newBoundingBox = new Rectangle(
+				getProposedPosition(dir).getxPos(),
+				getProposedPosition(dir).getyPos(),
+				Main.PLAYER_SIZE,
+				Main.PLAYER_SIZE
+				);
 
 		// check bounding boxes against other GameObject objects' bounding boxes
 		// have checkCollision method that returns null if no collision
@@ -96,7 +101,8 @@ public class Player extends ActorStrategy {
 		// impact
 		collide(collidingObject);
 
-		return collidingObject.isCollidable();
+		// need to add logic for stuff we can't walk through
+		return true;
 
 	}
 
@@ -117,13 +123,15 @@ public class Player extends ActorStrategy {
 			pickup((Coin) collidingObject);
 		} else if (collidingObject instanceof Collectable) { // will change to
 																// using ID
-			// instead of instance
-			// of
+
 			pickup((Collectable) collidingObject);
 		} else if (collidingObject instanceof CoinBag) {
 			pickupCoinBag((CoinBag) collidingObject);
 		} else if (collidingObject instanceof Door) {
 			useKeyInDoor((Door) collidingObject);
+		} else if (collidingObject instanceof Key) {
+			pickup((Key) collidingObject);
+			System.out.println("KEY!");
 		} else if (collidingObject instanceof Enemy) {
 			// ///////////
 			return;
