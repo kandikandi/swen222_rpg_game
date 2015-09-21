@@ -30,8 +30,8 @@ public class EmptyLabels extends JLabel {
 	public EmptyLabels(){
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon());
-		Border border = BorderFactory.createLineBorder(Color.BLUE, 1);
-		this.setBorder(border);
+//		Border border = BorderFactory.createLineBorder(Color.BLUE, 1);
+//		this.setBorder(border);
 	}
 
 	//	public void setItem(Item item){

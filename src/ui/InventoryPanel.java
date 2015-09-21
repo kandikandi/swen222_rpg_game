@@ -2,11 +2,19 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 import model.Actor;
 
@@ -20,13 +28,25 @@ import model.Actor;
  */
 public class InventoryPanel extends JPanel {
 
+	private Image itemImage;
+	private Image backgroundImage;
 	private final int maxItemSlots = 9; // The maximum amount of slots avaliable to the player
 	private ArrayList<JLabel> items = new ArrayList<JLabel>(); // The Inventory is made up of ItemLabels and EmptyLabels
 
 	public InventoryPanel(){
+
 		this.setPreferredSize(new Dimension(200,200));
 		this.setLayout(new GridLayout(3,3));
-		this.setBackground(new Color(10,10,10));
+		this.setBackground(new Color(204, 255, 255));
+		this.createBorder();
+
+
+		try {
+			// load the image
+			backgroundImage = ImageIO.read(new File("Inventory_BG.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -63,6 +83,15 @@ public class InventoryPanel extends JPanel {
 			for(int i = 0; i < inventory.size(); i++){
 				ItemLabel newItem = new ItemLabel();
 				newItem.setItemLabelID(inventory.get(i).getID()); // TESTING THE SETTING OF ITEM ID ON ITEM LABEL THIS WILL BE USED FOR IMAGE AND BEHAVIOUR
+				if(newItem.getItemLabelID().getID() == 6){
+					try {
+						// load the image
+						itemImage = ImageIO.read(new File("Inventory_Key.png"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					newItem.setIcon(new ImageIcon(itemImage));
+				}
 				items.add(newItem);
 			}
 
@@ -80,6 +109,28 @@ public class InventoryPanel extends JPanel {
 			// Update the InventoryPanel
 			this.revalidate();
 //		}
+	}
+
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		if(backgroundImage!= null){
+			g.drawImage(backgroundImage, 0, 0, null);
+		}
+
+	}
+
+	private void createBorder() {
+		//Compound borders
+		Border compound;
+
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+		//This creates a nice frame.
+		compound = BorderFactory.createCompoundBorder(
+		                          raisedbevel, loweredbevel);
+
+		this.setBorder(compound);
+
 	}
 
 }

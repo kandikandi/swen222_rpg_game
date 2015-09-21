@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -26,6 +27,7 @@ import model.ID;
  */
 public class ItemLabel extends JLabel {
 
+	private Image itemImage;
 	private BufferedImage emptySlot; // The Image for an Empty Slot in the players Inventory (no item)
 	private JPopupMenu itemMenu = new JPopupMenu();
 	private ID itemID;
@@ -37,9 +39,11 @@ public class ItemLabel extends JLabel {
 
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items image
-		Border border = BorderFactory.createLineBorder(Color.RED, 1); // ------------------- place holder to display labels
+		this.itemID = itemID;
 
-		this.setBorder(border);
+
+
+
 
 		/*
 		 * Set up the JPopupMenu.
@@ -53,7 +57,7 @@ public class ItemLabel extends JLabel {
 				System.out.println("Item Inspected");
 				if(getLabel().getItemLabelID().getID() == 4){
 					GameFrame.displayPlayersCoinBag = true;
-					getLabel().setBorder(border);
+
 				}
 
 
@@ -65,7 +69,7 @@ public class ItemLabel extends JLabel {
 		use.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Item used");
-				getLabel().setBorder(border);
+
 
 			}
 		});
@@ -75,7 +79,7 @@ public class ItemLabel extends JLabel {
 		destroy.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Item Destroyed");
-				getLabel().setBorder(border);
+
 			}
 		});
 		itemMenu.add(destroy);
@@ -86,7 +90,7 @@ public class ItemLabel extends JLabel {
 				System.out.println("Hide coins");
 				if(getLabel().getItemLabelID().getID() == 4){
 					GameFrame.displayPlayersCoinBag = false;
-					getLabel().setBorder(border);
+
 				}
 
 			}

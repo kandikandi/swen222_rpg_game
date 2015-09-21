@@ -4,9 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /**
  * The PlayerStatsPanel holds the FearBar, BraveryBar and multiple JLabels which display character statistics
@@ -16,6 +24,7 @@ import javax.swing.JPanel;
  */
 public class PlayerStatsPanel extends JPanel {
 
+	private Image backgroundImage;
 	private JPanel barPanel = new JPanel(); // Holds both the FearBar and BraveryBar
 	private JPanel playerInformation = new JPanel(); // Holds JLabels showing players stats
 	private FearBar fear = new FearBar(0,150);
@@ -27,9 +36,11 @@ public class PlayerStatsPanel extends JPanel {
 	private JLabel level = new JLabel("Level:                   ");
 
 
+
 	public PlayerStatsPanel(){
 		this.setPreferredSize(new Dimension(200,300));
-
+		this.setBackground(new Color(204, 255, 255));
+		this.createBorder();
 		playerInformation.setLayout(new BoxLayout(playerInformation, BoxLayout.Y_AXIS));
 
 		// Set up Attack JLabel
@@ -44,21 +55,45 @@ public class PlayerStatsPanel extends JPanel {
 		level.setFont(new Font("dialog",Font.BOLD,16));
 		level.setForeground(Color.BLACK);
 
+		try {
+			// load the image
+			backgroundImage = ImageIO.read(new File("PlayerStats_BG.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		// Set up playerInformation JPanel
+		playerInformation.setOpaque(false);
 		playerInformation.add(attack);
 		playerInformation.add(gold);
 		playerInformation.add(level);
 
 		// Set up barPanel JPanel
 		barPanel.setLayout(new BorderLayout());
+		barPanel.setOpaque(false);
 		barPanel.add(fear, BorderLayout.NORTH);
 		barPanel.add(bravery, BorderLayout.SOUTH);
 
 		// Set up this PlayerStatsPanel JPanel
 		this.add(playerInformation);
 		this.add(barPanel);
-		this.setBackground(new Color(10,10,10));
 
+
+
+
+	}
+
+	private void createBorder() {
+		//Compound borders
+		Border compound;
+
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+		//This creates a nice frame.
+		compound = BorderFactory.createCompoundBorder(
+		                          raisedbevel, loweredbevel);
+
+		this.setBorder(compound);
 
 	}
 
@@ -84,6 +119,14 @@ public class PlayerStatsPanel extends JPanel {
 	}
 
 	public void setGold(){
+
+	}
+
+	public void paintComponent(Graphics g){
+		super.paintComponent(g);
+		if(backgroundImage!= null){
+			g.drawImage(backgroundImage, 0, 0, null);
+		}
 
 	}
 }

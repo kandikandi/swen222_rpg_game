@@ -7,6 +7,7 @@ import java.awt.Graphics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.border.Border;
 
 /**
  * The BraveryBar displays the experience bar for the player. When the BraveryBar is full the players level will increase
@@ -26,7 +27,22 @@ public class BraveryBar extends JLabel {
 		this.currentBravery = currentBravery;
 		this.requiredBravery = requiredBravery;
 		this.setPreferredSize(new Dimension(180,50));
-		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
+		this.setBackground(new Color(204, 255, 255));
+		this.createBorder();
+	}
+
+	private void createBorder() {
+		//Compound borders
+		Border compound;
+
+		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+		//This creates a nice frame.
+		compound = BorderFactory.createCompoundBorder(
+		                          raisedbevel, loweredbevel);
+
+		this.setBorder(compound);
+
 	}
 
 	public void paintComponent(Graphics g){
