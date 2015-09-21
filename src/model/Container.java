@@ -61,6 +61,8 @@ public class Container extends GameObject {
 			return false;
 		}else if (items.size() < maximumItems) {
 			items.add(collectable);
+			collectable.setCollidable(false);
+			collectable.setDrawable(false);
 			return true;
 		}else{
 			return false;
@@ -78,6 +80,8 @@ public class Container extends GameObject {
 			return false;
 		}else if (items.contains(collectable)) {
 			collectable.setPosition(position); //update position
+			collectable.setCollidable(true);
+			collectable.setDrawable(true);
 			items.remove(collectable);
 			return true;
 		}else{
