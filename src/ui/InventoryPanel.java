@@ -4,9 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import model.GameObject;
+
+import model.Actor;
+
 
 /**
  * The InventoryPanel displays the players Inventory by creating and displaying
@@ -31,7 +34,7 @@ public class InventoryPanel extends JPanel {
 	 * the equivalent ItemLabels
 	 * @param inventory
 	 */
-	public void update(ArrayList<GameObject> inventory){
+	public void update(ArrayList<Actor> inventory){
 
 		// ONLY BEING USED UNTIL WE HAVE SORTED MORE PRECISE UPDATES OF THE GUI
 //		Boolean changesMade = false;

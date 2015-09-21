@@ -2,7 +2,7 @@ package model;
 
 import java.awt.Image;
 
-public class Door extends GameObject {
+public class Door extends Actor {
 
 	boolean open;
 
@@ -35,6 +35,12 @@ public class Door extends GameObject {
 
 	public boolean getIsOpen(){
 		return open;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+
 	}
 
 

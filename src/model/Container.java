@@ -10,10 +10,10 @@ import java.util.ArrayList;
  * @author dalyandr
  *
  */
-public class Container extends GameObject {
+public class Container extends Actor {
 
 	private int maximumItems = 10;
-	protected ArrayList<GameObject> items;
+	protected ArrayList<Actor> items;
 
 	/**
 	 *
@@ -27,7 +27,7 @@ public class Container extends GameObject {
 	public Container(ID id, Position position, Image image, boolean collidable,
 			boolean drawable,  int boundingBoxSize) {
 		super(id, position, image, collidable, drawable, boundingBoxSize);
-		this.items = new ArrayList<GameObject>();
+		this.items = new ArrayList<Actor>();
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Container extends GameObject {
 	public Container(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize, Collectable... collectables) {
 		super(id, position, image, collidable, drawable, boundingBoxSize);
-		this.items = new ArrayList<GameObject>();
+		this.items = new ArrayList<Actor>();
 		for (Collectable collectable : collectables) {
 			addItemToContainer(collectable);
 		}
@@ -105,8 +105,14 @@ public class Container extends GameObject {
 	 *
 	 * @returnlist of GameObject objects in container
 	 */
-	public ArrayList<GameObject> returnContents(){
+	public ArrayList<Actor> returnContents(){
 		return items;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+
 	}
 
 

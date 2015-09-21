@@ -91,7 +91,7 @@ public class Player extends ActorStrategy {
 		// check bounding boxes against other GameObject objects' bounding boxes
 		// have checkCollision method that returns null if no collision
 		// otherwise returns gameobject you're colliding with
-		GameObject collidingObject = GameState.checkCollision(newBoundingBox);
+		Actor collidingObject = GameState.checkCollision(newBoundingBox);
 		if (collidingObject == null) {
 			return true;// there is no object at the new location, so can move
 						// there.
@@ -106,7 +106,7 @@ public class Player extends ActorStrategy {
 
 	}
 
-	private void collide(GameObject collidingObject) {
+	private void collide(Actor collidingObject) {
 
 		// 2. Coin -> not collidable -> score -> ret TRUE
 		// 3. "Wall" -> nothing really happens, just return false;

@@ -10,7 +10,7 @@ public class CoinBag extends Container {
 	public CoinBag(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
 		super(id, position, image, collidable, drawable, boundingBoxSize);
-		this.items = new ArrayList<GameObject>();
+		this.items = new ArrayList<Actor>();
 	}
 
 	/**

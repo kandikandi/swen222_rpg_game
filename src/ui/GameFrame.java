@@ -2,7 +2,7 @@ package ui;
 
 import control.GameController;
 import javax.swing.*;
-import model.GameObject;
+import model.Actor;
 import model.Player;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -131,7 +131,7 @@ public class GameFrame extends JFrame {
 	 * Updates the players Inventory display via the InventoryPanel
 	 * @param inventory
 	 */
-	public void updatePlayerInventory(ArrayList<GameObject> inventory){
+	public void updatePlayerInventory(ArrayList<Actor> inventory){
 		this.inventory.update(inventory);
 	}
 

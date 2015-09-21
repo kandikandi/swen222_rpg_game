@@ -9,7 +9,7 @@ import java.awt.Image;
  * @author dalyandr
  *
  */
-public class Collectable extends GameObject {
+public class Collectable extends Actor {
 	boolean inContainer;
 
 	public Collectable(ID id, Position position, Image image,
@@ -62,6 +62,12 @@ public class Collectable extends GameObject {
 
 	public void setPosition(Position position) {
 		this.position = position;
+	}
+
+	@Override
+	public void tick() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

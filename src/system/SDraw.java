@@ -2,7 +2,6 @@ package system;
 
 import control.GameController;
 import model.Actor;
-import model.GameObject;
 import model.GameState;
 import model.Tile;
 import control.Main;
@@ -61,14 +60,14 @@ public final class SDraw implements GameSystem {
 
 			}
 		}
-		List<GameObject> gameObjects = gameState.getAllGameObjects();
-		for (GameObject go : gameObjects) {
+		List<Actor> actors = gameState.getAllActors();
+		for (Actor actor : actors) {
 
-			Image image = go.getImage();
-			int x = go.getPosition().getxPos();
-			int y = go.getPosition().getyPos();
+			Image image = actor.getImage();
+			int x = actor.getPosition().getxPos();
+			int y = actor.getPosition().getyPos();
 
-			if ((go.isDrawable())) { // added test for whether should be drawn
+			if ((actor.isDrawable())) { // added test for whether should be drawn
 				g2d.drawImage(image, x, y, null);
 			}
 		}

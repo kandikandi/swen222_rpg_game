@@ -13,7 +13,7 @@ public class ServerModeFactory extends AbstractFactory {
     }
 
     @Override
-    public List<GameObject> createGameObjectList() {
+    public List<Actor> createActorList() {
         return null;
     }
 
@@ -38,10 +38,10 @@ public class ServerModeFactory extends AbstractFactory {
         return null;
     }
 
-    @Override
-    public Key createKey(int xPos, int yPos) {
-        return null;
-    }
+//    @Override
+//    public Key createKey(int xPos, int yPos) {
+//        return null;
+//    }
 
 
 }

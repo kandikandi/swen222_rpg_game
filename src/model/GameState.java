@@ -21,24 +21,20 @@ import java.util.List;
 public class GameState {
 	private Tile[][] worldTiles;
 	private static Player player;
-	private static List<GameObject> objects; // list of all GameObjects in
+	private static List<Actor> actors; // list of all GameObjects in
 													// Game.
-	private static List<Actor> actors; // list of all actors (players and
-											// enemies) in the game
 	private final AbstractFactory factory;
 
 	public GameState(GameKeyListener keyListener) {
 
-		this.objects = new ArrayList<>();
 		this.actors = new ArrayList<>();
 		worldTiles = new Tile[Main.NUM_TILE_ROW][Main.NUM_TILE_COL];
 		if (Main.TEST_MODE) {
 			factory = new TestModeFactory();
 			worldTiles = factory.createWorldTiles();
 			player = factory.createPlayerActor(keyListener);
-			objects = factory.createGameObjectList();
+			actors = factory.createActorList();
 			actors.add(player);
-			objects.add(player);
 			player.setInventory(factory.createInventory(true, 10, 10));
 
 
@@ -53,36 +49,27 @@ public class GameState {
 	 * proposed new location would result in a collision and returns (the first)
 	 * object that the GameObject would collide with.
 	 */
-	public static GameObject checkCollision(Rectangle newBoundingBox) {
+	public static Actor checkCollision(Rectangle newBoundingBox) {
 //			System.out.println(">>>>>>>> "+newBoundingBox.toString());
-		for (GameObject gameObject : objects) {
+		for (Actor actor : actors) {
 //			 System.out.println("Checking collision "+gameObject.getClass());
 //
-			if (gameObject.isCollidable()){
+			if (actor.isCollidable()){
 //				 System.out.println(gameObject.getPosition().toString());
-				if (gameObject.getBoundingBox().intersects(newBoundingBox)
+				if (actor.getBoundingBox().intersects(newBoundingBox)
 					// && !(gameObject instanceof Player)
-					&& !(gameObject instanceof Inventory)) {
+					&& !(actor instanceof Inventory)) {
 //				System.out.println("***Collision: "
 //						+ gameObject.getBoundingBox().toString() + " "
 //						+ newBoundingBox.getBounds().toString());
 //				System.out.println(gameObject.getClass() + "***");
 				// gameObject.printState();
-				return gameObject;
+				return actor;
 			}
 					}
 		}
 		return null;
 
-	}
-
-	/**
-	 * Returns list of all GameObjects.
-	 *
-	 * @return
-	 */
-	public static List<GameObject> getAllGameObjects() {
-		return objects;
 	}
 
 	/**
@@ -106,28 +93,17 @@ public class GameState {
 		return worldTiles;
 	}
 
-
-
-
-
-
-
-
-
-
-
-
 	// ////////// Debuggin printout
 	public void printGameObjectState() {
-		for (GameObject gameObject : objects) {
-			gameObject.printState();
+		for (Actor actor : actors) {
+			actor.printState();
 		}
 	}
 
 	// ////////////// TEMPORARY FOR TESTS ONLY/////////////////////
-	public void addGameObject(GameObject... gameObjects) {
-		for (GameObject gameObject : gameObjects) {
-			objects.add(gameObject);
+	public void addActor(Actor... actorList) {
+		for (Actor actor : actorList) {
+			actors.add(actor);
 		}
 
 	}

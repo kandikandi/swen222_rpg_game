@@ -5,8 +5,9 @@ import control.Main;
 import control.MovementStrategy;
 import control.PlayerMoveStrategy;
 import model.*;
+import system.GameException;
 import ui.TEST_IMAGE;
-import view.GameObjectAssets;
+import view.ActorAssets;
 import view.TestWorlds;
 import view.TileAssets;
 
@@ -41,10 +42,10 @@ public class TestModeFactory extends AbstractFactory{
     }
 
     @Override
-    public List<GameObject> createGameObjectList() {
+    public List<Actor> createActorList() {
         //parse "fake file"
         char[][]tileCode = TestWorlds.getSmallObjectMap();
-        List<GameObject> result = new ArrayList<>();
+        List<Actor> actors = new ArrayList<>();
 
         for(int row = 0; row< tileCode.length; row++){
             for(int col = 0; col<tileCode[0].length; col++){
@@ -53,21 +54,28 @@ public class TestModeFactory extends AbstractFactory{
                 if (asciiCode == '0'){continue;}
                 Position position = new Position(col*Main.TILE_SIZE, row*Main.TILE_SIZE);
                 int size = Main.ITEM_SIZE;
-                Image image = GameObjectAssets.getAssetName(asciiCode).getImage();
+                Image image = ActorAssets.getAssetName(asciiCode).getImage();
                 image = image.getScaledInstance(size,size,Image.SCALE_FAST);
-                GameObjectAssets asset = GameObjectAssets.getAssetName(asciiCode);
-                GameObject go = null;
+                ActorAssets asset = ActorAssets.getAssetName(asciiCode);
+                Actor actor = null;
                 switch (asset){
                     case KEY:
-                        go = new Key(ID.KEY,position,image,true,true,size);
+                        actor = new Key(ID.KEY,position,image,true,true,size);
                         break;
                 }
 
-                result.add(go);
+                if(actor == null){try {
+					throw new GameException("TestModeFactory: failed to create actor");
+				} catch (GameException e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+				}}
+
+                actors.add(actor);
 
             }
         }
-        return  result;
+        return  actors;
     }
 
     @Override
@@ -112,15 +120,15 @@ public class TestModeFactory extends AbstractFactory{
         return null;
     }
 
-    @Override
-    public Key createKey(int xPos, int yPos) {
-        Position pos = new Position(xPos, yPos);
-        Image image = TEST_IMAGE.KEY.getImage();
-        int size = Main.ITEM_SIZE;
-        image = image.getScaledInstance(size,size,Image.SCALE_FAST);
-        Key key = new Key(ID.KEY, pos, image,true,true,size);
-        return key;
-    }
+//    @Override
+//    public Key createKey(int xPos, int yPos) {
+//        Position pos = new Position(xPos, yPos);
+//        Image image = TEST_IMAGE.KEY.getImage();
+//        int size = Main.ITEM_SIZE;
+//        image = image.getScaledInstance(size,size,Image.SCALE_FAST);
+//        Key key = new Key(ID.KEY, pos, image,true,true,size);
+//        return key;
+//    }
 
 
 }

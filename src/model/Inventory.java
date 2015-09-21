@@ -50,8 +50,8 @@ public class Inventory extends Container {
 	 * @return
 	 */
 	public boolean containsKey() {
-		for (GameObject gameObject : items) {
-			if (gameObject instanceof Key) {
+		for (Actor actor : items) {
+			if (actor instanceof Key) {
 				return true;
 			}
 		}
@@ -64,9 +64,9 @@ public class Inventory extends Container {
 	 * @return
 	 */
 	public Key getKey() {
-		for (GameObject gameObject : items) {
-			if (gameObject instanceof Key) {
-				return (Key) gameObject;
+		for (Actor actor : items) {
+			if (actor instanceof Key) {
+				return (Key) actor;
 			}
 		}
 		return null;
@@ -79,8 +79,8 @@ public class Inventory extends Container {
 	 * @return whether inventory has coin bag
 	 */
 	public boolean containsCoinBag() {
-		for (GameObject gameObject : items) {
-			if (gameObject instanceof CoinBag) {
+		for (Actor actor : items) {
+			if (actor instanceof CoinBag) {
 				return true;
 			}
 		}
@@ -93,9 +93,9 @@ public class Inventory extends Container {
 	 * @return CoinBag in this Inventory.
 	 */
 	public CoinBag getCoingBag() {
-		for (GameObject gameObject : items) {
-			if (gameObject instanceof CoinBag) {
-				return (CoinBag) gameObject;
+		for (Actor actor : items) {
+			if (actor instanceof CoinBag) {
+				return (CoinBag) actor;
 			}
 		}
 		return null;
@@ -124,9 +124,9 @@ public class Inventory extends Container {
 	 * bag.
 	 */
 	private void addAllCoinsToCoinBag() {
-		for (GameObject gameObject : items) {
-			if (gameObject instanceof Coin) {
-				getCoingBag().addItemToContainer((Coin) gameObject);
+		for (Actor actor : items) {
+			if (actor instanceof Coin) {
+				getCoingBag().addItemToContainer((Coin) actor);
 			}
 		}
 
@@ -142,8 +142,8 @@ public class Inventory extends Container {
 			return getCoingBag().numberOfCoinsInCoinBag();
 		} else {
 			int n = 0;
-			for (GameObject gameObject : items) {
-				if (gameObject instanceof Coin) {
+			for (Actor actor : items) {
+				if (actor instanceof Coin) {
 					n++;
 				}
 			}

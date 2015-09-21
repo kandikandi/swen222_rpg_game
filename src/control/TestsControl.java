@@ -71,7 +71,7 @@ public class TestsControl {
 				player);
 		inventory.addItemToContainer(collectable);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(collectable, inventory);
+		gs.addActor(collectable, inventory);
 		player.setInventory(inventory);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
@@ -89,7 +89,7 @@ public class TestsControl {
 		//inventory.addItemToContainer(collectable);
 		Collectable collectable = new Collectable(ID.ITEM, new Position(55,5), null, true, true,45);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(collectable, inventory);
+		gs.addActor(collectable, inventory);
 
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
@@ -124,7 +124,7 @@ public class TestsControl {
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(collectable, inventory);
+		gs.addActor(collectable, inventory);
 		player.setInventory(inventory);
 		player.pickup(collectable);
 		player.drop(collectable);
@@ -139,7 +139,7 @@ public class TestsControl {
 		player.setInventory(inventory);
 		Collectable collectable = new Collectable(ID.ITEM, new Position(15,5), null, true, true,Main.ITEM_SIZE );
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(inventory, collectable);
+		gs.addActor(inventory, collectable);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
@@ -152,7 +152,7 @@ public class TestsControl {
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(inventory, collectable);
+		gs.addActor(inventory, collectable);
 		player.setInventory(inventory);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
@@ -178,7 +178,7 @@ public class TestsControl {
 //		Image im = new Image;
 		Door door = new Door(ID.ITEM, new Position(35,5), TEST_IMAGE.DOOR.getImage() , true, true, 10);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(inventory, key, door);
+		gs.addActor(inventory, key, door);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
@@ -194,7 +194,7 @@ public class TestsControl {
 		Key key = new Key(ID.KEY,new Position(20,5),null,true,true,10);
 		Door door = new Door(ID.ITEM, new Position(35,5), TEST_IMAGE.DOOR.getImage() , true, true, 10);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(inventory, key, door);
+		gs.addActor(inventory, key, door);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
@@ -212,7 +212,7 @@ public class TestsControl {
 		Key key = new Key(ID.KEY,new Position(20,5),null,true,true,10);
 		Door door = new Door(ID.ITEM, new Position(35,5), TEST_IMAGE.DOOR.getImage() , true, true, 10);
 		GameState gs = new GameState(new GameKeyListener());
-		gs.addGameObject(inventory, key, door);
+		gs.addActor(inventory, key, door);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
