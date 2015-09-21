@@ -10,6 +10,7 @@ import factory.TestModeFactory;
 import java.awt.Rectangle;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class will be a central
@@ -20,8 +21,8 @@ import java.util.ArrayList;
 public class GameState {
 	private Tile[][] worldTiles;
 	private static Player player;
-	private static ArrayList<GameObject> objects; // list of all GameObjects in Game.
-	private static ArrayList<Actor> actors;	// list of all actors (players and enemies) in the game
+	private static /*Array*/List<GameObject> objects; // list of all GameObjects in Game.
+	private static /*Array*/List<Actor> actors;	// list of all actors (players and enemies) in the game
 	private final AbstractFactory factory;
 
 
@@ -33,11 +34,12 @@ public class GameState {
 		if(Main.TEST_MODE){
 			factory = new TestModeFactory();
 			worldTiles = factory.createWorldTiles();
+			objects = factory.createGameObjectList();
 			player = factory.createPlayerActor(keyListener);
 			actors.add(player);
 			objects.add(player);
-			player.setInventory(factory.createInventory(true,10,10));
-			objects.add(factory.createKey(30,30));
+			//player.setInventory(factory.createInventory(true,10,10));
+			//objects.add(factory.createKey(30,30));
 
 		}
 		else{
@@ -72,7 +74,7 @@ public class GameState {
 	 *
 	 * @return
 	 */
-	public static ArrayList<GameObject> getAllGameObjects(){
+	public static List<GameObject> getAllGameObjects(){
 		return objects;
 	}
 
@@ -82,7 +84,7 @@ public class GameState {
 	 *
 	 * @return
 	 */
-	public static ArrayList<Actor> getAllActors(){
+	public static List<Actor> getAllActors(){
 		return actors;
 	}
 

@@ -6,26 +6,68 @@ import control.MovementStrategy;
 import control.PlayerMoveStrategy;
 import model.*;
 import ui.TEST_IMAGE;
+import view.GameObjectAssets;
+import view.TestWorlds;
+import view.TileAssets;
 
 import java.awt.*;
+import java.util.*;
+import java.util.List;
 
 
 public class TestModeFactory extends AbstractFactory{
 
     /**
-     * Used in testing only, creates tile array with temporary art assets
+     * Used in testing only, reads a dummy text file from TestWorlds
      *
      * @return a 2-D array of Tile objects.
      */
     @Override
     public Tile[][] createWorldTiles() {
-        Tile[][] world = new Tile[Main.NUM_TILE_ROW][Main.NUM_TILE_COL];
-        for(int row = 0; row< Main.NUM_TILE_ROW; row++){
-            for(int col = 0; col<Main.NUM_TILE_COL; col++){
-                world[row][col] = createTestTile(col*Main.TILE_SIZE, row*Main.TILE_SIZE);
+        //parse "fake file"
+        char[][]tileCode = TestWorlds.getSmallMap();
+        Tile[][]result = new Tile[tileCode.length][tileCode[0].length];
+
+        for(int row = 0; row< tileCode.length; row++){
+            for(int col = 0; col<tileCode[0].length; col++){
+                char asciiCode = tileCode[row][col];
+                Image image = TileAssets.getAssetName(asciiCode).getImage();
+                image = image.getScaledInstance(Main.TILE_SIZE,Main.TILE_SIZE,Image.SCALE_FAST);
+                Position position = new Position(col*Main.TILE_SIZE, row*Main.TILE_SIZE);
+                result[row][col] = new Tile(image,position);
             }
         }
-        return world;
+        return  result;
+    }
+
+    @Override
+    public List<GameObject> createGameObjectList() {
+        //parse "fake file"
+        char[][]tileCode = TestWorlds.getSmallObjectMap();
+        List<GameObject> result = new ArrayList<>();
+
+        for(int row = 0; row< tileCode.length; row++){
+            for(int col = 0; col<tileCode[0].length; col++){
+
+                char asciiCode = tileCode[row][col];
+                if (asciiCode == '0'){continue;}
+                Position position = new Position(col*Main.TILE_SIZE, row*Main.TILE_SIZE);
+                int size = Main.ITEM_SIZE;
+                Image image = GameObjectAssets.getAssetName(asciiCode).getImage();
+                image = image.getScaledInstance(size,size,Image.SCALE_FAST);
+                GameObjectAssets asset = GameObjectAssets.getAssetName(asciiCode);
+                GameObject go = null;
+                switch (asset){
+                    case KEY:
+                        go = new Key(ID.KEY,position,image,true,true,size);
+                        break;
+                }
+
+                result.add(go);
+
+            }
+        }
+        return  result;
     }
 
     @Override
@@ -80,17 +122,5 @@ public class TestModeFactory extends AbstractFactory{
         return key;
     }
 
-    /**
-     * Method used in testing stages
-     *
-     * @return a Tile object.
-     */
-    private Tile createTestTile(int xPos, int yPos){
-        Position position = new Position(xPos,yPos);
-        Image image = TEST_IMAGE.SCARLET.getImage();
-        image = image.getScaledInstance(Main.TILE_SIZE,Main.TILE_SIZE,Image.SCALE_FAST);
-        Tile tile = new Tile(image,position);
-        return tile;
-    }
 
 }

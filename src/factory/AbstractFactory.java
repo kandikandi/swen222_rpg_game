@@ -6,6 +6,7 @@ import control.GameKeyListener;
 import model.*;
 
 import java.awt.event.KeyListener;
+import java.util.List;
 
 /**
  * Created by cuan on 9/19/15.
@@ -20,6 +21,7 @@ public abstract class AbstractFactory {
      * in test-mode create "dummy" objects for testing
      */
     public abstract Tile[][] createWorldTiles();
+    public abstract List<GameObject> createGameObjectList();
     public abstract Player createPlayerActor(GameKeyListener keyListener);
     public abstract Coin createCoin();
 

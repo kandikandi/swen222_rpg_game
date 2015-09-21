@@ -3,11 +3,18 @@ package factory;
 import control.GameKeyListener;
 import model.*;
 
+import java.util.List;
+
 
 public class ServerModeFactory extends AbstractFactory {
     @Override
     public Tile[][] createWorldTiles() {
         return new Tile[0][];
+    }
+
+    @Override
+    public List<GameObject> createGameObjectList() {
+        return null;
     }
 
     @Override
