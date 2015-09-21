@@ -1,5 +1,7 @@
 package model;
 
+import control.Main;
+
 import java.awt.*;
 
 /**
@@ -70,7 +72,7 @@ public abstract class GameObject {
      * @return
      */
     public Rectangle getBoundingBox(){
-		return new Rectangle(position.getxPos(),position.getyPos(),position.getxPos()+boundingBoxSize,position.getyPos()+boundingBoxSize);
+		return new Rectangle(position.getxPos(),position.getyPos(), boundingBoxSize,boundingBoxSize);
     }
 
     /**

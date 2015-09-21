@@ -36,10 +36,11 @@ public class GameState {
 			factory = new TestModeFactory();
 			worldTiles = factory.createWorldTiles();
 			player = factory.createPlayerActor(keyListener);
+			objects = factory.createGameObjectList();
 			actors.add(player);
 			objects.add(player);
 			player.setInventory(factory.createInventory(true, 10, 10));
-			objects.add(factory.createKey(150, 150));
+
 
 		} else {
 			factory = new ServerModeFactory();
