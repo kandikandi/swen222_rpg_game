@@ -1,9 +1,13 @@
 package ui;
 
 import control.GameController;
+
 import javax.swing.*;
+
+import save.DataStorage;
 import model.Actor;
 import model.Player;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -96,6 +100,12 @@ public class GameFrame extends JFrame {
 		saveG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				//		    	saveGame();
+
+				//=================================================//
+				//TODO: Bonnie here adding add some lines for save!
+				DataStorage.save();
+				//TODO: Bonnie ends here!
+				//=================================================//
 			}
 		});
 		file.add(newG);

@@ -3,6 +3,11 @@ import java.io.File;
 
 import javax.swing.*;
 
+/**
+ * Created 18/09/2015
+ * @author liaobonn
+ *
+ */
 public class FileChooser extends JPanel{
 
 	private JFileChooser chooser;

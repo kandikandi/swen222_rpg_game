@@ -3,6 +3,7 @@ package control;
 import model.*;
 import ui.GameCanvas;
 import ui.GameFrame;
+import save.DataStorage;
 import system.SDraw;
 
 import javax.swing.*;
@@ -54,6 +55,12 @@ public class Main {
 				// create and add systems in order they need to be executed
 				SDraw drawSystem = new SDraw(gameState,gameCanvas);
 				controller.addSystem(drawSystem);
+
+				//=================================================//
+				//TODO: Bonnie here adding add some lines for save!
+				DataStorage ds = new DataStorage(gameState);
+				//TODO: Bonnie ends here!
+				//=================================================//
 
 				// create time to control systems loop
 				GameTimer timer = new GameTimer(controller);
