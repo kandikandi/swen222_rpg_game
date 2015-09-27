@@ -1,15 +1,18 @@
 package control;
 import static org.junit.Assert.*;
 
+import java.awt.Image;
 import java.awt.Point;
+
 import org.junit.Test;
+
 import model.*;
 import view.ActorAssets;
 
 public class TestsControl {
 
 
-	@Test public void test_01() {
+	@Test public void test_player_move() {
 		Player player = new Player(ID.PLAYER, new Position(50,50), null, true, true, 45);
 		GameState gs = new GameState(new GameKeyListener());
 		player.move(DIR.LEFT);
@@ -60,7 +63,7 @@ public class TestsControl {
 		assert(container.numberOfObjectInContainer()==5);
 	}
 
-	@Test public void test_07() {
+	@Test public void test_collectable_moves() {
 		//tests whether items inside container move with container / player
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 45);
 		Collectable collectable = new Collectable(ID.ITEM, new Position(5000,5), null, true, true,45);
@@ -70,26 +73,6 @@ public class TestsControl {
 		GameState gs = new GameState(new GameKeyListener());
 		gs.addActor(collectable, inventory);
 		player.setInventory(inventory);
-		player.move(DIR.RIGHT);
-		player.move(DIR.RIGHT);
-		player.drop(collectable);
-		assertTrue(collectable.getPosition().getxPos()==player.getPosition().getxPos());
-	}
-
-
-	@Test public void test_07_a() {
-		//tests whether items inside container move with container / player
-		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
-		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
-				player);
-		player.setInventory(inventory);
-		//inventory.addItemToContainer(collectable);
-		Collectable collectable = new Collectable(ID.ITEM, new Position(55,5), null, true, true,45);
-		GameState gs = new GameState(new GameKeyListener());
-		gs.addActor(collectable, inventory);
-
-		player.move(DIR.RIGHT);
-		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
 		player.move(DIR.RIGHT);
 		player.drop(collectable);
@@ -157,11 +140,6 @@ public class TestsControl {
 		assertTrue(player.getInventory().numberOfObjectInContainer()==1);
 	}
 
-
-	//////////////////
-	// COLLISIONS   //
-	//////////////////
-
 	// SOME COIN / COINBAG TESTS
 	@Test public void test_15() {}
 
@@ -183,7 +161,7 @@ public class TestsControl {
 	}
 
 	// Key unlocks door
-	@Test public void test_18() {
+	@Test public void test__door_unlocks() {
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
@@ -198,10 +176,8 @@ public class TestsControl {
 		assertTrue(door.getIsOpen());
 	}
 
-
-
-	// Key unlocks door - door not collidable
-	@Test public void test_19() {
+	// Key unlocks door - door no longer collidable
+	@Test public void test_door_open_non_collidable() {
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
 		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,
 				player);
@@ -218,7 +194,7 @@ public class TestsControl {
 
 
 	// Coin picked up goes into inventory correctly
-	@Test public void test_20() {
+	@Test public void test_coin_001() {
 		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
 		Coin coin1 = new Coin(ID.ITEM, new Position(200,5), ActorAssets.COIN.getImage() , true, true, 20);
 		Coin coin2 = new Coin(ID.ITEM, new Position(200,30), ActorAssets.COIN.getImage() , true, true, 20);
@@ -226,12 +202,113 @@ public class TestsControl {
 		Coin coin4 = new Coin(ID.ITEM, new Position(200,80), ActorAssets.COIN.getImage() , true, true, 20);
 		Coin coin5 = new Coin(ID.ITEM, new Position(200,105), ActorAssets.COIN.getImage() , true, true, 20);
 		Coin coin6 = new Coin(ID.ITEM, new Position(200,130), ActorAssets.COIN.getImage() , true, true, 20);
-		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,player);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(50,5), null, true, true, 45,player,
+				coin1, coin2, coin3, coin4, coin5, coin6);
 		player.setInventory(inventory);
-
-
+		assertTrue(inventory.getCoinCount()==6);
 	}
 
+	// If pickup coin bag, add to inventory and move all coins into bag.
+	@Test public void test_coin_bag() {
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
+		Coin coin1 = new Coin(ID.ITEM, new Position(200,5), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin2 = new Coin(ID.ITEM, new Position(200,30), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin3 = new Coin(ID.ITEM, new Position(200,55), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin4 = new Coin(ID.ITEM, new Position(200,80), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin5 = new Coin(ID.ITEM, new Position(200,105), ActorAssets.COIN.getImage() , true, true, 20);
+		Coin coin6 = new Coin(ID.ITEM, new Position(200,130), ActorAssets.COIN.getImage() , true, true, 20);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(20,5), null, true, true, 45,player,
+				coin1, coin2, coin3, coin4, coin5, coin6);
+		player.setInventory(inventory);
+		CoinBag coinBag = new CoinBag(ID.CONTAINER, new Position(20,5),null,true,true,Main.ITEM_SIZE);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addActor(inventory, coinBag, coin1, coin2, coin3, coin4, coin5, coin6);
+		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
+		assertTrue(coinBag.numberOfCoinsInCoinBag()==6);
+	}
 
+	// Enemy creation and starting attack points.
+	@Test public void test_enemy_001(){
+		GameState gs = new GameState(new GameKeyListener());
+        Image image = ActorAssets.ENEMY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+        Enemy enemy = new Enemy(ID.ENEMY, new Position(50,50), image, true, true, size);
+		gs.addActor(enemy);
+		enemy.setAttackPoints(2);
+		assertTrue(enemy.getAttackPoints()==2);
+	}
 
+	// If Player is attacking and enemy is not on collision, monster loses 2 health.
+	@Test public void test_enemy_002(){
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(20,5), null, true, true, 45,
+				player);
+		player.setInventory(inventory);
+		GameState gs = new GameState(new GameKeyListener());
+        Image image = ActorAssets.ENEMY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+        Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
+		gs.addActor(enemy);
+		player.setAttacking(true);
+		enemy.setAttacking(false);
+		player.move(DIR.RIGHT);
+		assertTrue(enemy.getHealth()==8);
+	}
+
+	// If player and enemy are both attacking, enemy loses one health, player add 1 fear.
+	@Test public void test_enemy_003(){
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(20,5), null, true, true, 45,
+				player);
+		player.setInventory(inventory);
+		GameState gs = new GameState(new GameKeyListener());
+        Image image = ActorAssets.ENEMY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+        Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
+		gs.addActor(enemy);
+		player.setAttacking(true);
+		enemy.setAttacking(true);
+		player.move(DIR.RIGHT);
+
+		assertTrue(enemy.getHealth()==9 && player.getFear()==1);
+	}
+
+	// If player  not attacking and enemy attacking, player loses 2 health.
+	@Test public void test_enemy_004(){
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(20,5), null, true, true, 45,
+				player);
+		player.setInventory(inventory);
+		GameState gs = new GameState(new GameKeyListener());
+        Image image = ActorAssets.ENEMY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+        Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
+		gs.addActor(enemy);
+		player.setAttacking(false);
+		enemy.setAttacking(true);
+		player.move(DIR.RIGHT);
+		assertTrue(enemy.getHealth()==10 && player.getFear()==2);
+	}
+
+	// If player  not attacking and enemy not attacking, player gains 1 fear, loses 1 health
+	@Test public void test_enemy_005(){
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 10);
+		Inventory inventory = new Inventory(ID.CONTAINER, new Position(20,5), null, true, true, 45,
+				player);
+		player.setInventory(inventory);
+		GameState gs = new GameState(new GameKeyListener());
+        Image image = ActorAssets.ENEMY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+        Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
+		gs.addActor(enemy);
+		player.setAttacking(false);
+		enemy.setAttacking(false);
+		player.move(DIR.RIGHT);
+		assertTrue(enemy.getHealth()==9 && player.getFear()==1);
+	}
 }

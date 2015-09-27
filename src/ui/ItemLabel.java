@@ -39,7 +39,7 @@ public class ItemLabel extends JLabel {
 
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items image
-		this.itemID = itemID;
+//		this.itemID = itemID;
 
 
 

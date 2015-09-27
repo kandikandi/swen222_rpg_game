@@ -21,14 +21,13 @@ public class CoinBag extends Container {
 	@Override
 	public boolean addItemToContainer(Collectable collectable) {
 		// check if it's the kind of thing we can add to the container
-		if (collectable instanceof Key) {
-			return false;
-		}
 		if (collectable == null) {
+			return false;
+		}else if (! (collectable instanceof Coin) ){
 			return false;
 		} else if (items.size() < maximumItems) {
 			items.add(collectable);
-			return false;
+			return true;
 		} else {
 			return false;
 		}

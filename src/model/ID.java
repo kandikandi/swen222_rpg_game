@@ -12,7 +12,9 @@ public enum ID {
     MONSTER(3),
     CONTAINER(4),
     COLLECTABLE(5),
-    KEY(6);
+    KEY(6),
+    ENEMY(7)
+    ;
 
     private final int value;
 

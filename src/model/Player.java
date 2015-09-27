@@ -118,6 +118,7 @@ public class Player extends ActorStrategy {
 			pickup((Collectable) collidingObject);
 		} else if (collidingObject instanceof CoinBag) {
 			pickupCoinBag((CoinBag) collidingObject);
+			System.out.println(">>>>>>>>");
 		} else if (collidingObject instanceof Door) {
 			useKeyInDoor((Door) collidingObject);
 		} else if (collidingObject instanceof Key) {

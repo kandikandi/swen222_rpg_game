@@ -112,6 +112,8 @@ public class Inventory extends Container {
 			return false;
 		} else if (items.size() < maximumItems) {
 			items.add(coinBag);
+			coinBag.setCollidable(false);
+			coinBag.setDrawable(true);
 			addAllCoinsToCoinBag();
 			return true;
 		}else{

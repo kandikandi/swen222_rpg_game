@@ -43,5 +43,10 @@ public class ServerModeFactory extends AbstractFactory {
         return null;
     }
 
+	@Override
+	public Enemy createEnemyActor(int xPos, int yPos) {
+		return null;
+	}
+
 
 }

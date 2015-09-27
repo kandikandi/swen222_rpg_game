@@ -48,4 +48,12 @@ public abstract class AbstractFactory {
      * @return Key
      */
     public abstract Key createKey(int xPos, int yPos);
+
+
+
+
+
+    public abstract Enemy createEnemyActor(int xPos, int yPos);
+
+
 }

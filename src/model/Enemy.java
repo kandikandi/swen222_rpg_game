@@ -7,16 +7,17 @@ import control.MovementStrategy;
 
 public class Enemy extends ActorStrategy{
 
-	private boolean attacking;
+	private boolean isAttacking;
 	private int attackPoints;
-	private int health = 10;
+	private int health;
 	private int count; 	// just want way to alternate attacking and not attacking. Bit weird maybe.
 						//Tick will increment and set attack depending on value.
 
 	public Enemy(ID id, Position location, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
 		super(id, location, image, collidable, drawable, boundingBoxSize);
-		attackPoints = 1;
+		this.attackPoints = 2;
+		this.health = 10;
 		count = 0;
 	}
 
@@ -34,7 +35,7 @@ public class Enemy extends ActorStrategy{
 
 	@Override
 	public void tick() {
-		setAttacking();
+		alternateAttacking();
 	}
 
 	/**
@@ -43,12 +44,12 @@ public class Enemy extends ActorStrategy{
 	 *
 	 *
 	 */
-	private void setAttacking() {
+	private void alternateAttacking() {
 		count++;
 		if(count<10){
-			attacking = true;
+			setAttacking(true);
 		}else if(count>=10 && count<50){
-			attacking = false;
+			setAttacking(false);
 		}else{
 			count = 0;
 		}
@@ -60,8 +61,13 @@ public class Enemy extends ActorStrategy{
 	 * @return
 	 */
 	public boolean isAttacking(){
-		return attacking;
+		return isAttacking;
 	}
+
+	public void setAttacking(boolean playerIsAttacking){
+		this.isAttacking = playerIsAttacking;
+	}
+
 
 	/**
 	 * Getter for attack points.
@@ -81,8 +87,13 @@ public class Enemy extends ActorStrategy{
 		this.attackPoints = attackPoints;
 	}
 
+	public int getHealth(){
+		return health;
+	}
 	public void reduceHealth(int n) {
 		health -= n;
 	}
+
+
 
 }

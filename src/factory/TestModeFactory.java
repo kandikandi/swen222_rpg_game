@@ -123,6 +123,17 @@ public class TestModeFactory extends AbstractFactory {
     }
 
     @Override
+    public Enemy createEnemyActor(int xPos, int yPos) {
+    	Position pos = new Position(xPos, yPos);
+        Image image = ActorAssets.ENEMY.getImage();
+        int size = Main.ITEM_SIZE;
+        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+        Enemy enemy = new Enemy(ID.ENEMY, pos, image, true, true, size);
+        return enemy;
+    }
+
+
+    @Override
     public Key createKey(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         Image image = ActorAssets.KEY.getImage();

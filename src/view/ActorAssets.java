@@ -17,7 +17,9 @@ public enum ActorAssets {
     COIN('C',"coin40.jpg"),
     DOOR('D',"door.jpg"),
     INVENTORY('I',"temp_inv.jpg"),
-    KEY('K',"temp_key.jpg");
+    KEY('K',"temp_key.jpg"),
+    ENEMY('E',"clown.jpg")
+    ;
 
 
     private final char asciiCode;
