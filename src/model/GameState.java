@@ -12,12 +12,15 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class will be a central
  *
  * @author dalyandr
  *
  */
+@XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this line!
 public class GameState {
 	private Tile[][] worldTiles;
 	private static Player player;
