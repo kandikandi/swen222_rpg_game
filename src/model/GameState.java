@@ -28,25 +28,26 @@ public class GameState {
 	@XmlElementWrapper(name = "tilesList") //TODO: Bonnie added this line!
 	@XmlElement(name = "tile") //TODO: Bonnie added this line!
 	private Tile[][] worldTiles;
-	private static Player player;
-	private static List<Actor> actors; // list of all GameObjects in
+	private  Player player;
+	private  List<Actor> actors; // list of all GameObjects in
 													// Game.
 	private final AbstractFactory factory;
+	private final GameController gameController;
 
 
-	public GameState(GameKeyListener keyListener) {
-
+	public GameState(GameController gameController) {
+		this.gameController = gameController;
 		this.actors = new ArrayList<>();
 		worldTiles = new Tile[Main.NUM_TILE_ROW][Main.NUM_TILE_COL];
 		if (Main.TEST_MODE) {
-			factory = new TestModeFactory();
+			factory = new TestModeFactory(gameController);
 			worldTiles = factory.createWorldTiles();
-			player = factory.createPlayerActor(keyListener);
+			player = factory.createPlayerActor(gameController.getKeyListener());
 			actors = factory.createActorList();
 			actors.add(player);
 			player.setInventory(factory.createInventory(true, 10, 10));
 		} else {
-			factory = new ServerModeFactory();
+			factory = new ServerModeFactory(gameController);
 		}
 
 	}
@@ -56,7 +57,7 @@ public class GameState {
 	 * proposed new location would result in a collision and returns (the first)
 	 * object that the GameObject would collide with.
 	 */
-	public static Actor checkCollision(Rectangle newBoundingBox) {
+	public  Actor checkCollision(Rectangle newBoundingBox) {
 		for (Actor actor : actors) {
 			if (actor.isCollidable()){
 				if (actor.getBoundingBox().intersects(newBoundingBox)
@@ -75,7 +76,7 @@ public class GameState {
 	 *
 	 * @return
 	 */
-	public static List<Actor> getAllActors() {
+	public  List<Actor> getAllActors() {
 		return actors;
 	}
 
@@ -83,7 +84,7 @@ public class GameState {
 	 *
 	 * @return
 	 */
-	public static Player getPlayer() {
+	public  Player getPlayer() {
 		return player;
 	}
 

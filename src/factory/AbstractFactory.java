@@ -12,6 +12,11 @@ import java.util.List;
  * Created by cuan on 9/19/15.
  */
 public abstract class AbstractFactory {
+    protected final  GameController gameController;
+
+    AbstractFactory(GameController gameController){
+        this.gameController = gameController;
+    }
 
 
     /**

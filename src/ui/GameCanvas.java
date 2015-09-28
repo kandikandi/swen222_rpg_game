@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import control.GameController;
 import model.GameState;
 
 /**
@@ -21,14 +22,18 @@ public class GameCanvas extends JPanel {
 	private int WIDTH;
 	private int HEIGHT;
 	private GameFrame frame;
+	private final GameController gameController;
 
+	//TODO does this class need a reference to GameFrame?
 	/**
 	 * Constructs the GameCanvas, setting the Canvas to the current GameFrame
+	 * @param gameController
 	 * @param frame
 	 * @param WIDTH
 	 * @param HEIGHT
 	 */
-	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT) {
+	public GameCanvas(GameController gameController, GameFrame frame, int WIDTH, int HEIGHT) {
+		this.gameController = gameController;
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.frame = frame;
@@ -44,8 +49,8 @@ public class GameCanvas extends JPanel {
 		receivedImage = buffImg;
 		this.repaint();
 		//this works to - might be to quick
-		if(GameState.getPlayer() != null){
-			this.getFrame().updateGUI(GameState.getPlayer());
+		if(gameController.getPlayer() != null){
+			this.getFrame().updateGUI(gameController.getPlayer());
 		}
 
 	}

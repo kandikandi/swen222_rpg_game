@@ -28,7 +28,7 @@ public class UITests {
 	// TEST STARTING WITH FILLED INVENTORY
 	//*************************************
 
-//	@Test public void UITest_StartWithInventory() {
+//@Test public void UITest_StartWithInventory() {
 //		//tests whether container will not accept more items if full
 //		GameController gc = new GameController();
 //		GameFrame g = new GameFrame("GUI Inventory Test", 1000, 600, gc);

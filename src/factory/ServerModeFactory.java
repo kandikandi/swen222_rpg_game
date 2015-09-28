@@ -1,5 +1,6 @@
 package factory;
 
+import control.GameController;
 import control.GameKeyListener;
 import model.*;
 
@@ -7,6 +8,11 @@ import java.util.List;
 
 
 public class ServerModeFactory extends AbstractFactory {
+
+    public ServerModeFactory(GameController gameController) {
+        super(gameController);
+    }
+
     @Override
     public Tile[][] createWorldTiles() {
         return new Tile[0][];

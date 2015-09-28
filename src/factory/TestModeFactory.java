@@ -1,9 +1,6 @@
 package factory;
 
-import control.GameKeyListener;
-import control.Main;
-import control.MovementStrategy;
-import control.PlayerMoveStrategy;
+import control.*;
 import model.*;
 import system.GameException;
 import view.ActorAssets;
@@ -16,6 +13,10 @@ import java.util.List;
 
 
 public class TestModeFactory extends AbstractFactory {
+
+    public TestModeFactory(GameController gameController) {
+        super(gameController);
+    }
 
     /**
      * Used in testing only, reads a dummy "text file" from TestWorlds
@@ -96,7 +97,7 @@ public class TestModeFactory extends AbstractFactory {
         Position loc = new Position(5, 5);
         Image image = ActorAssets.PLAYER1.getImage();
         image = image.getScaledInstance(Main.PLAYER_SIZE, Main.PLAYER_SIZE, Image.SCALE_FAST);
-        Player player = new Player(ID.PLAYER, loc, image, false, true, Main.PLAYER_SIZE);
+        Player player = new Player(ID.PLAYER, loc, image, false, true, Main.PLAYER_SIZE, gameController);
         player.setMoveStrat(ms);
         return player;
     }

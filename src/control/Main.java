@@ -32,38 +32,36 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 
-				// create master control controller first
-				GameController controller = new GameController();
+
+				KeyListener gameKeyListener = new GameKeyListener();
+				GameController gameController = new GameController((GameKeyListener)gameKeyListener);
+
+
 
 				// Set up the gameFrame
-				GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT,
-						controller);
+				GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
 
 				//Setup UI
-				GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+				GameCanvas gameCanvas = new GameCanvas(gameController,gameFrame, C_WIDTH, C_HEIGHT);
 				gameFrame.getContentPane().add(gameCanvas);
 				gameFrame.pack();
-				KeyListener gameKeyListner = new GameKeyListener(/*controller*/);
-				gameFrame.addKeyListener(gameKeyListner);
+				gameFrame.addKeyListener(gameKeyListener);
 
-				//this is awkward 1/2
-				GameState gameState = new GameState((GameKeyListener)gameKeyListner);
 
-				//this is awkward 2/2 (the actor list is so they can be ticked)
-				controller.addActorList(gameState.getAllActors());
+
 
 				// create and add systems in order they need to be executed
-				SDraw drawSystem = new SDraw(gameState,gameCanvas);
-				controller.addSystem(drawSystem);
+				SDraw drawSystem = new SDraw(gameController,gameCanvas);
+				gameController.addSystem(drawSystem);
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				DataStorage ds = new DataStorage(gameState);
+				DataStorage ds = new DataStorage(gameController);
 				//TODO: Bonnie ends here!
 				//=================================================//
 
 				// create time to control systems loop
-				GameTimer timer = new GameTimer(controller);
+				GameTimer timer = new GameTimer(gameController);
 				timer.start();
 
 			}
