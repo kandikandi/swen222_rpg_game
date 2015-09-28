@@ -23,7 +23,7 @@ public class Player extends ActorStrategy {
 	private int fear = 0; // if get too scared, you lose
 	private boolean alive = true;
 	private int bravery = 0;
-	private final GameController gameController;
+	protected final GameController gameController;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
 				  boolean drawable, int boundingBoxSize, GameController gameController) {
