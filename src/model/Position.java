@@ -1,5 +1,7 @@
 package model;
 
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * Created by cuan on 9/13/15.
  *
@@ -22,6 +24,7 @@ public final class Position {
      *
      * @return value of xpos
      */
+    @XmlElement(name = "xposition") //TODO: Bonnie added this line!
     public int getxPos() {
         return xPos;
     }
@@ -39,6 +42,7 @@ public final class Position {
      *
      * @return value of ypos
      */
+    @XmlElement(name = "yposition") //TODO: Bonnie added this line!
     public int getyPos() {
         return yPos;
     }
