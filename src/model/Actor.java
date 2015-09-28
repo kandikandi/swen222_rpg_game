@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Created by cuan on 9/13/15.
  *
- * An Actor object is a gameObject that
+ *
  *
  */
 public abstract class Actor implements Tickable {
@@ -71,7 +71,7 @@ public abstract class Actor implements Tickable {
      * @return
      */
     public Rectangle getBoundingBox(){
-		return new Rectangle(position.getxPos(),position.getyPos(), boundingBoxSize,boundingBoxSize);
+		return new Rectangle(position.getxPos(),position.getyPos(), boundingBoxSize, boundingBoxSize);
     }
 
     /**

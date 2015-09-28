@@ -20,7 +20,7 @@ public class Player extends ActorStrategy {
 	private boolean playerIsAttacking;
 	private int attackPoints = 2;
 	private int fear = 0; // if get too scared, you lose
-	private boolean stillInGame = true;
+	private boolean alive = true;
 	private int bravery = 0;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
@@ -93,7 +93,6 @@ public class Player extends ActorStrategy {
 		collide(collidingObject);
 
 		if(collidingObject instanceof Enemy){
-
 			return false;
 		}
 
@@ -118,7 +117,6 @@ public class Player extends ActorStrategy {
 			pickup((Collectable) collidingObject);
 		} else if (collidingObject instanceof CoinBag) {
 			pickupCoinBag((CoinBag) collidingObject);
-			System.out.println(">>>>>>>>");
 		} else if (collidingObject instanceof Door) {
 			useKeyInDoor((Door) collidingObject);
 		} else if (collidingObject instanceof Key) {
@@ -186,10 +184,22 @@ public class Player extends ActorStrategy {
 		}
 	}
 
-
-	public void setAttacking(boolean playerIsAttacking){
+	/**
+	 * Setter for whether player attacking.
+	 *
+	 * @param playerIsAttacking
+	 */
+	@Override
+	public void setAttack(boolean playerIsAttacking){
 		this.playerIsAttacking = playerIsAttacking;
 	}
+
+	/**
+	 * Getter for whether player attacking.
+	 *
+	 * @return
+	 */
+
 	public boolean getAttacking(){
 		return playerIsAttacking;
 	}
@@ -302,12 +312,14 @@ public class Player extends ActorStrategy {
 	 */
 	private void tooScared() {
 		// game over for player
-		stillInGame = false;
+		alive = false;
 		// if only one player left, game over
 		//tell the controller it's all over
 
 
 	}
+
+
 
 
 

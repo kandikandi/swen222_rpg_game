@@ -25,6 +25,7 @@ public class GameState {
 													// Game.
 	private final AbstractFactory factory;
 
+
 	public GameState(GameKeyListener keyListener) {
 
 		this.actors = new ArrayList<>();
@@ -36,8 +37,6 @@ public class GameState {
 			actors = factory.createActorList();
 			actors.add(player);
 			player.setInventory(factory.createInventory(true, 10, 10));
-
-
 		} else {
 			factory = new ServerModeFactory();
 		}

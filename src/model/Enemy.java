@@ -47,9 +47,9 @@ public class Enemy extends ActorStrategy{
 	private void alternateAttacking() {
 		count++;
 		if(count<10){
-			setAttacking(true);
+			setAttack(true);
 		}else if(count>=10 && count<50){
-			setAttacking(false);
+			setAttack(false);
 		}else{
 			count = 0;
 		}
@@ -64,7 +64,8 @@ public class Enemy extends ActorStrategy{
 		return isAttacking;
 	}
 
-	public void setAttacking(boolean playerIsAttacking){
+	@Override
+	public void setAttack(boolean playerIsAttacking){
 		this.isAttacking = playerIsAttacking;
 	}
 
@@ -93,6 +94,8 @@ public class Enemy extends ActorStrategy{
 	public void reduceHealth(int n) {
 		health -= n;
 	}
+
+
 
 
 

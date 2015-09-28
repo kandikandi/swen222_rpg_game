@@ -1,8 +1,6 @@
-package model;
-
-public class BoundingBox {
-
-
-
-
-}
+//package model;
+//
+//public class BoundingBox {
+//
+//
+//}

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class CoinBag extends Container {
 
-	private final int maximumItems = 25;
+	private final int maximumItems = 10;
 
 	public CoinBag(ID id, Position position, Image image, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
@@ -20,7 +20,6 @@ public class CoinBag extends Container {
 	 */
 	@Override
 	public boolean addItemToContainer(Collectable collectable) {
-		// check if it's the kind of thing we can add to the container
 		if (collectable == null) {
 			return false;
 		}else if (! (collectable instanceof Coin) ){
@@ -34,7 +33,7 @@ public class CoinBag extends Container {
 	}
 
 	/**
-	 * Allows for an item to be removed to the list of items.
+	 * Allows for an item to be removed from the list of items.
 	 *
 	 * @param gameObject
 	 */

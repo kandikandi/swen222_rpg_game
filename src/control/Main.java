@@ -27,7 +27,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// Setting this property may help prevent/stop JPanel GUI flickering
-		//System.setProperty("sun.awt.noerasebackground", "true");
+		// System.setProperty("sun.awt.noerasebackground", "true");
 		// This EventQueue stuff might help to stop bugs in Swing
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

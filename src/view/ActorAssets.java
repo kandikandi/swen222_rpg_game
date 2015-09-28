@@ -15,10 +15,12 @@ public enum ActorAssets {
     PLAYER1('1',"front_girl.png"),
     PLAYER2('1',"tokenPlum.png"),
     COIN('C',"coin40.jpg"),
+    COINBAG('B',"coinbag.jpg"),
     DOOR('D',"door.jpg"),
     INVENTORY('I',"temp_inv.jpg"),
     KEY('K',"temp_key.jpg"),
-    ENEMY('E',"clown.jpg")
+    ENEMY('E',"clown.jpg"),
+
     ;
 
 

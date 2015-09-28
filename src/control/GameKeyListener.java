@@ -12,7 +12,7 @@ import java.awt.event.KeyListener;
  */
 public class GameKeyListener implements KeyListener {
     //private GameController gameController;
-    private final int NUM_KEYS = 4;
+    private final int NUM_KEYS = 5;
     public boolean[] keyArray = new boolean[NUM_KEYS];
 
     public GameKeyListener(/*GameController gameController*/){
@@ -37,6 +37,10 @@ public class GameKeyListener implements KeyListener {
             case KeyEvent.VK_RIGHT:
                /*gameController.*/keyArray[3] = true;
                 break;
+
+            case KeyEvent.VK_SPACE:
+            	/*gameController.*/keyArray[4] = true;
+            	break;
         }
 
     }
@@ -59,6 +63,10 @@ public class GameKeyListener implements KeyListener {
             case KeyEvent.VK_RIGHT:
                 /*gameController.*/keyArray[3] = false;
                 break;
+
+            case KeyEvent.VK_SPACE:
+            	keyArray[4] = false;
+            	break;
         }
 
     }

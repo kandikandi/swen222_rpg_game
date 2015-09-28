@@ -140,8 +140,6 @@ public class TestsControl {
 		assertTrue(player.getInventory().numberOfObjectInContainer()==1);
 	}
 
-	// SOME COIN / COINBAG TESTS
-	@Test public void test_15() {}
 
 	// KEY / DOOR Tests
 	@Test public void test_16() {
@@ -251,8 +249,8 @@ public class TestsControl {
         image = image.getScaledInstance(size, size, Image.SCALE_FAST);
         Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
 		gs.addActor(enemy);
-		player.setAttacking(true);
-		enemy.setAttacking(false);
+		player.setAttack(true);
+		enemy.setAttack(false);
 		player.move(DIR.RIGHT);
 		assertTrue(enemy.getHealth()==8);
 	}
@@ -269,8 +267,8 @@ public class TestsControl {
         image = image.getScaledInstance(size, size, Image.SCALE_FAST);
         Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
 		gs.addActor(enemy);
-		player.setAttacking(true);
-		enemy.setAttacking(true);
+		player.setAttack(true);
+		enemy.setAttack(true);
 		player.move(DIR.RIGHT);
 
 		assertTrue(enemy.getHealth()==9 && player.getFear()==1);
@@ -288,8 +286,8 @@ public class TestsControl {
         image = image.getScaledInstance(size, size, Image.SCALE_FAST);
         Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
 		gs.addActor(enemy);
-		player.setAttacking(false);
-		enemy.setAttacking(true);
+		player.setAttack(false);
+		enemy.setAttack(true);
 		player.move(DIR.RIGHT);
 		assertTrue(enemy.getHealth()==10 && player.getFear()==2);
 	}
@@ -306,9 +304,24 @@ public class TestsControl {
         image = image.getScaledInstance(size, size, Image.SCALE_FAST);
         Enemy enemy = new Enemy(ID.ENEMY, new Position(50,5), image, true, true, size);
 		gs.addActor(enemy);
-		player.setAttacking(false);
-		enemy.setAttacking(false);
+		player.setAttack(false);
+		enemy.setAttack(false);
 		player.move(DIR.RIGHT);
 		assertTrue(enemy.getHealth()==9 && player.getFear()==1);
 	}
+
+	// Shouldn't be able to move through enemy
+	@Test public void test_enemy_006(){
+		Player player = new Player(ID.PLAYER, new Position(5,5), null, true, true, 45);
+		Enemy enemy = new Enemy(ID.ENEMY, new Position(60,5), null, true, true, 45);
+		GameState gs = new GameState(new GameKeyListener());
+		gs.addActor(enemy);
+		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
+		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
+		player.move(DIR.RIGHT);player.move(DIR.RIGHT);player.move(DIR.RIGHT);
+		System.out.println(player.getPosition().getxPos());
+		assertTrue(player.getPosition().getxPos()==15);
+	}
+
+
 }

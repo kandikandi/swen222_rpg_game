@@ -21,7 +21,12 @@ public abstract class ActorStrategy extends Actor {
     }
 
 
-
+	/**
+	 * This method accepts a direction as an argument and moves this object
+	 * in that direction subject to collisions.
+	 *
+	 * @param dir
+	 */
     abstract public void move(DIR dir);
 
     /**
@@ -47,5 +52,7 @@ public abstract class ActorStrategy extends Actor {
      * @return
      */
     abstract public MovementStrategy getMoveStrat();
+
+    abstract public void setAttack(boolean bool);
 
 }

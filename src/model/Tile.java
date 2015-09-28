@@ -11,8 +11,8 @@ import java.util.List;
 /**
  * Created by cuan on 9/13/15.
  *
- * The ground on each level is comprised of a 2-D array of Tile objects. These
- * objects are passable if an actor can walk across them unimpeded,
+ * The ground on each level is comprised of a 2-D array of Tile objects. The Tiles
+ * are all 'dumb' with the game actors exisiting separately from the ground tiles.
  *
  *
  */

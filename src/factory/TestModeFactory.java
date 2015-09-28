@@ -60,9 +60,19 @@ public class TestModeFactory extends AbstractFactory {
                 ActorAssets asset = ActorAssets.getAssetName(asciiCode);
                 Actor actor = null;
                 switch (asset) {
-                    case KEY:
+                	case COIN:
+                		actor = new Coin(ID.COLLECTABLE, position, image, true, true, size);
+                        break;
+                	case COINBAG:
+                		actor = new CoinBag(ID.CONTAINER, position, image, true, true, size);
+                        break;
+                	case KEY:
                         actor = new Key(ID.KEY, position, image, true, true, size);
                         break;
+                    case ENEMY:
+                    	actor = new Enemy(ID.ENEMY,position, image, true, true, size);
+                    	break;
+
                 }
 
                 if (actor == null) {

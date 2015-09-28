@@ -37,6 +37,9 @@ public  class PlayerMoveStrategy extends MovementStrategy {
         if (keyArray[3]) {
             strategyActor.move(DIR.RIGHT);
         }
+        if (keyArray[4]) {
+            strategyActor.setAttack(true);
+        }
     }
 }
 
