@@ -12,7 +12,10 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * This class will be a central
@@ -22,6 +25,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this line!
 public class GameState {
+	@XmlElementWrapper(name = "tilesList") //TODO: Bonnie added this line!
+	@XmlElement(name = "tile") //TODO: Bonnie added this line!
 	private Tile[][] worldTiles;
 	private static Player player;
 	private static List<Actor> actors; // list of all GameObjects in

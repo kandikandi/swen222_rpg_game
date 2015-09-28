@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+
 /**
  * Created by cuan on 9/13/15.
  *
@@ -30,6 +32,7 @@ public final class Tile  {
      *
      * @return tile Image
      */
+    @XmlElement(name = "image") //TODO: Bonnie added this line!
     public Image getImage(){
     	return image;
     }
@@ -39,6 +42,7 @@ public final class Tile  {
      *
      * @return Tile position
      */
+    @XmlElement(name = "position") //TODO: Bonnie added this line!
     public Position getPosition(){
     	return position;
     }
