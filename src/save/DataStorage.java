@@ -14,7 +14,7 @@ import model.GameState;
  */
 public class DataStorage {
 
-	private static final String GAME_FILE = "saved_game.xml";
+	private static final String GAME_FILE = "./saved_game.xml";
 	private static GameState gamestate;
 
 	public DataStorage(GameState gs){
