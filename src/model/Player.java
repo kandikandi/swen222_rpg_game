@@ -44,23 +44,23 @@ public class Player extends ActorStrategy {
 	public void move(DIR dir) {
 		switch (dir) {
 		case UP:
-			if(canMove(DIR.UP)){
-			position.setyPos(position.getyPos() - speed);
+			if (canMove(DIR.UP)) {
+				position.setyPos(position.getyPos() - speed);
 			}
 			break;
 		case DOWN:
-			if(canMove(DIR.DOWN)){
-			position.setyPos(position.getyPos() + speed);
+			if (canMove(DIR.DOWN)) {
+				position.setyPos(position.getyPos() + speed);
 			}
 			break;
 		case LEFT:
-			if(canMove(DIR.LEFT)){
-			position.setxPos(position.getxPos() - speed);
+			if (canMove(DIR.LEFT)) {
+				position.setxPos(position.getxPos() - speed);
 			}
 			break;
 		case RIGHT:
-			if(canMove(DIR.RIGHT)){
-			position.setxPos(position.getxPos() + speed);
+			if (canMove(DIR.RIGHT)) {
+				position.setxPos(position.getxPos() + speed);
 			}
 			break;
 		}
@@ -75,28 +75,26 @@ public class Player extends ActorStrategy {
 	@Override
 	public boolean canMove(DIR dir) {
 		// bounding box of new position
-		Rectangle newBoundingBox = new Rectangle(
-				getProposedPosition(dir).getxPos(),getProposedPosition(dir).getyPos(),
-				Main.PLAYER_SIZE,Main.PLAYER_SIZE
-				);
+		Rectangle newBoundingBox = new Rectangle(getProposedPosition(dir)
+				.getxPos(), getProposedPosition(dir).getyPos(),
+				Main.PLAYER_SIZE, Main.PLAYER_SIZE);
 
 		// check bounding boxes against other GameObject objects' bounding boxes
 		// have checkCollision method that returns null if no collision
 		// otherwise returns actor you're colliding with
 		Actor collidingObject = GameState.checkCollision(newBoundingBox);
 		if (collidingObject == null) {
-			return true;// there is no object at the new location, so can move there.
+			return true;// there is no object at the new location, so can move
+						// there.
 		}
 
 		// if we have an Actor at the new location, we need to effect the
 		// impact
 		collide(collidingObject);
 
-		if(collidingObject instanceof Enemy){
+		if (collidingObject instanceof Enemy) {
 			return false;
 		}
-
-
 
 		// need to add logic for stuff we can't walk through
 		return true;
@@ -104,8 +102,8 @@ public class Player extends ActorStrategy {
 	}
 
 	/**
-	 *	If there is a collision, this method carries out the
-	 *	appropriate logic for the collision type.
+	 * If there is a collision, this method carries out the appropriate logic
+	 * for the collision type.
 	 *
 	 *
 	 * @param collidingObject
@@ -131,11 +129,14 @@ public class Player extends ActorStrategy {
 	private void fight(Actor collidingObject) {
 		Enemy enemy = (Enemy) collidingObject;
 
-		if(enemy.isAttacking() && !getAttacking()){
-			increaseFear(enemy.getAttackPoints()-bravery);
-		}else if(!enemy.isAttacking() && getAttacking()){// if enemy is not attacking and you are: you + monster -
-			enemy.reduceHealth(attackPoints+bravery);
-		}else{
+		if (enemy.isAttacking() && !getAttacking()) {
+			increaseFear(enemy.getAttackPoints() - bravery);
+		} else if (!enemy.isAttacking() && getAttacking()) {// if enemy is not
+															// attacking and you
+															// are: you +
+															// monster -
+			enemy.reduceHealth(attackPoints + bravery);
+		} else {
 			enemy.reduceHealth(1);
 			increaseFear(1);
 		}
@@ -190,7 +191,7 @@ public class Player extends ActorStrategy {
 	 * @param playerIsAttacking
 	 */
 	@Override
-	public void setAttack(boolean playerIsAttacking){
+	public void setAttack(boolean playerIsAttacking) {
 		this.playerIsAttacking = playerIsAttacking;
 	}
 
@@ -200,7 +201,7 @@ public class Player extends ActorStrategy {
 	 * @return
 	 */
 
-	public boolean getAttacking(){
+	public boolean getAttacking() {
 		return playerIsAttacking;
 	}
 
@@ -282,17 +283,17 @@ public class Player extends ActorStrategy {
 	 */
 	public void setFear(int fear) {
 		this.fear = fear;
-		if(fear>=100){
+		if (fear >= 100) {
 			tooScared();
 		}
 	}
+
 	/*
 	 * Getter for fear level.
 	 */
 	public int getFear() {
 		return fear;
 	}
-
 
 	/**
 	 *
@@ -301,7 +302,7 @@ public class Player extends ActorStrategy {
 	 */
 	public void increaseFear(int n) {
 		fear += n;
-		if(fear>=100){
+		if (fear >= 100) {
 			tooScared();
 		}
 	}
@@ -314,15 +315,8 @@ public class Player extends ActorStrategy {
 		// game over for player
 		alive = false;
 		// if only one player left, game over
-		//tell the controller it's all over
-
+		// tell the controller it's all over
 
 	}
-
-
-
-
-
-
 
 }

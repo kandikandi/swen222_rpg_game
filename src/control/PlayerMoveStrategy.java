@@ -40,6 +40,9 @@ public  class PlayerMoveStrategy extends MovementStrategy {
         if (keyArray[4]) {
             strategyActor.setAttack(true);
         }
+        if (!keyArray[4]) {
+            strategyActor.setAttack(false);
+        }
     }
 }
 

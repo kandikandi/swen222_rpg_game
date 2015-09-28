@@ -8,6 +8,7 @@ import control.MovementStrategy;
 public class Enemy extends ActorStrategy{
 
 	private boolean isAttacking;
+	private boolean alive = true;
 	private int attackPoints;
 	private int health;
 	private int count; 	// just want way to alternate attacking and not attacking. Bit weird maybe.
@@ -17,7 +18,7 @@ public class Enemy extends ActorStrategy{
 			boolean drawable, int boundingBoxSize) {
 		super(id, location, image, collidable, drawable, boundingBoxSize);
 		this.attackPoints = 2;
-		this.health = 10;
+		this.health = 100;
 		count = 0;
 	}
 
@@ -93,7 +94,24 @@ public class Enemy extends ActorStrategy{
 	}
 	public void reduceHealth(int n) {
 		health -= n;
+		if(health<1){
+			this.setCollidable(false);
+			this.kill();
+		}
 	}
+
+	private void kill() {
+		alive = false;
+		setDrawable(false);
+	}
+	
+	
+	public boolean getIsAlive(){
+		return alive;
+	}
+
+	
+
 
 
 
