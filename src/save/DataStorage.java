@@ -5,6 +5,8 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
+import control.GameController;
 import model.GameState;
 
 /**
@@ -15,10 +17,10 @@ import model.GameState;
 public class DataStorage {
 
 	private static final String GAME_FILE = "saved_game.xml";
-	private static GameState gamestate;
+	private static GameController gameController;
 
-	public DataStorage(GameState gs){
-		this.gamestate = gs;
+	public DataStorage(GameController gameController){
+		this.gameController = gameController;
 	}
 
 	public static void save(){
@@ -31,7 +33,7 @@ public class DataStorage {
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
 			// Write to file
-			m.marshal(gamestate, new File(GAME_FILE));
+			m.marshal(gameController.getGameState(), new File(GAME_FILE));
 
 			System.out.println("Game saved!");
 		} catch (JAXBException e) {

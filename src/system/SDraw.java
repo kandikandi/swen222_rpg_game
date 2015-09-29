@@ -17,14 +17,14 @@ import java.util.List;
  */
 public final class SDraw implements GameSystem {
 
-	private final GameState gameState;
+	private final GameController gameController;
 	private final GameCanvas gameCanvas;
 	private BufferedImage buffImg;
 	private Shape blackFill;
 	private Graphics2D g2d;
 
-	public SDraw(GameState gameState, GameCanvas gameCanvas) {
-		this.gameState = gameState;
+	public SDraw(GameController gameController, GameCanvas gameCanvas) {
+		this.gameController = gameController;
 		this.gameCanvas = gameCanvas;
 		buffImg = new BufferedImage(Main.C_WIDTH, Main.C_HEIGHT,
 				BufferedImage.TYPE_INT_ARGB);
@@ -45,7 +45,7 @@ public final class SDraw implements GameSystem {
 	public void performSystem() {
 		// paint scene background black
 		drawBackground();
-		Tile[][] world = gameState.getWorld();
+		Tile[][] world = gameController.getWorld();
 
 		// Look for all entities that contain the two components required to
 		// draw it
@@ -60,7 +60,7 @@ public final class SDraw implements GameSystem {
 
 			}
 		}
-		List<Actor> actors = gameState.getAllActors();
+		List<Actor> actors = gameController.getAllActors();
 		for (Actor actor : actors) {
 
 			Image image = actor.getImage();

@@ -1,6 +1,7 @@
 package model;
 
 import control.DIR;
+import control.GameController;
 import control.Main;
 import control.MovementStrategy;
 
@@ -22,10 +23,12 @@ public class Player extends ActorStrategy {
 	private int fear = 0; // if get too scared, you lose
 	private boolean alive = true;
 	private int bravery = 0;
+	protected final GameController gameController;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
-			boolean drawable, int boundingBoxSize) {
+				  boolean drawable, int boundingBoxSize, GameController gameController) {
 		super(id, position, image, collidable, drawable, boundingBoxSize);
+		this.gameController = gameController;
 
 	}
 
@@ -82,7 +85,7 @@ public class Player extends ActorStrategy {
 		// check bounding boxes against other GameObject objects' bounding boxes
 		// have checkCollision method that returns null if no collision
 		// otherwise returns actor you're colliding with
-		Actor collidingObject = GameState.checkCollision(newBoundingBox);
+		Actor collidingObject = gameController.checkCollision(newBoundingBox);
 		if (collidingObject == null) {
 			return true;// there is no object at the new location, so can move
 						// there.

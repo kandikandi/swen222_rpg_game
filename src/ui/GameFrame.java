@@ -25,7 +25,6 @@ public class GameFrame extends JFrame {
 
 	private final int WIDTH;
 	private final int HEIGHT;
-	private final GameController controller;
 	private JMenuBar menu =  new JMenuBar();
 	private JMenu file = new JMenu("File");
 	private JPanel sidePanel = new JPanel();
@@ -34,7 +33,7 @@ public class GameFrame extends JFrame {
 	private InventoryPanel inventory;
 	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 
-	public GameFrame(String title, int WIDTH, int HEIGHT, GameController gc) {
+	public GameFrame(String title, int WIDTH, int HEIGHT) {
 		super(title);
 
 		this.setLayout(new BorderLayout());
@@ -43,7 +42,6 @@ public class GameFrame extends JFrame {
 		this.inventory = new InventoryPanel();
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
-		this.controller = gc;
 		this.setVisible(true);
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
