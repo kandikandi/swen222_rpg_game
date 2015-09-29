@@ -38,10 +38,10 @@ public class GameState {
 	@XmlElement(name = "actor") //TODO: Bonnie added this line!
 	private  List<Actor> actors; // list of all GameObjects in
 													// Game.
-	private final AbstractFactory factory;
+	private AbstractFactory factory;
 
 	@XmlTransient //TODO: Bonnie added this line!
-	private final GameController gameController;
+	private GameController gameController;
 
 
 	public GameState(GameController gameController) {
@@ -59,6 +59,10 @@ public class GameState {
 			factory = new ServerModeFactory(gameController);
 		}
 
+	}
+
+	public GameState(){
+		//TODO: Bonnie added this line!
 	}
 
 	/*

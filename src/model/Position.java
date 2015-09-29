@@ -21,6 +21,10 @@ public final class Position {
         generateHash();
     }
 
+    public Position(){
+    	//TODO: Bonnie added this line!
+    }
+
     /**
      * Getter function for x element.
      *

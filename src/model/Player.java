@@ -33,13 +33,18 @@ public class Player extends ActorStrategy {
 	private int bravery = 0;
 
 	@XmlTransient //TODO: Bonnie added this line!
-	protected final GameController gameController;
+	protected GameController gameController;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
 				  boolean drawable, int boundingBoxSize, GameController gameController) {
 		super(id, position, image, collidable, drawable, boundingBoxSize);
 		this.gameController = gameController;
 
+	}
+
+	public Player(){
+		super(null, null, null, false, false, 0);
+		//TODO: Bonnie added this line!
 	}
 
 	@Override

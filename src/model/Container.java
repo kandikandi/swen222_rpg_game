@@ -58,6 +58,11 @@ public class Container extends Actor {
 		}
 	}
 
+	public Container(){
+		super(null, null, null, false, false, 0);
+		//TODO: Bonnie added this line!
+	}
+
 	/**
 	 * Allows for an item to be added to the list of items.
 	 *

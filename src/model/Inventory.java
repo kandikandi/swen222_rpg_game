@@ -10,8 +10,8 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Inventory extends Container {
 
 	@XmlTransient //TODO: Bonnie added this line!
-	final private Player inventoryOwner;
-	final int maximumItems = 9;
+	private Player inventoryOwner;
+	int maximumItems = 9;
 
 
 	/**
@@ -34,6 +34,11 @@ public class Inventory extends Container {
 		super(id, position, image, false, false, boundingBoxSize, collectables);
 		this.inventoryOwner = inventoryOwner;
 
+	}
+
+	public Inventory(){
+		super(null, null, null, false, false, 0);
+		//TODO: Bonnie added this line!
 	}
 
 	public Player getOwner() {

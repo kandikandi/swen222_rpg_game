@@ -22,12 +22,16 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "tile") //TODO: Bonnie added this line!
 public final class Tile  {
-    private final Image image;
-    private final Position position;
+    private Image image;
+    private Position position;
 
     public Tile(Image image, Position position) {
         this.position = position;
         this.image = image;
+    }
+
+    public Tile(){
+    	//TODO: Bonnie added this line!
     }
 
     /**
