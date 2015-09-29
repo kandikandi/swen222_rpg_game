@@ -40,7 +40,7 @@ public final class Tile  {
      * @return tile Image
      */
 //    @XmlElement(name = "image") //TODO: Bonnie added this line!
-    @XmlTransient //TODO: Bonnie added this line!
+//    @XmlTransient //TODO: Bonnie added this line!
     public Image getImage(){
     	return image;
     }

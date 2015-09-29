@@ -2,14 +2,17 @@ package model;
 
 import java.awt.Image;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
+@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
 public class Inventory extends Container {
 
-	@XmlTransient //TODO: Bonnie added this line!
+//	@XmlTransient //TODO: Bonnie added this line!
 	private Player inventoryOwner;
 	int maximumItems = 9;
 
@@ -50,8 +53,8 @@ public class Inventory extends Container {
 	 * player.
 	 *
 	 */
-	@XmlTransient //TODO: Bonnie added this line!
 	@Override
+//	@XmlTransient //TODO: Bonnie added this line!
 	public Position getPosition() {
 		return inventoryOwner.getPosition();
 	}

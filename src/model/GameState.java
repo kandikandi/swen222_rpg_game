@@ -32,12 +32,16 @@ public class GameState {
 	@XmlElement(name = "tile") //TODO: Bonnie added this line!
 	private Tile[][] worldTiles;
 
+//	@XmlTransient //TODO: Bonnie added this line!
 	private  Player player;
 
-	@XmlElementWrapper(name = "actors") //TODO: Bonnie added this line!
-	@XmlElement(name = "actor") //TODO: Bonnie added this line!
-	private  List<Actor> actors; // list of all GameObjects in
-													// Game.
+
+//	@XmlElementWrapper(name = "actors") //TODO: Bonnie added this line!
+//	@XmlElement(name = "actor") //TODO: Bonnie added this line!
+	@XmlTransient //TODO: Bonnie added this line!
+	private  List<Actor> actors; // list of all GameObjects in Game
+
+	@XmlTransient //TODO: Bonnie added this line!
 	private AbstractFactory factory;
 
 	@XmlTransient //TODO: Bonnie added this line!
