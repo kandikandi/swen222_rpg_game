@@ -24,7 +24,12 @@ public class Player extends ActorStrategy {
 	@XmlTransient //TODO: Bonnie added this line!
 	MovementStrategy movementStrategy;
 	private final int speed = 5;
+
+	//===================================================//
+	@XmlTransient //TODO: Bonnie added this line!
 	private Inventory inventory;
+	//===================================================//
+
 	private boolean hasKey;
 	private boolean playerIsAttacking;
 	private int attackPoints = 2;

@@ -106,6 +106,20 @@ public class GameFrame extends JFrame {
 				//=================================================//
 			}
 		});
+
+		//=====================================================//
+		//TODO: Bonnie here adding add some lines for load!
+		JMenuItem loadG = new JMenuItem("Load Game");
+		loadG.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("hello");
+			}
+
+		});
+		file.add(loadG);
+		//TODO: Bonnie ends here!
+		//=================================================//
+
 		file.add(newG);
 		file.add(saveG);
 	}
