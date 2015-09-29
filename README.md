@@ -7,7 +7,11 @@ for the tutors who will test your game).
 #
 
 # Suggested stuff should have:
-    name of the projects and all sub-modules and libraries (sometimes they are named different and very confusing to new users)
+    ##Packages: 
+     
+    # Control: 
+
+
     descriptions of all the project, and all sub-modules and libraries
     5-line code snippet on how its used (if it's a library)
     copyright and licensing information (or "Read LICENSE")
