@@ -3,36 +3,28 @@ import java.io.File;
 
 import javax.swing.*;
 
-/**
- * Created 18/09/2015
- * @author liaobonn
- *
- */
-public class FileChooser extends JPanel{
+public class FileChooser{
 
-	private JFileChooser chooser;
-	private File fileDir;
+	private FileChooser() {
+	}
 
-	public FileChooser(boolean open) {
-		chooser = new JFileChooser();
+	public static File getFile(boolean open) {
+		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("."));
 
 		if(open){
 			chooser.setDialogTitle("Open File");
-			if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
-				fileDir = chooser.getSelectedFile();
+			if (chooser.showOpenDialog(new JPanel()) == JFileChooser.APPROVE_OPTION) {
+				return chooser.getSelectedFile();
 			}
 		}
 		else{
 			chooser.setDialogTitle("Save File");
-			if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-				fileDir = chooser.getSelectedFile();
+			if (chooser.showSaveDialog(new JPanel()) == JFileChooser.APPROVE_OPTION) {
+				return chooser.getSelectedFile();
 			}
 		}
-	}
-
-	public File getFile() {
-		return fileDir;
+		return null;
 	}
 
 }

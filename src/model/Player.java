@@ -8,12 +8,20 @@ import control.MovementStrategy;
 import java.awt.*;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Created by cuan on 9/15/15.
  *
  * The player class holds the data for each player including position,
  */
+@XmlRootElement(name = "player") //TODO: Bonnie added this line!
+@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
 public class Player extends ActorStrategy {
+	@XmlTransient //TODO: Bonnie added this line!
 	MovementStrategy movementStrategy;
 	private final int speed = 5;
 	private Inventory inventory;
@@ -23,6 +31,8 @@ public class Player extends ActorStrategy {
 	private int fear = 0; // if get too scared, you lose
 	private boolean alive = true;
 	private int bravery = 0;
+
+	@XmlTransient //TODO: Bonnie added this line!
 	protected final GameController gameController;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
