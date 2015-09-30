@@ -42,7 +42,7 @@ public class InventoryPanel extends JPanel {
 
 
 		try {
-			// load the image
+			// load the imageName
 			backgroundImage = ImageIO.read(new File("Inventory_BG.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -85,7 +85,7 @@ public class InventoryPanel extends JPanel {
 				newItem.setItemLabelID(inventory.get(i).getID()); // TESTING THE SETTING OF ITEM ID ON ITEM LABEL THIS WILL BE USED FOR IMAGE AND BEHAVIOUR
 				if(newItem.getItemLabelID().getID() == 6){
 					try {
-						// load the image
+						// load the imageName
 						itemImage = ImageIO.read(new File("Inventory_Key.png"));
 					} catch (IOException e) {
 						e.printStackTrace();

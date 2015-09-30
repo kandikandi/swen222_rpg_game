@@ -1,22 +1,5 @@
 package control;
 
-import java.awt.Image;
-import java.awt.event.KeyListener;
-
-import model.Collectable;
-import model.Container;
-import model.GameState;
-import model.ID;
-import model.Inventory;
-import model.Player;
-import model.Position;
-
-import org.junit.Test;
-
-import system.SDraw;
-import ui.GameCanvas;
-import ui.GameFrame;
-
 public class UITests {
 
 	//*******************************************

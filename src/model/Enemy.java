@@ -14,22 +14,19 @@ public class Enemy extends ActorStrategy{
 	private int count; 	// just want way to alternate attacking and not attacking. Bit weird maybe.
 						//Tick will increment and set attack depending on value.
 
-	public Enemy(ID id, Position location, Image image, boolean collidable,
+	public Enemy(ID id, Position location, String imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
-		super(id, location, image, collidable, drawable, boundingBoxSize);
+		super(id, location, imagePath, collidable, drawable, boundingBoxSize);
 		this.attackPoints = 2;
 		this.health = 100;
 		count = 0;
 	}
 
 	@Override
-	public void setMoveStrat(MovementStrategy moveStrat) {}
+	public void setMoveStrat(MovementStrategy movementStrategy) {}
 
 	@Override
 	public void move(DIR dir) {}
-
-	@Override
-	public boolean canMove(DIR dir) {return false;}
 
 	@Override
 	public MovementStrategy getMoveStrat() {return null;}

@@ -13,7 +13,7 @@ public enum ActorAssets {
 
     NOTHING('0',"tokenScarlet.png"),
     PLAYER1('1',"front_girl.png"),
-    PLAYER2('1',"tokenPlum.png"),
+    PLAYER2('2',"tokenPlum.png"),
     COIN('C',"coin40.jpg"),
     COINBAG('B',"coinbag.jpg"),
     DOOR('D',"door.jpg"),
@@ -25,10 +25,12 @@ public enum ActorAssets {
 
 
     private final char asciiCode;
+    private final String imagePath;
     private Image image;
 
     ActorAssets(final char nAsciiCode, final String imagePath){
         asciiCode = nAsciiCode;
+        this.imagePath = imagePath;
         try {
             image = ImageIO.read(new File(imagePath));
         } catch (IOException e) {
@@ -40,8 +42,13 @@ public enum ActorAssets {
     public char getAsciiCode() {
         return asciiCode;
     }
-    public Image getImage(){
+
+    private Image getImage(){
         return image;
+    }
+
+    public String getImagePath(){
+        return imagePath;
     }
 
     public static ActorAssets getAssetName(char asciiCode) {
@@ -50,4 +57,15 @@ public enum ActorAssets {
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("Invalid ascii code: " + asciiCode));
     }
+
+
+    public static Image getAssetImage(String imagePath) {
+        for(ActorAssets item: ActorAssets.values()){
+            if(item.getImagePath() == imagePath){
+                return item.getImage();
+            }
+        }
+        throw new IllegalArgumentException("Invalid imagePath: "+imagePath);
+    }
+
 }

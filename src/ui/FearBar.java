@@ -39,7 +39,7 @@ public class FearBar extends JLabel {
 		this.createBorder();
 
 		try {
-			// load the image
+			// load the imageName
 			fearBarImage = ImageIO.read(new File("Fear_Bar.png"));
 		} catch (IOException e) {
 			e.printStackTrace();

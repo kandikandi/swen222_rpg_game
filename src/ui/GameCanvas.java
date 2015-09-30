@@ -12,7 +12,7 @@ import model.GameState;
 
 /**
  * The GameCanvas receives images via its receiveBuffImage(BufferedImage buffimg) method,
- * this image is then drawn to display on the canvas
+ * this imageName is then drawn to display on the canvas
  * @author newtondavi2 (David)
  *
  */

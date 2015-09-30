@@ -1,11 +1,9 @@
 package control;
 
-import model.Actor;
-import model.GameState;
-import model.Player;
-import model.Tile;
+import model.*;
 import network.GameClient;
 import network.GameServer;
+import system.GameException;
 import system.GameSystem;
 
 import java.awt.*;
@@ -32,8 +30,8 @@ public class GameController {
 
 	public GameController(GameKeyListener gameKeyListener) {
 		this.gameKeyListener = gameKeyListener;
-		this.gameState = new GameState(this);
 		systemList = new ArrayList<>();
+		this.gameState = new GameState(this);
 
 		if(JOptionPane.showConfirmDialog(null, "Run server?")==0){
 			socketServer = new GameServer(gameState);
@@ -55,7 +53,7 @@ public class GameController {
 	public void executeAllSystems() {
 		gameState.getAllActors().forEach(model.Actor::tick);
 		systemList.forEach(GameSystem::performSystem);
-		socketClient.sendData("ping".getBytes());
+		//socketClient.sendData("ping".getBytes());
 	}
 
 
@@ -68,6 +66,18 @@ public class GameController {
 		systemList.add(system);
 	}
 
+	public void removeActor(Actor actor){
+		if(!getAllActors().contains(actor)){
+			try {
+				throw new GameException("GameController tried to remove non-existance actor from GameState");
+			} catch (GameException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		}else{
+			getAllActors().remove(actor);
+		}
+	}
 
 	public Tile[][] getWorld() {
 		return gameState.getWorld();
@@ -83,10 +93,6 @@ public class GameController {
 
 	public Player getPlayer() {
 		return gameState.getPlayer();
-	}
-
-	public Actor checkCollision(Rectangle boundingBox) {
-		return gameState.checkCollision(boundingBox);
 	}
 
 	public GameKeyListener getKeyListener() {

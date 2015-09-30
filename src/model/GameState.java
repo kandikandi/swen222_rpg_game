@@ -1,14 +1,11 @@
 package model;
 
 import control.GameController;
-import control.GameKeyListener;
 import control.Main;
 import factory.AbstractFactory;
 import factory.ServerModeFactory;
 import factory.TestModeFactory;
 
-import java.awt.Rectangle;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class GameState {
 
 	@XmlElementWrapper(name = "actors") //TODO: Bonnie added this line!
 	@XmlElement(name = "actor") //TODO: Bonnie added this line!
-	private  List<Actor> actors; // list of all GameObjects in
+	private List<Actor> actors; // list of all GameObjects in
 													// Game.
 	private final AbstractFactory factory;
 
@@ -51,7 +48,7 @@ public class GameState {
 		if (Main.TEST_MODE) {
 			factory = new TestModeFactory(gameController);
 			worldTiles = factory.createWorldTiles();
-			player = factory.createPlayerActor(gameController.getKeyListener());
+			player = factory.createPlayerActor(gameController);
 			actors = factory.createActorList();
 			actors.add(player);
 			player.setInventory(factory.createInventory(true, 10, 10));
@@ -61,24 +58,6 @@ public class GameState {
 
 	}
 
-	/*
-	 * This method gets called by GameObject objects checking to see if their
-	 * proposed new location would result in a collision and returns (the first)
-	 * object that the GameObject would collide with.
-	 */
-	public  Actor checkCollision(Rectangle newBoundingBox) {
-		for (Actor actor : actors) {
-			if (actor.isCollidable()){
-				if (actor.getBoundingBox().intersects(newBoundingBox)
-					&& !(actor instanceof Player)
-					&& !(actor instanceof Inventory)) {
-					return actor;
-			}
-					}
-		}
-		return null;
-
-	}
 
 	/**
 	 * Returns list of all Actors.
@@ -103,7 +82,7 @@ public class GameState {
 
 	// ////////// Debuggin printout
 	public void printGameObjectState() {
-		for (Actor actor : actors) {
+		for(Actor actor: actors){
 			actor.printState();
 		}
 	}

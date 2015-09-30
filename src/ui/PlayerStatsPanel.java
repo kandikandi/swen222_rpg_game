@@ -56,7 +56,7 @@ public class PlayerStatsPanel extends JPanel {
 		level.setForeground(Color.BLACK);
 
 		try {
-			// load the image
+			// load the imageName
 			backgroundImage = ImageIO.read(new File("PlayerStats_BG.png"));
 		} catch (IOException e) {
 			e.printStackTrace();

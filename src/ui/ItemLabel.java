@@ -33,12 +33,12 @@ public class ItemLabel extends JLabel {
 	private ID itemID;
 
 	/*
-	 * The constructor will take in an items ID so that it can create its inventory image for the ItemLabels ImageIcon.
+	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
 	public ItemLabel(){
 
 		this.setPreferredSize(new Dimension(50,50));
-		this.setIcon(new ImageIcon()); // ------------- currently not set to items image
+		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
 //		this.itemID = itemID;
 
 

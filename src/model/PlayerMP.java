@@ -13,9 +13,9 @@
 //	public String username;
 //	public int playerid;
 //
-//	public PlayerMP(ID id, Position position, Image image, boolean collidable,
+//	public PlayerMP(ID id, Position position, Image imageName, boolean collidable,
 //			boolean drawable, int boundingBoxSize, InetAddress ipAddress, int port, String uname) {
-//		//super(id, position, image, collidable, drawable, boundingBoxSize, gameController);
+//		//super(id, position, imageName, collidable, drawable, boundingBoxSize, gameController);
 //		this.username = uname;
 //
 //		this.ipAddress = ipAddress;

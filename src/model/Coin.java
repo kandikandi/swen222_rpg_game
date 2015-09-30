@@ -11,8 +11,8 @@ import java.awt.Image;
  */
 public class Coin extends Collectable {
 
-	public Coin(ID id, Position position, Image image, boolean collidable,
+	public Coin(ID id, Position position, String imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
-		super(id, position, image, collidable, drawable, boundingBoxSize);
+		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 	}
 }

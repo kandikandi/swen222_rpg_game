@@ -13,11 +13,15 @@ import java.awt.*;
  *
  */
 public abstract class ActorStrategy extends Actor {
-    private MovementStrategy movementStrategy;
+    protected MovementStrategy movementStrategy;
+    private int speed;
+    boolean isMoving;
+    private DIR movingDirection;
 
-    public ActorStrategy(ID id, Position position, Image image, boolean collidable, boolean drawable, int boundingBoxSize) {
-        super(id, position, image, collidable, drawable, boundingBoxSize);
-//        this.movementStrategy = movementStrategy;
+
+    public ActorStrategy(ID id, Position position, String imagePath, boolean collidable, boolean drawable, int boundingBoxSize) {
+        super(id, position, imagePath, collidable, drawable, boundingBoxSize);
+        isMoving = false;
     }
 
 
@@ -25,34 +29,40 @@ public abstract class ActorStrategy extends Actor {
 	 * This method accepts a direction as an argument and moves this object
 	 * in that direction subject to collisions.
 	 *
-	 * @param dir
+	 *
 	 */
     abstract public void move(DIR dir);
 
     /**
-     * This method accepts a direction as an argument and returns whether
-     * this Actor can move in that direction.
-     *
-     * @param dir
-     * @return whether can move in that direction
-     */
-    abstract public boolean canMove(DIR dir);
-
-
-    /**
      * Setter for movement strategy.
      *
-     * @param moveStrat
+     *
      */
-    abstract public void setMoveStrat(MovementStrategy moveStrat);
+    abstract public void setMoveStrat(MovementStrategy movementStrategy);
+    /*public void setMoveStrat(MovementStrategy movementStrategy){
+        this.movementStrategy = movementStrategy;
+        //movementStrategy.setActor(this); // will this work..... nope why java why???
+    }*/
 
     /**
      * Getter for movement strategy.
      *
-     * @return
      */
-    abstract public MovementStrategy getMoveStrat();
+    public MovementStrategy getMoveStrat(){
+        return movementStrategy;
+    }
 
     abstract public void setAttack(boolean bool);
 
+    public int getSpeed() {
+        return speed;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public DIR getDirection() {
+        return movingDirection;
+    }
 }

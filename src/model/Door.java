@@ -12,14 +12,14 @@ public class Door extends Actor {
 	 *
 	 * @param id
 	 * @param position
-	 * @param image
+	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
 	 * @param boundingBoxSize
 	 */
-	public Door(ID id, Position position, Image image, boolean collidable,
+	public Door(ID id, Position position, String imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
-		super(id, position, image, collidable, drawable, boundingBoxSize);
+		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 
 	}
 

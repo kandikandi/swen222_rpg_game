@@ -7,40 +7,37 @@ import java.awt.event.KeyListener;
 
 /**
  * Created by cuan on 9/10/15.
- *
- *
  */
 public class GameKeyListener implements KeyListener {
-    //private GameController gameController;
     private final int NUM_KEYS = 5;
-    public boolean[] keyArray = new boolean[NUM_KEYS];
+    private final boolean[] keyArray = new boolean[NUM_KEYS];
 
-    public GameKeyListener(/*GameController gameController*/){
-        /*this.gameController = gameController;*/
+    protected boolean[] getKeyArray(){
+        return keyArray;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                /*gameController.*/keyArray[0] = true;
+                keyArray[0] = true;
                 break;
 
             case KeyEvent.VK_DOWN:
-                /*gameController.*/keyArray[1] = true;
+                keyArray[1] = true;
                 break;
 
             case KeyEvent.VK_LEFT:
-                /*gameController.*/keyArray[2] = true;
+                keyArray[2] = true;
                 break;
 
             case KeyEvent.VK_RIGHT:
-               /*gameController.*/keyArray[3] = true;
+                keyArray[3] = true;
                 break;
 
             case KeyEvent.VK_SPACE:
-            	/*gameController.*/keyArray[4] = true;
-            	break;
+                keyArray[4] = true;
+                break;
         }
 
     }
@@ -49,24 +46,24 @@ public class GameKeyListener implements KeyListener {
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                /*gameController.*/keyArray[0] = false;
+                keyArray[0] = false;
                 break;
 
             case KeyEvent.VK_DOWN:
-                /*gameController.*/keyArray[1] = false;
+                keyArray[1] = false;
                 break;
 
             case KeyEvent.VK_LEFT:
-                /*gameController.*/keyArray[2] = false;
+                keyArray[2] = false;
                 break;
 
             case KeyEvent.VK_RIGHT:
-                /*gameController.*/keyArray[3] = false;
+                keyArray[3] = false;
                 break;
 
             case KeyEvent.VK_SPACE:
-            	keyArray[4] = false;
-            	break;
+                keyArray[4] = false;
+                break;
         }
 
     }

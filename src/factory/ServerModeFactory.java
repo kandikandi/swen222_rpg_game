@@ -24,7 +24,7 @@ public class ServerModeFactory extends AbstractFactory {
     }
 
     @Override
-    public Player createPlayerActor(GameKeyListener keyListener) {
+    public Player createPlayerActor(GameController gameController) {
         return null;
     }
 

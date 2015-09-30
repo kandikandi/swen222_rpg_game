@@ -2,11 +2,10 @@ package system;
 
 import control.GameController;
 import model.Actor;
-import model.GameState;
 import model.Tile;
 import control.Main;
 import ui.GameCanvas;
-import ui.GameFrame;
+import view.ActorAssets;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,7 +33,7 @@ public final class SDraw implements GameSystem {
 	}
 
 	/**
-	 * Flushes the buffered image by filling it with black
+	 * Flushes the buffered imageName by filling it with black
 	 */
 	private void drawBackground() {
 		g2d.setColor(Color.BLACK);
@@ -62,12 +61,10 @@ public final class SDraw implements GameSystem {
 		}
 		List<Actor> actors = gameController.getAllActors();
 		for (Actor actor : actors) {
-
-			Image image = actor.getImage();
-			int x = actor.getPosition().getxPos();
-			int y = actor.getPosition().getyPos();
-
-			if ((actor.isDrawable())) { // added test for whether should be drawn
+			if(actor.isDrawable()){
+				Image image = ActorAssets.getAssetImage(actor.getImageName());
+				int x = actor.getPosition().getxPos();
+				int y = actor.getPosition().getyPos();
 				g2d.drawImage(image, x, y, null);
 			}
 		}

@@ -1,12 +1,6 @@
 package model;
 
-import control.DIR;
-import system.GameException;
-
 import java.awt.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -31,11 +25,11 @@ public final class Tile  {
     }
 
     /**
-     * Getter for Tile image.
+     * Getter for Tile imageName.
      *
      * @return tile Image
      */
-//    @XmlElement(name = "image") //TODO: Bonnie added this line!
+//    @XmlElement(name = "imageName") //TODO: Bonnie added this line!
     @XmlTransient //TODO: Bonnie added this line!
     public Image getImage(){
     	return image;

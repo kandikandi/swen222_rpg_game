@@ -56,22 +56,21 @@ public class TestModeFactory extends AbstractFactory {
                 }
                 Position position = new Position(col * Main.TILE_SIZE, row * Main.TILE_SIZE);
                 int size = Main.ITEM_SIZE;
-                Image image = ActorAssets.getAssetName(asciiCode).getImage();
-                image = image.getScaledInstance(size, size, Image.SCALE_FAST);
+                String imagePath = ActorAssets.getAssetName(asciiCode).getImagePath();
                 ActorAssets asset = ActorAssets.getAssetName(asciiCode);
                 Actor actor = null;
                 switch (asset) {
                 	case COIN:
-                		actor = new Coin(ID.COLLECTABLE, position, image, true, true, size);
+                		actor = new Coin(ID.COLLECTABLE, position, imagePath, true, true, size);
                         break;
                 	case COINBAG:
-                		actor = new CoinBag(ID.CONTAINER, position, image, true, true, size);
+                		actor = new CoinBag(ID.CONTAINER, position, imagePath, true, true, size);
                         break;
                 	case KEY:
-                        actor = new Key(ID.KEY, position, image, true, true, size);
+                        actor = new Key(ID.KEY, position, imagePath, true, true, size);
                         break;
                     case ENEMY:
-                    	actor = new Enemy(ID.ENEMY,position, image, true, true, size);
+                    	actor = new Enemy(ID.ENEMY,position, imagePath, true, true, size);
                     	break;
 
                 }
@@ -91,13 +90,13 @@ public class TestModeFactory extends AbstractFactory {
         return actors;
     }
 
+    //TODO: Make default value of isCollidable for any actor to TRUE
     @Override
-    public Player createPlayerActor(GameKeyListener keyListener) {
-        MovementStrategy ms = new PlayerMoveStrategy(keyListener);
+    public Player createPlayerActor(GameController gameController) {
+        MovementStrategy ms = new PlayerMoveStrategy(gameController);
         Position loc = new Position(5, 5);
-        Image image = ActorAssets.PLAYER1.getImage();
-        image = image.getScaledInstance(Main.PLAYER_SIZE, Main.PLAYER_SIZE, Image.SCALE_FAST);
-        Player player = new Player(ID.PLAYER, loc, image, false, true, Main.PLAYER_SIZE, gameController);
+        String imagePath= ActorAssets.PLAYER1.getImagePath();
+        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE);
         player.setMoveStrat(ms);
         return player;
     }
@@ -120,9 +119,8 @@ public class TestModeFactory extends AbstractFactory {
         }
         int size = Main.ITEM_SIZE;
         Position position = new Position(xPos, yPos);
-        Image image = ActorAssets.INVENTORY.getImage();
-        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
-        Inventory inventory = new Inventory(ID.CONTAINER, position, image, collidable, drawable, size, null);
+        String imagePath = ActorAssets.INVENTORY.getImagePath();
+        Inventory inventory = new Inventory(ID.CONTAINER, position, imagePath, collidable, drawable, size, null);
 
         return inventory;
     }
@@ -136,10 +134,9 @@ public class TestModeFactory extends AbstractFactory {
     @Override
     public Enemy createEnemyActor(int xPos, int yPos) {
     	Position pos = new Position(xPos, yPos);
-        Image image = ActorAssets.ENEMY.getImage();
+        String imagePath = ActorAssets.ENEMY.getImagePath();
         int size = Main.ITEM_SIZE;
-        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
-        Enemy enemy = new Enemy(ID.ENEMY, pos, image, true, true, size);
+        Enemy enemy = new Enemy(ID.ENEMY, pos, imagePath, true, true, size);
         return enemy;
     }
 
@@ -147,10 +144,9 @@ public class TestModeFactory extends AbstractFactory {
     @Override
     public Key createKey(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
-        Image image = ActorAssets.KEY.getImage();
+        String imagePath = ActorAssets.KEY.getImagePath();
         int size = Main.ITEM_SIZE;
-        image = image.getScaledInstance(size, size, Image.SCALE_FAST);
-        Key key = new Key(ID.KEY, pos, image, true, true, size);
+        Key key = new Key(ID.KEY, pos, imagePath, true, true, size);
         return key;
     }
 

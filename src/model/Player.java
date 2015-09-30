@@ -32,21 +32,16 @@ public class Player extends ActorStrategy {
 	private boolean alive = true;
 	private int bravery = 0;
 
-	@XmlTransient //TODO: Bonnie added this line!
-	protected final GameController gameController;
+	/*@XmlTransient //TODO: Bonnie added this line!
+	protected final GameController gameController;*/
 
-	public Player(ID id, Position position, Image image, boolean collidable,
-				  boolean drawable, int boundingBoxSize, GameController gameController) {
-		super(id, position, image, collidable, drawable, boundingBoxSize);
-		this.gameController = gameController;
+	public Player(ID id, Position position, String imagePath, boolean collidable,
+				  boolean drawable, int boundingBoxSize ) {
+		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
+
 
 	}
 
-	@Override
-	public void setMoveStrat(MovementStrategy moveStrat) {
-		this.movementStrategy = moveStrat;
-		moveStrat.setActor(this);
-	}
 
 	@Override
 	public void tick() {
@@ -57,62 +52,26 @@ public class Player extends ActorStrategy {
 	public void move(DIR dir) {
 		switch (dir) {
 		case UP:
-			if (canMove(DIR.UP)) {
 				position.setyPos(position.getyPos() - speed);
-			}
 			break;
 		case DOWN:
-			if (canMove(DIR.DOWN)) {
 				position.setyPos(position.getyPos() + speed);
-			}
 			break;
 		case LEFT:
-			if (canMove(DIR.LEFT)) {
 				position.setxPos(position.getxPos() - speed);
-			}
 			break;
 		case RIGHT:
-			if (canMove(DIR.RIGHT)) {
 				position.setxPos(position.getxPos() + speed);
-			}
 			break;
 		}
 	}
 
-	/**
-	 * This method checks whether the proposed new position for the player is
-	 * valid.
-	 *
-	 *
-	 */
 	@Override
-	public boolean canMove(DIR dir) {
-		// bounding box of new position
-		Rectangle newBoundingBox = new Rectangle(getProposedPosition(dir)
-				.getxPos(), getProposedPosition(dir).getyPos(),
-				Main.PLAYER_SIZE, Main.PLAYER_SIZE);
-
-		// check bounding boxes against other GameObject objects' bounding boxes
-		// have checkCollision method that returns null if no collision
-		// otherwise returns actor you're colliding with
-		Actor collidingObject = gameController.checkCollision(newBoundingBox);
-		if (collidingObject == null) {
-			return true;// there is no object at the new location, so can move
-						// there.
-		}
-
-		// if we have an Actor at the new location, we need to effect the
-		// impact
-		collide(collidingObject);
-
-		if (collidingObject instanceof Enemy) {
-			return false;
-		}
-
-		// need to add logic for stuff we can't walk through
-		return true;
-
+	public void setMoveStrat(MovementStrategy movementStrategy){
+		this.movementStrategy = movementStrategy;
+		movementStrategy.setActor(this);
 	}
+
 
 	/**
 	 * If there is a collision, this method carries out the appropriate logic
@@ -121,7 +80,7 @@ public class Player extends ActorStrategy {
 	 *
 	 * @param collidingObject
 	 */
-	private void collide(Actor collidingObject) {
+	protected void collide(Actor collidingObject) {
 		if (collidingObject instanceof Coin) {
 			pickup((Coin) collidingObject);
 		} else if (collidingObject instanceof Collectable) {
@@ -134,8 +93,7 @@ public class Player extends ActorStrategy {
 			pickup((Key) collidingObject);
 		} else if (collidingObject instanceof Enemy) {
 			fight(collidingObject);
-		} else {
-
+			super.isMoving = false;
 		}
 	}
 
@@ -155,10 +113,6 @@ public class Player extends ActorStrategy {
 		}
 	}
 
-	@Override
-	public MovementStrategy getMoveStrat() {
-		return movementStrategy;
-	}
 
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
@@ -167,14 +121,14 @@ public class Player extends ActorStrategy {
 
 	/**
 	 * This method adds a collectable to the inventory.
-	 *
+	 * TODO: if pickup is being called with a null, a exception should be thrown
 	 * @param collectable
 	 */
 	public boolean pickup(Collectable collectable) {
 		if (collectable == null) {
 			return false;
 		} else if (inventory == null) {
-			System.out.println("Error: Inventory not set up");
+			System.out.println("Error: Inventory not set up"); //TODO: throw exception here aswell
 			return false;
 		} else {
 			return inventory.addItemToContainer(collectable);

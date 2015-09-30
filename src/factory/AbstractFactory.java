@@ -32,7 +32,7 @@ public abstract class AbstractFactory {
 
     public abstract List<Actor> createActorList();
 
-    public abstract Player createPlayerActor(GameKeyListener keyListener);
+    public abstract Player createPlayerActor(GameController gameController);
 
     public abstract Coin createCoin();
 

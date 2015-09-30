@@ -29,7 +29,7 @@ public class GoldPanel extends JPanel {
 		this.createBorder();
 
 		try {
-			// load the image
+			// load the imageName
 			backgroundImage = ImageIO.read(new File("GoldPanel_BG.png"));
 		} catch (IOException e) {
 			e.printStackTrace();

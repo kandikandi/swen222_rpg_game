@@ -10,10 +10,12 @@ import model.ActorStrategy;
  */
 public  class PlayerMoveStrategy extends MovementStrategy {
     private  ActorStrategy strategyActor;
+    private final GameController gameController;
     private final GameKeyListener keyListener;
 
-    public PlayerMoveStrategy(GameKeyListener keyListener) {
-        this.keyListener = keyListener;
+    public PlayerMoveStrategy(GameController gameController) {
+        this.gameController = gameController;
+        keyListener = gameController.getKeyListener();
     }
 
     @Override
@@ -23,10 +25,12 @@ public  class PlayerMoveStrategy extends MovementStrategy {
 
     @Override
     public void executeMove() {
-        boolean[] keyArray = keyListener.keyArray;
+        //System.out.println("PlayerMoveStrategy: executeMove");
+        boolean[] keyArray = keyListener.getKeyArray();
 
         if (keyArray[0]) {
             strategyActor.move(DIR.UP);
+            //strategyActor.isMo
         }
         if (keyArray[1]) {
             strategyActor.move(DIR.DOWN);

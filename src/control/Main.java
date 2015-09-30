@@ -1,12 +1,10 @@
 package control;
 
-import model.*;
+import model.SCollision;
 import ui.GameCanvas;
 import ui.GameFrame;
 import save.DataStorage;
 import system.SDraw;
-
-import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.KeyListener;
@@ -51,6 +49,8 @@ public class Main {
 
 
 				// create and add systems in order they need to be executed
+				SCollision collisionSystem = new SCollision(gameController);
+				gameController.addSystem(collisionSystem);
 				SDraw drawSystem = new SDraw(gameController,gameCanvas);
 				gameController.addSystem(drawSystem);
 
