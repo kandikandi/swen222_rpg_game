@@ -1,5 +1,7 @@
 package control;
 
+import java.io.Serializable;
+
 import model.Position;
 import model.ActorStrategy;
 
@@ -8,7 +10,7 @@ import model.ActorStrategy;
  * Player movement strategy.
  *
  */
-public  class PlayerMoveStrategy extends MovementStrategy {
+public  class PlayerMoveStrategy extends MovementStrategy implements Serializable{
     private  ActorStrategy strategyActor;
     private final GameController gameController;
     private final GameKeyListener keyListener;

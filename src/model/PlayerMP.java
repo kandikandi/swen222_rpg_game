@@ -13,14 +13,15 @@
 //	public String username;
 //	public int playerid;
 //
-//	public PlayerMP(ID id, Position position, Image imageName, boolean collidable,
-//			boolean drawable, int boundingBoxSize, InetAddress ipAddress, int port, String uname) {
-//		//super(id, position, imageName, collidable, drawable, boundingBoxSize, gameController);
+//	public PlayerMP(ID id, Position position, String imagePath, boolean collidable,
+//			  boolean drawable, int boundingBoxSize, InetAddress ipAddress, int port, String uname) {
+//		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 //		this.username = uname;
 //
 //		this.ipAddress = ipAddress;
 //		this.port = port;
 //	}
+//
 //
 //	public String getUsername() {
 //		return username;

@@ -7,6 +7,7 @@ import system.GameException;
 import system.GameSystem;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,28 +21,37 @@ import packet.Packet00Login;
  *
  *
  */
-public class GameController {
+public class GameController implements Serializable {
 
 	private GameState gameState;
 	private final List<GameSystem> systemList;
 	private final GameKeyListener gameKeyListener;
 	private static GameClient socketClient;
 	private GameServer socketServer;
+	private boolean isServer = false;
+
+
+
 
 	public GameController(GameKeyListener gameKeyListener) {
 		this.gameKeyListener = gameKeyListener;
 		systemList = new ArrayList<>();
-		this.gameState = new GameState(this);
+
 
 		if(JOptionPane.showConfirmDialog(null, "Run server?")==0){
-			socketServer = new GameServer(gameState);
+			isServer = true;
+			socketServer = new GameServer(gameState,this);
 			socketServer.start();
 		}
+
+		this.gameState = new GameState(this);
+		if(isServer()){socketServer.setGame(gameState);}
 
 		// always start a client, then get a username and tell the server whats happened
 		socketClient = new GameClient("localhost", gameState);
 		socketClient.start();
 		String username = "00"+JOptionPane.showInputDialog(null,"enter username");
+
 		Packet00Login loginPacket = new Packet00Login(username.getBytes());
 		loginPacket.writeData(socketClient);
 	}
@@ -98,4 +108,10 @@ public class GameController {
 	public GameKeyListener getKeyListener() {
 		return gameKeyListener;
 	}
+
+
+	public boolean isServer() {
+		return isServer;
+	}
+
 }

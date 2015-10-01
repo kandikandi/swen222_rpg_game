@@ -4,6 +4,7 @@ import control.GameController;
 import control.GameKeyListener;
 import model.*;
 
+import java.net.InetAddress;
 import java.util.List;
 
 
@@ -53,6 +54,15 @@ public class ServerModeFactory extends AbstractFactory {
 	public Enemy createEnemyActor(int xPos, int yPos) {
 		return null;
 	}
+
+	@Override
+	public Player createPlayerActor(GameController gameController,
+			String username, InetAddress ipAddress, int port, int playernum) {
+		// TODO Auto-generated method stub ------------- to compile-------------
+		return null;
+	}
+
+
 
 
 }

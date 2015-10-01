@@ -2,11 +2,12 @@ package model;
 
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * Created by cuan on 9/13/15.
  */
-public abstract class Actor implements Tickable {
+public abstract class Actor implements Tickable, Serializable {
     protected String imageName;
     protected Position position;
     protected boolean collidable;

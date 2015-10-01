@@ -25,18 +25,24 @@ public class GameServer extends Thread {
 
 	private DatagramSocket socket;
 	private GameState game;
-//	private ArrayList<PlayerMP> connectedPlayers = new ArrayList<PlayerMP>();
+	private GameController control;
+	private ArrayList<Player> connectedPlayers = new ArrayList<Player>();
 
 
 
-	public GameServer(GameState game){
+	public GameServer(GameState game, GameController control){
 		this.game = game;
+		this.control = control;
 		try {
 
 		this.socket = new DatagramSocket(1331);
 		} catch (SocketException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setGame(GameState game) {
+		this.game = game;
 	}
 
 	public void run(){
@@ -73,21 +79,19 @@ public class GameServer extends Thread {
 			System.out.println("");
 
 
-			//PlayerMP player = (PlayerMP) game.factory.createPlayerActor(game.keylistener,address,port,packet.getUserName(),
-			//connectedPlayers.size());
-			//player.setInventory(game.factory.createInventory(true, 10, 10));
+			Player player = game.getFactory().createPlayerActor(control ,packet.getUserName(), address, port, connectedPlayers.size()+1);
+			player.setInventory(game.getFactory().createInventory(true, 10, 10));
 			//game.player = player;
 
-			//addConnection(player, packet);
-			//this.connectedPlayers.add(player);
+			addConnection(player, packet);
 
-			//System.out.println("Player added, connected players == " + connectedPlayers.size());
+			System.out.println("Player added, connected players == " + connectedPlayers.size());
 
-			//for(PlayerMP p: connectedPlayers){
-			//	System.out.println("Player " + p.getPlayerid() + " is:::: "+ p.getUsername());
-			//}
+			for(Player p: connectedPlayers){
+				System.out.println("Player is:::: "+ p.getUsername());
+			}
 
-			//Packet03GameState update = new Packet03GameState(game.actors);
+			//Packet03GameState update = new Packet03GameState(game.getActors());
 			//update.writeData(this);
 			game.printGameObjectState();
 
@@ -99,29 +103,29 @@ public class GameServer extends Thread {
 
 	}
 
-//	private void addConnection(PlayerMP player, Packet00Login packet) {
-//		boolean alreadyConnected = false;
-//		for(PlayerMP p: this.connectedPlayers){
-//			if(player.getUsername().equalsIgnoreCase(p.getUsername())){
-//				if(p.ipAddress==null){
-//					p.ipAddress=player.ipAddress;
-//				}
-//				if(p.port==-1){
-//					p.port = player.port;
-//				}
-//				alreadyConnected=true;
-//			}
-//			else{
-//				sendData(packet.getData(),p.ipAddress,p.port);
-//			}
-//		}
-//		if(!alreadyConnected){
-//			this.connectedPlayers.add(player);
-//			//game.actors.add(player);
-//
-//		}
-//
-//	}
+	private void addConnection(Player player, Packet00Login packet) {
+		boolean alreadyConnected = false;
+		for(Player p: this.connectedPlayers){
+			if(player.getUsername().equalsIgnoreCase(p.getUsername())){
+				if(p.getIpAddress()==null){
+					p.setIpAddress(player.getIpAddress());
+				}
+				if(p.getPort()==-1){
+					p.setPort(player.getPort());
+				}
+				alreadyConnected=true;
+			}
+			else{
+				sendData(packet.getData(),p.getIpAddress(),p.getPort());
+			}
+		}
+		if(!alreadyConnected){
+			this.connectedPlayers.add(player);
+			game.addActor(player);
+
+		}
+
+	}
 
 	//converts data into datagrams and sends it down the socket
 	public void sendData(byte[] data, InetAddress ipAddress, int port){
@@ -135,9 +139,9 @@ public class GameServer extends Thread {
 
 	//for multiple players, calls send data for all connected players
 	public void sendDataToAllClients(byte[] data) {
-//		for(PlayerMP p : connectedPlayers){
-//			sendData(data, p.ipAddress, p.port);
-//		}
+		for(Player p : connectedPlayers){
+			sendData(data, p.getIpAddress(), p.getPort());
+		}
 
 	}
 }

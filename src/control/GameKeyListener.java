@@ -4,11 +4,12 @@ import control.GameController;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.Serializable;
 
 /**
  * Created by cuan on 9/10/15.
  */
-public class GameKeyListener implements KeyListener {
+public class GameKeyListener implements KeyListener, Serializable {
     private final int NUM_KEYS = 5;
     private final boolean[] keyArray = new boolean[NUM_KEYS];
 

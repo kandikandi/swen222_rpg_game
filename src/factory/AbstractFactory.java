@@ -6,6 +6,7 @@ import control.GameKeyListener;
 import model.*;
 
 import java.awt.event.KeyListener;
+import java.net.InetAddress;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -63,5 +64,8 @@ public abstract class AbstractFactory {
 
     public abstract Enemy createEnemyActor(int xPos, int yPos);
 
+
+	public abstract Player createPlayerActor(GameController gameController,
+			String username, InetAddress ipAddress, int port, int playernum);
 
 }

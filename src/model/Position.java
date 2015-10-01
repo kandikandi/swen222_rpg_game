@@ -1,5 +1,7 @@
 package model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -11,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * key for a map to a game-world object.
  */
 @XmlRootElement(name = "position") //TODO: Bonnie added this line!
-public final class Position {
+public final class Position implements Serializable {
     private int xPos, yPos;
     private int hashCode;
 

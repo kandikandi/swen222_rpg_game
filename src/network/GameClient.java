@@ -64,6 +64,11 @@ public class GameClient extends Thread {
 		PacketTypes type = Packet.lookupPacket(message.substring(0,2));//1st 2 digits is packet id
 		switch(type){
 		case INVALID:
+			Packet03GameState updatePacket = new Packet03GameState(data);
+			game.setActors(updatePacket.getGameUpdate());
+			game.printGameObjectState();
+			System.out.println("Client checking packet now...invalid....");
+
 			break;
 		case LOGIN:
 			Packet00Login packet = new Packet00Login(data);

@@ -8,11 +8,13 @@ import view.TestWorlds;
 import view.TileAssets;
 
 import java.awt.*;
+import java.io.Serializable;
+import java.net.InetAddress;
 import java.util.*;
 import java.util.List;
 
 
-public class TestModeFactory extends AbstractFactory {
+public class TestModeFactory extends AbstractFactory implements Serializable {
 
     public TestModeFactory(GameController gameController) {
         super(gameController);
@@ -92,14 +94,16 @@ public class TestModeFactory extends AbstractFactory {
 
     //TODO: Make default value of isCollidable for any actor to TRUE
     @Override
-    public Player createPlayerActor(GameController gameController) {
+    public Player createPlayerActor(GameController gameController, String username, InetAddress ipAddress, int port, int playernum) {
         MovementStrategy ms = new PlayerMoveStrategy(gameController);
-        Position loc = new Position(5, 5);
+        Position loc = new Position(5*(playernum*20), 5*(playernum*20));
         String imagePath= ActorAssets.PLAYER1.getImagePath();
-        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE);
+        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE, username, ipAddress, port, playernum);
         player.setMoveStrat(ms);
         return player;
     }
+
+
 
     @Override
     public Coin createCoin() {
@@ -149,6 +153,16 @@ public class TestModeFactory extends AbstractFactory {
         Key key = new Key(ID.KEY, pos, imagePath, true, true, size);
         return key;
     }
+
+	@Override
+	public Player createPlayerActor(GameController gameController) {
+	     MovementStrategy ms = new PlayerMoveStrategy(gameController);
+	        Position loc = new Position(5, 5);
+	        String imagePath= ActorAssets.PLAYER1.getImagePath();
+	        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE, imagePath, null, 0, 0);
+	        player.setMoveStrat(ms);
+	        return player;
+	}
 
 
 }

@@ -6,6 +6,8 @@ import control.Main;
 import control.MovementStrategy;
 
 import java.awt.*;
+import java.io.Serializable;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -20,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "player") //TODO: Bonnie added this line!
 @XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
-public class Player extends ActorStrategy {
+public class Player extends ActorStrategy implements Serializable {
 	@XmlTransient //TODO: Bonnie added this line!
 	MovementStrategy movementStrategy;
 	private final int speed = 5;
@@ -32,12 +34,20 @@ public class Player extends ActorStrategy {
 	private boolean alive = true;
 	private int bravery = 0;
 
+	private String username;
+	private InetAddress ipAddress;
+	private int port;
+	private int playernum;
 	/*@XmlTransient //TODO: Bonnie added this line!
 	protected final GameController gameController;*/
 
 	public Player(ID id, Position position, String imagePath, boolean collidable,
-				  boolean drawable, int boundingBoxSize ) {
+				  boolean drawable, int boundingBoxSize, String uname, InetAddress ipAddress, int port, int playernum ) {
 		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
+		this.playernum = playernum;
+		this.username = uname;
+		this.setIpAddress(ipAddress);
+		this.setPort(port);
 
 
 	}
@@ -284,6 +294,31 @@ public class Player extends ActorStrategy {
 		// if only one player left, game over
 		// tell the controller it's all over
 
+	}
+
+
+	public String getUsername() {
+		return username;
+	}
+
+
+	public InetAddress getIpAddress() {
+		return ipAddress;
+	}
+
+
+	public void setIpAddress(InetAddress ipAddress) {
+		this.ipAddress = ipAddress;
+	}
+
+
+	public int getPort() {
+		return port;
+	}
+
+
+	public void setPort(int port) {
+		this.port = port;
 	}
 
 }

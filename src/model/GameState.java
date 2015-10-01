@@ -6,6 +6,7 @@ import factory.AbstractFactory;
 import factory.ServerModeFactory;
 import factory.TestModeFactory;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this line!
 @XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
-public class GameState {
+public class GameState implements Serializable{
 	@XmlElementWrapper(name = "tilesList") //TODO: Bonnie added this line!
 	@XmlElement(name = "tile") //TODO: Bonnie added this line!
 	private Tile[][] worldTiles;
@@ -48,10 +49,11 @@ public class GameState {
 		if (Main.TEST_MODE) {
 			factory = new TestModeFactory(gameController);
 			worldTiles = factory.createWorldTiles();
-			player = factory.createPlayerActor(gameController);
-			actors = factory.createActorList();
-			actors.add(player);
-			player.setInventory(factory.createInventory(true, 10, 10));
+			//player = factory.createPlayerActor(gameController);
+			if(gameController.isServer()){
+			actors = factory.createActorList();}
+			//actors.add(player);
+			//player.setInventory(factory.createInventory(true, 10, 10));
 		} else {
 			factory = new ServerModeFactory(gameController);
 		}
@@ -78,6 +80,22 @@ public class GameState {
 
 	public Tile[][] getWorld() {
 		return worldTiles;
+	}
+
+	//Getters and setters
+
+	public List<Actor> getActors() {
+		return actors;
+	}
+
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
+
+	public AbstractFactory getFactory() {
+		return factory;
 	}
 
 	// ////////// Debuggin printout

@@ -46,7 +46,7 @@ public class SCollision implements GameSystem {
                 }
 
                 if (bBoxA.intersects(bBoxB) || bBoxB.intersects(bBoxA)) {
-                    System.out.println("SCollision: "+actorA.id + ": " + i + "  " + actorB.getID() + ": " + j);
+                    //System.out.println("SCollision: "+actorA.id + ": " + i + "  " + actorB.getID() + ": " + j);
                     if(actorA.isCollidable() && actorB.isCollidable()){
                         actorA.collide(actorB);
                         actorB.collide(actorA);
