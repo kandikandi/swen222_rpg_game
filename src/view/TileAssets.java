@@ -36,6 +36,15 @@ public enum TileAssets {
         return image;
     }
 
+    public static Image getAssetImage(char asciiCode) {
+        for(TileAssets item: TileAssets.values()){
+            if(item.getAsciiCode() == asciiCode){
+                return item.getImage();
+            }
+        }
+        throw new IllegalArgumentException("Invalid imagePath: "+asciiCode);
+    }
+
     public static TileAssets getAssetName(char asciiCode) {
         return Arrays.stream(TileAssets.values())
                 .filter(item -> item.getAsciiCode() == asciiCode)

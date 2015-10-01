@@ -32,10 +32,10 @@ public class TestModeFactory extends AbstractFactory {
         for (int row = 0; row < tileCode.length; row++) {
             for (int col = 0; col < tileCode[0].length; col++) {
                 char asciiCode = tileCode[row][col];
-                Image image = TileAssets.getAssetName(asciiCode).getImage();
-                image = image.getScaledInstance(Main.TILE_SIZE, Main.TILE_SIZE, Image.SCALE_FAST);
+                //Image image = TileAssets.getAssetName(asciiCode).getImage();
+                //image = image.getScaledInstance(Main.TILE_SIZE, Main.TILE_SIZE, Image.SCALE_FAST);
                 Position position = new Position(col * Main.TILE_SIZE, row * Main.TILE_SIZE);
-                result[row][col] = new Tile(image, position);
+                result[row][col] = new Tile(asciiCode, position);
             }
         }
         return result;

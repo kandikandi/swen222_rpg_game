@@ -16,23 +16,28 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement(name = "tile") //TODO: Bonnie added this line!
 public final class Tile  {
-    private final Image image;
+    //private final Image image;
+    private final char asciiCode;
     private final Position position;
 
-    public Tile(Image image, Position position) {
+    public Tile(/*Image image*/ char asciiCode, Position position) {
         this.position = position;
-        this.image = image;
+        this.asciiCode = asciiCode;
+        //this.image = image;
     }
 
     /**
      * Getter for Tile imageName.
      *
      * @return tile Image
-     */
 //    @XmlElement(name = "imageName") //TODO: Bonnie added this line!
     @XmlTransient //TODO: Bonnie added this line!
     public Image getImage(){
     	return image;
+    }*/
+
+    public char getAsciiCode(){
+        return asciiCode;
     }
 
     /**

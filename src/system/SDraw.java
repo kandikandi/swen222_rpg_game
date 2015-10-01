@@ -6,6 +6,7 @@ import model.Tile;
 import control.Main;
 import ui.GameCanvas;
 import view.ActorAssets;
+import view.TileAssets;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -51,11 +52,12 @@ public final class SDraw implements GameSystem {
 		for (int row = 0; row < Main.NUM_TILE_ROW; row++) {
 			for (int col = 0; col < Main.NUM_TILE_COL; col++) {
 				Tile tile = world[row][col];
-				Image image = tile.getImage();
+				//Image image = tile.getImage();
+				Image image = TileAssets.getAssetImage(tile.getAsciiCode());
 				int x = tile.getPosition().getxPos();
 				int y = tile.getPosition().getyPos();
 				int width = Main.TILE_SIZE;
-				g2d.drawImage(tile.getImage(), x, y, width, width, null);
+				g2d.drawImage(image, x, y, width, width, null);
 
 			}
 		}
