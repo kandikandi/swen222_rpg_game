@@ -8,10 +8,13 @@ import model.*;
 import java.awt.event.KeyListener;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlTransient;
+
 /**
  * Created by cuan on 9/19/15.
  */
 public abstract class AbstractFactory {
+	@XmlTransient //TODO: Bonnie added this line!
     protected final  GameController gameController;
 
     AbstractFactory(GameController gameController){

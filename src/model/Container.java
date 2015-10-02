@@ -3,6 +3,10 @@ package model;
 import java.awt.Image;
 import java.util.ArrayList;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * This class provides for GameObjects that represent game items that store
  * other items, such as a backpack holding collectables.
@@ -10,9 +14,13 @@ import java.util.ArrayList;
  * @author dalyandr
  *
  */
+@XmlRootElement(name = "container") //TODO: Bonnie added this line!
 public class Container extends Actor {
 
 	private int maximumItems = 10;
+
+	@XmlElementWrapper(name = "itemsList") //TODO: Bonnie added this line!
+	@XmlElement(name = "item") //TODO: Bonnie added this line!
 	protected ArrayList<Actor> items;
 
 	/**

@@ -16,7 +16,7 @@ import model.GameState;
  */
 public class DataStorage {
 
-	private static final String GAME_FILE = "saved_game.xml";
+//	private static final String GAME_FILE = "saved_game.xml";
 	private static GameController gameController;
 
 	public DataStorage(GameController gameController){
@@ -32,12 +32,15 @@ public class DataStorage {
 			Marshaller m = context.createMarshaller();
 			m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
+			File file = FileChooser.getFile(false);
+
 			// Write to file
-			m.marshal(gameController.getGameState(), new File(GAME_FILE));
+			m.marshal(gameController.getGameState(), file);
 
 			System.out.println("Game saved!");
 		} catch (JAXBException e) {
-			System.out.println(e.getMessage());
+//			System.out.println(e.getMessage());
+			e.printStackTrace();
 		}
 
 	}

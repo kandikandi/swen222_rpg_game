@@ -12,6 +12,8 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,14 +26,21 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this line!
+@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
 public class GameState {
 	@XmlElementWrapper(name = "tilesList") //TODO: Bonnie added this line!
 	@XmlElement(name = "tile") //TODO: Bonnie added this line!
 	private Tile[][] worldTiles;
+
 	private  Player player;
+
+	@XmlElementWrapper(name = "actors") //TODO: Bonnie added this line!
+	@XmlElement(name = "actor") //TODO: Bonnie added this line!
 	private  List<Actor> actors; // list of all GameObjects in
 													// Game.
 	private final AbstractFactory factory;
+
+	@XmlTransient //TODO: Bonnie added this line!
 	private final GameController gameController;
 
 

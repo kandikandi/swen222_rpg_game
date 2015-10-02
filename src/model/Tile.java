@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * Created by cuan on 9/13/15.
@@ -18,6 +20,7 @@ import javax.xml.bind.annotation.XmlElement;
  *
  *
  */
+@XmlRootElement(name = "tile") //TODO: Bonnie added this line!
 public final class Tile  {
     private final Image image;
     private final Position position;
@@ -32,7 +35,8 @@ public final class Tile  {
      *
      * @return tile Image
      */
-    @XmlElement(name = "image") //TODO: Bonnie added this line!
+//    @XmlElement(name = "image") //TODO: Bonnie added this line!
+    @XmlTransient //TODO: Bonnie added this line!
     public Image getImage(){
     	return image;
     }
