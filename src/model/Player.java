@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Player extends ActorStrategy {
 	MovementStrategy movementStrategy;
-	private final int speed = 5;
+	private final int speed = 2;
 	private Inventory inventory;
 	private boolean hasKey;
 	private boolean playerIsAttacking;

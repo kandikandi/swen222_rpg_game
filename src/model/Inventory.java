@@ -5,7 +5,7 @@ import java.awt.Image;
 public class Inventory extends Container {
 
 	final private Player inventoryOwner;
-	final int maximumItems = 9;
+	final private int maximumItems = 9;
 
 
 	/**

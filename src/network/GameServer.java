@@ -52,7 +52,7 @@ public class GameServer extends Thread {
 
 			String message = new String(packet.getData());
 			if (message.trim().equalsIgnoreCase("ping")){
-			System.out.println("CLIENT > "+ message);
+//			System.out.println("CLIENT > "+ message);
 			sendData("PONG".getBytes(), packet.getAddress(),packet.getPort());
 			}
 		}

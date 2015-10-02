@@ -48,7 +48,7 @@ public class GameClient extends Thread {
 			try {
 				socket.receive(packet);
 				String message = new String(packet.getData());
-				System.out.println("SERVER > "+ message);
+//				System.out.println("SERVER > "+ message);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
