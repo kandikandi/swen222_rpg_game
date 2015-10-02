@@ -21,7 +21,7 @@ public class Main {
 	public static final int NUM_TILE_ROW = C_HEIGHT / TILE_SIZE;
 	public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
 	public static final boolean TEST_MODE = true;
-	public static final String TITLE = "ECS alpha 0.1";
+	public static final String TITLE = "Bedtime Story";
 	public static final int PLAYER_SIZE = 45;
 	public static final int ITEM_SIZE = 30;
 

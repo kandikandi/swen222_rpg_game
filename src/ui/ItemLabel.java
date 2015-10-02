@@ -41,10 +41,6 @@ public class ItemLabel extends JLabel {
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items image
 //		this.itemID = itemID;
 
-
-
-
-
 		/*
 		 * Set up the JPopupMenu.
 		 * This menu only displays when a ItemLabel is right clicked
@@ -52,6 +48,7 @@ public class ItemLabel extends JLabel {
 		this.addMouseListener(new PopupTriggerListener());
 
 		JMenuItem inspect = new JMenuItem("Inspect Item");
+
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Item Inspected");
@@ -97,7 +94,6 @@ public class ItemLabel extends JLabel {
 		});
 		itemMenu.add(hide);
 
-
 	}
 
 	// rough set of this item id
@@ -123,6 +119,7 @@ public class ItemLabel extends JLabel {
 	 */
 	class PopupTriggerListener extends MouseAdapter {
 
+
 		Border selectedBorder = BorderFactory.createLineBorder(Color.GREEN, 1);
 
 		public void mousePressed(MouseEvent ev) {
@@ -135,7 +132,6 @@ public class ItemLabel extends JLabel {
 		public void mouseReleased(MouseEvent ev) {
 			if (ev.isPopupTrigger()) {
 				itemMenu.show(ev.getComponent(), ev.getX(), ev.getY());
-				System.out.println("Hey");
 			}
 		}
 

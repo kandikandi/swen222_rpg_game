@@ -36,6 +36,7 @@ public class GameFrame extends JFrame {
 	public GameFrame(String title, int WIDTH, int HEIGHT) {
 		super(title);
 
+
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
 		this.goldPanel = new GoldPanel();
@@ -44,6 +45,7 @@ public class GameFrame extends JFrame {
 		this.HEIGHT = HEIGHT;
 		this.setVisible(true);
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
+
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CHANGE TO DO_NOTHING_ON_CLOSE
 		//this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

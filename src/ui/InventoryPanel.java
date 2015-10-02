@@ -56,81 +56,67 @@ public class InventoryPanel extends JPanel {
 	 */
 	public void update(ArrayList<Actor> inventory){
 
-		// ONLY BEING USED UNTIL WE HAVE SORTED MORE PRECISE UPDATES OF THE GUI
-//		Boolean changesMade = false;
-//		if(this.items.size() != 0){
-//			for(int i = 0; i < items.size(); i++){
-//				if(items.get(i) instanceof ItemLabel){
-//					if(((ItemLabel) items.get(i)).getItemLabelID() != inventory.get(i).getID()){
-//						changesMade = true;;
-//					}
-//				}
-//			}
-//		} else {
-//			changesMade = true;
-//			System.out.println("Setting to true");
-//		}
-//
-//		if(changesMade){
-			// Clear the Inventory every time it is updated
-			items.clear();
-			this.removeAll();
-			this.revalidate();
+		// Clear the Inventory every time it is updated
+		items.clear();
+		this.removeAll();
+		this.revalidate();
 
-			int itemAmount = inventory.size();
+		int itemAmount = inventory.size();
 
-			// Put the inventory items into the inventory
-			for(int i = 0; i < inventory.size(); i++){
-				ItemLabel newItem = new ItemLabel();
-				newItem.setItemLabelID(inventory.get(i).getID()); // TESTING THE SETTING OF ITEM ID ON ITEM LABEL THIS WILL BE USED FOR IMAGE AND BEHAVIOUR
-				if(newItem.getItemLabelID().getID() == 6){
-					try {
-						// load the image
-						itemImage = ImageIO.read(new File("Inventory_Key.png"));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					newItem.setIcon(new ImageIcon(itemImage));
-				}
-				items.add(newItem);
-			}
+		// Put the inventory items into the inventory
+		for(int i = 0; i < inventory.size(); i++){
+			ItemLabel newItem = new ItemLabel();
+			newItem.setItemLabelID(inventory.get(i).getID());
 
-			// Fill the remaining inventory slots with EmptyLabels
-			for(int i = itemAmount; i < 9; i++){
-				EmptyLabels empty = new EmptyLabels();
-				items.add(empty);
-			}
 
-			// Add all the JLabels to the InventoryPanel
-			for(int i = 0; i < items.size(); i++){
-				this.add(items.get(i));
-			}
+			itemImage = inventory.get(i).getImage();
+			Image scaledImage = itemImage.getScaledInstance(60, 60,
+					Image.SCALE_SMOOTH);
 
-			// Update the InventoryPanel
-			this.revalidate();
-//		}
-	}
 
-	public void paintComponent(Graphics g){
-		super.paintComponent(g);
-		if(backgroundImage!= null){
-			g.drawImage(backgroundImage, 0, 0, null);
+			newItem.setIcon(new ImageIcon(scaledImage));
+			items.add(newItem);
+
+
 		}
 
+
+		// Fill the remaining inventory slots with EmptyLabels
+		for(int i = itemAmount; i < 9; i++){
+			EmptyLabels empty = new EmptyLabels();
+			items.add(empty);
+		}
+
+		// Add all the JLabels to the InventoryPanel
+		for(int i = 0; i < items.size(); i++){
+			this.add(items.get(i));
+		}
+
+		// Update the InventoryPanel
+		this.revalidate();
+		//		}
 	}
 
-	private void createBorder() {
-		//Compound borders
-		Border compound;
-
-		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
-		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
-		//This creates a nice frame.
-		compound = BorderFactory.createCompoundBorder(
-		                          raisedbevel, loweredbevel);
-
-		this.setBorder(compound);
-
+public void paintComponent(Graphics g){
+	super.paintComponent(g);
+	if(backgroundImage!= null){
+		g.drawImage(backgroundImage, 0, 0, null);
 	}
+
+}
+
+private void createBorder() {
+	//Compound borders
+	Border compound;
+
+	Border raisedbevel = BorderFactory.createRaisedBevelBorder();
+	Border loweredbevel = BorderFactory.createLoweredBevelBorder();
+	//This creates a nice frame.
+	compound = BorderFactory.createCompoundBorder(
+			raisedbevel, loweredbevel);
+
+	this.setBorder(compound);
+
+}
 
 }

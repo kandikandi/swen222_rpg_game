@@ -38,6 +38,7 @@ public class GameCanvas extends JPanel {
 		this.HEIGHT = HEIGHT;
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+		this.setFocusable(true);
 
 	}
 
@@ -52,6 +53,7 @@ public class GameCanvas extends JPanel {
 		if(gameController.getPlayer() != null){
 			this.getFrame().updateGUI(gameController.getPlayer());
 		}
+		frame.requestFocus();
 
 	}
 
