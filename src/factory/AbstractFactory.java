@@ -65,7 +65,7 @@ public abstract class AbstractFactory {
     public abstract Enemy createEnemyActor(int xPos, int yPos);
 
 
-	public abstract Player createPlayerActor(GameController gameController,
-			String username, InetAddress ipAddress, int port, int playernum);
+//	public abstract Player createPlayerActor(GameController gameController,
+//			String username, InetAddress ipAddress, int port, int playernum);
 
 }

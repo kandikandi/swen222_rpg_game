@@ -30,7 +30,7 @@ public class Container extends Actor {
      * @param drawable
      * @param boundingBoxSize
      */
-    public Container(ID id, Position position, String imageName, boolean collidable,
+    public Container(ID id, Position position, char imageName, boolean collidable,
                      boolean drawable, int boundingBoxSize) {
         super(id, position, imageName, collidable, drawable, boundingBoxSize);
         this.items = new ArrayList<Actor>();
@@ -47,7 +47,7 @@ public class Container extends Actor {
      * @param drawable
      * @param boundingBoxSize
      */
-    public Container(ID id, Position position, String imageName, boolean collidable,
+    public Container(ID id, Position position, char imageName, boolean collidable,
                      boolean drawable, int boundingBoxSize, Collectable... collectables) {
         super(id, position, imageName, collidable, drawable, boundingBoxSize);
         this.items = new ArrayList<Actor>();

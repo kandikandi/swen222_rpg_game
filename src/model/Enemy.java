@@ -14,7 +14,7 @@ public class Enemy extends ActorStrategy{
 	private int count; 	// just want way to alternate attacking and not attacking. Bit weird maybe.
 						//Tick will increment and set attack depending on value.
 
-	public Enemy(ID id, Position location, String imagePath, boolean collidable,
+	public Enemy(ID id, Position location, char imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
 		super(id, location, imagePath, collidable, drawable, boundingBoxSize);
 		this.attackPoints = 2;
@@ -101,13 +101,13 @@ public class Enemy extends ActorStrategy{
 		alive = false;
 		setDrawable(false);
 	}
-	
-	
+
+
 	public boolean getIsAlive(){
 		return alive;
 	}
 
-	
+
 
 
 

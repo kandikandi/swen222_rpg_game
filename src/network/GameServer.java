@@ -7,13 +7,17 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 
 import packet.Packet;
 import packet.Packet00Login;
 import packet.Packet.PacketTypes;
 import packet.Packet03GameState;
+import packet.Serialiser;
 import control.GameController;
 import control.Main;
+import control.PlayerControl;
+import model.Actor;
 import model.GameState;
 import model.ID;
 import model.Player;
@@ -26,7 +30,8 @@ public class GameServer extends Thread {
 	private DatagramSocket socket;
 	private GameState game;
 	private GameController control;
-	private ArrayList<Player> connectedPlayers = new ArrayList<Player>();
+	private ArrayList<PlayerControl> connectedPlayers = new ArrayList<PlayerControl>();
+	private Serialiser serial = new Serialiser();
 
 
 
@@ -47,7 +52,7 @@ public class GameServer extends Thread {
 
 	public void run(){
 		while(true){
-			byte[] data = new byte[1024]; //1024 for now
+			byte[] data = new byte[60000];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 			try {
 				socket.receive(packet);
@@ -56,11 +61,11 @@ public class GameServer extends Thread {
 			}
 			parsePacket(packet.getData(),packet.getAddress(), packet.getPort());
 
-			String message = new String(packet.getData());
-			if (message.trim().equalsIgnoreCase("ping")){
-			System.out.println("CLIENT > "+ message);
-			sendData("PONG".getBytes(), packet.getAddress(),packet.getPort());
-			}
+//			String message = new String(packet.getData());
+//			if (message.trim().equalsIgnoreCase("ping")){
+//			System.out.println("CLIENT > "+ message);
+//			sendData("PONG".getBytes(), packet.getAddress(),packet.getPort());
+//			}
 		}
 	}
 	/** Multiple packet classes which so can deal with different types of data, eg login, update....*/
@@ -78,22 +83,37 @@ public class GameServer extends Thread {
 			System.out.println("["+address.getHostAddress()+":"+port+"] "+ packet.getUserName()+" has connected..");
 			System.out.println("");
 
+			//createPlayerControl
+			PlayerControl playerControl = new PlayerControl(packet.getUserName(), address, port, connectedPlayers.size()+1);
+			game.createPlayer();
 
-			Player player = game.getFactory().createPlayerActor(control ,packet.getUserName(), address, port, connectedPlayers.size()+1);
-			player.setInventory(game.getFactory().createInventory(true, 10, 10));
-			//game.player = player;
-
-			addConnection(player, packet);
+			addConnection(playerControl, packet);
 
 			System.out.println("Player added, connected players == " + connectedPlayers.size());
 
-			for(Player p: connectedPlayers){
+			for(PlayerControl p: connectedPlayers){
 				System.out.println("Player is:::: "+ p.getUsername());
 			}
 
-			//Packet03GameState update = new Packet03GameState(game.getActors());
-			//update.writeData(this);
-			game.printGameObjectState();
+			List<Actor> update = game.getAllActors();
+			//Player play =
+
+
+			try {
+				sendDataToAllClients(serial.serialize(update));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+			//byte[] ser = game.sendUpdate();
+			//System.out.println("serialising is here");
+			//Packet03GameState packet03 = new Packet03GameState(ser);
+			//send
+
+
+			//game.printGameObjectState();
 
 
 			break;
@@ -103,9 +123,9 @@ public class GameServer extends Thread {
 
 	}
 
-	private void addConnection(Player player, Packet00Login packet) {
+	private void addConnection(PlayerControl player, Packet00Login packet) {
 		boolean alreadyConnected = false;
-		for(Player p: this.connectedPlayers){
+		for(PlayerControl p: this.connectedPlayers){
 			if(player.getUsername().equalsIgnoreCase(p.getUsername())){
 				if(p.getIpAddress()==null){
 					p.setIpAddress(player.getIpAddress());
@@ -121,7 +141,6 @@ public class GameServer extends Thread {
 		}
 		if(!alreadyConnected){
 			this.connectedPlayers.add(player);
-			game.addActor(player);
 
 		}
 
@@ -139,7 +158,7 @@ public class GameServer extends Thread {
 
 	//for multiple players, calls send data for all connected players
 	public void sendDataToAllClients(byte[] data) {
-		for(Player p : connectedPlayers){
+		for(PlayerControl p : connectedPlayers){
 			sendData(data, p.getIpAddress(), p.getPort());
 		}
 

@@ -6,13 +6,16 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import packet.Packet;
 import packet.Packet00Login;
 import packet.Packet.PacketTypes;
 import packet.Packet03GameState;
+import packet.Serialiser;
 import control.GameController;
 import control.Main;
+import model.Actor;
 import model.GameState;
 
 public class GameClient extends Thread {
@@ -25,6 +28,7 @@ public class GameClient extends Thread {
 	private InetAddress ipAddress;
 	private DatagramSocket socket;
 	private GameState game;
+	Serialiser serial = new Serialiser();
 
 	public GameClient(String ipAddress, GameState game){
 		this. game  = game;
@@ -42,18 +46,18 @@ public class GameClient extends Thread {
 	public void run(){
 		while(true){
 
-			byte[] data = new byte[1024];
+			byte[] data = new byte[60000];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 
 			try {
 				socket.receive(packet);
-				String message = new String(packet.getData());
-				System.out.println("SERVER > "+ message);
+				//String message = new String(packet.getData());
+				//System.out.println("SERVER > "+ message);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-			//parsePacket(packet.getData(),packet.getAddress(), packet.getPort());
+			parsePacket(packet.getData(),packet.getAddress(), packet.getPort());
 
 		}
 	}
@@ -62,12 +66,27 @@ public class GameClient extends Thread {
 	private void parsePacket(byte[] data, InetAddress address, int port) {
 		String message = new String(data).trim();
 		PacketTypes type = Packet.lookupPacket(message.substring(0,2));//1st 2 digits is packet id
+
 		switch(type){
 		case INVALID:
-			Packet03GameState updatePacket = new Packet03GameState(data);
-			game.setActors(updatePacket.getGameUpdate());
-			game.printGameObjectState();
-			System.out.println("Client checking packet now...invalid....");
+
+			ArrayList<Actor> recd;
+			try {
+				recd = (ArrayList<Actor>) serial.deserialize(data);
+				for(Actor a: recd){
+					a.printState();
+				}
+				game.setActors(recd);
+			} catch (ClassNotFoundException | IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+
+//			Packet03GameState updatePacket = new Packet03GameState(data);
+//			game.setActors(updatePacket.getGameUpdate());
+//			game.printGameObjectState();
+//			System.out.println("Client checking packet now...invalid....");
 
 			break;
 		case LOGIN:

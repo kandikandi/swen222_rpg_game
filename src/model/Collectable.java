@@ -12,7 +12,7 @@ import java.awt.Image;
 public class Collectable extends Actor {
 	boolean inContainer;
 
-	public Collectable(ID id, Position position, String imagePath,
+	public Collectable(ID id, Position position, char imagePath,
 			boolean collidable, boolean drawable, int boundingBoxSize) {
 		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 	}
@@ -28,7 +28,7 @@ public class Collectable extends Actor {
 	 * @param drawable
 	 * @param container
 	 */
-	public Collectable(ID id, Position position, String imagePath,
+	public Collectable(ID id, Position position, char imagePath,
 			boolean collidable, boolean drawable, Container container, int boundingBoxSize) {
 		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 	}

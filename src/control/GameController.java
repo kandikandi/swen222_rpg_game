@@ -101,8 +101,12 @@ public class GameController implements Serializable {
 		return gameState;
 	}
 
-	public Player getPlayer() {
-		return gameState.getPlayer();
+	public Player getPlayer1() {
+		return gameState.getPlayer1();
+	}
+
+	public Player getPlayer2() {
+		return gameState.getPlayer2();
 	}
 
 	public GameKeyListener getKeyListener() {

@@ -27,7 +27,7 @@ public class GameTimer extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(20);
+				Thread.sleep(1000);
 				gameController.executeAllSystems(); // updates every actor and
 													// game system
 			} catch (Exception e) {

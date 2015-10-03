@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.*;
+import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -15,7 +16,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @XmlRootElement(name = "tile") //TODO: Bonnie added this line!
-public final class Tile  {
+public final class Tile  implements Serializable{
     //private final Image image;
     private final char asciiCode;
     private final Position position;

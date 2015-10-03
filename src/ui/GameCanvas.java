@@ -49,9 +49,9 @@ public class GameCanvas extends JPanel {
 		receivedImage = buffImg;
 		this.repaint();
 		//this works to - might be to quick
-		if(gameController.getPlayer() != null){
-			this.getFrame().updateGUI(gameController.getPlayer());
-		}
+		//if(gameController.getPlayer() != null){
+		//	this.getFrame().updateGUI(gameController.getPlayer());
+		//}
 
 	}
 

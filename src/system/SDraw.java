@@ -64,7 +64,7 @@ public final class SDraw implements GameSystem {
 		List<Actor> actors = gameController.getAllActors();
 		for (Actor actor : actors) {
 			if(actor.isDrawable()){
-				Image image = ActorAssets.getAssetImage(actor.getImageName());
+				Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
 				int x = actor.getPosition().getxPos();
 				int y = actor.getPosition().getyPos();
 				g2d.drawImage(image, x, y, null);

@@ -27,7 +27,7 @@ public class Inventory extends Container {
 	 * @param inventoryOwner
 	 * @param collectables
 	 */
-	public Inventory(ID id, Position position, String imagePath, boolean collidable,
+	public Inventory(ID id, Position position, char imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize, Player inventoryOwner,
 			Collectable... collectables) {
 		super(id, position, imagePath, false, false, boundingBoxSize, collectables);

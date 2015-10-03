@@ -14,11 +14,12 @@ public abstract class Actor implements Tickable, Serializable {
     protected boolean drawable;
     protected ID id;
     protected int boundingBoxSize;
+    protected char asciiCode;
 
-    public Actor(ID id, Position position, String imageName, boolean collidable, boolean drawable, int boundingBoxSize) {
+    public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable, int boundingBoxSize) {
         this.id = id;
         this.position = position;
-        this.imageName = imageName;
+        this.asciiCode = ascii;
         this.collidable = collidable;
         this.drawable = drawable;
         this.boundingBoxSize = boundingBoxSize;
@@ -41,8 +42,8 @@ public abstract class Actor implements Tickable, Serializable {
      *
      * @return GameObject's Image.
      */
-    public String getImageName() {
-        return imageName;
+    public char getImageName() {
+        return asciiCode;
     }
 
     /**
@@ -115,6 +116,12 @@ public abstract class Actor implements Tickable, Serializable {
     public void printState() {
         System.out.println(this.getClass() + " " + getPosition().toString() + "\ncollidable: " + isCollidable() + " drawable: " + isDrawable() + "\n");
     }
+
+
+	public char getAsciiCode() {
+
+		return asciiCode;
+	}
 
 
 

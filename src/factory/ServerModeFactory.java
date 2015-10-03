@@ -55,12 +55,12 @@ public class ServerModeFactory extends AbstractFactory {
 		return null;
 	}
 
-	@Override
-	public Player createPlayerActor(GameController gameController,
-			String username, InetAddress ipAddress, int port, int playernum) {
-		// TODO Auto-generated method stub ------------- to compile-------------
-		return null;
-	}
+//	@Override
+//	public Player createPlayerActor(GameController gameController,
+//			String username, InetAddress ipAddress, int port, int playernum) {
+//		// TODO Auto-generated method stub ------------- to compile-------------
+//		return null;
+//	}
 
 
 

@@ -1,6 +1,7 @@
 package view;
 
 import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -47,9 +48,9 @@ public enum ActorAssets {
         return image;
     }
 
-    public String getImagePath(){
-        return imagePath;
-    }
+//    public char getImagePath(){
+//        return imagePath;
+//    }
 
     public static ActorAssets getAssetName(char asciiCode) {
         return Arrays.stream(ActorAssets.values())
@@ -58,14 +59,23 @@ public enum ActorAssets {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid ascii code: " + asciiCode));
     }
 
-
-    public static Image getAssetImage(String imagePath) {
+    public static Image getAssetImage(char asciiCode) {
         for(ActorAssets item: ActorAssets.values()){
-            if(item.getImagePath() == imagePath){
+            if(item.getAsciiCode() == asciiCode){
                 return item.getImage();
             }
         }
-        throw new IllegalArgumentException("Invalid imagePath: "+imagePath);
+        throw new IllegalArgumentException("Invalid asciiCode: "+asciiCode);
     }
+
+
+//    public static Image getAssetImage(String imagePath) {
+//        for(ActorAssets item: ActorAssets.values()){
+//            if(item.getImagePath() == imagePath){
+//                return item.getImage();
+//            }
+//        }
+//        throw new IllegalArgumentException("Invalid imagePath: "+imagePath);
+//    }
 
 }

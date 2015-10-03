@@ -19,7 +19,7 @@ public abstract class ActorStrategy extends Actor {
     private DIR movingDirection;
 
 
-    public ActorStrategy(ID id, Position position, String imagePath, boolean collidable, boolean drawable, int boundingBoxSize) {
+    public ActorStrategy(ID id, Position position, char imagePath, boolean collidable, boolean drawable, int boundingBoxSize) {
         super(id, position, imagePath, collidable, drawable, boundingBoxSize);
         isMoving = false;
     }

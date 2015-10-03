@@ -6,6 +6,7 @@ import factory.AbstractFactory;
 import factory.ServerModeFactory;
 import factory.TestModeFactory;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import packet.Serialiser;
 
 /**
  * This class will be a central
@@ -30,7 +33,8 @@ public class GameState implements Serializable{
 	@XmlElement(name = "tile") //TODO: Bonnie added this line!
 	private Tile[][] worldTiles;
 
-	private  Player player;
+	private  Player player1;
+	private Player player2;
 
 	@XmlElementWrapper(name = "actors") //TODO: Bonnie added this line!
 	@XmlElement(name = "actor") //TODO: Bonnie added this line!
@@ -49,7 +53,7 @@ public class GameState implements Serializable{
 		if (Main.TEST_MODE) {
 			factory = new TestModeFactory(gameController);
 			worldTiles = factory.createWorldTiles();
-			//player = factory.createPlayerActor(gameController);
+		//	player = factory.createPlayerActor(gameController);
 			if(gameController.isServer()){
 			actors = factory.createActorList();}
 			//actors.add(player);
@@ -74,8 +78,16 @@ public class GameState implements Serializable{
 	 *
 	 * @return
 	 */
-	public  Player getPlayer() {
-		return player;
+	public  Player getPlayer1() {
+		return player1;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public  Player getPlayer2() {
+		return player2;
 	}
 
 	public Tile[][] getWorld() {
@@ -84,8 +96,8 @@ public class GameState implements Serializable{
 
 	//Getters and setters
 
-	public List<Actor> getActors() {
-		return actors;
+	public Actor getActor(int i){
+		return actors.get(i);
 	}
 
 
@@ -112,6 +124,24 @@ public class GameState implements Serializable{
 		}
 
 	}
+
+	public byte[] sendUpdate(){
+		Serialiser serialise = new Serialiser();
+		try {
+			return serialise.serialize(actors);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	// ////////////////////////////////////////////////
+
+
+	public Player createPlayer() {
+		Player player = factory.createPlayerActor(gameController);
+		actors.add(player);
+	//	player.setInventory(factory.createInventory(true, 10, 10));
+		return player;
+	}
 
 }

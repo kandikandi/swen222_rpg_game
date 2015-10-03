@@ -7,7 +7,7 @@ public class CoinBag extends Container {
 
 	private final int maximumItems = 10;
 
-	public CoinBag(ID id, Position position, String imagePath, boolean collidable,
+	public CoinBag(ID id, Position position, char imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
 		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 		this.items = new ArrayList<Actor>();

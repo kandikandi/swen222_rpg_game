@@ -58,21 +58,21 @@ public class TestModeFactory extends AbstractFactory implements Serializable {
                 }
                 Position position = new Position(col * Main.TILE_SIZE, row * Main.TILE_SIZE);
                 int size = Main.ITEM_SIZE;
-                String imagePath = ActorAssets.getAssetName(asciiCode).getImagePath();
+                //char imagePath = ActorAssets.getAsciiCode();
                 ActorAssets asset = ActorAssets.getAssetName(asciiCode);
                 Actor actor = null;
                 switch (asset) {
                 	case COIN:
-                		actor = new Coin(ID.COLLECTABLE, position, imagePath, true, true, size);
+                		actor = new Coin(ID.COLLECTABLE, position, asciiCode, true, true, size);
                         break;
                 	case COINBAG:
-                		actor = new CoinBag(ID.CONTAINER, position, imagePath, true, true, size);
+                		actor = new CoinBag(ID.CONTAINER, position, asciiCode, true, true, size);
                         break;
                 	case KEY:
-                        actor = new Key(ID.KEY, position, imagePath, true, true, size);
+                        actor = new Key(ID.KEY, position, asciiCode, true, true, size);
                         break;
                     case ENEMY:
-                    	actor = new Enemy(ID.ENEMY,position, imagePath, true, true, size);
+                    	actor = new Enemy(ID.ENEMY,position, asciiCode, true, true, size);
                     	break;
 
                 }
@@ -91,18 +91,6 @@ public class TestModeFactory extends AbstractFactory implements Serializable {
         }
         return actors;
     }
-
-    //TODO: Make default value of isCollidable for any actor to TRUE
-    @Override
-    public Player createPlayerActor(GameController gameController, String username, InetAddress ipAddress, int port, int playernum) {
-        MovementStrategy ms = new PlayerMoveStrategy(gameController);
-        Position loc = new Position(5*(playernum*20), 5*(playernum*20));
-        String imagePath= ActorAssets.PLAYER1.getImagePath();
-        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE, username, ipAddress, port, playernum);
-        player.setMoveStrat(ms);
-        return player;
-    }
-
 
 
     @Override
@@ -123,7 +111,7 @@ public class TestModeFactory extends AbstractFactory implements Serializable {
         }
         int size = Main.ITEM_SIZE;
         Position position = new Position(xPos, yPos);
-        String imagePath = ActorAssets.INVENTORY.getImagePath();
+        char imagePath = ActorAssets.INVENTORY.getAsciiCode();
         Inventory inventory = new Inventory(ID.CONTAINER, position, imagePath, collidable, drawable, size, null);
 
         return inventory;
@@ -138,7 +126,7 @@ public class TestModeFactory extends AbstractFactory implements Serializable {
     @Override
     public Enemy createEnemyActor(int xPos, int yPos) {
     	Position pos = new Position(xPos, yPos);
-        String imagePath = ActorAssets.ENEMY.getImagePath();
+        char imagePath = ActorAssets.ENEMY.getAsciiCode();
         int size = Main.ITEM_SIZE;
         Enemy enemy = new Enemy(ID.ENEMY, pos, imagePath, true, true, size);
         return enemy;
@@ -148,7 +136,7 @@ public class TestModeFactory extends AbstractFactory implements Serializable {
     @Override
     public Key createKey(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
-        String imagePath = ActorAssets.KEY.getImagePath();
+        char imagePath = ActorAssets.KEY.getAsciiCode();
         int size = Main.ITEM_SIZE;
         Key key = new Key(ID.KEY, pos, imagePath, true, true, size);
         return key;
@@ -158,11 +146,19 @@ public class TestModeFactory extends AbstractFactory implements Serializable {
 	public Player createPlayerActor(GameController gameController) {
 	     MovementStrategy ms = new PlayerMoveStrategy(gameController);
 	        Position loc = new Position(5, 5);
-	        String imagePath= ActorAssets.PLAYER1.getImagePath();
-	        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE, imagePath, null, 0, 0);
+	        char imagePath= ActorAssets.PLAYER1.getAsciiCode();
+	        Player player = new Player(ID.PLAYER, loc, imagePath, true, true, Main.PLAYER_SIZE);
 	        player.setMoveStrat(ms);
+	//        player.setInventory(createInventory(true, 10, 10));
 	        return player;
 	}
+
+//	@Override
+//	public Player createPlayerActor(GameController gameController,
+//			String username, InetAddress ipAddress, int port, int playernum) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 
 }

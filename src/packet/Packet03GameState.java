@@ -14,21 +14,18 @@ public class Packet03GameState extends Packet{
 	private List<Actor> update;
 	private int packetNum;
 	private Serialiser serialise = new Serialiser();
+	private byte[]data;
 
 	@SuppressWarnings("unchecked")
 	public Packet03GameState(byte[] data) {
 		super(03);
 		packetNum = 03;
+		this.data = data;
 		try {
 			update = (List) serialise.deserialize(data);
 		} catch (ClassNotFoundException | IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public Packet03GameState(List<Actor> list) {
-		super(03);
-		update = list;
 	}
 
 	@Override
@@ -45,12 +42,8 @@ public class Packet03GameState extends Packet{
 
 	@Override
 	public byte[] getData() {
-		try {
-			return serialise.serialize(update);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return data;
+
 	}
 
 	public List<Actor> getGameUpdate(){
