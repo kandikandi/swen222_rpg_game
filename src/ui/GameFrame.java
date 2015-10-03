@@ -1,12 +1,9 @@
 package ui;
 
-import control.GameController;
-
 import javax.swing.*;
 
-import save.DataStorage;
-import model.Actor;
-import model.Player;
+import Model.Actor;
+import Model.Player;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -101,7 +98,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				DataStorage.save();
+				//DataStorage.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
@@ -140,7 +137,7 @@ public class GameFrame extends JFrame {
 	 * @param inventory
 	 */
 	public void updatePlayerInventory(ArrayList<Actor> inventory){
-		this.inventory.update(inventory);
+		//this.inventory.update(inventory);
 	}
 
 	/**

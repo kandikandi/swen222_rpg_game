@@ -17,7 +17,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
-import model.ID;
+import View.ID;
+
+
 
 /**
  * The ItemLabel extends JLabel, it is used for each item type received from

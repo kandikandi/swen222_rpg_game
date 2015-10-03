@@ -13,7 +13,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-import model.ID;
+import View.ID;
+
 
 /**
  * Empty Labels fill up the remaining spots in the players inventory

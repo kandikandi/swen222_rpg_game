@@ -7,9 +7,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import control.GameController;
-import model.GameState;
-
 /**
  * The GameCanvas receives images via its receiveBuffImage(BufferedImage buffimg) method,
  * this imageName is then drawn to display on the canvas
@@ -22,7 +19,7 @@ public class GameCanvas extends JPanel {
 	private int WIDTH;
 	private int HEIGHT;
 	private GameFrame frame;
-	private final GameController gameController;
+	//private final GameController gameController;
 
 	//TODO does this class need a reference to GameFrame?
 	/**
@@ -32,8 +29,8 @@ public class GameCanvas extends JPanel {
 	 * @param WIDTH
 	 * @param HEIGHT
 	 */
-	public GameCanvas(GameController gameController, GameFrame frame, int WIDTH, int HEIGHT) {
-		this.gameController = gameController;
+	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT) {
+		//this.gameController = gameController;
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.frame = frame;
@@ -46,6 +43,7 @@ public class GameCanvas extends JPanel {
 	 * @param buffImg
 	 */
 	public void receiveBuffImage(BufferedImage buffImg) {
+		//System.out.println("GameCanvas receveBuffImage");
 		receivedImage = buffImg;
 		this.repaint();
 		//this works to - might be to quick
