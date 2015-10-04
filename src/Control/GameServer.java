@@ -9,6 +9,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import save.DataStorage;
 import Control.Packet.PacketTypes;
 import Model.Actor;
 import Model.GameException;
@@ -163,5 +164,13 @@ public class GameServer extends Thread {
 			sendData(data, p.getIpAddress(), p.getPort());
 		}
 
+	}
+
+	/**
+	 * Bonnie added this here!
+	 * Method to save the game state!
+	 */
+	public void save() {
+		DataStorage.save(game);
 	}
 }

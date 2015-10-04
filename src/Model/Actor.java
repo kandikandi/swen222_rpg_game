@@ -4,11 +4,15 @@ package Model;
 import java.awt.*;
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import View.ID;
 
 /**
  * Created by cuan on 9/13/15.
  */
+@XmlRootElement(name = "actor") //TODO:Bonnie added this here!
 public abstract class Actor implements Serializable {
     protected String imageName;
     protected Position position;
@@ -27,6 +31,8 @@ public abstract class Actor implements Serializable {
         this.boundingBoxSize = boundingBoxSize;
     }
 
+    private Actor(){
+    }
 
     abstract public void tick();
 
@@ -35,6 +41,7 @@ public abstract class Actor implements Serializable {
      *
      * @return GameObject's unique ID.
      */
+    @XmlElement(name = "id") //TODO:Bonnie added this here!
     public ID getID() {
         return id;
     }
@@ -74,6 +81,14 @@ public abstract class Actor implements Serializable {
     public Rectangle getBoundingBox() {
         return new Rectangle(position.getxPos(), position.getyPos(), boundingBoxSize, boundingBoxSize);
     }
+
+    //======================================================
+    // Bonnie added this!
+    @XmlElement(name = "boundingBoxSize") //TODO:Bonnie added this here!
+    public int getBoundingBoxSize(){
+    	return boundingBoxSize;
+    }
+    //======================================================
 
     /**
      * Getter for collidable field.
@@ -119,7 +134,7 @@ public abstract class Actor implements Serializable {
         System.out.println(this.getClass() + " " + getPosition().toString() + "\ncollidable: " + isCollidable() + " drawable: " + isDrawable() + "\n");
     }
 
-
+    @XmlElement(name = "asciicode") //TODO:Bonnie added this here!
 	public char getAsciiCode() {
 
 		return asciiCode;

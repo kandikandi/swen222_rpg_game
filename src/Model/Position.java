@@ -21,6 +21,9 @@ public final class Position implements Serializable {
         this.yPos = yPos;
     }
 
+    private Position(){
+    }
+
     /**
      * Getter function for x element.
      *

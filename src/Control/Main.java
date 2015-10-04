@@ -61,7 +61,8 @@ public class Main {
 
 			/**VIEW*/
 			// Set up the gameFrame
-			GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
+			//TODO: Bonnie added this extra argument!
+			GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
 			//Setup UI
 			GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
 			gameFrame.getContentPane().add(gameCanvas);

@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.*;
 
+import Control.GameServer;
 import Model.Actor;
 import Model.Player;
 
@@ -28,10 +29,15 @@ public class GameFrame extends JFrame {
 	private PlayerStatsPanel playerStats;
 	private GoldPanel goldPanel;
 	private InventoryPanel inventory;
+	private GameServer socketServer; //TODO: Bonnie added this!
+
 	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 
-	public GameFrame(String title, int WIDTH, int HEIGHT) {
+	// TODO: Bonnie added extra argument here!
+	public GameFrame(String title, int WIDTH, int HEIGHT, GameServer socketServer) {
 		super(title);
+
+		this.socketServer = socketServer;
 
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
@@ -98,7 +104,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				//DataStorage.save();
+				socketServer.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
