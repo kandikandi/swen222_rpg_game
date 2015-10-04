@@ -121,7 +121,8 @@ public class GameServer extends Thread {
 		}
 
 	}
-
+	//TODO fixup this method, maybe just add a 2 if username exisits but we know
+	// its not the same player based on ip-address - Cuan
 	private void addConnection(ClientControl player, PacketLogin packet) {
 		boolean alreadyConnected = false;
 		for(ClientControl p: this.connectedPlayers){
@@ -134,8 +135,9 @@ public class GameServer extends Thread {
 				}
 				alreadyConnected=true;
 			}
-			else{
-				sendData(packet.getData(),p.getIpAddress(),p.getPort());
+			else{//TODO - Learn why the line below breaks the game if player1 trys to move
+				// after player2 has connected -- Cuan
+				//sendData(packet.getData(),p.getIpAddress(),p.getPort());
 			}
 		}
 		if(!alreadyConnected){
