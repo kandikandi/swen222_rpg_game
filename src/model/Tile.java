@@ -1,6 +1,7 @@
 package model;
 
 import control.DIR;
+import save.tile.TileAdapter;
 import system.GameException;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Created by cuan on 9/13/15.
@@ -20,7 +22,8 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  *
  */
-@XmlRootElement(name = "tile") //TODO: Bonnie added this line!
+//@XmlRootElement(name = "tile") //TODO: Bonnie added this line!
+@XmlJavaTypeAdapter(TileAdapter.class)
 public final class Tile  {
     private final Image image;
     private final Position position;

@@ -12,14 +12,19 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import save.player.AdaptedPlayer;
+import save.player.PlayerAdapter;
 
 /**
  * Created by cuan on 9/15/15.
  *
  * The player class holds the data for each player including position,
  */
-@XmlRootElement(name = "player") //TODO: Bonnie added this line!
-@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
+//@XmlRootElement(name = "player") //TODO: Bonnie added this line!
+//@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
+@XmlJavaTypeAdapter(PlayerAdapter.class)
 public class Player extends ActorStrategy {
 	@XmlTransient //TODO: Bonnie added this line!
 	MovementStrategy movementStrategy;
@@ -32,7 +37,7 @@ public class Player extends ActorStrategy {
 	private boolean alive = true;
 	private int bravery = 0;
 
-	@XmlTransient //TODO: Bonnie added this line!
+//	@XmlTransient //TODO: Bonnie added this line!
 	protected final GameController gameController;
 
 	public Player(ID id, Position position, Image image, boolean collidable,
@@ -41,6 +46,14 @@ public class Player extends ActorStrategy {
 		this.gameController = gameController;
 
 	}
+
+	//====================================================//
+	// TODO: Bonnie added these lines!
+	public GameController getController(){
+		return gameController;
+	}
+	// Bonnie ends here!
+	//====================================================//
 
 	@Override
 	public void setMoveStrat(MovementStrategy moveStrat) {

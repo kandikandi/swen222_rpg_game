@@ -1,4 +1,4 @@
-package save;
+package save.gamestate;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

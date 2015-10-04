@@ -2,6 +2,9 @@ package model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import save.position.PositionAdapter;
 
 /**
  * Created by cuan on 9/13/15.
@@ -10,7 +13,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * position. This class is also final so it can be safely used as a
  * key for a map to a game-world object.
  */
-@XmlRootElement(name = "position") //TODO: Bonnie added this line!
+//@XmlRootElement(name = "position") //TODO: Bonnie added this line!
+@XmlJavaTypeAdapter(PositionAdapter.class)
 public final class Position {
     private int xPos, yPos;
     private int hashCode;

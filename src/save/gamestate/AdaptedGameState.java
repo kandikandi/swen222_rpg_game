@@ -1,27 +1,29 @@
-package save;
+package save.gamestate;
 
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import control.GameController;
 import model.*;
 
 /**
  * Created 30/9/2015
- * 
+ *
  * @author Bonnie
  *
  */
+@XmlRootElement(name = "gamestate")
 public class AdaptedGameState {
 
 	@XmlElementWrapper(name = "tilesList")
 	@XmlElement(name = "tile")
 	private Tile[][] worldTiles;
-	
+
 	private Player player;
-	
+
 	@XmlElementWrapper(name = "actorsList")
 	@XmlElement(name = "actor")
 	private List<Actor> actors;
@@ -50,7 +52,7 @@ public class AdaptedGameState {
 	public void setActors(List<Actor> actors) {
 		this.actors = actors;
 	}
-	
+
 	public GameController getGameController() {
 		return gameController;
 	}
