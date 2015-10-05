@@ -39,6 +39,11 @@ public class GameClient extends Thread {
 		}
 	}
 
+	//used by camera
+	public int getClientNum(){
+		return clientNum;
+	}
+
 	public void run(){
 		while(true){
 

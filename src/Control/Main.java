@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import View.GameCamera;
 import ui.GameCanvas;
 import ui.GameFrame;
 import Model.GameState;
@@ -68,8 +69,8 @@ public class Main {
 			gameFrame.getContentPane().add(gameCanvas);
 			gameFrame.pack();
 			gameFrame.addKeyListener(playerController);
-			Renderer renderer = new Renderer(gameState, gameCanvas);
-
+			GameCamera	camera = new GameCamera(gameState, socketClient.getClientNum());
+			Renderer renderer = new Renderer(camera, gameCanvas);
 			GameTimer gameTimer = new GameTimer(renderer);
 			gameTimer.start();
 			}

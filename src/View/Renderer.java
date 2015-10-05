@@ -8,6 +8,7 @@ import ui.GameCanvas;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,14 +16,14 @@ import java.util.List;
  */
 public final class Renderer {
 
-	private final GameState gameState;
+	private final GameCamera camera;
 	private final GameCanvas gameCanvas;
 	private BufferedImage buffImg;
 	private Shape blackFill;
 	private Graphics2D g2d;
 
-	public Renderer(GameState gameState, GameCanvas gameCanvas) {
-		this.gameState = gameState;
+	public Renderer(GameCamera camera, GameCanvas gameCanvas) {
+		this.camera = camera;
 		this.gameCanvas = gameCanvas;
 		buffImg = new BufferedImage(Main.C_WIDTH, Main.C_HEIGHT,
 				BufferedImage.TYPE_INT_ARGB);
@@ -43,31 +44,24 @@ public final class Renderer {
 		//System.out.println("Renderer renderscene()");
 		// paint scene background black
 		drawBackground();
-		Tile[][] world = gameState.getWorld();
 
 		// Look for all entities that contain the two components required to
 		// draw it
-		for (int row = 0; row < Main.NUM_TILE_ROW; row++) {
-			for (int col = 0; col < Main.NUM_TILE_COL; col++) {
-				Tile tile = world[row][col];
-				//Image image = tile.getImage();
-				Image image = TileAssets.getAssetImage(tile.getAsciiCode());
-				int x = tile.getPosition().getxPos();
-				int y = tile.getPosition().getyPos();
-				int width = Main.TILE_SIZE;
-				g2d.drawImage(image, x, y, width, width, null);
+		camera.getTileView().forEach(tile -> {
+			Image image = TileAssets.getAssetImage(tile.getAsciiCode());
+			int x = tile.getPosition().getxPos();
+			int y = tile.getPosition().getyPos();
+			int width = Main.TILE_SIZE;
+			g2d.drawImage(image, x, y, width, width, null);
+		});
 
-			}
-		}
-		List<Actor> actors = gameState.getActors();
-		for (Actor actor : actors) {
-			if(actor.isDrawable()){
-				Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
-				int x = actor.getPosition().getxPos();
-				int y = actor.getPosition().getyPos();
-				g2d.drawImage(image, x, y, null);
-			}
-		}
+
+		camera.getActorView().stream().filter(actor -> actor.isDrawable()).forEach(actor -> {
+			Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
+			int x = actor.getPosition().getxPos();
+			int y = actor.getPosition().getyPos();
+			g2d.drawImage(image, x, y, null);
+		});
 		gameCanvas.receiveBuffImage(buffImg);
 	}
 
