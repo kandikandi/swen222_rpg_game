@@ -18,8 +18,8 @@ public class Collision {
 		this.gameState = gameState;
 	}
 
-	public boolean canMove(Player player) {
-		Actor collidingActor = gameState.getColliding(player); // gets actor
+	public boolean canMove(Player player, Position proposedPosition) {
+		Actor collidingActor = gameState.getColliding(proposedPosition); // gets actor
 																// colliding
 																// with from
 																// game state
@@ -37,7 +37,10 @@ public class Collision {
 			pickup(player, (Collectable) collidingActor);
 			return true;
 		} else if (collidingActor instanceof Door) {
-			return useKeyInDoor(player, (Door) collidingActor);
+//			System.out.println("door"+collidingActor.getBoundingBox());
+//			System.out.println("player"+player.getBoundingBox());
+			useKeyInDoor(player, (Door) collidingActor);
+			return false;
 		} else if (collidingActor instanceof CoinBag) {
 			pickupCoinBag(player, (CoinBag) collidingActor);
 		}
@@ -69,15 +72,15 @@ public class Collision {
 	 * @param door
 	 * @return true if the player has a key
 	 */
-	public boolean useKeyInDoor(Player player, Door door) {
+	public void useKeyInDoor(Player player, Door door) {
 		if (player.getInventory().containsKey()) {
 			door.open();
 			Key key = player.getInventory().getKey();
-			key.useInDoor();
 			player.getInventory().removeItemFromContainer(key);
-			return true;
+			key.setCollidable(false);
+			key.setDrawable(false);
+			key=null;
 		}
-		return false;
 	}
 
 	/**

@@ -58,29 +58,33 @@ public class Player extends Actor implements Serializable {
 	public void move(GameState gameState, String dir) {
 		Collision collision = new Collision(gameState);
 		Position proposedPosition;
+//		Position proposedPosition2;
 		switch (dir) {
 
 		case "UP":
 			proposedPosition = new Position(getX(), getY()-speed);
-			if(collision.canMove(this)){
+//			proposedPosition2 = new Position(getX(), getY()-2*speed);
+			if(collision.canMove(this, proposedPosition)){
 				setPosition(proposedPosition);
 			}
 			break;
 		case "DOWN":
 			proposedPosition = new Position(getX(), getY()+speed);
-			if(collision.canMove(this)){
+//			proposedPosition2 = new Position(getX(), getY()+2*speed);
+			if(collision.canMove(this, proposedPosition)){
 				setPosition(proposedPosition);
 			}
 			break;
 		case "LEFT":
 			proposedPosition = new Position(getX()-speed, getY());
-			if(collision.canMove(this)){
+//			proposedPosition2 = new Position(getX(), getY()-2*speed);
+			if(collision.canMove(this, proposedPosition)){
 				setPosition(proposedPosition);
 			}
 			break;
 		case "RIGHT":
 			proposedPosition = new Position(getX()+speed, getY());
-			if(collision.canMove(this)){
+			if(collision.canMove(this, proposedPosition)){
 				setPosition(proposedPosition);
 			}
 			break;

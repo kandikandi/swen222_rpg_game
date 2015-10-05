@@ -1,11 +1,15 @@
 package Model;
 
+import java.awt.Rectangle;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+
+
 
 import View.TestWorlds;
 
@@ -55,10 +59,11 @@ public class GameState {
 		actors.add(player);
 	}
 
-	public Actor getColliding(Player player) {
+	public Actor getColliding(Position position) {
+		Rectangle boundingBox = new Rectangle(position.getxPos(),position.getyPos(),40,40);
 		for (Actor actor : actors) {
-			if (actor.isCollidable() && !actor.equals(player)) {
-				if (actor.getBoundingBox().intersects(player.getBoundingBox())) {
+			if (actor.isCollidable() && !(actor instanceof Player)) {
+				if (actor.getBoundingBox().intersects(boundingBox)) {
 					return actor;
 				}
 			}

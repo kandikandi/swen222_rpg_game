@@ -143,15 +143,16 @@ public class TestModeFactory extends AbstractFactory {
 
 
 
-	@Override
-	public Inventory createInventory(boolean pickedUP, int xPos, int yPos) {
-		 Position pos = new Position(xPos, yPos);
-	     //char asciiCode = ActorAssets.COINBAG.getAsciiCode();
-	     //int size = Main.ITEM_SIZE;
-//	     Inventory inventory = new Inventory(ID.KEY, pos, asciiCode, true, true, size);
-
-		 return null;
-	}
+//	@Override
+//	public Inventory createInventory(int xPos, int yPos) {
+////		 Position pos = new Position(xPos, yPos);
+////	     //char asciiCode = ActorAssets.COINBAG.getAsciiCode();
+////	     //int size = Main.ITEM_SIZE;
+////	     Inventory inventory = new Inventory(ID.INVENTORY, pos, asciiCode, false, false, size);
+////
+////		 return inventory;
+//		return null;
+//	}
 
 	@Override
 	public Collectable createCollectable(int xPos, int yPos) {

@@ -37,7 +37,7 @@ public abstract class AbstractFactory {
      * @param yPos
      * @return
      */
-    public abstract Inventory createInventory(boolean pickedUP, int xPos, int yPos);
+//    public abstract Inventory createInventory(boolean pickedUP, int xPos, int yPos);
 
     public abstract Collectable createCollectable(int xPos, int yPos);
 
