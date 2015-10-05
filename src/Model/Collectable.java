@@ -43,8 +43,8 @@ public class Collectable extends Actor {
 	 */
 	public void putInContainer(Container container){
 		if(inContainer) {return;}
-		drawable = false;
-		collidable = false;
+		this.setDrawable(false);
+		this.setCollidable(false);
 		inContainer = true;
 //		System.out.println("Collectable Picked up");
 		this.putInContainer(container);
@@ -56,9 +56,9 @@ public class Collectable extends Actor {
 	 *
 	 */
 	public void drop(){
-		inContainer = false;
-		drawable = true;
-		collidable = true;
+		this.inContainer = false;
+		this.setDrawable(true);
+		this.setCollidable(true);
 	}
 
 

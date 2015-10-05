@@ -13,11 +13,13 @@ import ui.GameFrame;
 public class GameTimer extends Thread {
 
 	private Renderer renderer;
+	private EnemyController enemyController;
+	
 	private GameCamera camera;
 
-	public GameTimer(Renderer rend, GameCamera camera) {
+	public GameTimer(Renderer rend, EnemyController enemyController) {
 		this.renderer = rend;
-		this.camera = camera;
+		this.enemyController = enemyController;
 	}
 
 	/**
@@ -29,7 +31,12 @@ public class GameTimer extends Thread {
 		while (true) {
 			try {
 				Thread.sleep(10);
+				
+				
+				enemyController.update();
+				
 				camera.performSystem();
+				
 				renderer.renderScene();
 
 			} catch (Exception e) {

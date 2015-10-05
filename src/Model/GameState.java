@@ -54,7 +54,7 @@ public class GameState {
 		actors.add(player);
 	}
 
-	public Actor getColliding(Position position) {
+	public Actor playerCollisionCheck(Position position) {
 		Rectangle boundingBox = new Rectangle(position.getxPos(),position.getyPos(),40,40);
 		for (Actor actor : actors) {
 			if (actor.isCollidable() && !(actor instanceof Player)) {
@@ -65,6 +65,19 @@ public class GameState {
 		}
 		return null;
 	}
+
+	public Actor enemyCollisionCheck(Position position) {
+		Rectangle boundingBox = new Rectangle(position.getxPos(),position.getyPos(),40,40);
+		for (Actor actor : actors) {
+			if (actor.isCollidable() && !(actor instanceof Enemy)) {
+				if (actor.getBoundingBox().intersects(boundingBox)) {
+					return actor;
+				}
+			}
+		}
+		return null;
+	}
+
 
 	// TODO fix this when you're not crazy
 	public Player findPlayer(int play) {
@@ -77,6 +90,8 @@ public class GameState {
 		}
 		return null;
 	}
+
+	
 
 	// ============== DEBUGGING =================
 	public void printGameObjectState() {

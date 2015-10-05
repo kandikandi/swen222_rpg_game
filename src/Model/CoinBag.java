@@ -7,7 +7,7 @@ import View.ID;
 
 public class CoinBag extends Container {
 
-	private final int maximumItems = 10;
+	private final int maximumItems = 50;
 
 	public CoinBag(ID id, Position position, char imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
@@ -21,16 +21,18 @@ public class CoinBag extends Container {
 	 * @param collectable
 	 */
 	@Override
-	public boolean addItemToContainer(Collectable collectable) {
+	public void addItemToContainer(Collectable collectable) {
 		if (collectable == null) {
-			return false;
+			return;
 		}else if (! (collectable instanceof Coin) ){
-			return false;
+			return;
 		} else if (items.size() < maximumItems) {
-			items.add(collectable);
-			return true;
+			items.add((Coin) collectable);
+			collectable.setCollidable(false);
+			collectable.setDrawable(false);
+			return;
 		} else {
-			return false;
+			return;
 		}
 	}
 
@@ -39,15 +41,15 @@ public class CoinBag extends Container {
 	 *
 	 * @param collectable
 	 */
-	public boolean removeItemFromContainer(Collectable collectable) {
+	public void removeItemFromContainer(Collectable collectable) {
 		if (collectable == null || numberOfObjectInContainer() == 0) {
-			return false;
+			return;
 		} else if (items.contains(collectable)) {
 			collectable.setPosition(position); // update position
 			items.remove(collectable);
-			return true;
+			return;
 		} else {
-			return false;
+			return;
 		}
 
 	}

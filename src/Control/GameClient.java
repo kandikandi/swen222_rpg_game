@@ -19,7 +19,6 @@ public class GameClient extends Thread {
 	 * but am not 100% sure yet. at the moment it doesn't really do much
 	 */
 
-
 	private InetAddress ipAddress;
 	private DatagramSocket socket;
 	private GameState game;
@@ -117,5 +116,15 @@ public class GameClient extends Thread {
 		PacketMove movePacket = new PacketMove(sendMove.getBytes());
 		movePacket.writeData(this);
 
+	}
+
+	// Added so GUI could get GameState via GameClient
+	public GameState getGameState(){
+		return game;
+	}
+
+	// Added so GUI can compare client number to update specific players inventory
+	public int getClientNum() {
+		return this.clientNum;
 	}
 }

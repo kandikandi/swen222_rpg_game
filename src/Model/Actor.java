@@ -32,6 +32,7 @@ public abstract class Actor implements Serializable {
         this.collidable = collidable;
         this.drawable = drawable;
         this.boundingBoxSize = boundingBoxSize;
+        
     }
 
     abstract public void tick();

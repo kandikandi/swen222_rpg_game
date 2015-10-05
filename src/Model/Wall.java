@@ -3,6 +3,7 @@ package Model;
 import View.ID;
 
 public class Wall extends Actor {
+	final boolean collidable = true;
 
 	public Wall(ID id, Position position, char ascii, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
@@ -16,8 +17,6 @@ public class Wall extends Actor {
 
 
 	@Override
-	public void setCollidable(boolean collidable) {
-        this.collidable = true;
-    }
+	public void setCollidable(boolean collidable) {;}
 
 }

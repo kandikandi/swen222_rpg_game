@@ -91,37 +91,6 @@ public class Player extends Actor implements Serializable {
 		}
 	}
 
-//	/**
-//	 * If there is a collision, this method carries out the appropriate logic
-//	 * for the collision type.
-//	 *
-//	 *
-//	 * @param collidingObject
-//	 */
-//	protected void collide(Actor collidingObject) {
-//		if (collidingObject instanceof Coin) {
-//			pickup((Coin) collidingObject);
-
-//		} else if (collidingObject instanceof CoinBag) {
-//			pickupCoinBag((CoinBag) collidingObject);
-//		} else if (collidingObject instanceof Door) {
-//			useKeyInDoor((Door) collidingObject);
-//		} else if (collidingObject instanceof Key) {
-//			pickup((Key) collidingObject);
-//		} else if (collidingObject instanceof Enemy) {
-//			fight(collidingObject);
-//			super.isMoving = false;
-//		}
-//	}
-//
-
-//
-//
-//	public void setInventory(Inventory inventory) {
-//		this.inventory = inventory;
-//		inventory.setPosition(position);
-//	}
-
 	/**
 	 * Setter for whether player attacking.
 	 *
@@ -139,24 +108,24 @@ public class Player extends Actor implements Serializable {
 	public boolean getAttacking() {
 		return playerIsAttacking;
 	}
-//
-//	/**
-//	 * This method removes a Collectable from the Inventory and places it where
-//	 * the Player is standing.
-//	 *
-//	 * @param collectable
-//	 */
-//	public void drop(Collectable collectable) {
-//		if (collectable == null) {
-//			return;
-//		} else if (inventory == null) {
-//			return;
-//		} else {
-//			inventory.setPosition(position);
-//			inventory.removeItemFromContainer(collectable);
-//		}
-//	}
-//
+
+	/**
+	 * This method removes a Collectable from the Inventory and places it where
+	 * the Player is standing.
+	 *
+	 * @param collectable
+	 */
+	public void drop(Collectable collectable) {
+		if (collectable == null) {
+			return;
+		} else if (inventory == null) {
+			return;
+		} else {
+			inventory.setPosition(position);
+			inventory.removeItemFromContainer(collectable);
+		}
+	}
+
 	/**
 	 * Getter method to return Inventory
 	 *
@@ -166,37 +135,11 @@ public class Player extends Actor implements Serializable {
 		return inventory;
 	}
 
-//	/**
-//	 * This method returns a position based on the direction of the arrow key
-//	 * pushed by the user.
-//	 *
-//	 * @param dir
-//	 * @return
-//	 */
-//	public Position getProposedPosition(DIR dir) {
-//		Position newPosition = new Position(getPosition().getxPos(),
-//				getPosition().getyPos());
-//		switch (dir) {
-//		case UP:
-//			newPosition.setyPos(position.getyPos() - speed);
-//			break;
-//		case DOWN:
-//			newPosition.setyPos(position.getyPos() + speed);
-//			break;
-//		case LEFT:
-//			newPosition.setxPos(position.getxPos() - speed);
-//			break;
-//		case RIGHT:
-//			newPosition.setxPos(position.getxPos() + speed);
-//			break;
-//		}
-//		return newPosition;
-//
-//	}
-//
-
-
-
+	/**
+	 * Getter for client number
+	 *
+	 * @return
+	 */
 	public int getClientNum() {
 		return clientNum;
 	}
@@ -225,7 +168,7 @@ public class Player extends Actor implements Serializable {
 	 */
 	public void increaseFear(int n) {
 		fear += n;
-		if (fear >= 100) {
+		if (fear >= 1000) {
 			tooScared();
 		}
 	}
