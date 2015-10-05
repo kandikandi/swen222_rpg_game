@@ -16,6 +16,7 @@ import Model.GameException;
 import Model.GameState;
 import Model.Player;
 import Model.Collision;
+import Model.Enemy;
 
 public class GameServer extends Thread {
 
@@ -45,6 +46,8 @@ public class GameServer extends Thread {
 
 			DatagramPacket packet = new DatagramPacket(data, data.length);
 
+
+
 			try {
 				socket.receive(packet);
 			} catch (IOException e) {
@@ -53,7 +56,7 @@ public class GameServer extends Thread {
 
 			parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 			List<Actor> update = game.getActors();
-
+//			updateEnemies(update);
 
 			try {
 				sendDataToAllClients(serial.serialize(update));
@@ -63,6 +66,8 @@ public class GameServer extends Thread {
 
 		}
 	}
+
+
 
 	/** Multiple packet classes which so can deal with different types of data, eg login, update....*/
 

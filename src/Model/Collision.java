@@ -19,10 +19,11 @@ public class Collision {
 	}
 
 	public boolean canMove(Player player, Position proposedPosition) {
-		Actor collidingActor = gameState.getColliding(proposedPosition); // gets actor
-																// colliding
-																// with from
-																// game state
+		Actor collidingActor = gameState.playerCollisionCheck(proposedPosition); // gets
+																					// actor
+		// colliding
+		// with from
+		// game state
 		if (collidingActor == null) {
 			return true;
 		} else if (collidingActor instanceof Player) {
@@ -37,8 +38,8 @@ public class Collision {
 			pickup(player, (Collectable) collidingActor);
 			return true;
 		} else if (collidingActor instanceof Door) {
-//			System.out.println("door"+collidingActor.getBoundingBox());
-//			System.out.println("player"+player.getBoundingBox());
+			// System.out.println("door"+collidingActor.getBoundingBox());
+			// System.out.println("player"+player.getBoundingBox());
 			useKeyInDoor(player, (Door) collidingActor);
 			return false;
 		} else if (collidingActor instanceof CoinBag) {
@@ -79,7 +80,7 @@ public class Collision {
 			player.getInventory().removeItemFromContainer(key);
 			key.setCollidable(false);
 			key.setDrawable(false);
-			key=null;
+			key = null;
 		}
 	}
 
@@ -117,6 +118,29 @@ public class Collision {
 		} else {
 			return player.getInventory().addItemToContainer(coinBag);
 		}
+	}
+
+	public boolean canMoveEnemy(Enemy enemy, Position proposedPosition) {
+		Actor collidingActor = gameState.enemyCollisionCheck(proposedPosition);
+		if (collidingActor == null) {
+			return true;
+		}else if (collidingActor instanceof Enemy) {
+				return true;
+		} else if (collidingActor instanceof Player) {
+			enemyCollision((Player) collidingActor, enemy);
+			return false;
+		} else if (collidingActor instanceof Enemy) {
+			return false;
+		} else if (collidingActor instanceof Coin) {
+			return true;
+		} else if (collidingActor instanceof Collectable) {
+			return true;
+		} else if (collidingActor instanceof Door) {
+			return false;
+		} else if (collidingActor instanceof CoinBag) {
+			return true;
+		}
+		return true;
 	}
 
 	//
