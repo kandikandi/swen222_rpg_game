@@ -6,13 +6,16 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import save.actor.ActorAdapter;
 import View.ID;
 
 /**
  * Created by cuan on 9/13/15.
  */
 @XmlRootElement(name = "actor") //TODO:Bonnie added this here!
+@XmlJavaTypeAdapter(ActorAdapter.class)
 public abstract class Actor implements Serializable {
     protected String imageName;
     protected Position position;
@@ -29,9 +32,6 @@ public abstract class Actor implements Serializable {
         this.collidable = collidable;
         this.drawable = drawable;
         this.boundingBoxSize = boundingBoxSize;
-    }
-
-    private Actor(){
     }
 
     abstract public void tick();
@@ -82,15 +82,32 @@ public abstract class Actor implements Serializable {
         return new Rectangle(position.getxPos(), position.getyPos(), boundingBoxSize, boundingBoxSize);
     }
 
-    //======================================================
+    //==============================================================================
     // Bonnie added this!
-    @XmlElement(name = "boundingBoxSize") //TODO:Bonnie added this here!
-    public int getBoundingBoxSize(){
-    	return boundingBoxSize;
-    }
-    //======================================================
+//    @XmlElement(name = "boundingBoxSize") //TODO:Bonnie added this here!
+//    public int getBoundingBoxSize(){
+//    	return boundingBoxSize;
+//    }
+//
+//    public void setImageName(String imageName) {
+//		this.imageName = imageName;
+//	}
+//
+//	public void setId(ID id) {
+//		this.id = id;
+//	}
+//
+//	public void setBoundingBoxSize(int boundingBoxSize) {
+//		this.boundingBoxSize = boundingBoxSize;
+//	}
+//
+//	public void setAsciiCode(char asciiCode) {
+//		this.asciiCode = asciiCode;
+//	}
 
-    /**
+	//===========================================================================
+
+	/**
      * Getter for collidable field.
      *
      * @return whether or not collidable

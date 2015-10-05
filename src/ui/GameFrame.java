@@ -109,8 +109,22 @@ public class GameFrame extends JFrame {
 				//=================================================//
 			}
 		});
+
+		//===================================================//
+		// TODO: Bonnie added this!
+		JMenuItem loadG = new JMenuItem("Load Game");
+		loadG.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				socketServer.load();
+			}
+
+		});
+		//=================================================//
 		file.add(newG);
 		file.add(saveG);
+		file.add(loadG);
 	}
 
 	/**

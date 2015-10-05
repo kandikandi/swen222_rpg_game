@@ -5,16 +5,31 @@ import java.io.File;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
 
 import Model.GameState;
 
+/**
+ * Created on 05/10/2015
+ *
+ * @author Bonnie Liao
+ *
+ *         Class used for the purpose of saving and loading the game state
+ *
+ */
 public class DataStorage {
 
-	private DataStorage(){
+	private DataStorage() {
 
 	}
 
-	public static void save(GameState gamestate){
+	/**
+	 * The save method. Takes a GameState object and serializes it to a xml file
+	 *
+	 * @param gamestate
+	 *            state of the game to save
+	 */
+	public static void save(GameState gamestate) {
 		try {
 			System.out.println("Saving Game...");
 
@@ -30,9 +45,33 @@ public class DataStorage {
 
 			System.out.println("Game saved!");
 		} catch (JAXBException e) {
-//			System.out.println(e.getMessage());
+			// System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
+	}
+
+	/**
+	 * The load method. Uses file chooser to load the xml and create a gamestate
+	 * out of it
+	 *
+	 * @return the loaded game state
+	 */
+	public static GameState load() {
+		System.out.println("Loading Game...");
+		try {
+			JAXBContext context = JAXBContext.newInstance(GameState.class);
+			Unmarshaller um = context.createUnmarshaller();
+
+			File file = FileChooser.getFile(true);
+
+			GameState gamestate = (GameState) um.unmarshal(file);
+			System.out.println("Game loaded!");
+			return gamestate;
+		} catch (JAXBException e) {
+			// System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

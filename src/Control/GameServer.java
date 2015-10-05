@@ -173,4 +173,8 @@ public class GameServer extends Thread {
 	public void save() {
 		DataStorage.save(game);
 	}
+
+	public void load() {
+		game = DataStorage.load();
+	}
 }

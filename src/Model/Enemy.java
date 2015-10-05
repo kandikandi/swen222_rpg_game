@@ -99,6 +99,30 @@ public class Enemy extends Actor{
 		return alive;
 	}
 
+	//==========================================================
+	// TODO: Bonnie added these!
+	/**
+	 * Bonnie added this!
+	 * @return
+	 */
+	public int getCount(){
+		return count;
+	}
+
+	public void setAlive(boolean isalive) {
+		this.alive = isalive;
+	}
+
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+
+	public void setCount(int count) {
+		this.count = count;
+	}
+	//==========================================================
 
 
 

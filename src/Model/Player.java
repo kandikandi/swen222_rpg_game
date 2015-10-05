@@ -293,4 +293,53 @@ public class Player extends Actor implements Serializable {
 
 	}
 
+	//========================================================
+	// TODO: Bonnie added this!
+
+	public boolean hasKey() {
+		return hasKey;
+	}
+
+
+	public void setHasKey(boolean hasKey) {
+		this.hasKey = hasKey;
+	}
+
+
+	public int getAttackPoints() {
+		return attackPoints;
+	}
+
+
+	public void setAttackPoints(int attackPoints) {
+		this.attackPoints = attackPoints;
+	}
+
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+
+	public int getBravery() {
+		return bravery;
+	}
+
+
+	public void setBravery(int bravery) {
+		this.bravery = bravery;
+	}
+
+
+	public void setClientNum(int clientNum) {
+		this.clientNum = clientNum;
+	}
+
+	//========================================================
+
 }
