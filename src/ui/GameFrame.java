@@ -136,8 +136,8 @@ public class GameFrame extends JFrame {
 	 * @param player
 	 */
 	public void updateGUI(Player player){
-//		this.updatePlayerInventory(player.getInventory().returnContents());
-//		this.updatePlayerFear(player.getFear());
+		this.updatePlayerInventory(player.getInventory().returnContents());
+		this.updatePlayerFear(player.getFear());
 		this.updatePlayerGoldPanel();
 	}
 
@@ -157,7 +157,7 @@ public class GameFrame extends JFrame {
 	 * @param inventory
 	 */
 	public void updatePlayerInventory(ArrayList<Actor> inventory){
-		//this.inventory.update(inventory);
+		this.inventory.update(inventory);
 	}
 
 	/**

@@ -15,15 +15,14 @@ public enum ActorAssets {
     NOTHING('0',"tokenScarlet.png"),
     PLAYER('1',"front_girl.png"),
     PLAYER2('2',"tokenPlum.png"),
-    COIN('C',"coin40.jpg"),
-    COINBAG('B',"coinbag.jpg"),
+    COIN('C',"tempGameCoin.png"),
+    COINBAG('B',"tempGameCoinBag.png"),
     DOOR('D',"door.jpg"),
     INVENTORY('I',"temp_inv.jpg"),
-    KEY('K',"temp_key.jpg"),
-    ENEMY('E',"clown.jpg"),
+    KEY('K',"tempGameKey.png"),
+    ENEMY('E',"evilTemp.png"),
     COLLECTABLE('B',"ring.jpg"),
-
-    ;
+    WALL('W', "wall.jpg");
 
 
     private final char asciiCode;

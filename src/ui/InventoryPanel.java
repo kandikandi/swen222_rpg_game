@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import Model.Actor;
+import View.ID;
 
 
 
@@ -30,6 +31,7 @@ import Model.Actor;
  */
 public class InventoryPanel extends JPanel {
 
+	private char itemChar;
 	private Image itemImage;
 	private Image backgroundImage;
 	private final int maxItemSlots = 9; // The maximum amount of slots avaliable to the player
@@ -57,23 +59,6 @@ public class InventoryPanel extends JPanel {
 	 * @param inventory
 	 */
 	public void update(ArrayList<Actor> inventory){
-
-		// ONLY BEING USED UNTIL WE HAVE SORTED MORE PRECISE UPDATES OF THE GUI
-//		Boolean changesMade = false;
-//		if(this.items.size() != 0){
-//			for(int i = 0; i < items.size(); i++){
-//				if(items.get(i) instanceof ItemLabel){
-//					if(((ItemLabel) items.get(i)).getItemLabelID() != inventory.get(i).getID()){
-//						changesMade = true;;
-//					}
-//				}
-//			}
-//		} else {
-//			changesMade = true;
-//			System.out.println("Setting to true");
-//		}
-//
-//		if(changesMade){
 			// Clear the Inventory every time it is updated
 			items.clear();
 			this.removeAll();
@@ -84,17 +69,19 @@ public class InventoryPanel extends JPanel {
 			// Put the inventory items into the inventory
 			for(int i = 0; i < inventory.size(); i++){
 				ItemLabel newItem = new ItemLabel();
-				newItem.setItemLabelID(inventory.get(i).getID()); // TESTING THE SETTING OF ITEM ID ON ITEM LABEL THIS WILL BE USED FOR IMAGE AND BEHAVIOUR
-				if(newItem.getItemLabelID().getID() == 6){
-					try {
-						// load the imageName
-						itemImage = ImageIO.read(new File("Inventory_Key.png"));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					newItem.setIcon(new ImageIcon(itemImage));
-				}
+				newItem.setItemLabelID(inventory.get(i).getID());
+
+
+				itemChar = inventory.get(i).getAsciiCode();
+				itemImage = findImage(itemChar);
+				Image scaledImage = itemImage.getScaledInstance(60, 60,
+						Image.SCALE_SMOOTH);
+
+
+				newItem.setIcon(new ImageIcon(scaledImage));
 				items.add(newItem);
+
+
 			}
 
 			// Fill the remaining inventory slots with EmptyLabels
@@ -112,6 +99,44 @@ public class InventoryPanel extends JPanel {
 			this.revalidate();
 //		}
 	}
+
+	public Image findImage(char c){
+
+		Image image = null;
+
+		switch(c){
+
+		case 'C':
+			try {
+				image = ImageIO.read(new File("Inventory_Coin.png"));
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			break;
+		case 'B':
+			try {
+				image = ImageIO.read(new File("Inventory_Bag.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		case 'K':
+			try {
+				image = ImageIO.read(new File("Inventory_Key.png"));
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		}
+		return image;
+
+	}
+
+
+
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);

@@ -63,17 +63,17 @@ public class Container extends Actor {
      * <p>
      * TODO: I think that the picked up item should be removed from list of actors
      */
-    public boolean addItemToContainer(Collectable collectable) {
+    public void addItemToContainer(Collectable collectable) {
         // check if it's the kind of thing we can add to the container
         if (collectable == null) { //TODO: throw exception here
-            return false;
+            return;
         } else if (items.size() < maximumItems) {
             items.add(collectable);
             collectable.setCollidable(false); //TODO: maybe we should redefine collidable to mean if it stops an actor moving
             collectable.setDrawable(false);
-            return true;
+            return;
         } else {
-            return false;
+            return;
         }
 
     }
@@ -81,17 +81,17 @@ public class Container extends Actor {
     /**
      * Allows for an item to be removed to the list of items.
      */
-    public boolean removeItemFromContainer(Collectable collectable) {
+    public void removeItemFromContainer(Collectable collectable) {
         if (collectable == null || numberOfObjectInContainer() == 0) {
-            return false;
+            return;
         } else if (items.contains(collectable)) {
             collectable.setPosition(position); //update position
             collectable.setCollidable(true);
             collectable.setDrawable(true);
             items.remove(collectable);
-            return true;
+            return;
         } else {
-            return false;
+            return;
         }
 
     }

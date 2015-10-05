@@ -99,7 +99,7 @@ public class Inventory extends Container {
 	 *
 	 * @return CoinBag in this Inventory.
 	 */
-	public CoinBag getCoingBag() {
+	public CoinBag getCoinBag() {
 		for (Actor actor : items) {
 			if (actor instanceof CoinBag) {
 				return (CoinBag) actor;
@@ -114,17 +114,28 @@ public class Inventory extends Container {
 	 * @param coinBag
 	 *            to be added to inventory
 	 */
-	public boolean addItemToContainer(CoinBag coinBag) {
+	public void addItemToContainer(CoinBag coinBag) {
 		if (coinBag == null) {
-			return false;
+			return;
 		} else if (items.size() < maximumItems) {
 			items.add(coinBag);
 			coinBag.setCollidable(false);
 			coinBag.setDrawable(false);
-			addAllCoinsToCoinBag();
-			return true;
+			addAllCoinsToCoinBag(coinBag);
+			return;
+		} else if (items.size() == maximumItems) {
+			for(Actor actor : items){
+				if(actor instanceof Coin){
+					coinBag.addItemToContainer((Coin) actor);
+				}
+			}
+			items.add(coinBag);
+			coinBag.setCollidable(false);
+			coinBag.setDrawable(false);
+			addAllCoinsToCoinBag(coinBag);
+			return;
 		}else{
-			return false;
+			return;
 		}
 	}
 
@@ -132,12 +143,26 @@ public class Inventory extends Container {
 	 * All coins in Inventory are added to CoinBag, eg if picked up prior to
 	 * bag.
 	 */
-	private void addAllCoinsToCoinBag() {
+	private void addAllCoinsToCoinBag(CoinBag coinBag) {
+		if(getCoinBag()==null){return;}
 		for (Actor actor : items) {
 			if (actor instanceof Coin) {
-				getCoingBag().addItemToContainer((Coin) actor);
+				Coin coin = (Coin) actor;
+				coinBag.addItemToContainer(coin);
+				coin.setCollidable(false);
+				coin.setDrawable(false);
 			}
+
 		}
+
+		for(Actor actor : coinBag.items){
+			Coin coin = (Coin) actor;
+			this.removeItemFromContainer(coin);
+			coin.setDrawable(false);
+			coin.setCollidable(false);
+		}
+
+
 
 	}
 
@@ -148,7 +173,7 @@ public class Inventory extends Container {
 	 */
 	public int getCoinCount() {
 		if (containsCoinBag()) {
-			return getCoingBag().numberOfCoinsInCoinBag();
+			return getCoinBag().numberOfCoinsInCoinBag();
 		} else {
 			int n = 0;
 			for (Actor actor : items) {
@@ -166,16 +191,17 @@ public class Inventory extends Container {
 	 *
 	 * @param coin
 	 */
-	public boolean addItemToContainer(Coin coin) {
-		if (coin == null) {
-			return false;
-		} else if (containsCoinBag()) {
-			return getCoingBag().addItemToContainer(coin);
+	public void addItemToContainer(Collectable collectable) {
+		if (collectable == null) {
+			return;
+		}else if(collectable instanceof Coin && containsCoinBag()){
+				getCoinBag().addItemToContainer((Coin) collectable);
 		} else if (items.size() < maximumItems) {
-			return items.add(coin);
-		} else{
-			return false;
+			items.add(collectable);
+			collectable.setCollidable(false);
+			collectable.setDrawable(false);
 		}
+		addAllCoinsToCoinBag(getCoinBag());
 	}
 
 }

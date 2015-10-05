@@ -64,13 +64,13 @@ public class Main {
 			//TODO: Bonnie added this extra argument!
 			GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
 			//Setup UI
-			GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+			GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT, socketClient);
 			gameFrame.getContentPane().add(gameCanvas);
 			gameFrame.pack();
 			gameFrame.addKeyListener(playerController);
 			Renderer renderer = new Renderer(gameState, gameCanvas);
-
-			GameTimer gameTimer = new GameTimer(renderer);
+			EnemyController enemyController = new EnemyController(gameState);
+			GameTimer gameTimer = new GameTimer(renderer, enemyController);
 			gameTimer.start();
 			}
 		});
