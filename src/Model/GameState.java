@@ -36,6 +36,8 @@ public class GameState {
 		factory = null;
 	}
 
+
+
 	public List<Actor> getActors(){
 		return actors;
 	}
