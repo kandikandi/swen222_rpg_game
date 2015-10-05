@@ -1,11 +1,15 @@
 package Model;
 
+import java.awt.Rectangle;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+
+
 
 import View.TestWorlds;
 
@@ -53,17 +57,31 @@ public class GameState {
 		actors.add(player);
 	}
 
-	//TODO fix this when you're not crazy
-	public Player findPlayer(int play){
-		for(int i=0; i < actors.size(); i++){
-			if(actors.get(i) instanceof Player){
-				if(((Player)actors.get(i)).getClientNum()==play){
+	public Actor getColliding(Position position) {
+		Rectangle boundingBox = new Rectangle(position.getxPos(),position.getyPos(),40,40);
+		for (Actor actor : actors) {
+			if (actor.isCollidable() && !(actor instanceof Player)) {
+				if (actor.getBoundingBox().intersects(boundingBox)) {
+					return actor;
+				}
+			}
+		}
+		return null;
+	}
+
+	// TODO fix this when you're not crazy
+	public Player findPlayer(int play) {
+		for (int i = 0; i < actors.size(); i++) {
+			if (actors.get(i) instanceof Player) {
+				if (((Player) actors.get(i)).getClientNum() == play) {
 					return (Player) actors.get(i);
 				}
 			}
 		}
 		return null;
 	}
+
+	
 
 	// ============== DEBUGGING =================
 	public void printGameObjectState() {
