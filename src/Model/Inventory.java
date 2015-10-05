@@ -12,7 +12,7 @@ import View.ID;
 public class Inventory extends Container {
 
 	@XmlTransient //TODO: Bonnie added this line!
-	final private Player inventoryOwner;
+	//final private Player inventoryOwner;
 	final int maximumItems = 9;
 
 
@@ -30,27 +30,26 @@ public class Inventory extends Container {
 	 * @param collectables
 	 */
 	public Inventory(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, int boundingBoxSize, Player inventoryOwner,
-			Collectable... collectables) {
+			boolean drawable, int boundingBoxSize, Collectable... collectables) {
 		super(id, position, imagePath, false, false, boundingBoxSize, collectables);
-		this.inventoryOwner = inventoryOwner;
+//		this.inventoryOwner = inventoryOwner;
 
 	}
 
-	public Player getOwner() {
-		return inventoryOwner;
-	}
+//	public Player getOwner() {
+//		return inventoryOwner;
+//	}
 
 	/**
 	 * Position needs to update with player, so items within also move with
 	 * player.
 	 *
 	 */
-	@XmlTransient //TODO: Bonnie added this line!
-	@Override
-	public Position getPosition() {
-		return inventoryOwner.getPosition();
-	}
+//	@XmlTransient //TODO: Bonnie added this line!
+//	@Override
+//	public Position getPosition() {
+//		return inventoryOwner.getPosition();
+//	}
 
 	/**
 	 * This method is used to check whether a player has a key when near a door.

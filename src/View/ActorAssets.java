@@ -21,6 +21,7 @@ public enum ActorAssets {
     INVENTORY('I',"temp_inv.jpg"),
     KEY('K',"temp_key.jpg"),
     ENEMY('E',"clown.jpg"),
+    COLLECTABLE('B',"ring.jpg"),
 
     ;
 

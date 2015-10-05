@@ -15,6 +15,7 @@ import Model.Actor;
 import Model.GameException;
 import Model.GameState;
 import Model.Player;
+import Model.Collision;
 
 public class GameServer extends Thread {
 
@@ -50,9 +51,9 @@ public class GameServer extends Thread {
 				e.printStackTrace();
 			}
 
-			parsePacket(packet.getData(),packet.getAddress(), packet.getPort());
-
+			parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 			List<Actor> update = game.getActors();
+
 
 			try {
 				sendDataToAllClients(serial.serialize(update));
@@ -62,6 +63,20 @@ public class GameServer extends Thread {
 
 		}
 	}
+
+
+	/**
+	 *
+	 */
+	private void checkCollision() {
+		// first get collision class from refactor 30/10
+
+		//
+
+
+
+	}
+
 	/** Multiple packet classes which so can deal with different types of data, eg login, update....*/
 
 	private void parsePacket(byte[] data, InetAddress address, int port) {
@@ -109,7 +124,8 @@ public class GameServer extends Thread {
 			PacketMove packetMove = new PacketMove(data);
 			String move = packetMove.getMove();
 			Player player = game.findPlayer(packetMove.getClientNum());
-			player.move(move);
+
+			player.move(game,move);
 
 			break;
 		default:
