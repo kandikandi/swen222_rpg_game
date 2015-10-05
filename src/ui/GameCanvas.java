@@ -7,6 +7,10 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+import Control.GameClient;
+import Model.Actor;
+import Model.Player;
+
 /**
  * The GameCanvas receives images via its receiveBuffImage(BufferedImage buffimg) method,
  * this imageName is then drawn to display on the canvas
@@ -19,6 +23,7 @@ public class GameCanvas extends JPanel {
 	private int WIDTH;
 	private int HEIGHT;
 	private GameFrame frame;
+	private GameClient socketClient;
 	//private final GameController gameController;
 
 	//TODO does this class need a reference to GameFrame?
@@ -29,7 +34,8 @@ public class GameCanvas extends JPanel {
 	 * @param WIDTH
 	 * @param HEIGHT
 	 */
-	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT) {
+	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT, GameClient socketClient) {
+		this.socketClient = socketClient;
 		//this.gameController = gameController;
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
@@ -63,9 +69,15 @@ public class GameCanvas extends JPanel {
 			g2.drawImage(receivedImage,0,0,this);
 		}
 		//this works
-//		if(GameState.getPlayer() != null){
-//			this.getFrame().updateGUI(GameState.getPlayer());
-//		}
+
+		for( Actor a : socketClient.getGameState().getActors() ){
+
+			if(a instanceof Player){
+				if(((Player) a).getClientNum() == socketClient.getClientNum()){
+					this.getFrame().updateGUI((socketClient.getGameState().findPlayer(((Player) a).getClientNum())));
+				}
+			}
+		}
 
 	}
 
