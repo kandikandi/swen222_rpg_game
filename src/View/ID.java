@@ -17,7 +17,8 @@ public enum ID {
     COLLECTABLE(5),
     KEY(6),
     ENEMY(7),
-    DOOR(8)
+    DOOR(8),
+    WALL(9),
     ;
 
     private final int value;

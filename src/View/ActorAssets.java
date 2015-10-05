@@ -22,6 +22,7 @@ public enum ActorAssets {
     KEY('K',"temp_key.jpg"),
     ENEMY('E',"clown.jpg"),
     COLLECTABLE('B',"ring.jpg"),
+    WALL('W',"wall.jpg")
 
     ;
 

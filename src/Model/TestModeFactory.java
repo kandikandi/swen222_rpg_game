@@ -55,6 +55,9 @@ public class TestModeFactory extends AbstractFactory {
                     case COLLECTABLE:
                     	actor = createCollectable(position.getxPos(), position.getyPos());
                     	break;
+                    case WALL:
+                    	actor = createWall(position.getxPos(), position.getyPos());
+                    	break;
                 }
 
                 if (actor == null) {
@@ -99,9 +102,18 @@ public class TestModeFactory extends AbstractFactory {
         return key;
     }
 
+    @Override
+    public Wall createWall(int xPos, int yPos) {
+        Position pos = new Position(xPos, yPos);
+        char asciiCode = ActorAssets.WALL.getAsciiCode();
+        int size = Main.ITEM_SIZE;
+        Wall wall = new Wall(ID.WALL, pos, asciiCode, true, true, size);
+        return wall;
+    }
+
 	@Override
 	public Player createPlayerActor(int clientNum) {
-	        Position loc = new Position(5, 5);
+	        Position loc = new Position(75, 75);
 	        char asciiCode= ActorAssets.PLAYER.getAsciiCode();
 	        Player player = new Player(ID.PLAYER, loc, asciiCode, true, true, Main.PLAYER_SIZE, clientNum);
 	       // player.setInventory(createInventory(true, 10, 10));

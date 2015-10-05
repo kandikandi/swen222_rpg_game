@@ -54,5 +54,7 @@ public abstract class AbstractFactory {
 
 	public abstract Door createDoor(int xPos, int yPos);
 
+	public abstract Wall createWall(int xPos, int yPos);
+
 
 }

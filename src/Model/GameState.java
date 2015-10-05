@@ -13,36 +13,34 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import View.TestWorlds;
 
-@XmlRootElement(namespace = "gamestate")
-// TODO: Bonnie added this here!
+@XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this here!
 public class GameState {
 
-	@XmlTransient
-	// TODO:Bonnie added this here!
+	@XmlTransient //TODO:Bonnie added this here!
 	private Tile[][] worldTiles;
+
 
 	// @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
 	// @XmlElement(name = "actor") //TODO:Bonnie added this here!
 	private List<Actor> actors;
 
-	@XmlTransient
-	// TODO: Bonnie added this here!
+	@XmlTransient //TODO: Bonnie added this here!
 	private final AbstractFactory factory;
 
-	public GameState(boolean isServer) {
+	public GameState(boolean isServer){
 
 		factory = new TestModeFactory();
 		worldTiles = factory.createWorldTiles();
-		if (isServer) {
+		if(isServer){
 			actors = factory.createActorList();
 		}
 	}
 
-	private GameState() {
+	private GameState(){
 		factory = null;
 	}
 
-	public List<Actor> getActors() {
+	public List<Actor> getActors(){
 		return actors;
 	}
 
@@ -85,7 +83,7 @@ public class GameState {
 
 	// ============== DEBUGGING =================
 	public void printGameObjectState() {
-		for (Actor actor : actors) {
+		for(Actor actor: actors){
 			actor.printState();
 		}
 	}
