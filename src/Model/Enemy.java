@@ -38,7 +38,7 @@ public class Enemy extends Actor{
 		if(this.getX()<startX+100){
 			Position newPos = new Position(getX()+3,getY());
 			this.setPosition(newPos);
-		}else if(){
+		}else if(true){
 			Position newPos = new Position(getX()-3,getY());
 			this.setPosition(newPos);
 		}
