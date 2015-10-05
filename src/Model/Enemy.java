@@ -143,8 +143,8 @@ public class Enemy extends Actor {
 
 	private void kill() {
 		alive = false;
-		setDrawable(false);
-		setCollidable(false);
+		this.setDrawable(false);
+		this.setCollidable(false);
 	}
 
 	public boolean getIsAlive() {
