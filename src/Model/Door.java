@@ -27,7 +27,8 @@ public class Door extends Actor {
 	 */
 	public void open() {
 		open = true;
-		collidable = false;
+		this.setCollidable(false);
+		this.setDrawable(false);
 	}
 
 	public boolean getIsOpen(){

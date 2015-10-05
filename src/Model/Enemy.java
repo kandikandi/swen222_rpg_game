@@ -11,6 +11,8 @@ public class Enemy extends Actor{
 	private boolean alive = true;
 	private int attackPoints;
 	private int health;
+	private final int startX;
+	private final int startY;
 	private int count; 	// just want way to alternate attacking and not attacking. Bit weird maybe.
 						//Tick will increment and set attack depending on value.
 
@@ -20,12 +22,36 @@ public class Enemy extends Actor{
 		this.attackPoints = 2;
 		this.health = 100;
 		count = 0;
+		startX = location.getxPos();
+		startY = location.getyPos();
 	}
 
 
 	@Override
 	public void tick() {
-		alternateAttacking();
+		move();
+
+
+	}
+
+	private void move() {
+		if(this.getX()<startX+100){
+			Position newPos = new Position(getX()+3,getY());
+			this.setPosition(newPos);
+		}else if(true){
+			Position newPos = new Position(getX()-3,getY());
+			this.setPosition(newPos);
+		}
+
+	}
+
+
+	private int getX() {
+		return this.getPosition().getxPos();
+	}
+
+	private int getY() {
+		return this.getPosition().getyPos();
 	}
 
 	/**

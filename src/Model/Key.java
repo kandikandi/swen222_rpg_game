@@ -27,7 +27,7 @@ public class Key extends Collectable {
 	 * or collidable.
 	 */
 	public void useInDoor(){
-		drawable = false;
-		collidable = false;
+		this.setDrawable(false);
+		this.setCollidable(false);
 	}
 }

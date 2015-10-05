@@ -37,7 +37,7 @@ public abstract class AbstractFactory {
      * @param yPos
      * @return
      */
-    public abstract Inventory createInventory(boolean pickedUP, int xPos, int yPos);
+//    public abstract Inventory createInventory(boolean pickedUP, int xPos, int yPos);
 
     public abstract Collectable createCollectable(int xPos, int yPos);
 
@@ -53,6 +53,8 @@ public abstract class AbstractFactory {
     public abstract Enemy createEnemyActor(int xPos, int yPos);
 
 	public abstract Door createDoor(int xPos, int yPos);
+
+	public abstract Wall createWall(int xPos, int yPos);
 
 
 }
