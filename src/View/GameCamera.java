@@ -3,37 +3,36 @@ package View;
 import Control.Main;
 import Model.Actor;
 import Model.GameState;
-import Model.Player;
 import Model.Tile;
 
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by cuan on 9/19/15.
  */
 public class GameCamera {
     private GameState gameState;
-    private final Tile[][] worldTiles;
-    private int clientNum;
-    private Player playerActor;
+    private Tile[][] worldTiles;
+    private List<Tile> viewTiles;
+    private int clientNumber;
+    private List<Tile> tileView;
+    private List<Actor> actorView;
 
-    public GameCamera(GameState gameState, int clientNum){
+    public GameCamera(GameState gameState, int clientNumber){
+        this.clientNumber = clientNumber;
         this.gameState = gameState;
-        playerActor = gameState.findPlayer(clientNum);
         worldTiles = gameState.getWorld();
-        this.clientNum = clientNum;
+        viewTiles = new ArrayList<>();
     }
-   // public Player getPlayerActor(){return playerActor;}
 
-
-
-    public List<Tile> getTileView() {
-        playerActor = gameState.findPlayer(clientNum);
-        List<Tile> viewTiles = new ArrayList<>();
-
+    public void performSystem() {
         //get player location
+        viewTiles.clear();
+        final Actor playerActor = gameState.findPlayer(clientNumber);
         int colMin;
         int colMax;
         int rowMin;
@@ -68,10 +67,11 @@ public class GameCamera {
                 viewTiles.add(worldTiles[j][i]);
             }
         }
-        return  viewTiles;
+
     }
 
-    public List<Actor> getActorView() {
+    public List<Actor> getActorList() {
+        final Actor playerActor = gameState.findPlayer(clientNumber);
         final int HALF_C_WIDTH = Main.C_WIDTH/2;
         final int HALF_C_HEIGHT = Main.C_HEIGHT/2;
         List<Actor> worldActors = gameState.getActors();
@@ -86,5 +86,20 @@ public class GameCamera {
         return viewActors;
     }
 
+    public List<Tile> getTileList() {
+        return viewTiles;
+    }
 
+    public Actor getPlayerActor(){
+        return gameState.findPlayer(clientNumber);
+    }
+
+
+    public List<Tile> getTileView() {
+        return tileView;
+    }
+
+    public List<Actor> getActorView() {
+        return actorView;
+    }
 }

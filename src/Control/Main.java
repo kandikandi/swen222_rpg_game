@@ -71,7 +71,7 @@ public class Main {
 			gameFrame.addKeyListener(playerController);
 			GameCamera	camera = new GameCamera(gameState, socketClient.getClientNum());
 			Renderer renderer = new Renderer(camera, gameCanvas);
-			GameTimer gameTimer = new GameTimer(renderer);
+			GameTimer gameTimer = new GameTimer(renderer, camera);
 			gameTimer.start();
 			}
 		});

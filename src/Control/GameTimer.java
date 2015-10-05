@@ -2,6 +2,7 @@ package Control;
 
 import javax.swing.JFrame;
 
+import View.GameCamera;
 import View.Renderer;
 import ui.GameCanvas;
 import ui.GameFrame;
@@ -12,9 +13,11 @@ import ui.GameFrame;
 public class GameTimer extends Thread {
 
 	private Renderer renderer;
+	private GameCamera camera;
 
-	public GameTimer(Renderer rend) {
+	public GameTimer(Renderer rend, GameCamera camera) {
 		this.renderer = rend;
+		this.camera = camera;
 	}
 
 	/**
@@ -26,6 +29,7 @@ public class GameTimer extends Thread {
 		while (true) {
 			try {
 				Thread.sleep(10);
+				camera.performSystem();
 				renderer.renderScene();
 
 			} catch (Exception e) {
