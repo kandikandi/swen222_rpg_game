@@ -24,7 +24,7 @@ import View.ID;
 public class Player extends Actor implements Serializable {
 	@XmlTransient //TODO: Bonnie added this line!
 
-	private final int speed = 10;
+	private final int speed = 5;
 	private Inventory inventory;
 	private boolean hasKey;
 	private boolean playerIsAttacking;
@@ -168,7 +168,7 @@ public class Player extends Actor implements Serializable {
 	 */
 	public void increaseFear(int n) {
 		fear += n;
-		if (fear >= 100) {
+		if (fear >= 1000) {
 			tooScared();
 		}
 	}

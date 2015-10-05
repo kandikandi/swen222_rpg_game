@@ -11,8 +11,10 @@ public class Enemy extends Actor {
 	private boolean alive = true;
 	private int attackPoints;
 	private int health;
-	private int direction;
-	private int randomDirection; // 1-4
+	private int horizontalSpeed;
+	private int verticalSpeed;
+	private int moveType;
+	// private int randomDirection; // 1-4
 	private final int startX;
 	private final int startY;
 	private int count; // just want way to alternate attacking and not
@@ -23,58 +25,129 @@ public class Enemy extends Actor {
 	public Enemy(ID id, Position location, char imagePath, boolean collidable,
 			boolean drawable, int boundingBoxSize) {
 		super(id, location, imagePath, collidable, drawable, boundingBoxSize);
-		this.attackPoints = 3;
+		this.attackPoints = 1;
 		this.health = 100;
 		count = 0;
 		this.startX = location.getxPos();
 		this.startY = location.getyPos();
-		this.direction = 1;
+		Random rn = new Random();
+		this.moveType = rn.nextInt(3) + 1;
+		setRandomSpeeds();
 	}
 
 	// @Override
 	public void tick(GameState gameState) {
-		backAndForthMove(gameState);
-//		randomMove(gameState);
+		if (moveType == 1) {
+			backAndForthMove(gameState);
+		} else if (moveType == 2) {
+			zigZagMove(gameState);
+		} else if (moveType == 3) {
+			randomMove(gameState);
+		}
+		// }else if(moveType==4){
+		// sentryMove(gameState);
+		// }
+		else {
+
+		}
 
 	}
 
-	@Override
-	public void tick() {
-		}
+	/**
+	 * Set enemy movement type. 1->BackAndforth, 2-> zigZag, 3->Random
+	 *
+	 * @param type
+	 */
+	public void setMovementType(int type){
+		this.moveType = type;
+	}
 
-
-	private void backAndForthMove(GameState gameState) {
+	private void randomMove(GameState gameState) {
 		Collision collision = new Collision(gameState);
-		Position proposedPosition = new Position(getX() + direction, getY());
+
+		Position proposedPosition = new Position(getX() + horizontalSpeed,
+				getY() + verticalSpeed);
 
 		if (collision.canMoveEnemy(this, proposedPosition)) {
 			this.setPosition(proposedPosition);
 		} else {
-			direction = -direction;
-		}
-
-		if (getX() > startX + 100 || getX() < startX - 100) {
-			direction = -direction;
+			setRandomSpeeds();
 		}
 	}
 
-//	private void randomMove(GameState gameState) {
-//		Collision collision = new Collision(gameState);
-//		Random random = new Random(4);
-//
-//
-//		Position proposedPosition = new Position(getX() + direction, getY());
-//
-//		if (collision.canMoveEnemy(this, proposedPosition)) {
-//			this.setPosition(proposedPosition);
-//		} else {
-//			direction = -direction;
-//		}
-//
-//	}
+	@Override
+	public void tick() {
+	}
+
+	private void backAndForthMove(GameState gameState) {
+		Collision collision = new Collision(gameState);
+		Position proposedPosition = new Position(getX() + horizontalSpeed,
+				getY());
+
+		if (collision.canMoveEnemy(this, proposedPosition)) {
+			this.setPosition(proposedPosition);
+		} else {
+			horizontalSpeed = -horizontalSpeed;
+		}
+
+		if (getX() > startX + 100 || getX() < startX - 100) {
+			horizontalSpeed = -horizontalSpeed;
+		}
+		if(getX()==0 && getY()==0){
+			setRandomSpeeds();
+		}
+	}
+
+	private void zigZagMove(GameState gameState) {
+		Collision collision = new Collision(gameState);
+		Position proposedPosition = new Position(getX() + horizontalSpeed,
+				getY() + verticalSpeed);
+
+		if (collision.canMoveEnemy(this, proposedPosition)) {
+			this.setPosition(proposedPosition);
+		} else {
+			horizontalSpeed = -horizontalSpeed;
+		}
+
+		if (getX() > startX + 100 || getX() < startX - 100) {
+			horizontalSpeed = -horizontalSpeed;
+		}
+		if (getY() > startY + 10 || getY() < startY - 10) {
+			verticalSpeed = -verticalSpeed;
+		}
+		if(getX()==0 && getY()==0){
+			setRandomSpeeds();
+		}
+	}
+
+	// private void sentryMove(GameState gameState){
+	// if (getX() > startX + 100) {
+	// horizontalSpeed = 0;
+	// verticalSpeed=1;
+	// }else if(getY() > startY + 100){
+	// verticalSpeed=0;
+	// horizontalSpeed=-1;
+	// }else if(getX() < startX - 100) {
+	// horizontalSpeed = 0;
+	// verticalSpeed=-1;
+	// }else if(getY() < startY - 100) {
+	// horizontalSpeed = 1;
+	// verticalSpeed=0;
+	// }
+	// }
 
 	private int getX() {
 		return this.getPosition().getxPos();
+	}
+
+	private void setRandomSpeeds() {
+		Random rn = new Random();
+		this.horizontalSpeed = rn.nextInt(4) - 2;
+		this.verticalSpeed = rn.nextInt(4) - 2;
+		if (horizontalSpeed == 0 || verticalSpeed == 0) {
+			setRandomSpeeds();
+		}
+
 	}
 
 	private int getY() {

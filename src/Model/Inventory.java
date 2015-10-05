@@ -114,17 +114,28 @@ public class Inventory extends Container {
 	 * @param coinBag
 	 *            to be added to inventory
 	 */
-	public boolean addItemToContainer(CoinBag coinBag) {
+	public void addItemToContainer(CoinBag coinBag) {
 		if (coinBag == null) {
-			return false;
+			return;
 		} else if (items.size() < maximumItems) {
 			items.add(coinBag);
 			coinBag.setCollidable(false);
 			coinBag.setDrawable(false);
 			addAllCoinsToCoinBag(coinBag);
-			return true;
+			return;
+		} else if (items.size() == maximumItems) {
+			for(Actor actor : items){
+				if(actor instanceof Coin){
+					coinBag.addItemToContainer((Coin) actor);
+				}
+			}
+			items.add(coinBag);
+			coinBag.setCollidable(false);
+			coinBag.setDrawable(false);
+			addAllCoinsToCoinBag(coinBag);
+			return;
 		}else{
-			return false;
+			return;
 		}
 	}
 
@@ -133,6 +144,7 @@ public class Inventory extends Container {
 	 * bag.
 	 */
 	private void addAllCoinsToCoinBag(CoinBag coinBag) {
+		if(getCoinBag()==null){return;}
 		for (Actor actor : items) {
 			if (actor instanceof Coin) {
 				Coin coin = (Coin) actor;
@@ -179,13 +191,15 @@ public class Inventory extends Container {
 	 *
 	 * @param coin
 	 */
-	public void addItemToContainer(Coin coin) {
-		if (coin == null) {
+	public void addItemToContainer(Collectable collectable) {
+		if (collectable == null) {
 			return;
-		} else if (containsCoinBag()) {
-			addItemToContainer(coin);
+		}else if(collectable instanceof Coin && containsCoinBag()){
+				getCoinBag().addItemToContainer((Coin) collectable);
 		} else if (items.size() < maximumItems) {
-			items.add(coin);
+			items.add(collectable);
+			collectable.setCollidable(false);
+			collectable.setDrawable(false);
 		}
 		addAllCoinsToCoinBag(getCoinBag());
 	}
