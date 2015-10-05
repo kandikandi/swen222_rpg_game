@@ -38,18 +38,23 @@ public class TestModeFactory extends AbstractFactory {
                 Actor actor = null;
                 switch (asset) {
                 	case COIN:
-                		actor = new Coin(ID.COLLECTABLE, position, asciiCode, true, true, size);
-                        break;
+                        actor = createCoin(position.getxPos(), position.getyPos());
+                		break;
                 	case COINBAG:
-                		actor = new CoinBag(ID.CONTAINER, position, asciiCode, true, true, size);
-                        break;
+                        actor = createCoinBag(position.getxPos(), position.getyPos());
+                		break;
                 	case KEY:
-                        actor = new Key(ID.KEY, position, asciiCode, true, true, size);
+                        actor = createKey(position.getxPos(), position.getyPos());
                         break;
                     case ENEMY:
-                    	actor = new Enemy(ID.ENEMY,position, asciiCode, true, true, size);
+                    	actor = createEnemyActor(position.getxPos(), position.getyPos());
                     	break;
-
+                    case DOOR:
+                    	actor = createDoor(position.getxPos(), position.getyPos());
+                    	break;
+                    case COLLECTABLE:
+                    	actor = createCollectable(position.getxPos(), position.getyPos());
+                    	break;
                 }
 
                 if (actor == null) {
@@ -76,6 +81,14 @@ public class TestModeFactory extends AbstractFactory {
         return enemy;
     }
 
+    @Override
+    public Door createDoor(int xPos, int yPos){
+    	Position pos = new Position(xPos, yPos);
+    	char asciiCode = ActorAssets.DOOR.getAsciiCode();
+    	int size = Main.ITEM_SIZE;
+    	Door door = new Door(ID.DOOR, pos, asciiCode, true, true, size);
+    	return door;
+    }
 
     @Override
     public Key createKey(int xPos, int yPos) {
@@ -112,21 +125,41 @@ public class TestModeFactory extends AbstractFactory {
 
 
 	@Override
-	public Coin createCoin() {
-
-		return null;
+	public Coin createCoin(int xPos, int yPos) {
+		   Position pos = new Position(xPos, yPos);
+	       char asciiCode = ActorAssets.COIN.getAsciiCode();
+	       int size = Main.ITEM_SIZE;
+	       Coin coin = new Coin(ID.KEY, pos, asciiCode, true, true, size);
+	       return coin;
 	}
+
+	public CoinBag createCoinBag(int xPos, int yPos){
+		   Position pos = new Position(xPos, yPos);
+	       char asciiCode = ActorAssets.COINBAG.getAsciiCode();
+	       int size = Main.ITEM_SIZE;
+	       CoinBag coinBag = new CoinBag(ID.KEY, pos, asciiCode, true, true, size);
+	       return coinBag;
+	}
+
+
 
 	@Override
 	public Inventory createInventory(boolean pickedUP, int xPos, int yPos) {
+		 Position pos = new Position(xPos, yPos);
+	     //char asciiCode = ActorAssets.COINBAG.getAsciiCode();
+	     //int size = Main.ITEM_SIZE;
+//	     Inventory inventory = new Inventory(ID.KEY, pos, asciiCode, true, true, size);
 
-		return null;
+		 return null;
 	}
 
 	@Override
-	public Collectable createCollectable() {
-
-		return null;
+	public Collectable createCollectable(int xPos, int yPos) {
+		   Position pos = new Position(xPos, yPos);
+	       char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
+	       int size = Main.ITEM_SIZE;
+	       Collectable collectable = new Collectable(ID.COLLECTABLE, pos, asciiCode, true, true, size);
+	       return collectable;
 	}
 
 }

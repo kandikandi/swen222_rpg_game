@@ -25,7 +25,7 @@ public class Player extends Actor implements Serializable {
 	@XmlTransient //TODO: Bonnie added this line!
 
 	private final int speed = 5;
-	//private Inventory inventory;
+	private Inventory inventory;
 	private boolean hasKey;
 	private boolean playerIsAttacking;
 	private int attackPoints = 2;
@@ -41,6 +41,10 @@ public class Player extends Actor implements Serializable {
 				  boolean drawable, int boundingBoxSize, int clientNum ) {
 		super(id, position, asciiCode, collidable, drawable, boundingBoxSize);
 		this.clientNum = clientNum;
+		this.inventory = new Inventory(ID.CONTAINER,position, asciiCode, false, false, 1);
+
+//		ID id, Position position, char imagePath, boolean collidable,
+//		boolean drawable, int boundingBoxSize, Collectable... collectables
 
 	}
 
@@ -51,19 +55,34 @@ public class Player extends Actor implements Serializable {
 	}
 
 
-	public void move(String dir) {
+	public void move(GameState gameState, String dir) {
+		Collision collision = new Collision(gameState);
+		Position proposedPosition;
 		switch (dir) {
+
 		case "UP":
-				position.setyPos(position.getyPos() - speed);
+			proposedPosition = new Position(getX(), getY()-speed);
+			if(collision.canMove(this)){
+				setPosition(proposedPosition);
+			}
 			break;
 		case "DOWN":
-				position.setyPos(position.getyPos() + speed);
+			proposedPosition = new Position(getX(), getY()+speed);
+			if(collision.canMove(this)){
+				setPosition(proposedPosition);
+			}
 			break;
 		case "LEFT":
-				position.setxPos(position.getxPos() - speed);
+			proposedPosition = new Position(getX()-speed, getY());
+			if(collision.canMove(this)){
+				setPosition(proposedPosition);
+			}
 			break;
 		case "RIGHT":
-				position.setxPos(position.getxPos() + speed);
+			proposedPosition = new Position(getX()+speed, getY());
+			if(collision.canMove(this)){
+				setPosition(proposedPosition);
+			}
 			break;
 		}
 	}
@@ -78,8 +97,7 @@ public class Player extends Actor implements Serializable {
 //	protected void collide(Actor collidingObject) {
 //		if (collidingObject instanceof Coin) {
 //			pickup((Coin) collidingObject);
-//		} else if (collidingObject instanceof Collectable) {
-//			pickup((Collectable) collidingObject);
+
 //		} else if (collidingObject instanceof CoinBag) {
 //			pickupCoinBag((CoinBag) collidingObject);
 //		} else if (collidingObject instanceof Door) {
@@ -92,87 +110,31 @@ public class Player extends Actor implements Serializable {
 //		}
 //	}
 //
-//	private void fight(Actor collidingObject) {
-//		Enemy enemy = (Enemy) collidingObject;
-//
-//		if (enemy.isAttacking() && !getAttacking()) {
-//			increaseFear(enemy.getAttackPoints() - bravery);
-//		} else if (!enemy.isAttacking() && getAttacking()) {// if enemy is not
-//															// attacking and you
-//															// are: you +
-//															// monster -
-//			enemy.reduceHealth(attackPoints + bravery);
-//		} else {
-//			enemy.reduceHealth(1);
-//			increaseFear(1);
-//		}
-//	}
+
 //
 //
 //	public void setInventory(Inventory inventory) {
 //		this.inventory = inventory;
 //		inventory.setPosition(position);
 //	}
-//
-//	/**
-//	 * This method adds a collectable to the inventory.
-//	 * TODO: if pickup is being called with a null, a exception should be thrown
-//	 * @param collectable
-//	 */
-//	public boolean pickup(Collectable collectable) {
-//		if (collectable == null) {
-//			return false;
-//		} else if (inventory == null) {
-//			System.out.println("Error: Inventory not set up"); //TODO: throw exception here aswell
-//			return false;
-//		} else {
-//			return inventory.addItemToContainer(collectable);
-//		}
-//	}
-//
-//	/**
-//	 * This method adds a CoinBag to the inventory, if the player has an
-//	 * inventory.
-//	 *
-//	 * @param
-//	 */
-//	public boolean pickupCoinBag(CoinBag coinBag) {
-//		if (coinBag == null) {
-//			return false;
-//		} else if (inventory == null) {
-//			System.out.println("Error: Inventory not set up");
-//			return false;
-//		} else {
-//			return inventory.addItemToContainer(coinBag);
-//		}
-//	}
-//
-//	/**
-//	 * Setter for whether player attacking.
-//	 *
-//	 * @param playerIsAttacking
-//	 */
-//	@Override
-//	public void setAttack(boolean playerIsAttacking) {
-//		this.playerIsAttacking = playerIsAttacking;
-//	}
-//
-//
-//	@Override
-//	public void setMoveStrat(MovementStrategy movementStrategy) {
-//		// TODO Auto-generated method stub
-//
-//	}
-//
-//	/**
-//	 * Getter for whether player attacking.
-//	 *
-//	 * @return
-//	 */
-//
-//	public boolean getAttacking() {
-//		return playerIsAttacking;
-//	}
+
+	/**
+	 * Setter for whether player attacking.
+	 *
+	 * @param playerIsAttacking
+	 */
+	public void setAttack(boolean playerIsAttacking) {
+		this.playerIsAttacking = playerIsAttacking;
+	}
+
+	/**
+	 * Getter for whether player attacking.
+	 *
+	 * @return
+	 */
+	public boolean getAttacking() {
+		return playerIsAttacking;
+	}
 //
 //	/**
 //	 * This method removes a Collectable from the Inventory and places it where
@@ -191,14 +153,14 @@ public class Player extends Actor implements Serializable {
 //		}
 //	}
 //
-//	/**
-//	 * Getter method to return Inventory
-//	 *
-//	 * @return
-//	 */
-//	public Inventory getInventory() {
-//		return inventory;
-//	}
+	/**
+	 * Getter method to return Inventory
+	 *
+	 * @return
+	 */
+	public Inventory getInventory() {
+		return inventory;
+	}
 
 //	/**
 //	 * This method returns a position based on the direction of the arrow key
@@ -228,24 +190,7 @@ public class Player extends Actor implements Serializable {
 //
 //	}
 //
-//	/**
-//	 * If a player collides with a Door object, if the player has a key the door
-//	 * will open and the key will be used and disappear from the player's
-//	 * inventory.
-//	 *
-//	 * @param door
-//	 * @return true if the player has a key
-//	 */
-//	public boolean useKeyInDoor(Door door) {
-//		if (inventory.containsKey()) {
-//			door.open();
-//			Key key = inventory.getKey();
-//			key.useInDoor();
-//			inventory.removeItemFromContainer(key);
-//			return true;
-//		}
-//		return false;
-//	}
+
 
 
 	public int getClientNum() {
@@ -330,6 +275,13 @@ public class Player extends Actor implements Serializable {
 		return bravery;
 	}
 
+	public int getX(){
+		return this.getPosition().getxPos();
+	}
+
+	public int getY(){
+		return this.getPosition().getyPos();
+	}
 
 	public void setBravery(int bravery) {
 		this.bravery = bravery;

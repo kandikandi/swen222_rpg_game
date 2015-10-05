@@ -27,7 +27,7 @@ public abstract class AbstractFactory {
 
     public abstract Player createPlayerActor(int clientNum);
 
-    public abstract Coin createCoin();
+    public abstract Coin createCoin(int xPos, int yPos);
 
     /**
      * If pickedUP is true, the inventory will not be collidable or drawn.
@@ -39,7 +39,7 @@ public abstract class AbstractFactory {
      */
     public abstract Inventory createInventory(boolean pickedUP, int xPos, int yPos);
 
-    public abstract Collectable createCollectable();
+    public abstract Collectable createCollectable(int xPos, int yPos);
 
     /**
      * Creates a key at the specified x/y co-ordinates
@@ -51,6 +51,8 @@ public abstract class AbstractFactory {
     public abstract Key createKey(int xPos, int yPos);
 
     public abstract Enemy createEnemyActor(int xPos, int yPos);
+
+	public abstract Door createDoor(int xPos, int yPos);
 
 
 }

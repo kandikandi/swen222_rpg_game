@@ -92,6 +92,7 @@ public class Enemy extends Actor{
 	private void kill() {
 		alive = false;
 		setDrawable(false);
+		setCollidable(false);
 	}
 
 
