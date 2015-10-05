@@ -108,7 +108,7 @@ public class InventoryPanel extends JPanel {
 
 		case 'C':
 			try {
-				image = ImageIO.read(new File("coin40.jpg"));
+				image = ImageIO.read(new File("Inventory_Coin.png"));
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -116,7 +116,7 @@ public class InventoryPanel extends JPanel {
 			break;
 		case 'B':
 			try {
-				image = ImageIO.read(new File("coinbag.jpg"));
+				image = ImageIO.read(new File("Inventory_Bag.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -124,7 +124,7 @@ public class InventoryPanel extends JPanel {
 			break;
 		case 'K':
 			try {
-				image = ImageIO.read(new File("temp_key.jpg"));
+				image = ImageIO.read(new File("Inventory_Key.png"));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

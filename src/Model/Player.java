@@ -24,7 +24,7 @@ import View.ID;
 public class Player extends Actor implements Serializable {
 	@XmlTransient //TODO: Bonnie added this line!
 
-	private final int speed = 5;
+	private final int speed = 10;
 	private Inventory inventory;
 	private boolean hasKey;
 	private boolean playerIsAttacking;

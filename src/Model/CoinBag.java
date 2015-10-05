@@ -27,7 +27,7 @@ public class CoinBag extends Container {
 		}else if (! (collectable instanceof Coin) ){
 			return false;
 		} else if (items.size() < maximumItems) {
-			items.add(collectable);
+			items.add((Coin) collectable);
 			return true;
 		} else {
 			return false;
