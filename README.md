@@ -4,15 +4,16 @@
 
 ### Summary ###
 
-Dreamland is a 1-2 player game.....
+Dreamland is a 1-2 player adventure game.
 
 ### Getting started ###
 
-To launch from Eclipse.....
+To launch from Eclipse click "Run as Java Application" and select "Main - control". A popup box "Run in Server?" will appear. Select "Yes". Enter a username.
+To add a second player. Click "Run as Java Application", but this time press "No" when "Run in Server?" popup box pops up. Enter second user name.
 
 ### Controls   ###
 
-Player movement is controlled with up, down, left, and right arrows.
+Player movement is controlled with up, down, left, and right arrows. Space key attacks. Collectable objects such as keys and coins are automatically picked up when you walk over them, and can be dropped with the "drop" button.
 
 ### Packages: ###
      
