@@ -69,8 +69,8 @@ public class Main {
 			gameFrame.pack();
 			gameFrame.addKeyListener(playerController);
 			Renderer renderer = new Renderer(gameState, gameCanvas);
-
-			GameTimer gameTimer = new GameTimer(renderer);
+			EnemyController enemyController = new EnemyController(gameState);
+			GameTimer gameTimer = new GameTimer(renderer, enemyController);
 			gameTimer.start();
 			}
 		});

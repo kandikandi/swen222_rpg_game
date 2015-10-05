@@ -12,9 +12,11 @@ import ui.GameFrame;
 public class GameTimer extends Thread {
 
 	private Renderer renderer;
+	private EnemyController enemyController;
 
-	public GameTimer(Renderer rend) {
+	public GameTimer(Renderer rend, EnemyController enemyController) {
 		this.renderer = rend;
+		this.enemyController = enemyController;
 	}
 
 	/**
@@ -26,6 +28,7 @@ public class GameTimer extends Thread {
 		while (true) {
 			try {
 				Thread.sleep(10);
+				enemyController.update();
 				renderer.renderScene();
 
 			} catch (Exception e) {
