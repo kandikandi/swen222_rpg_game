@@ -15,6 +15,9 @@ public class GameState {
 	@XmlTransient //TODO:Bonnie added this here!
 	private Tile[][] worldTiles;
 
+
+	// @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
+	// @XmlElement(name = "actor") //TODO:Bonnie added this here!
 	private List<Actor> actors;
 
 	@XmlTransient //TODO: Bonnie added this here!
