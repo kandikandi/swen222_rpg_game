@@ -14,6 +14,7 @@ public class Enemy extends Actor {
 	private int horizontalSpeed;
 	private int verticalSpeed;
 	private int moveType;
+	private final int MAX_SPEED = 3;
 	// private int randomDirection; // 1-4
 	private final int startX;
 	private final int startY;
@@ -142,7 +143,7 @@ public class Enemy extends Actor {
 
 	private void setRandomSpeeds() {
 		Random rn = new Random();
-		this.horizontalSpeed = rn.nextInt(4) - 2;
+		this.horizontalSpeed = rn.nextInt(4) - 2; //want range pos to neg
 		this.verticalSpeed = rn.nextInt(4) - 2;
 		if (horizontalSpeed == 0 || verticalSpeed == 0) {
 			setRandomSpeeds();
@@ -160,16 +161,16 @@ public class Enemy extends Actor {
 	 *
 	 *
 	 */
-	private void alternateAttacking() {
-		count++;
-		if (count < 10) {
-			setAttack(true);
-		} else if (count >= 10 && count < 50) {
-			setAttack(false);
-		} else {
-			count = 0;
-		}
-	}
+//	private void alternateAttacking() {
+//		count++;
+//		if (count < 10) {
+//			setAttack(true);
+//		} else if (count >= 10 && count < 50) {
+//			setAttack(false);
+//		} else {
+//			count = 0;
+//		}
+//	}
 
 	/**
 	 * Getter for whether is attacking.

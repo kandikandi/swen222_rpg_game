@@ -99,6 +99,7 @@ public class TestModeFactory extends AbstractFactory {
         char asciiCode = ActorAssets.KEY.getAsciiCode();
         int size = Main.ITEM_SIZE;
         Key key = new Key(ID.KEY, pos, asciiCode, true, true, size);
+        key.setDescription("It looks like an ordinary key.");
         return key;
     }
 

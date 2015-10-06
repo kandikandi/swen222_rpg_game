@@ -24,7 +24,7 @@ import View.ID;
 public class Player extends Actor implements Serializable {
 	@XmlTransient //TODO: Bonnie added this line!
 
-	private final int speed = 5;
+	private int speed = 5;
 	private Inventory inventory;
 	private boolean hasKey;
 	private boolean playerIsAttacking;
@@ -131,7 +131,7 @@ public class Player extends Actor implements Serializable {
 	 *
 	 * @return
 	 */
-	public Inventory getInventory() {
+	public Inventory getInventorytooScared() {
 		return inventory;
 	}
 
@@ -149,7 +149,7 @@ public class Player extends Actor implements Serializable {
 	 */
 	public void setFear(int fear) {
 		this.fear = fear;
-		if (fear >= 100) {
+		if (fear >= 1000) {
 			tooScared();
 		}
 	}
@@ -179,7 +179,8 @@ public class Player extends Actor implements Serializable {
 	 */
 	private void tooScared() {
 		// game over for player
-		alive = false;
+		this.alive = false;
+		this.speed = 0;
 		// if only one player left, game over
 		// tell the controller it's all over
 
@@ -237,6 +238,11 @@ public class Player extends Actor implements Serializable {
 
 	public void setClientNum(int clientNum) {
 		this.clientNum = clientNum;
+	}
+
+
+	public Inventory getInventory() {
+		return this.inventory;
 	}
 
 	//========================================================

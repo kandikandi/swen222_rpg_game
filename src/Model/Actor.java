@@ -24,6 +24,7 @@ public abstract class Actor implements Serializable {
     protected ID id;
     protected int boundingBoxSize;
     protected char asciiCode;
+    protected String actorDescription;
 
     public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable, int boundingBoxSize) {
         this.id = id;
@@ -32,7 +33,7 @@ public abstract class Actor implements Serializable {
         this.collidable = collidable;
         this.drawable = drawable;
         this.boundingBoxSize = boundingBoxSize;
-        
+
     }
 
     abstract public void tick();
@@ -72,6 +73,26 @@ public abstract class Actor implements Serializable {
      */
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+
+    /**
+     * Getter method for this GameObject's position.
+     *
+     * @return GameObject's Image.
+     */
+    public String getDescription() {
+        if(this.actorDescription==null){ actorDescription = " ";}
+    	return actorDescription;
+    }
+
+    /**
+     * Setter method for this GameObject's position.
+     *
+     * @return GameObject's Image.
+     */
+    public void setDescription(String s) {
+        this.actorDescription = s;
     }
 
     /**
