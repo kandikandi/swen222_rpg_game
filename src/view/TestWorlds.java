@@ -47,7 +47,7 @@ public abstract class TestWorlds {
 
 
 
-    public static char[][] getSmallishMap(){
+    public static char[][] getMazeTiles(){
         char[][]result = {
                 {'g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g'},
                 {'g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g'},
@@ -66,7 +66,7 @@ public abstract class TestWorlds {
                 {'g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g','g'},};
         return result;
     }
-    public static char[][] getSmallishObjectMapWithMaze(){
+    public static char[][] getMazeObjects(){
         char[][]result = {
                 {'W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W','W'},
                 {'W','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','W','0','0','W','E','0','E','0','E','0','0','W','W','W','W','W','W','W','W','W','W','W','W','W'},

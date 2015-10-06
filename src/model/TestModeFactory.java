@@ -20,7 +20,7 @@ public class TestModeFactory extends AbstractFactory {
     @Override
     public List<Actor> createActorList() {
 
-    	char[][] tileCode = TestWorlds.getSmallObjectMap();
+    	char[][] tileCode = TestWorlds.getMazeObjects();
         List<Actor> actors = new ArrayList<>();
         for (int row = 0; row < tileCode.length; row++) {
             for (int col = 0; col < tileCode[0].length; col++) {
@@ -119,7 +119,7 @@ public class TestModeFactory extends AbstractFactory {
 
 	@Override
 	public Tile[][] createWorldTiles() {
-        char[][] tileCode = TestWorlds.getSmallMap();
+        char[][] tileCode = TestWorlds.getMazeTiles();
         Tile[][] result = new Tile[tileCode.length][tileCode[0].length];
 
         for (int row = 0; row < tileCode.length; row++) {

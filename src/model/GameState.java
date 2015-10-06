@@ -1,5 +1,7 @@
 package model;
 
+import view.TestWorlds;
+
 import java.awt.Rectangle;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class GameState {
 
 		factory = new TestModeFactory();
 		worldTiles = factory.createWorldTiles();
+
 		if(isServer){
 			actors = factory.createActorList();
 		}

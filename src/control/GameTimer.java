@@ -23,7 +23,7 @@ public class GameTimer extends Thread {
 	 *
 	 */
 	@Override
-	public synchronized void run() {
+	public void run() {
 		while (true) {
 			try {
 				Thread.sleep(10);
