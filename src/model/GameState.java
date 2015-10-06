@@ -33,6 +33,8 @@ public class GameState {
 	}
 
 
+
+
 	public List<Actor> getActors(){
 		return actors;
 	}
