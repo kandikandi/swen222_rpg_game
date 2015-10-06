@@ -7,9 +7,9 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import Control.GameClient;
-import Model.Actor;
-import Model.Player;
+import control.GameClient;
+import model.Actor;
+import model.Player;
 
 /**
  * The GameCanvas receives images via its receiveBuffImage(BufferedImage buffimg) method,

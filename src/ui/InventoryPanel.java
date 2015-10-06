@@ -16,10 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import Model.Actor;
-import View.ID;
-
-
+import model.Actor;
 
 
 /**

@@ -1,7 +1,7 @@
 package save.actor;
 
-import Model.Position;
-import View.ID;
+import model.Position;
+import view.ID;
 
 /**
  * Created on 05/10/2015

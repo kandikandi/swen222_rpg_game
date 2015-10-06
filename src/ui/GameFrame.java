@@ -2,9 +2,9 @@ package ui;
 
 import javax.swing.*;
 
-import Control.GameServer;
-import Model.Actor;
-import Model.Player;
+import control.GameServer;
+import model.Actor;
+import model.Player;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
