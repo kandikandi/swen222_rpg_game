@@ -31,7 +31,7 @@ public class GameTimer extends Thread {
 				
 				enemyController.update();
 				
-				camera.performSystem();
+				//camera.performSystem();
 				
 				renderer.renderScene();
 
