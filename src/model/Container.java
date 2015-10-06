@@ -10,9 +10,8 @@ import view.ID;
 
 /**
  * This class provides for GameObjects that represent game items that store
- * other items, such as a backpack holding collectables.
+ * other items, such as an Inventory holding collectables.
  *
- * @author dalyandr
  */
 @XmlRootElement(name = "container") //TODO: Bonnie added this line!
 public class Container extends Actor {
@@ -77,11 +76,23 @@ public class Container extends Actor {
 
     }
 
+
+
+    /**
+     * Getter for maximum number of items in container.
+     *
+     * @return
+     */
+    public int getMaximumElements(){
+    	return this.maximumItems;
+    }
+
+
     /**
      * Allows for an item to be removed to the list of items.
      */
     public void removeItemFromContainer(Collectable collectable) {
-        if (collectable == null || numberOfObjectInContainer() == 0) {
+        if (collectable == null || numItemsInContainer() == 0) {
             return;
         } else if (items.contains(collectable)) {
             collectable.setPosition(position); //update position
@@ -98,7 +109,7 @@ public class Container extends Actor {
     /**
      * Returns number of items in this container.
      */
-    public int numberOfObjectInContainer() {
+    public int numItemsInContainer() {
         return items.size();
     }
 
@@ -112,11 +123,21 @@ public class Container extends Actor {
         return items;
     }
 
+
+    /**
+	 * Returns description of bag, as well as number of coins within.
+	 *
+	 */
+	@Override
+	public String getDescription() {
+		if (this.actorDescription == null) {
+			actorDescription = " ";
+		}
+		return "This is a Cotainer with a limit of "+getMaximumElements()+", it currently has " + numItemsInContainer()
+				+ " items!";
+	}
+
     @Override
-    public void tick() {
-        // TODO Auto-generated method stub
-
-    }
-
+    public void tick() {}
 
 }

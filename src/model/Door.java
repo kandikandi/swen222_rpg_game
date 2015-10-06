@@ -2,7 +2,7 @@ package model;
 import view.ID;
 public class Door extends Actor {
 
-	boolean open;
+	private boolean open;
 
 	/**
 	 * This class defines Door objects, which block the path of
@@ -25,21 +25,31 @@ public class Door extends Actor {
 	 * Player object to pass over it.
 	 *
 	 */
-	public void open() {
-		open = true;
+	public void setOpen() {
 		this.setCollidable(false);
 		this.setDrawable(false);
 	}
 
+	/**
+	 * Getter for whether door is open.
+	 *
+	 * @return
+	 */
 	public boolean getIsOpen(){
 		return open;
 	}
 
+    /**
+	 * Returns description of Door, as well as whether it's open.
+	 *
+	 */
 	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-
+	public String getDescription() {
+		return "This is a Door! It is "+getIsOpen()+"!!!";
 	}
+
+	@Override
+	public void tick() {}
 
 
 

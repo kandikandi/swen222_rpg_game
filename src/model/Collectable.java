@@ -3,8 +3,8 @@ package model;
 import view.ID;
 
 /**
- * A Collectable object is something that a player can pickup and
- * can be placed in a container, or a plyer's inventory.
+ * A Collectable object is something that a Player can pickup and
+ * can be placed in a container, or a Player's Inventory.
  *
  * @author dalyandr
  *
@@ -44,7 +44,6 @@ public class Collectable extends Actor {
 		this.setDrawable(false);
 		this.setCollidable(false);
 		inContainer = true;
-//		System.out.println("Collectable Picked up");
 		this.putInContainer(container);
 	}
 
@@ -59,15 +58,14 @@ public class Collectable extends Actor {
 		this.setCollidable(true);
 	}
 
-
+	/**
+	 * 	Setter for Position.
+	 */
 	public void setPosition(Position position) {
 		this.position = position;
 	}
 
 	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
-
-	}
+	public void tick() {}
 
 }

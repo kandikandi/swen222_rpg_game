@@ -5,6 +5,13 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import view.ID;
 
+/**
+ * An Inventory is a Container which a Player always has
+ * in which game Collectable objects such as Coins and Keys
+ * can be placed.
+ *
+ *
+ */
 @XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
 public class Inventory extends Container {
 
@@ -149,18 +156,13 @@ public class Inventory extends Container {
 				coin.setCollidable(false);
 				coin.setDrawable(false);
 			}
-
 		}
-
 		for(Actor actor : coinBag.items){
 			Coin coin = (Coin) actor;
 			this.removeItemFromContainer(coin);
 			coin.setDrawable(false);
 			coin.setCollidable(false);
 		}
-
-
-
 	}
 
 	/**

@@ -8,8 +8,20 @@ public class CoinBag extends Container {
 
 	private final int maximumItems = 50;
 
-	public CoinBag(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, int boundingBoxSize) {
+	/**
+	 * A CoinBag object can be picked up by a Player and placed into the
+	 * Player's Inventory. This increases the number of Coin objects a Player
+	 * can carry from 9 to 50 per CoinBag.
+	 *
+	 * @param id
+	 * @param position
+	 * @param imagePath
+	 * @param collidable
+	 * @param drawable
+	 * @param boundingBoxSize
+	 */
+	public CoinBag(ID id, Position position, char imagePath,
+			boolean collidable, boolean drawable, int boundingBoxSize) {
 		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 		this.items = new ArrayList<Actor>();
 	}
@@ -23,7 +35,7 @@ public class CoinBag extends Container {
 	public void addItemToContainer(Collectable collectable) {
 		if (collectable == null) {
 			return;
-		}else if (! (collectable instanceof Coin) ){
+		} else if (!(collectable instanceof Coin)) {
 			return;
 		} else if (items.size() < maximumItems) {
 			items.add((Coin) collectable);
@@ -41,7 +53,7 @@ public class CoinBag extends Container {
 	 * @param collectable
 	 */
 	public void removeItemFromContainer(Collectable collectable) {
-		if (collectable == null || numberOfObjectInContainer() == 0) {
+		if (collectable == null || numItemsInContainer() == 0) {
 			return;
 		} else if (items.contains(collectable)) {
 			collectable.setPosition(position); // update position
@@ -60,6 +72,19 @@ public class CoinBag extends Container {
 	 */
 	public int numberOfCoinsInCoinBag() {
 		return items.size();
+	}
+
+	/**
+	 * Returns description of bag, as well as number of coins within.
+	 *
+	 */
+	@Override
+	public String getDescription() {
+		if (this.actorDescription == null) {
+			actorDescription = " ";
+		}
+		return "This is a CoinBag, it contains " + numberOfCoinsInCoinBag()
+				+ " coins!";
 	}
 
 }

@@ -15,12 +15,13 @@ import view.ID;
  * The player class holds the data for each player including position,
  */
 
-
-@XmlRootElement(name = "player") //TODO: Bonnie added this line!
-@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
+@XmlRootElement(name = "player")
+// TODO: Bonnie added this line!
+@XmlAccessorType(XmlAccessType.FIELD)
+// TODO: Bonnie added this line!
 public class Player extends Actor implements Serializable {
-	@XmlTransient //TODO: Bonnie added this line!
-
+	@XmlTransient
+	// TODO: Bonnie added this line!
 	private int speed = 5;
 	private Inventory inventory;
 	private boolean hasKey;
@@ -31,57 +32,60 @@ public class Player extends Actor implements Serializable {
 	private int bravery = 0;
 	private int clientNum;
 
-	/*@XmlTransient //TODO: Bonnie added this line!
-	protected final GameController gameController;*/
+	/*
+	 * @XmlTransient //TODO: Bonnie added this line! protected final
+	 * GameController gameController;
+	 */
 
 	public Player(ID id, Position position, char asciiCode, boolean collidable,
-				  boolean drawable, int boundingBoxSize, int clientNum ) {
+			boolean drawable, int boundingBoxSize, int clientNum) {
 		super(id, position, asciiCode, collidable, drawable, boundingBoxSize);
 		this.clientNum = clientNum;
-		this.inventory = new Inventory(ID.CONTAINER,position, asciiCode, false, false, 1);
+		this.inventory = new Inventory(ID.CONTAINER, position, asciiCode,
+				false, false, 1);
 
-//		ID id, Position position, char imagePath, boolean collidable,
-//		boolean drawable, int boundingBoxSize, Collectable... collectables
+		// ID id, Position position, char imagePath, boolean collidable,
+		// boolean drawable, int boundingBoxSize, Collectable... collectables
 
 	}
-
 
 	@Override
-	public void tick() {
-		//movementStrategy.executeMove();
-	}
+	public void tick() {}
 
-
+	/**
+	 * This method receives a direction from the game controller, checks against
+	 * the logic in the Collision class (which checks the proposed new location
+	 * against the present locations of all collidable Actor objects), and moves
+	 * of the logic allows it.
+	 *
+	 * @param gameState
+	 * @param dir
+	 */
 	public void move(GameState gameState, String dir) {
 		Collision collision = new Collision(gameState);
 		Position proposedPosition;
-//		Position proposedPosition2;
 		switch (dir) {
-
 		case "UP":
-			proposedPosition = new Position(getX(), getY()-speed);
-//			proposedPosition2 = new Position(getX(), getY()-2*speed);
-			if(collision.canMove(this, proposedPosition)){
+			proposedPosition = new Position(getX(), getY() - speed);
+			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
 		case "DOWN":
-			proposedPosition = new Position(getX(), getY()+speed);
-//			proposedPosition2 = new Position(getX(), getY()+2*speed);
-			if(collision.canMove(this, proposedPosition)){
+			proposedPosition = new Position(getX(), getY() + speed);
+			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
 		case "LEFT":
-			proposedPosition = new Position(getX()-speed, getY());
-//			proposedPosition2 = new Position(getX(), getY()-2*speed);
-			if(collision.canMove(this, proposedPosition)){
+			proposedPosition = new Position(getX() - speed, getY());
+			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
 		case "RIGHT":
-			proposedPosition = new Position(getX()+speed, getY());
-			if(collision.canMove(this, proposedPosition)){
+			proposedPosition = new Position(getX() + speed, getY());
+			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
@@ -141,8 +145,10 @@ public class Player extends Actor implements Serializable {
 		return clientNum;
 	}
 
-	/*
-	 * Setter for fear level.
+	/**
+	 * Setter for Player's fear level.
+	 *
+	 * @param fear
 	 */
 	public void setFear(int fear) {
 		this.fear = fear;
@@ -151,15 +157,18 @@ public class Player extends Actor implements Serializable {
 		}
 	}
 
-	/*
-	 * Getter for fear level.
+	/**
+	 * Getter for Player's fear level.
+	 *
+	 * @return
 	 */
 	public int getFear() {
 		return fear;
 	}
 
 	/**
-	 *
+	 * This method increases the Player's fear level by the amount in the
+	 * parameter.
 	 *
 	 * @param n
 	 */
@@ -171,7 +180,8 @@ public class Player extends Actor implements Serializable {
 	}
 
 	/**
-	 * Deals with when fear reaches 100 and the Player loses.
+	 * When the Player's fear reaches the fear limit the Player dies and so can
+	 * no longer move.
 	 *
 	 */
 	private void tooScared() {
@@ -183,65 +193,117 @@ public class Player extends Actor implements Serializable {
 
 	}
 
-	//========================================================
+	// ========================================================
 	// TODO: Bonnie added this!
 
+	/**
+	 * Getter for Player hasKey value.
+	 *
+	 * @return
+	 */
 	public boolean hasKey() {
 		return hasKey;
 	}
 
-
+	/**
+	 * Setter for Player hasKey value.
+	 *
+	 * @param hasKey
+	 */
 	public void setHasKey(boolean hasKey) {
 		this.hasKey = hasKey;
 	}
 
-
+	/**
+	 * Getter for Player attackPoints.
+	 *
+	 * @return
+	 */
 	public int getAttackPoints() {
 		return attackPoints;
 	}
 
-
+	/**
+	 * Setter for Player attack Points.
+	 *
+	 * @param attackPoints
+	 */
 	public void setAttackPoints(int attackPoints) {
 		this.attackPoints = attackPoints;
 	}
 
-
+	/**
+	 * Getter for Player alive status.
+	 *
+	 * @return
+	 */
 	public boolean isAlive() {
 		return alive;
 	}
 
-
+	/**
+	 * Setter for Player alive status.
+	 *
+	 * @param alive
+	 */
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
 
-
-	public int getBravery() {
-		return bravery;
-	}
-
-	public int getX(){
+	/**
+	 * Getter for Player Position x-element.
+	 *
+	 * @return Player Position x
+	 */
+	public int getX() {
 		return this.getPosition().getxPos();
 	}
 
-	public int getY(){
+	/**
+	 * Getter for Player Position y-element.
+	 *
+	 * @return Player Position y
+	 */
+	public int getY() {
 		return this.getPosition().getyPos();
 	}
 
+	/**
+	 * Setter for Player bravery.
+	 *
+	 * @param bravery
+	 */
 	public void setBravery(int bravery) {
 		this.bravery = bravery;
 	}
 
+	/**
+	 * Getter for Player bravery.
+	 *
+	 * @return bravery
+	 */
+	public int getBravery() {
+		return bravery;
+	}
 
+	/**
+	 * Setter for Player clientNum
+	 *
+	 * @param clientNum
+	 */
 	public void setClientNum(int clientNum) {
 		this.clientNum = clientNum;
 	}
 
-
+	/**
+	 * Getter for Player Inventory
+	 *
+	 * @return
+	 */
 	public Inventory getInventory() {
 		return this.inventory;
 	}
 
-	//========================================================
+	// ========================================================
 
 }

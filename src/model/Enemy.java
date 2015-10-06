@@ -201,10 +201,21 @@ public class Enemy extends Actor {
 		this.attackPoints = attackPoints;
 	}
 
+	/**
+	 * Getter for health.
+	 *
+	 * @return
+	 */
 	public int getHealth() {
 		return health;
 	}
 
+	/**
+	 * This method reduces the Enemy's health
+	 * by the amount enterd to the parameter.
+	 *
+	 * @param n
+	 */
 	public void reduceHealth(int n) {
 		health -= n;
 		if (health < 1) {
@@ -213,20 +224,38 @@ public class Enemy extends Actor {
 		}
 	}
 
+	/**
+	 * This method sets alive to false and removes Enemy's
+	 * visibility and collidability.
+	 *
+	 */
 	private void kill() {
 		alive = false;
 		this.setDrawable(false);
 		this.setCollidable(false);
 	}
 
+	/**
+	 * Getter for alive status.
+	 *
+	 * @return
+	 */
 	public boolean getIsAlive() {
 		return alive;
 	}
 
 	// ==========================================================
 	// TODO: Bonnie added these!
+
+
 	/**
 	 * Bonnie added this!
+	 *
+	 * @return
+	 */
+
+	/**
+	 * Getter for count.
 	 *
 	 * @return
 	 */
@@ -234,17 +263,35 @@ public class Enemy extends Actor {
 		return count;
 	}
 
+	/**
+	 * Setter for count.
+	 *
+	 * @param count
+	 */
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+
+	/**
+	 * Setter for alive status.
+	 *
+	 * @param isalive
+	 */
 	public void setAlive(boolean isalive) {
 		this.alive = isalive;
 	}
 
+	/**
+	 * Setter for health.
+	 *
+	 * @param health
+	 */
 	public void setHealth(int health) {
 		this.health = health;
 	}
 
-	public void setCount(int count) {
-		this.count = count;
-	}
+
 	// ==========================================================
 
 }

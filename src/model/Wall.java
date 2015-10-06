@@ -2,6 +2,12 @@ package model;
 
 import view.ID;
 
+/**
+ * A Wall object is a simple Actor which does not move and cannot
+ * be moved through.
+ *
+ *
+ */
 public class Wall extends Actor {
 	final boolean collidable = true;
 

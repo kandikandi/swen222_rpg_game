@@ -77,12 +77,12 @@ public abstract class Actor implements Serializable {
 
 
     /**
-     * Getter method for this GameObject's position.
+     * Getter method for this GameObject's description.
      *
-     * @return GameObject's Image.
+     * @return GameObject's description String.
      */
     public String getDescription() {
-        if(this.actorDescription==null){ actorDescription = " ";}
+        if(this.actorDescription==null){ actorDescription = "This is a "+this.getClass();}
     	return actorDescription;
     }
 
@@ -91,8 +91,8 @@ public abstract class Actor implements Serializable {
      *
      * @return GameObject's Image.
      */
-    public void setDescription(String s) {
-        this.actorDescription = s;
+    public void setDescription(String description) {
+        this.actorDescription = description;
     }
 
     /**
@@ -138,6 +138,10 @@ public abstract class Actor implements Serializable {
         return collidable;
     }
 
+	/**
+     * Setter for collidable field.
+     *
+     */
     public void setCollidable(boolean collidable) {
         this.collidable = collidable;
     }
@@ -152,6 +156,10 @@ public abstract class Actor implements Serializable {
     protected void collide(Actor actor) {
     }
 
+	/**
+     * Setter for drawable field.
+     *
+     */
     public void setDrawable(boolean drawable) {
         this.drawable = drawable;
     }
@@ -173,9 +181,13 @@ public abstract class Actor implements Serializable {
         System.out.println(this.getClass() + " " + getPosition().toString() + "\ncollidable: " + isCollidable() + " drawable: " + isDrawable() + "\n");
     }
 
+    /**
+     * Getter for object ascii code.
+     *
+     * @return
+     */
     @XmlElement(name = "asciicode") //TODO:Bonnie added this here!
 	public char getAsciiCode() {
-
 		return asciiCode;
 	}
 

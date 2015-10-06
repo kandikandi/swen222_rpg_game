@@ -7,7 +7,7 @@ package model;
  */
 public class Collision {
 
-	// private final GameController gameController;
+
 
 	private final GameState gameState;
 
@@ -72,7 +72,7 @@ public class Collision {
 	 */
 	public void useKeyInDoor(Player player, Door door) {
 		if (player.getInventory().containsKey()) {
-			door.open();
+			door.setOpen();
 			Key key = player.getInventory().getKey();
 			player.getInventory().removeItemFromContainer(key);
 			key.setCollidable(false);

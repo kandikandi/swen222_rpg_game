@@ -21,8 +21,8 @@ public class Key extends Collectable {
 	}
 
 	/**
-	 * When a Player is near a Door and has a key, this method sets the key to not visible
-	 * or collidable.
+	 * When a Player collides with a Door and has a key, this method sets the key to not visible
+	 * or collidable. The door will be set to open and become non-collidable.
 	 */
 	public void useInDoor(){
 		this.setDrawable(false);

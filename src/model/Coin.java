@@ -3,7 +3,7 @@ package model;
 import view.ID;
 
 /**
- * A coin is an object a player can pick up and can store in either
+ * A Coin is an object a player can pick up and can store in either
  * an Inventory or CoinBag.
  *
  * @author dalyandr
