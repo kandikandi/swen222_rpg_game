@@ -2,12 +2,12 @@ package save.actor;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import Model.Actor;
-import Model.Coin;
-import Model.CoinBag;
-import Model.Enemy;
-import Model.Key;
-import Model.Player;
+import model.Actor;
+import model.Coin;
+import model.CoinBag;
+import model.Enemy;
+import model.Key;
+import model.Player;
 
 /**
  * Created on 05/101/2015

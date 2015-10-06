@@ -7,7 +7,7 @@ import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import Model.GameState;
+import model.GameState;
 
 /**
  * Created on 05/10/2015
