@@ -19,6 +19,7 @@ public enum ID {
     ENEMY(7),
     DOOR(8),
     WALL(9),
+    TREE(10),
     ;
 
     private final int value;

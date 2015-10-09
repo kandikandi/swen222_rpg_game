@@ -1,5 +1,6 @@
 package model;
 
+import view.ActorAssets;
 import view.TestWorlds;
 import java.awt.Rectangle;
 import java.util.List;
@@ -104,7 +105,7 @@ public class GameState {
 	 */
 	public Actor playerCollisionCheck(Position position) {
 		Rectangle boundingBox = new Rectangle(position.getxPos(),
-				position.getyPos(), 40, 40);
+				position.getyPos(), ActorAssets.PLAYER.getWidth(), ActorAssets.PLAYER.getHeight());
 		for (Actor actor : actors) {
 			if (actor.isCollidable() && !(actor instanceof Player)) {
 				if (actor.getBoundingBox().intersects(boundingBox)) {
@@ -125,7 +126,7 @@ public class GameState {
 	 */
 	public Actor enemyCollisionCheck(Position position) {
 		Rectangle boundingBox = new Rectangle(position.getxPos(),
-				position.getyPos(), 40, 40);
+				position.getyPos(), ActorAssets.ENEMY.getWidth(), ActorAssets.ENEMY.getHeight());
 		for (Actor actor : actors) {
 			if (actor.isCollidable() && !(actor instanceof Enemy)) {
 				if (actor.getBoundingBox().intersects(boundingBox)) {

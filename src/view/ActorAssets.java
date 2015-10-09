@@ -1,5 +1,7 @@
 package view;
 
+import control.Main;
+
 import javax.imageio.ImageIO;
 
 import java.awt.*;
@@ -12,25 +14,31 @@ import java.util.Arrays;
  */
 public enum ActorAssets {
 
-    NOTHING('0',"tokenScarlet.png"),
-    PLAYER('1',"front_girl.png"),
-    PLAYER2('2',"tokenPlum.png"),
-    COIN('C',"tempGameCoin.png"),
-    COINBAG('B',"tempGameCoinBag.png"),
-    DOOR('D',"door.jpg"),
-    INVENTORY('I',"temp_inv.jpg"),
-    KEY('K',"tempGameKey.png"),
-    ENEMY('E',"evilTemp.png"),
-    COLLECTABLE('B',"ring.jpg"),
-    WALL('W', "wall.jpg");
+    NOTHING('0',"tokenScarlet.png", Main.ITEM_SIZE,Main.ITEM_SIZE),
+    PLAYER('1',"front_girl.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    PLAYER2('2',"tokenPlum.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    COIN('C',"tempGameCoin.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    COINBAG('B',"tempGameCoinBag.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    DOOR('D',"door.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    INVENTORY('I',"temp_inv.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    KEY('K',"tempGameKey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    ENEMY('E',"evilTemp.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    COLLECTABLE('B',"ring.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    WALL('W', "wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    TREE('T', "Tree1.png",140,40);
 
 
     private final char asciiCode;
     private final String imagePath;
     private Image image;
+    private int width;
+    private int height;
 
-    ActorAssets(final char nAsciiCode, final String imagePath){
+    ActorAssets(final char nAsciiCode, final String imagePath, int width, int height){
         asciiCode = nAsciiCode;
+        this.width = width;
+        this.height = height;
+
         this.imagePath = imagePath;
         try {
             image = ImageIO.read(new File(imagePath));
@@ -39,6 +47,9 @@ public enum ActorAssets {
             e.printStackTrace();
         }
     }
+
+    public int getWidth(){return width;}
+    public int getHeight(){return height;}
 
     public char getAsciiCode() {
         return asciiCode;

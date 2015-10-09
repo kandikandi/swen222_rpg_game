@@ -30,22 +30,22 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			return new Coin(adaptedactor.getId(), adaptedactor.getPosition(),
 					adaptedactor.getAsciiCode(), adaptedactor.isCollidable(),
 					adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.getBoundingBox());
 		case "coinbag":
 			return new CoinBag(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
 					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.getBoundingBox());
 		case "key":
 			return new Key(adaptedactor.getId(), adaptedactor.getPosition(),
 					adaptedactor.getAsciiCode(), adaptedactor.isCollidable(),
 					adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.getBoundingBox());
 		case "enemy":
 			Enemy enemy = new Enemy(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
 					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.getBoundingBox());
 			enemy.setAlive(adaptedactor.isAlive());
 			enemy.setAttackPoints(adaptedactor.getAttackPoints());
 			enemy.setHealth(adaptedactor.getHealth());
@@ -55,7 +55,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			Player player = new Player(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
 					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize(),
+					adaptedactor.getBoundingBox(),
 					adaptedactor.getClientNum());
 			player.setHasKey(adaptedactor.hasKey());
 			player.setFear(adaptedactor.getFear());
@@ -97,7 +97,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			adaptedactor.setAlive(player.isAlive());
 		}
 		adaptedactor.setAsciiCode(actor.getAsciiCode());
-		adaptedactor.setBoundingBoxSize(actor.getBoundingBox().height);
+		adaptedactor.setBoundingBox(actor.getBoundingBox());
 		adaptedactor.setCollidable(actor.isCollidable());
 		adaptedactor.setDrawable(actor.isDrawable());
 		adaptedactor.setId(actor.getID());

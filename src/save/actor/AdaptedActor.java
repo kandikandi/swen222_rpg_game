@@ -1,5 +1,6 @@
 package save.actor;
 
+import model.BoundingBox;
 import model.Position;
 import view.ID;
 
@@ -19,7 +20,7 @@ public class AdaptedActor {
 	private boolean collidable;
 	private boolean drawable;
 	private ID id;
-	private int boundingBoxSize;
+	private BoundingBox boundingBox;
 	private char asciiCode;
 
 	// for the enemy
@@ -143,14 +144,14 @@ public class AdaptedActor {
 		this.id = id;
 	}
 
-	public int getBoundingBoxSize() {
-		return boundingBoxSize;
+	//TODO Cuan replaced getBoundingBoxSize to just boundingBox.
+	public BoundingBox getBoundingBox() {
+		return boundingBox;
 	}
 
-	public void setBoundingBoxSize(int boundingBoxSize) {
-		this.boundingBoxSize = boundingBoxSize;
+	public void setBoundingBox(BoundingBox boundingBox) {
+		this.boundingBox = boundingBox;
 	}
-
 	public char getAsciiCode() {
 		return asciiCode;
 	}
