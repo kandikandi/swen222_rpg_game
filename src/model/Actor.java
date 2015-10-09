@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+
 import save.actor.ActorAdapter;
 import view.ID;
 
@@ -16,7 +17,7 @@ import view.ID;
  */
 @XmlRootElement(name = "actor") //TODO:Bonnie added this here!
 @XmlJavaTypeAdapter(ActorAdapter.class)
-public abstract class Actor implements Serializable {
+public /*abstract */class Actor implements Serializable {
     protected String imageName;
     protected Position position;
     protected boolean collidable;
@@ -25,18 +26,19 @@ public abstract class Actor implements Serializable {
     protected int boundingBoxSize;
     protected char asciiCode;
     protected String actorDescription;
+    protected BoundingBox boundingBox;
 
-    public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable, int boundingBoxSize) {
+    public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable, BoundingBox boundingBox) {
         this.id = id;
         this.position = position;
         this.asciiCode = ascii;
         this.collidable = collidable;
         this.drawable = drawable;
-        this.boundingBoxSize = boundingBoxSize;
+        this.boundingBox = boundingBox;
 
     }
 
-    abstract public void tick();
+    public void tick(){}
 
     /**
      * Getter method for GameObject's unique ID.
@@ -82,8 +84,10 @@ public abstract class Actor implements Serializable {
      * @return GameObject's description String.
      */
     public String getDescription() {
-        if(this.actorDescription==null){ actorDescription = "This is a "+this.getClass();}
-    	return actorDescription;
+        if (this.actorDescription == null) {
+            actorDescription = "This is a " + this.getClass();
+        }
+        return actorDescription;
     }
 
     /**
@@ -100,8 +104,9 @@ public abstract class Actor implements Serializable {
      *
      * @return
      */
-    public Rectangle getBoundingBox() {
-        return new Rectangle(position.getxPos(), position.getyPos(), boundingBoxSize, boundingBoxSize);
+    public BoundingBox getBoundingBox() {
+        return boundingBox;
+        //return new Rectangle(position.getxPos(), position.getyPos(), boundingBoxSize, boundingBoxSize);
     }
 
     //==============================================================================
@@ -127,9 +132,9 @@ public abstract class Actor implements Serializable {
 //		this.asciiCode = asciiCode;
 //	}
 
-	//===========================================================================
+    //===========================================================================
 
-	/**
+    /**
      * Getter for collidable field.
      *
      * @return whether or not collidable
@@ -138,9 +143,8 @@ public abstract class Actor implements Serializable {
         return collidable;
     }
 
-	/**
+    /**
      * Setter for collidable field.
-     *
      */
     public void setCollidable(boolean collidable) {
         this.collidable = collidable;
@@ -156,9 +160,8 @@ public abstract class Actor implements Serializable {
     protected void collide(Actor actor) {
     }
 
-	/**
+    /**
      * Setter for drawable field.
-     *
      */
     public void setDrawable(boolean drawable) {
         this.drawable = drawable;
@@ -187,9 +190,9 @@ public abstract class Actor implements Serializable {
      * @return
      */
     @XmlElement(name = "asciicode") //TODO:Bonnie added this here!
-	public char getAsciiCode() {
-		return asciiCode;
-	}
+    public char getAsciiCode() {
+        return asciiCode;
+    }
 
 
 

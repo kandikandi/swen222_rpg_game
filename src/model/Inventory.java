@@ -29,13 +29,13 @@ public class Inventory extends Container {
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
-	 * @param boundingBoxSize
+	 * @param boundingBox
 	 * @param inventoryOwner
 	 * @param collectables
 	 */
 	public Inventory(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, int boundingBoxSize, Collectable... collectables) {
-		super(id, position, imagePath, false, false, boundingBoxSize, collectables);
+			boolean drawable, BoundingBox boundingBox, Collectable... collectables) {
+		super(id, position, imagePath, false, false, boundingBox, collectables);
 //		this.inventoryOwner = inventoryOwner;
 
 	}

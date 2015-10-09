@@ -13,8 +13,8 @@ public class Collectable extends Actor {
 	boolean inContainer;
 
 	public Collectable(ID id, Position position, char imagePath,
-			boolean collidable, boolean drawable, int boundingBoxSize) {
-		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
+					   boolean collidable, boolean drawable, BoundingBox boundingBox) {
+		super(id, position, imagePath, collidable, drawable, boundingBox);
 	}
 
 	/**
@@ -29,8 +29,8 @@ public class Collectable extends Actor {
 	 * @param container
 	 */
 	public Collectable(ID id, Position position, char imagePath,
-			boolean collidable, boolean drawable, Container container, int boundingBoxSize) {
-		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
+			boolean collidable, boolean drawable, Container container, BoundingBox boundingBox) {
+		super(id, position, imagePath, collidable, drawable, boundingBox);
 	}
 
 	/**

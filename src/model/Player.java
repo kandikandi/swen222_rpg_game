@@ -38,11 +38,11 @@ public class Player extends Actor implements Serializable {
 	 */
 
 	public Player(ID id, Position position, char asciiCode, boolean collidable,
-			boolean drawable, int boundingBoxSize, int clientNum) {
-		super(id, position, asciiCode, collidable, drawable, boundingBoxSize);
+			boolean drawable, BoundingBox bBox, int clientNum) {
+		super(id, position, asciiCode, collidable, drawable, bBox);
 		this.clientNum = clientNum;
 		this.inventory = new Inventory(ID.CONTAINER, position, asciiCode,
-				false, false, 1);
+				false, false, bBox);
 
 		// ID id, Position position, char imagePath, boolean collidable,
 		// boolean drawable, int boundingBoxSize, Collectable... collectables

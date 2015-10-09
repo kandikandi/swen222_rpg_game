@@ -22,8 +22,8 @@ public class Enemy extends Actor {
 						// value.
 
 	public Enemy(ID id, Position location, char imagePath, boolean collidable,
-			boolean drawable, int boundingBoxSize) {
-		super(id, location, imagePath, collidable, drawable, boundingBoxSize);
+			boolean drawable, BoundingBox bBox) {
+		super(id, location, imagePath, collidable, drawable, bBox);
 		this.attackPoints = 1;
 		this.health = 100;
 		count = 0;

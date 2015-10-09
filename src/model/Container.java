@@ -28,11 +28,11 @@ public class Container extends Actor {
      * @param imageName
      * @param collidable
      * @param drawable
-     * @param boundingBoxSize
+     * @param boundingBox
      */
     public Container(ID id, Position position, char imageName, boolean collidable,
-                     boolean drawable, int boundingBoxSize) {
-        super(id, position, imageName, collidable, drawable, boundingBoxSize);
+                     boolean drawable, BoundingBox boundingBox) {
+        super(id, position, imageName, collidable, drawable, boundingBox);
         this.items = new ArrayList<Actor>();
     }
 
@@ -45,11 +45,11 @@ public class Container extends Actor {
      * @param imageName
      * @param collidable
      * @param drawable
-     * @param boundingBoxSize
+     * @param boundingBox
      */
     public Container(ID id, Position position, char imageName, boolean collidable,
-                     boolean drawable, int boundingBoxSize, Collectable... collectables) {
-        super(id, position, imageName, collidable, drawable, boundingBoxSize);
+                     boolean drawable, BoundingBox boundingBox, Collectable... collectables) {
+        super(id, position, imageName, collidable, drawable, boundingBox);
         this.items = new ArrayList<Actor>();
         for (Collectable collectable : collectables) {
             addItemToContainer(collectable);

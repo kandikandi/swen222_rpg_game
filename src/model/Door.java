@@ -7,16 +7,15 @@ public class Door extends Actor {
 	/**
 	 * This class defines Door objects, which block the path of
 	 * Player objects unless the Player has a key.
-	 *
+	 *  @param image
 	 * @param id
 	 * @param position
-	 * @param image
 	 * @param collidable
 	 * @param drawable
 	 * @param boundingBoxSize
 	 */
 	public Door(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, int boundingBoxSize) {
+				boolean drawable, BoundingBox boundingBoxSize) {
 		super(id, position, imagePath, collidable, drawable, boundingBoxSize);
 	}
 
