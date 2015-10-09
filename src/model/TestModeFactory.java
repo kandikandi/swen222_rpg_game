@@ -163,7 +163,10 @@ public class TestModeFactory  {
 	 *
 	 */
 	public Player createPlayerActor(int clientNum) {
-		Position loc = new Position(75, 75);
+		Position loc = new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y);
+		if(clientNum==1){
+			loc = new Position(Main.PLAYER_TWO_START_LOCATION_X, Main.PLAYER_TWO_START_LOCATION_Y);
+		}
 		char asciiCode = ActorAssets.PLAYER.getAsciiCode();
 		Player player = new Player(ID.PLAYER, loc, asciiCode, true, true,
 				Main.PLAYER_SIZE, clientNum);
