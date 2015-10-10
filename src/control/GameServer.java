@@ -23,7 +23,7 @@ public class GameServer extends Thread {
 
     private DatagramSocket socket;
     private GameState game;
-    private ArrayList<ClientControl> connectedPlayers = new ArrayList<ClientControl>();
+    private ArrayList<ClientData> connectedPlayers = new ArrayList<ClientData>();
     private Serialiser serial = new Serialiser();
 
     public GameServer() {
@@ -45,26 +45,26 @@ public class GameServer extends Thread {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            //Create empty packet
             byte[] data = new byte[60000];
-
             DatagramPacket packet = new DatagramPacket(data, data.length);
-
-
+            //Try to read buffer into packet
             try {
                 socket.receive(packet);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            //Parse packet and update gameState
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
-            List<Actor> update = game.getActors();
-//			updateEnemies(update);
 
+            /*List<Actor> update = game.getActors();
+
+            //Send out game view to clients
             try {
                 sendDataToAllClients(serial.serialize(update));
             } catch (IOException e) {
                 e.printStackTrace();
-            }
+            }*/
 
         }
     }
@@ -79,52 +79,52 @@ public class GameServer extends Thread {
         String message = new String(data).trim();
 
         PacketTypes type = Packet.lookupPacket(message.substring(0, 1));
-        int clientNum = Packet.lookupClient(message.substring(1, 2));
 
         switch (type) {
 
             case LOGIN:
                 PacketLogin packet = new PacketLogin(data);
 
-                if(Main.TEST_MODE){
+                if (Main.TEST_MODE) {
                     System.out.println("[" + address.getHostAddress() + ":" + port + "] " + packet.getUserName() + " has connected..");
                     System.out.println("");
                 }
-                //Build Client Data class and add it to list
-                //TODO Rename ClientControl to "ClientInfo" and give the class a reference to the players actor
-                //Process connection
-                ClientControl playerControl = new ClientControl(packet.getUserName(), address, port, connectedPlayers.size() + 1);
-                addConnection(playerControl, packet);
 
-                if(Main.TEST_MODE){
+                //Process connection
+                addConnection(packet, address, port, packet.getUserName());
+
+                if (Main.TEST_MODE) {
                     System.out.println("Player added, connected players == " + connectedPlayers.size());
-                    for (ClientControl p : connectedPlayers) {
+                    for (ClientData p : connectedPlayers) {
                         System.out.println("Player: " + p.getUsername());
                     }
                 }
-
-
-                String username = "0" + connectedPlayers.size() + packet.getUserName();
-                sendData(username.getBytes(), address, port);
-
+                //Without any synchronisation this logic "crash starts" the client server communication cycle
+                //as well as the game engine cycle
+                //String username = "0" + connectedPlayers.size() + packet.getUserName();
+                //sendData(username.getBytes(), address, port);
                 break;
 
             case DISCONNECT:
-
                 break;
 
             case UPDATE:
-
-
                 break;
-            case MOVE:
 
+            case MOVE:
                 PacketMove packetMove = new PacketMove(data);
                 String move = packetMove.getMove();
                 Player player = game.findPlayer(packetMove.getClientNum());
                 player.move(game, move);
+                //Send out game view to clients
+                try {
+                    sendDataToAllClients(serial.serialize(game));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
                 break;
+
             default:
                 try {
                     throw new GameException("Server Packet Header Error");
@@ -137,14 +137,20 @@ public class GameServer extends Thread {
     }
 
     /**
-     * Creates a ClientInfo/ClientControl object and add's to collection. Also tells game-state
+     * Creates a ClientInfo/ClientData object and add's to collection. Also tells game-state
      * create a player
-     * @param player
-     * @param packet
      */
-    private void addConnection(ClientControl player, PacketLogin packet) {
-        this.connectedPlayers.add(player);
-        game.createPlayer(connectedPlayers.size());
+    private void addConnection(PacketLogin packet, InetAddress hostAddress, int port, String userName) {
+        int clientNum = connectedPlayers.size()+1;
+        ClientData playerData = new ClientData(packet.getUserName(), hostAddress, port, clientNum);
+        this.connectedPlayers.add(playerData);
+        game.createPlayer(clientNum);
+        String toSend = Integer.toString(clientNum);
+        System.out.println("GamerServer.addConnection() about to create send LoginConfirm packet out toSend: "+toSend);
+        //TODO should only send confirmation packet to the intended client instead of publicly broadcast
+        LoginConfirm confirmPacket = new LoginConfirm(toSend.getBytes());
+        confirmPacket.writeData(this);
+        //sendData(serial.serialize(game.getActors()),hostAddress,port);
     }
 
     //converts data into datagrams and sends it down the socket
@@ -159,7 +165,7 @@ public class GameServer extends Thread {
 
     //for multiple players, calls send data for all connected players
     public void sendDataToAllClients(byte[] data) {
-        for (ClientControl p : connectedPlayers) {
+        for (ClientData p : connectedPlayers) {
             sendData(data, p.getIpAddress(), p.getPort());
         }
 

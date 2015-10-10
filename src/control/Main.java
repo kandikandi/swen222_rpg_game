@@ -41,12 +41,12 @@ public class Main {
     //private static PlayerController playerController;
 
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 boolean isServer = false;
-                /**CONTROL**/
+                *//**CONTROL**//*
                 //TODO if exceptions, might be because key-listener is created in static method(main)
                 //SERVER STUFF
 
@@ -90,7 +90,7 @@ public class Main {
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());
                 loginPacket.writeData(socketClient);
 
-                /**VIEW*/
+                *//**VIEW*//*
                 // Set up the gameFrame
                 //TODO: Bonnie added this extra argument!
                 GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
@@ -103,11 +103,11 @@ public class Main {
                 GameCamera camera = new GameCamera(gameState, socketClient);
                 Renderer renderer = new Renderer(camera, gameCanvas);
                 EnemyController enemyController = new EnemyController(gameState);
-                GameTimer gameTimer = new GameTimer(camera, renderer, enemyController);
+                GameTimer gameTimer = new GameTimer(camera, renderer*//*, enemyController*//*);
                 gameTimer.start();
             }
 
         });
 
-    }
+    }*/
 }

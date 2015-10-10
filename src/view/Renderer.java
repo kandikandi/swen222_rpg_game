@@ -1,11 +1,12 @@
 package view;
 
+
 import control.Main;
 import model.Actor;
+import model.GameState;
 import model.Player;
 import model.Tile;
 import ui.GameCanvas;
-
 import java.awt.*;
 import java.awt.List;
 import java.awt.image.BufferedImage;
@@ -22,8 +23,8 @@ public final class Renderer {
     private Shape blackFill;
     private Graphics2D g2d;
 
-    public Renderer(GameCamera camera, GameCanvas gameCanvas) {
-        this.camera = camera;
+    public Renderer( GameCanvas gameCanvas) {
+        camera = new GameCamera();
         this.gameCanvas = gameCanvas;
         buffImg = new BufferedImage(Main.C_WIDTH, Main.C_HEIGHT,
                 BufferedImage.TYPE_INT_ARGB);
@@ -40,12 +41,16 @@ public final class Renderer {
         g2d.fill(blackFill);
     }
 
-    public void renderScene() {
+    public void renderScene(GameState gameState, int playerNum) {
         //System.out.println("Renderer renderscene()");
         // paint scene background black
         drawBackground();
 
-        Player player = camera.getPlayerActor();
+        Player player = gameState.findPlayer(playerNum);
+        if(player== null ){
+            //System.out.println("Renderer renderScene() has null playerActor");
+            //return;
+        }
 
         int playerX = player.getPosition().getxPos();
         int playerY = player.getPosition().getyPos();
@@ -55,7 +60,7 @@ public final class Renderer {
 
         // Look for all entities that contain the two components required to
         // draw it
-        camera.getTileView().forEach(tile -> {
+        camera.getTileView(gameState, playerNum).forEach(tile -> {
             Image image = TileAssets.getAssetImage(tile.getAsciiCode());
             int x = tile.getPosition().getxPos() - playerX + HALF_C_WIDTH;
             int y = tile.getPosition().getyPos() - playerY + HALF_C_HEIGHT;
@@ -63,7 +68,7 @@ public final class Renderer {
         });
 
 
-        camera.getActorView()
+        camera.getActorView(gameState, playerNum)
                 .stream()
                 .filter(actor -> actor.isDrawable())
                 .forEach(actor -> {

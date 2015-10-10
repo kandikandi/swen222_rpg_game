@@ -1,15 +1,7 @@
 package control;
 
-import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 import view.GameCamera;
 import ui.GameCanvas;
@@ -36,9 +28,8 @@ public class MainClient {
     public static final int PLAYER_TWO_START_LOCATION_X = 125;
     public static final int PLAYER_TWO_START_LOCATION_Y = 75;
     public static final boolean DRAW_HITBOXES = false;
-    private static GameClient socketClient;
+   // private static GameClient socketClient;
     private static GameServer socketServer;
-    //private static PlayerController playerController;
 
 
     public static void main(String[] args) {
@@ -49,29 +40,25 @@ public class MainClient {
 
                 String username = "00" + JOptionPane.showInputDialog(null, "enter username");
 
+                //Setup UI
+                //TODO: Bonnie added this extra argument!
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
+                GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+                gameFrame.getContentPane().add(gameCanvas);
+                gameFrame.pack();
+
                 GameState gameState = new GameState(isServer);
-                socketClient = new GameClient("localhost", gameState);
+                GameClient socketClient = new GameClient("localhost", gameState, gameCanvas);
+                PlayerController playerController = new PlayerController(socketClient);
+                gameFrame.addKeyListener(playerController);
+
                 socketClient.start();
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());
                 loginPacket.writeData(socketClient);
-                PlayerController playerController = new PlayerController(socketClient);
 
-
-
-                // Set up the gameFrame
-                //TODO: Bonnie added this extra argument!
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
-                //Setup UI
-                GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT, socketClient);
-                gameFrame.getContentPane().add(gameCanvas);
-                gameFrame.pack();
-                gameFrame.addKeyListener(playerController);
-
-                GameCamera camera = new GameCamera(gameState, socketClient);
-                Renderer renderer = new Renderer(camera, gameCanvas);
-                EnemyController enemyController = new EnemyController(gameState);
-                GameTimer gameTimer = new GameTimer(camera, renderer, enemyController);
-                gameTimer.start();
+                 //EnemyController enemyController = new EnemyController(gameState);
+                 //GameTimer gameTimer = new GameTimer(camera, renderer/*, enemyController*/);
+                 //gameTimer.start();
             }
 
         });

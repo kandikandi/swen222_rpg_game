@@ -29,13 +29,12 @@ public class GameCanvas extends JPanel {
 	//TODO does this class need a reference to GameFrame?
 	/**
 	 * Constructs the GameCanvas, setting the Canvas to the current GameFrame
-	 * @param gameController
 	 * @param frame
 	 * @param WIDTH
 	 * @param HEIGHT
 	 */
-	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT, GameClient socketClient) {
-		this.socketClient = socketClient;
+	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT/*, GameClient socketClient*/) {
+		//this.socketClient = socketClient;
 		//this.gameController = gameController;
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;

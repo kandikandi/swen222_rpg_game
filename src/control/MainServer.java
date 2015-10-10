@@ -54,14 +54,10 @@ public class MainServer {
                                        //TODO: Bonnie added this extra argument!
                                        GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
                                        //Setup UI
-                                       GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT, socketClient);
+                                       GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                                        gameFrame.getContentPane().add(gameCanvas);
                                        gameFrame.pack();
-                                       //GameCamera camera = new GameCamera(gameState, socketClient);
-                                       //Renderer renderer = new Renderer(camera, gameCanvas);
-                                       //EnemyController enemyController = new EnemyController(gameState);
-                                       //GameTimer gameTimer = new GameTimer(camera, renderer, enemyController);
-                                       //gameTimer.start();
+
                                    }
                                }
         );

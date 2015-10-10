@@ -10,12 +10,12 @@ public class GameTimer extends Thread {
 
 	private GameCamera camera;
 	private Renderer renderer;
-	private EnemyController enemyController;
+	//private EnemyController enemyController;
 
-	public GameTimer(GameCamera camera, Renderer rend, EnemyController enemyController) {
+	public GameTimer(GameCamera camera, Renderer rend/*, EnemyController enemyController*/) {
 		this.camera = camera;
 		this.renderer = rend;
-		this.enemyController = enemyController;
+		//this.enemyController = enemyController;
 	}
 
 	/**
@@ -29,11 +29,11 @@ public class GameTimer extends Thread {
 				Thread.sleep(10);
 
 
-				enemyController.update();
+				//enemyController.update();
 
-				//camera.performSystem();
+				//not needed camera.performSystem();
 
-				renderer.renderScene();
+				//renderer.renderScene();
 
 			} catch (Exception e) {
 				System.out.println("GameTimer Error");

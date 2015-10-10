@@ -7,7 +7,7 @@ public class PacketLogin extends Packet{
 	private String username;
 
 	public PacketLogin(byte[] data) {
-		super(00);
+		super(0);
 		this.username = readData(data);
 	}
 
@@ -19,7 +19,7 @@ public class PacketLogin extends Packet{
 
 	@Override
 	public void writeData(GameServer server) {
-		server.sendDataToAllClients(getData());
+		//server.sendDataToAllClients(getData());
 	}
 
 	@Override
