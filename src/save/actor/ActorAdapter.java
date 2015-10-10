@@ -2,15 +2,12 @@ package save.actor;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-import Model.Actor;
-import Model.Coin;
-import Model.CoinBag;
-import Model.Collectable;
-import Model.Door;
-import Model.Enemy;
-import Model.Key;
-import Model.Player;
-import Model.Wall;
+import model.Actor;
+import model.Coin;
+import model.CoinBag;
+import model.Enemy;
+import model.Key;
+import model.Player;
 
 /**
  * Created on 05/101/2015
@@ -32,23 +29,19 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 		case "coin":
 			return new Coin(adaptedactor.getId(), adaptedactor.getPosition(),
 					adaptedactor.getAsciiCode(), adaptedactor.isCollidable(),
-					adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.isDrawable());
 		case "coinbag":
 			return new CoinBag(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
-					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.isCollidable(), adaptedactor.isDrawable());
 		case "key":
 			return new Key(adaptedactor.getId(), adaptedactor.getPosition(),
 					adaptedactor.getAsciiCode(), adaptedactor.isCollidable(),
-					adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.isDrawable());
 		case "enemy":
 			Enemy enemy = new Enemy(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
-					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBoxSize());
+					adaptedactor.isCollidable(), adaptedactor.isDrawable());
 			enemy.setAlive(adaptedactor.isAlive());
 			enemy.setAttackPoints(adaptedactor.getAttackPoints());
 			enemy.setHealth(adaptedactor.getHealth());

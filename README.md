@@ -16,12 +16,12 @@ Player movement is controlled with up, down, left, and right arrows.
 
 ### Packages: ###
      
-1. Control: 
+1. control:
 
 This package includes....
 
 2. Factory:
-3. Model:
+3. model:
 
 This package contains most of the game element objects, like Tile, Actor, and ActorStrategy objects.
 
@@ -30,7 +30,7 @@ This package contains most of the game element objects, like Tile, Actor, and Ac
 6. Save:
 7. System:
 8. UI:
-9. View:
+9. view:
 
 
     
