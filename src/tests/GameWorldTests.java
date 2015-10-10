@@ -1,3 +1,4 @@
+/*
 package tests;
 
 import model.*;
@@ -9,11 +10,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+*/
 /**
  * These tests relate to actor creation and interaction.
  *
  *
- */
+ *//*
+
 public class GameWorldTests {
 
 	@Test
@@ -229,10 +232,12 @@ public class GameWorldTests {
 	//																 //
 	///////////////////////////////////////////////////////////////////
 
-	/**
+	*/
+/**
 	 * Helper method which sets up key objects for the tests.
 	 *
-	 */
+	 *//*
+
 	private GameState makeStandardGameObjects() {
 
 		TestModeFactory testModeFactory = new TestModeFactory();
@@ -258,4 +263,4 @@ public class GameWorldTests {
 		return gameState;
 	}
 
-}
+}*/
