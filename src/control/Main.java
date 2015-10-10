@@ -1,8 +1,15 @@
 package control;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 import view.GameCamera;
 import ui.GameCanvas;
@@ -43,11 +50,27 @@ public class Main {
                 /**CONTROL**/
                 //TODO if exceptions, might be because key-listener is created in static method(main)
                 //SERVER STUFF
-                if (JOptionPane.showConfirmDialog(null, "Run server?") == 0) {
-                    isServer = true;
-                    socketServer = new GameServer();
-                    socketServer.start();
-                }
+
+                //Set up Host/Join screen display
+                BufferedImage image = null;
+                try {
+                    image = ImageIO.read(new File("LoginScreen.png"));
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }        UIManager UI=new UIManager();
+
+                UI.put("OptionPane.showInputDialog.message", Color.white);
+                UI.put("OptionPane.background", Color.black);
+                UI.put("Panel.background", Color.black);
+                Object[] options = { "Host", "Join" };
+                if (JOptionPane.showOptionDialog(null, null, null,
+                       JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,    new ImageIcon(image),
+                       options, options[0]) == 0) {
+                   isServer = true;
+                   socketServer = new GameServer();
+                   socketServer.start();
+               }
 
                 GameState gameState = new GameState(isServer);
                 if (isServer) {
@@ -59,7 +82,10 @@ public class Main {
 
                 PlayerController playerController = new PlayerController(socketClient);
 
+                // Get player username
+                UI.put("Panel.background", Color.white);
                 String username = "00" + JOptionPane.showInputDialog(null, "enter username");
+
                 //TODO fix up packet system
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());
                 loginPacket.writeData(socketClient);
@@ -80,6 +106,7 @@ public class Main {
                 GameTimer gameTimer = new GameTimer(camera, renderer, enemyController);
                 gameTimer.start();
             }
+
         });
 
     }
