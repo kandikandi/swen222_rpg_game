@@ -13,10 +13,9 @@ public class Key extends Collectable {
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
-	 * @param boundingBoxSize
 	 */
-	public Key(ID id, Position position, char imagePath, boolean collidable, boolean drawable, BoundingBox boundingBox) {
-		super(id, position, imagePath, collidable, drawable, boundingBox);
+	public Key(ID id, Position position, char imagePath, boolean collidable, boolean drawable) {
+		super(id, position, imagePath, collidable, drawable);
 
 	}
 

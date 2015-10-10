@@ -38,11 +38,11 @@ public class Player extends Actor implements Serializable {
 	 */
 
 	public Player(ID id, Position position, char asciiCode, boolean collidable,
-			boolean drawable, BoundingBox bBox, int clientNum) {
-		super(id, position, asciiCode, collidable, drawable, bBox);
+			boolean drawable, int clientNum) {
+		super(id, position, asciiCode, collidable, drawable);
 		this.clientNum = clientNum;
 		this.inventory = new Inventory(ID.CONTAINER, position, asciiCode,
-				false, false, bBox);
+				false, false);
 
 		// ID id, Position position, char imagePath, boolean collidable,
 		// boolean drawable, int boundingBoxSize, Collectable... collectables
@@ -66,25 +66,25 @@ public class Player extends Actor implements Serializable {
 		Position proposedPosition;
 		switch (dir) {
 		case "UP":
-			proposedPosition = new Position(getX(), getY() - speed);
+			proposedPosition = new Position(getX(), getY() - speed, position.getBoundingBox());
 			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
 		case "DOWN":
-			proposedPosition = new Position(getX(), getY() + speed);
+			proposedPosition = new Position(getX(), getY() + speed, position.getBoundingBox());
 			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
 		case "LEFT":
-			proposedPosition = new Position(getX() - speed, getY());
+			proposedPosition = new Position(getX() - speed, getY(),position.getBoundingBox());
 			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}
 			break;
 		case "RIGHT":
-			proposedPosition = new Position(getX() + speed, getY());
+			proposedPosition = new Position(getX() + speed, getY(),position.getBoundingBox());
 			if (collision.canMove(this, proposedPosition)) {
 				setPosition(proposedPosition);
 			}

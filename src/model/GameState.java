@@ -104,8 +104,7 @@ public class GameState {
 	 * @return
 	 */
 	public Actor playerCollisionCheck(Position position) {
-		Rectangle boundingBox = new Rectangle(position.getxPos(),
-				position.getyPos(), ActorAssets.PLAYER.getWidth(), ActorAssets.PLAYER.getHeight());
+		BoundingBox boundingBox = position.getBoundingBox();
 		for (Actor actor : actors) {
 			if (actor.isCollidable() && !(actor instanceof Player)) {
 				if (actor.getBoundingBox().intersects(boundingBox)) {

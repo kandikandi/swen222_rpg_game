@@ -12,7 +12,7 @@ import view.ID;
 public class Coin extends Collectable {
 
 	public Coin(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, BoundingBox boundingBox) {
-		super(id, position, imagePath, collidable, drawable, boundingBox);
+			boolean drawable) {
+		super(id, position, imagePath, collidable, drawable);
 	}
 }

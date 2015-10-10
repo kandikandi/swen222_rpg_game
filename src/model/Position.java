@@ -1,6 +1,7 @@
 package model;
 
-import java.awt.*;
+import control.Main;
+
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -13,16 +14,33 @@ import javax.xml.bind.annotation.XmlRootElement;
  * position. This class is also final so it can be safely used as a
  * key for a map to a game-world object.
  */
+
 @XmlRootElement(name = "position") //TODO: Bonnie added this line!
-public final class Position extends Rectangle implements Serializable {
+public final class Position  implements Serializable {
     private int xPos, yPos;
+    private final int bBoxXOffset, bBoxYOffset;
+    private final BoundingBox boundingBox;
 
     public Position(int xPos, int yPos){
+        int size = Main.TILE_SIZE;
+        this.boundingBox = new BoundingBox(size,size);
         this.xPos = xPos;
         this.yPos = yPos;
+        this.bBoxXOffset = boundingBox.getXOffset();
+        this.bBoxYOffset = boundingBox.getYOffset();
     }
 
-    private Position(){
+    public Position(int xPos, int yPos, BoundingBox boundingBox){
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.boundingBox = boundingBox;
+        this.bBoxXOffset = boundingBox.getXOffset();
+        this.bBoxYOffset = boundingBox.getYOffset();
+    }
+
+    public BoundingBox getBoundingBox() {
+        boundingBox.setLocation(xPos+bBoxYOffset, yPos+bBoxYOffset);
+        return boundingBox;
     }
 
     /**
@@ -31,7 +49,7 @@ public final class Position extends Rectangle implements Serializable {
      * @return value of xpos
      */
     @XmlElement(name = "xposition") //TODO: Bonnie added this line!
-    public int getxPos() {
+    public Integer getxPos() {
         return xPos;
     }
 
@@ -39,7 +57,7 @@ public final class Position extends Rectangle implements Serializable {
      * Setter function for x element.
      *
      */
-    public void setxPos(int xPos) {
+    public void setxPos(Integer xPos) {
         this.xPos = xPos;
     }
 
@@ -49,7 +67,7 @@ public final class Position extends Rectangle implements Serializable {
      * @return value of ypos
      */
     @XmlElement(name = "yposition") //TODO: Bonnie added this line!
-    public int getyPos() {
+    public Integer getyPos() {
         return yPos;
     }
 
@@ -57,7 +75,7 @@ public final class Position extends Rectangle implements Serializable {
      * Setter function for y element.
      *
      */
-    public void setyPos(int yPos) {
+    public void setyPos(Integer yPos) {
         this.yPos = yPos;
     }
 
@@ -69,3 +87,4 @@ public final class Position extends Rectangle implements Serializable {
         return "Location; xPos:"+xPos+" yPos:"+yPos;
     }
 }
+

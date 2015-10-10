@@ -18,11 +18,10 @@ public class CoinBag extends Container {
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
-	 * @param boundingBox
 	 */
 	public CoinBag(ID id, Position position, char imagePath,
-			boolean collidable, boolean drawable, BoundingBox boundingBox) {
-		super(id, position, imagePath, collidable, drawable, boundingBox);
+			boolean collidable, boolean drawable) {
+		super(id, position, imagePath, collidable, drawable);
 		this.items = new ArrayList<Actor>();
 	}
 

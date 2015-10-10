@@ -29,23 +29,19 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 		case "coin":
 			return new Coin(adaptedactor.getId(), adaptedactor.getPosition(),
 					adaptedactor.getAsciiCode(), adaptedactor.isCollidable(),
-					adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBox());
+					adaptedactor.isDrawable());
 		case "coinbag":
 			return new CoinBag(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
-					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBox());
+					adaptedactor.isCollidable(), adaptedactor.isDrawable());
 		case "key":
 			return new Key(adaptedactor.getId(), adaptedactor.getPosition(),
 					adaptedactor.getAsciiCode(), adaptedactor.isCollidable(),
-					adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBox());
+					adaptedactor.isDrawable());
 		case "enemy":
 			Enemy enemy = new Enemy(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
-					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBox());
+					adaptedactor.isCollidable(), adaptedactor.isDrawable());
 			enemy.setAlive(adaptedactor.isAlive());
 			enemy.setAttackPoints(adaptedactor.getAttackPoints());
 			enemy.setHealth(adaptedactor.getHealth());
@@ -55,7 +51,6 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			Player player = new Player(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
 					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
-					adaptedactor.getBoundingBox(),
 					adaptedactor.getClientNum());
 			player.setHasKey(adaptedactor.hasKey());
 			player.setFear(adaptedactor.getFear());

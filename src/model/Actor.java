@@ -17,28 +17,26 @@ import view.ID;
  */
 @XmlRootElement(name = "actor") //TODO:Bonnie added this here!
 @XmlJavaTypeAdapter(ActorAdapter.class)
-public /*abstract */class Actor implements Serializable {
+public class Actor implements Serializable {
     protected String imageName;
     protected Position position;
     protected boolean collidable;
     protected boolean drawable;
     protected ID id;
-    protected int boundingBoxSize;
     protected char asciiCode;
     protected String actorDescription;
-    protected BoundingBox boundingBox;
 
-    public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable, BoundingBox boundingBox) {
+    public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable) {
         this.id = id;
         this.position = position;
         this.asciiCode = ascii;
         this.collidable = collidable;
         this.drawable = drawable;
-        this.boundingBox = boundingBox;
 
     }
 
-    public void tick(){}
+    public void tick() {
+    }
 
     /**
      * Getter method for GameObject's unique ID.
@@ -105,7 +103,7 @@ public /*abstract */class Actor implements Serializable {
      * @return
      */
     public BoundingBox getBoundingBox() {
-        return boundingBox;
+        return position.getBoundingBox();
         //return new Rectangle(position.getxPos(), position.getyPos(), boundingBoxSize, boundingBoxSize);
     }
 
@@ -193,7 +191,6 @@ public /*abstract */class Actor implements Serializable {
     public char getAsciiCode() {
         return asciiCode;
     }
-
 
 
 }

@@ -5,7 +5,6 @@ import control.Main;
 import java.util.*;
 import java.util.List;
 
-import sun.reflect.generics.tree.Tree;
 import view.ActorAssets;
 import view.ID;
 import view.TestWorlds;
@@ -95,10 +94,11 @@ public class TestModeFactory {
     /**
      * This method constructs a Actor object with Tree assets.
      */
-    private Actor createTree(int x, int y){
-        Position pos = new Position(x,y);
-        BoundingBox bbox = new BoundingBox(pos,Main.ITEM_SIZE,Main.ITEM_SIZE,50,90);
-        Actor tree = new Actor(ID.TREE,pos,ActorAssets.TREE.getAsciiCode(),true,true,bbox);
+    private Actor createTree(int x, int y) {
+        int size = Main.TILE_SIZE;
+        BoundingBox bbox = new BoundingBox(size, size, 50, 90);
+        Position pos = new Position(x, y, bbox);
+        Actor tree = new Actor(ID.TREE, pos, ActorAssets.TREE.getAsciiCode(), true, true);
         return tree;
     }
 
@@ -113,8 +113,10 @@ public class TestModeFactory {
         for (int row = 0; row < tileCode.length; row++) {
             for (int col = 0; col < tileCode[0].length; col++) {
                 char asciiCode = tileCode[row][col];
-                Position position = new Position(col * Main.TILE_SIZE, row
-                        * Main.TILE_SIZE);
+                final int tileSize = Main.TILE_SIZE;
+                BoundingBox bBox = new BoundingBox(tileSize, tileSize, 0, 0);
+                Position position = new Position(col * tileSize, row
+                        * tileSize, bBox);
                 result[row][col] = new Tile(asciiCode, position);
             }
         }
@@ -125,11 +127,10 @@ public class TestModeFactory {
      * This method constructs a standard EnemyActor object.
      */
     public Enemy createEnemyActor(int xPos, int yPos) {
-        Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
+        Position pos = new Position(xPos, yPos);
         char asciiCode = ActorAssets.ENEMY.getAsciiCode();
-        Enemy enemy = new Enemy(ID.ENEMY, pos, asciiCode, true, true, bBox);
+        Enemy enemy = new Enemy(ID.ENEMY, pos, asciiCode, true, true);
         return enemy;
     }
 
@@ -138,10 +139,8 @@ public class TestModeFactory {
      */
     public Door createDoor(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
-        int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
         char asciiCode = ActorAssets.DOOR.getAsciiCode();
-        Door door = new Door(ID.DOOR, pos, asciiCode, true, true, bBox);
+        Door door = new Door(ID.DOOR, pos, asciiCode, true, true);
         return door;
     }
 
@@ -150,10 +149,8 @@ public class TestModeFactory {
      */
     public Key createKey(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
-        int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
         char asciiCode = ActorAssets.KEY.getAsciiCode();
-        Key key = new Key(ID.KEY, pos, asciiCode, true, true, bBox);
+        Key key = new Key(ID.KEY, pos, asciiCode, true, true);
         key.setDescription("It looks like an ordinary key.");
         return key;
     }
@@ -164,9 +161,8 @@ public class TestModeFactory {
     public Wall createWall(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
         char asciiCode = ActorAssets.WALL.getAsciiCode();
-        Wall wall = new Wall(ID.WALL, pos, asciiCode, true, true, bBox);
+        Wall wall = new Wall(ID.WALL, pos, asciiCode, true, true);
         return wall;
     }
 
@@ -174,14 +170,13 @@ public class TestModeFactory {
      * This method constructs a standard PlayerActor object.
      */
     public Player createPlayerActor(int clientNum) {
-        Position loc = new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y);
+        BoundingBox bBox = new BoundingBox(20, 20, 10, 10);
+        Position loc = new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y, bBox);
         if (clientNum == 1) {
-            loc = new Position(Main.PLAYER_TWO_START_LOCATION_X, Main.PLAYER_TWO_START_LOCATION_Y);
+            loc = new Position(Main.PLAYER_TWO_START_LOCATION_X, Main.PLAYER_TWO_START_LOCATION_Y, bBox);
         }
-        BoundingBox bBox = new BoundingBox(loc, 20, 20, 10, 10);
         char asciiCode = ActorAssets.PLAYER.getAsciiCode();
-        Player player = new Player(ID.PLAYER, loc, asciiCode, true, true,
-                bBox, clientNum);
+        Player player = new Player(ID.PLAYER, loc, asciiCode, true, true, clientNum);
         // player.setInventory(createInventory(true, 10, 10));
         return player;
     }
@@ -192,9 +187,8 @@ public class TestModeFactory {
     public Coin createCoin(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
         char asciiCode = ActorAssets.COIN.getAsciiCode();
-        Coin coin = new Coin(ID.KEY, pos, asciiCode, true, true, bBox);
+        Coin coin = new Coin(ID.KEY, pos, asciiCode, true, true);
         return coin;
     }
 
@@ -204,9 +198,8 @@ public class TestModeFactory {
     public CoinBag createCoinBag(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
         char asciiCode = ActorAssets.COINBAG.getAsciiCode();
-        CoinBag coinBag = new CoinBag(ID.KEY, pos, asciiCode, true, true, bBox);
+        CoinBag coinBag = new CoinBag(ID.KEY, pos, asciiCode, true, true);
         return coinBag;
     }
 
@@ -217,10 +210,10 @@ public class TestModeFactory {
     public Collectable createCollectable(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
+        BoundingBox bBox = pos.getBoundingBox();
         char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
         Collectable collectable = new Collectable(ID.COLLECTABLE, pos,
-                asciiCode, true, true, bBox);
+                asciiCode, true, true);
         return collectable;
     }
 
@@ -230,10 +223,9 @@ public class TestModeFactory {
     public Container createContainer(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
-        BoundingBox bBox = new BoundingBox(pos, size, size);
         char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
         Container container = new Container(ID.CONTAINER, pos,
-                asciiCode, true, true, bBox);
+                asciiCode, true, true);
         return container;
     }
 

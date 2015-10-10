@@ -16,7 +16,7 @@ public class Collision {
 	}
 
 	public boolean canMove(Player player, Position proposedPosition) {
-		//BoundingBox bBox = (BoundingBox)player.getBoundingBox().clone();
+		BoundingBox bBox = (BoundingBox)player.getBoundingBox().clone();
 
 		Actor collidingActor = gameState.playerCollisionCheck(proposedPosition); // gets
 																					// actor

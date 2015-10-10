@@ -29,13 +29,11 @@ public class Inventory extends Container {
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
-	 * @param boundingBox
-	 * @param inventoryOwner
 	 * @param collectables
 	 */
 	public Inventory(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, BoundingBox boundingBox, Collectable... collectables) {
-		super(id, position, imagePath, false, false, boundingBox, collectables);
+			boolean drawable, Collectable... collectables) {
+		super(id, position, imagePath, false, false, collectables);
 //		this.inventoryOwner = inventoryOwner;
 
 	}
@@ -188,7 +186,6 @@ public class Inventory extends Container {
 	 * If a player picks up a coin, it will be added to the CoinBag if there is
 	 * one in the inventory, otherwise it will just be added to the inventory.
 	 *
-	 * @param coin
 	 */
 	public void addItemToContainer(Collectable collectable) {
 		if (collectable == null) {
