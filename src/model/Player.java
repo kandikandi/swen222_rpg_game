@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import control.Main;
 import view.ID;
 
 /**
@@ -122,7 +123,8 @@ public class Player extends Actor implements Serializable {
 		} else if (inventory == null) {
 			return;
 		} else {
-			inventory.setPosition(position);
+			Position pos = new Position(getPosition().getxPos()+50,getPosition().getyPos()+50);
+			inventory.setPosition(pos);
 			inventory.removeItemFromContainer(collectable);
 		}
 	}
@@ -185,23 +187,20 @@ public class Player extends Actor implements Serializable {
 	 */
 	public void increaseFear(int n) {
 		fear += n;
-		if (fear >= 1000) {
+		if (fear >= 150) {
 			tooScared();
 		}
 	}
 
 	/**
-	 * When the Player's fear reaches the fear limit the Player dies and so can
-	 * no longer move.
+	 * When the Player's fear reaches the fear limit the Player dies and re-starts.
 	 *
 	 */
 	private void tooScared() {
-		// game over for player
 		this.alive = false;
-		this.speed = 0;
-		// if only one player left, game over
-		// tell the controller it's all over
-
+		this.getInventory().empty();
+		this.setFear(0);
+		this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y));
 	}
 
 	// ========================================================
