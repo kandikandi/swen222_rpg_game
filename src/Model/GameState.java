@@ -3,15 +3,11 @@ package Model;
 import java.awt.Rectangle;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-
-
-
-
-import View.TestWorlds;
 
 @XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this here!
 public class GameState {
@@ -19,9 +15,6 @@ public class GameState {
 	@XmlTransient //TODO:Bonnie added this here!
 	private Tile[][] worldTiles;
 
-
-	// @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
-	// @XmlElement(name = "actor") //TODO:Bonnie added this here!
 	private List<Actor> actors;
 
 	@XmlTransient //TODO: Bonnie added this here!
@@ -96,7 +89,7 @@ public class GameState {
 		return null;
 	}
 
-	
+
 
 	// ============== DEBUGGING =================
 	public void printGameObjectState() {

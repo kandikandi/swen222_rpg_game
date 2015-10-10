@@ -72,4 +72,10 @@ public class Collectable extends Actor {
 
 	}
 
+	//==============================
+	//TODO:Bonnie added this!
+	public boolean inContainer(){
+		return inContainer;
+	}
+
 }

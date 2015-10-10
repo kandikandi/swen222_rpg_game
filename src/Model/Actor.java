@@ -4,8 +4,10 @@ package Model;
 import java.awt.*;
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlValue;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import save.actor.ActorAdapter;
@@ -32,7 +34,7 @@ public abstract class Actor implements Serializable {
         this.collidable = collidable;
         this.drawable = drawable;
         this.boundingBoxSize = boundingBoxSize;
-        
+
     }
 
     abstract public void tick();

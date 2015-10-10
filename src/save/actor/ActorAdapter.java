@@ -5,9 +5,12 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 import Model.Actor;
 import Model.Coin;
 import Model.CoinBag;
+import Model.Collectable;
+import Model.Door;
 import Model.Enemy;
 import Model.Key;
 import Model.Player;
+import Model.Wall;
 
 /**
  * Created on 05/101/2015
@@ -51,7 +54,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			enemy.setHealth(adaptedactor.getHealth());
 			enemy.setCount(adaptedactor.getCount());
 			return enemy;
-		default:
+		case "player":
 			Player player = new Player(adaptedactor.getId(),
 					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
 					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
@@ -64,6 +67,25 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			player.setAttackPoints(adaptedactor.getAttackPoints());
 			player.setAlive(adaptedactor.isAlive());
 			return player;
+		case "door":
+			Door door = new Door(adaptedactor.getId(),
+					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
+					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
+					adaptedactor.getBoundingBoxSize());
+			if (adaptedactor.isOpen()) {
+				door.open();
+			}
+			return door;
+		case "collectable":
+			return new Collectable(adaptedactor.getId(),
+					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
+					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
+					adaptedactor.getBoundingBoxSize());
+			default:
+				return new Wall(adaptedactor.getId(),
+					adaptedactor.getPosition(), adaptedactor.getAsciiCode(),
+					adaptedactor.isCollidable(), adaptedactor.isDrawable(),
+					adaptedactor.getBoundingBoxSize());
 		}
 	}
 
@@ -86,7 +108,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			adaptedactor.setAttackPoints(enemyactor.getAttackPoints());
 			adaptedactor.setHealth(enemyactor.getHealth());
 			adaptedactor.setCount(enemyactor.getCount());
-		} else {
+		} else if (actor instanceof Player) {
 			Player player = (Player) actor;
 			adaptedactor.setType("player");
 			adaptedactor.setHasKey(player.hasKey());
@@ -95,6 +117,16 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			adaptedactor.setClientNum(player.getClientNum());
 			adaptedactor.setAttackPoints(player.getAttackPoints());
 			adaptedactor.setAlive(player.isAlive());
+		} else if (actor instanceof Door) {
+			Door door = (Door) actor;
+			adaptedactor.setType("door");
+			adaptedactor.setOpen(door.getIsOpen());
+		} else if (actor instanceof Collectable) {
+			adaptedactor.setType("collectable");
+			Collectable collectable = (Collectable) actor;
+			adaptedactor.setInContainer(collectable.inContainer());
+		} else {
+			adaptedactor.setType("wall");
 		}
 		adaptedactor.setAsciiCode(actor.getAsciiCode());
 		adaptedactor.setBoundingBoxSize(actor.getBoundingBox().height);
