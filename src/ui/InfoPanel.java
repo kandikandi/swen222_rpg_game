@@ -26,7 +26,7 @@ public class InfoPanel extends JPanel {
 	public InfoPanel() {
 		this.setPreferredSize(new Dimension(200,150));
 
-		this.createBorder();
+
 		try {
 			backgroundImage = ImageIO.read(new File("GUI_InfoPanel"
 					+ ".png"));
@@ -34,6 +34,7 @@ public class InfoPanel extends JPanel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.createBorder();
 	}
 
 	public void paintComponent(Graphics g){

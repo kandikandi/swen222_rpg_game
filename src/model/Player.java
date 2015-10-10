@@ -127,6 +127,17 @@ public class Player extends Actor implements Serializable {
 		}
 	}
 
+
+	public void dropItemOfID(ID itemID) {
+		if (inventory == null) {
+			return;
+		} else {
+			inventory.setPosition(position);
+			inventory.removeItemOfID(itemID);
+		}
+	}
+
+
 	/**
 	 * Getter method to return Inventory
 	 *

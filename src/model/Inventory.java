@@ -163,6 +163,18 @@ public class Inventory extends Container {
 		}
 	}
 
+
+
+	public void removeItemOfID(ID itemID){
+		for (Actor actor : items) {
+			if (actor.getID()==itemID) {
+				removeItemFromContainer((Collectable) actor);
+			}
+		}
+	}
+
+
+
 	/**
 	 * Return number of coins the player has in Inventory.
 	 *

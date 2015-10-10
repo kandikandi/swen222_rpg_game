@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import model.Actor;
+import model.Inventory;
+import model.Player;
 
 
 /**
@@ -56,21 +58,22 @@ public class InventoryPanel extends JPanel {
 	/**
 	 * Updates the players inventory by clearing it and then refilling it by creating
 	 * the equivalent ItemLabels
-	 * @param inventory
+	 * @param player.getInventory()
 	 */
-	public void update(ArrayList<Actor> inventory){
+	public void update(Player player){
 			// Clear the Inventory every time it is updated
 			items.clear();
 			this.removeAll();
+
 			this.revalidate();
-			int itemAmount = inventory.size();
+			int itemAmount = player.getInventory().returnContents().size();
 
 			// Put the inventory items into the inventory
-			for(int i = 0; i < inventory.size(); i++){
-				ItemLabel newItem = new ItemLabel(inspectItem, inventory.get(i).getID());
-				newItem.setItemLabelID(inventory.get(i).getID());
+			for(int i = 0; i < player.getInventory().returnContents().size(); i++){
+				ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getID(), player);
+				newItem.setItemLabelID(player.getInventory().returnContents().get(i).getID());
 
-				itemChar = inventory.get(i).getAsciiCode();
+				itemChar = player.getInventory().returnContents().get(i).getAsciiCode();
 				itemImage = findImage(itemChar);
 				Image scaledImage = itemImage.getScaledInstance(60, 60,
 						Image.SCALE_SMOOTH);

@@ -2,6 +2,7 @@ package control;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -51,25 +52,26 @@ public class Main {
                 //SERVER STUFF
 
                 //Set up Host/Join screen display
-                BufferedImage image = null;
-                try {
-                    image = ImageIO.read(new File("LoginScreen.png"));
-                } catch (IOException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }        UIManager UI=new UIManager();
+//                Image image = null;
+//                try {
+//                    image = ImageIO.read(new File("LoginScreen.png"));
+//                } catch (IOException e) {
+//                    // TODO Auto-generated catch block
+//                    e.printStackTrace();
+//                }
+                UIManager UI=new UIManager();
 
                 UI.put("OptionPane.showInputDialog.message", Color.white);
                 UI.put("OptionPane.background", Color.black);
                 UI.put("Panel.background", Color.black);
                 Object[] options = { "Host", "Join" };
                 if (JOptionPane.showOptionDialog(null, null, null,
-                       JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,    new ImageIcon(image),
-                       options, options[0]) == 0) {
-                   isServer = true;
-                   socketServer = new GameServer();
-                   socketServer.start();
-               }
+                		JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null,
+                		options, options[0]) == 0) {
+                	isServer = true;
+                	socketServer = new GameServer();
+                	socketServer.start();
+                }
 
                 GameState gameState = new GameState(isServer);
                 if (isServer) {

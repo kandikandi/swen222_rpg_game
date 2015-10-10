@@ -93,7 +93,8 @@ public class Container extends Actor {
         if (collectable == null || numItemsInContainer() == 0) {
             return;
         } else if (items.contains(collectable)) {
-            collectable.setPosition(position); //update position
+            Position pos  = new Position(getPosition().getxPos()+50, getPosition().getyPos()+70);
+        	collectable.setPosition(pos); //update position
             collectable.setCollidable(true);
             collectable.setDrawable(true);
             items.remove(collectable);
