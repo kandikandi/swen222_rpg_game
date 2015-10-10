@@ -123,7 +123,8 @@ public class Player extends Actor implements Serializable {
 		} else if (inventory == null) {
 			return;
 		} else {
-			inventory.setPosition(position);
+			Position pos = new Position(getPosition().getxPos()+50,getPosition().getyPos()+50);
+			inventory.setPosition(pos);
 			inventory.removeItemFromContainer(collectable);
 		}
 	}
@@ -181,20 +182,14 @@ public class Player extends Actor implements Serializable {
 	}
 
 	/**
-	 * When the Player's fear reaches the fear limit the Player dies and so can
-	 * no longer move.
+	 * When the Player's fear reaches the fear limit the Player dies and re-starts.
 	 *
 	 */
 	private void tooScared() {
-		// game over for player
 		this.alive = false;
-//		this.speed = 0;
 		this.getInventory().empty();
 		this.setFear(0);
 		this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y));
-		// if only one player left, game over
-		// tell the controller it's all over
-
 	}
 
 	// ========================================================
