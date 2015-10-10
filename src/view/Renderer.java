@@ -71,6 +71,15 @@ public final class Renderer {
                     int x = actor.getPosition().getxPos() - playerX + HALF_C_WIDTH;
                     int y = actor.getPosition().getyPos() - playerY + HALF_C_HEIGHT;
                     g2d.drawImage(image, x, y, null);
+
+                    if (Main.DRAW_HITBOXES) {
+                        g2d.setColor(new Color(255, 126, 241));
+                        g2d.fillRect(actor.getBoundingBox().x - playerX + HALF_C_WIDTH,
+                                actor.getBoundingBox().y - playerY + HALF_C_HEIGHT,
+                                actor.getBoundingBox().width,
+                                actor.getBoundingBox().height);
+                    }
+
                 });
         gameCanvas.receiveBuffImage(buffImg);
     }
