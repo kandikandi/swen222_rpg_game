@@ -13,7 +13,10 @@ public enum TileAssets {
 
     GRASS('g',"grassTileTemp.png"),
     STONE('s',"tokenScarlet.png"),
-    WOOD('w',"tokenScarlet.png");
+    WOOD('w',"tokenScarlet.png"),
+    DIRT('v',"vege.png"),
+    CIRCUS('c',"tempB.png"),
+    SCHOOL('b',"school_floor.png");
 
 
     private final char asciiCode;
@@ -24,6 +27,7 @@ public enum TileAssets {
         try {
             image = ImageIO.read(new File(imagePath));
         } catch (IOException e) {
+            System.out.printf("Error: cant load "+imagePath);
             System.out.printf(e.getMessage());
             e.printStackTrace();
         }
