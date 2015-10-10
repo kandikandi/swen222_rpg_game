@@ -47,22 +47,17 @@ public class MainClient {
             public void run() {
                 boolean isServer = false;
 
+                String username = "00" + JOptionPane.showInputDialog(null, "enter username");
 
                 GameState gameState = new GameState(isServer);
-
                 socketClient = new GameClient("localhost", gameState);
                 socketClient.start();
-
+                PacketLogin loginPacket = new PacketLogin(username.getBytes());
+                loginPacket.writeData(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
 
 
-                String username = "00" + JOptionPane.showInputDialog(null, "enter username");
 
-                //TODO fix up packet system
-                PacketLogin loginPacket = new PacketLogin(username.getBytes());
-                loginPacket.writeData(socketClient);
-
-                /**VIEW*/
                 // Set up the gameFrame
                 //TODO: Bonnie added this extra argument!
                 GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);

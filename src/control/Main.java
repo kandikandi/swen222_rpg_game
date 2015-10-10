@@ -71,6 +71,7 @@ public class Main {
                    socketServer.start();
                }
 
+                //TODO this chunk of logic wont like syncing
                 GameState gameState = new GameState(isServer);
                 if (isServer) {
                     socketServer.setGame(gameState);

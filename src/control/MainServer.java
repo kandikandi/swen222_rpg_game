@@ -49,24 +49,18 @@ public class MainServer {
                                        socketServer.start();
                                        GameState gameState = new GameState(isServer);
                                        socketServer.setGame(gameState);
-                                       socketClient = new
-                                       GameClient("localhost", gameState);
-                                       socketClient.start();
-
-
 
                                        // Set up the gameFrame
                                        //TODO: Bonnie added this extra argument!
                                        GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
                                        //Setup UI
                                        GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT, socketClient);
-                                       gameFrame.getContentPane().
-                                               add(gameCanvas);
+                                       gameFrame.getContentPane().add(gameCanvas);
                                        gameFrame.pack();
-                                       GameCamera camera = new GameCamera(gameState, socketClient);
-                                       Renderer renderer = new Renderer(camera, gameCanvas);
-                                       EnemyController enemyController = new EnemyController(gameState);
-                                       GameTimer gameTimer = new GameTimer(camera, renderer, enemyController);
+                                       //GameCamera camera = new GameCamera(gameState, socketClient);
+                                       //Renderer renderer = new Renderer(camera, gameCanvas);
+                                       //EnemyController enemyController = new EnemyController(gameState);
+                                       //GameTimer gameTimer = new GameTimer(camera, renderer, enemyController);
                                        //gameTimer.start();
                                    }
                                }

@@ -11,7 +11,7 @@ public class ClientControl {
 	private int port;
 	private int clientNum;
 
-
+	//TODO maybe add Player reference in here, thus no need for costly search -- Cuan
 	public ClientControl(String uname, InetAddress ipAddress, int port, int clientNum) {
 		this.username = uname;
 		this.setIpAddress(ipAddress);
