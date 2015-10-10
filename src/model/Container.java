@@ -123,6 +123,18 @@ public class Container extends Actor {
 
 
     /**
+     * This method removes all items from the Container by setting
+     * each to null.
+     *
+     */
+    public void empty(){
+    	for(Actor actor : items){
+    		actor = null;
+    	}
+
+    }
+
+    /**
 	 * Returns description of bag, as well as number of coins within.
 	 *
 	 */

@@ -27,12 +27,12 @@ public class GameTimer extends Thread {
 		while (true) {
 			try {
 				Thread.sleep(10);
-				
-				
+
+
 				enemyController.update();
-				
+
 				//camera.performSystem();
-				
+
 				renderer.renderScene();
 
 			} catch (Exception e) {

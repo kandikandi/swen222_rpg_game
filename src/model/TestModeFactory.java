@@ -96,7 +96,7 @@ public class TestModeFactory {
      */
     private Actor createTree(int x, int y) {
         int size = Main.TILE_SIZE;
-        BoundingBox bbox = new BoundingBox(size, size, 50, 90);
+        BoundingBox bbox = new BoundingBox(size, size, 50, 60);
         Position pos = new Position(x, y, bbox);
         Actor tree = new Actor(ID.TREE, pos, ActorAssets.TREE.getAsciiCode(), true, true);
         return tree;

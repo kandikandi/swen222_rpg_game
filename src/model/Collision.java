@@ -37,8 +37,6 @@ public class Collision {
 			pickup(player, (Collectable) collidingActor);
 			return true;
 		} else if (collidingActor instanceof Door) {
-			// System.out.println("door"+collidingActor.getBoundingBox());
-			// System.out.println("player"+player.getBoundingBox());
 			useKeyInDoor(player, (Door) collidingActor);
 			return false;
 		} else if (collidingActor instanceof CoinBag) {

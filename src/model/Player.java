@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import control.Main;
 import view.ID;
 
 /**
@@ -174,7 +175,7 @@ public class Player extends Actor implements Serializable {
 	 */
 	public void increaseFear(int n) {
 		fear += n;
-		if (fear >= 1000) {
+		if (fear >= 150) {
 			tooScared();
 		}
 	}
@@ -187,7 +188,10 @@ public class Player extends Actor implements Serializable {
 	private void tooScared() {
 		// game over for player
 		this.alive = false;
-		this.speed = 0;
+//		this.speed = 0;
+		this.getInventory().empty();
+		this.setFear(0);
+		this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y));
 		// if only one player left, game over
 		// tell the controller it's all over
 
