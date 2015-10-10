@@ -30,7 +30,7 @@ public class TestModeFactory {
      * the required Actors instantiations.
      */
     public List<Actor> createActorList() {
-
+        //char[][] tileCode = TestWorlds.getFullObjectMap();
         char[][] tileCode = TestWorlds.getMazeObjects();
         List<Actor> actors = new ArrayList<>();
         for (int row = 0; row < tileCode.length; row++) {
@@ -73,6 +73,15 @@ public class TestModeFactory {
                     case TREE:
                         actor = createTree(position.getxPos(), position.getyPos());
                         break;
+                    case VEGEWALL:
+                        actor = createWall(position.getxPos(), position.getyPos());
+                        break;
+                    case SCHOOLWALL:
+                        actor = createWall(position.getxPos(), position.getyPos());
+                        break;
+                    case CIRCUSWALL:
+                        actor = createWall(position.getxPos(), position.getyPos());
+                        break;
                 }
 
                 if (actor == null) {
@@ -107,6 +116,7 @@ public class TestModeFactory {
      * the required Tile objects.
      */
     public Tile[][] createWorldTiles() {
+        //char[][] tileCode = TestWorlds.getFullMap();
         char[][] tileCode = TestWorlds.getMazeTiles();
         Tile[][] result = new Tile[tileCode.length][tileCode[0].length];
 

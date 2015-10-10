@@ -28,14 +28,17 @@ import model.Actor;
  */
 public class InventoryPanel extends JPanel {
 
+
+	private InfoPanel inspectItem;
 	private char itemChar;
 	private Image itemImage;
 	private Image backgroundImage;
 	private final int maxItemSlots = 9; // The maximum amount of slots avaliable to the player
 	private ArrayList<JLabel> items = new ArrayList<JLabel>(); // The Inventory is made up of ItemLabels and EmptyLabels
 
-	public InventoryPanel(){
+	public InventoryPanel(InfoPanel inspect){
 
+		this.inspectItem = inspect;
 		this.setPreferredSize(new Dimension(200,200));
 		this.setLayout(new GridLayout(3,3));
 		this.setBackground(new Color(204, 255, 255));
@@ -60,24 +63,20 @@ public class InventoryPanel extends JPanel {
 			items.clear();
 			this.removeAll();
 			this.revalidate();
-
 			int itemAmount = inventory.size();
 
 			// Put the inventory items into the inventory
 			for(int i = 0; i < inventory.size(); i++){
-				ItemLabel newItem = new ItemLabel();
+				ItemLabel newItem = new ItemLabel(inspectItem, inventory.get(i).getID());
 				newItem.setItemLabelID(inventory.get(i).getID());
-
 
 				itemChar = inventory.get(i).getAsciiCode();
 				itemImage = findImage(itemChar);
 				Image scaledImage = itemImage.getScaledInstance(60, 60,
 						Image.SCALE_SMOOTH);
 
-
 				newItem.setIcon(new ImageIcon(scaledImage));
 				items.add(newItem);
-
 
 			}
 
@@ -131,9 +130,6 @@ public class InventoryPanel extends JPanel {
 		return image;
 
 	}
-
-
-
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);

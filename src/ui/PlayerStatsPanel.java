@@ -38,7 +38,7 @@ public class PlayerStatsPanel extends JPanel {
 
 
 	public PlayerStatsPanel(){
-		this.setPreferredSize(new Dimension(200,300));
+		this.setPreferredSize(new Dimension(200,250));
 		this.setBackground(new Color(204, 255, 255));
 		this.createBorder();
 		playerInformation.setLayout(new BoxLayout(playerInformation, BoxLayout.Y_AXIS));

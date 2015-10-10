@@ -37,8 +37,34 @@ public class AdaptedActor {
 	private int attackPoints;
 	private boolean alive;
 
+	// for door
+	private boolean open;
+
+	// for collectable
+	private boolean inContainer;
+
 	// so we know what type to instantiate
 	private String type;
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
+	}
+
+	public boolean isInContainer() {
+		return inContainer;
+	}
+
+	public void setInContainer(boolean inContainer) {
+		this.inContainer = inContainer;
+	}
+
+	public boolean isHasKey() {
+		return hasKey;
+	}
 
 	public boolean hasKey() {
 		return hasKey;

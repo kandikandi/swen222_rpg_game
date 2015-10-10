@@ -27,7 +27,7 @@ public class GameFrame extends JFrame {
 	private JMenu file = new JMenu("File");
 	private JPanel sidePanel = new JPanel();
 	private PlayerStatsPanel playerStats;
-	private GoldPanel goldPanel;
+	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
 	private GameServer socketServer; //TODO: Bonnie added this!
 
@@ -41,8 +41,8 @@ public class GameFrame extends JFrame {
 
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
-		this.goldPanel = new GoldPanel();
-		this.inventory = new InventoryPanel();
+		this.infoPanel = new InfoPanel();
+		this.inventory = new InventoryPanel(infoPanel);
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.setVisible(true);
@@ -68,7 +68,7 @@ public class GameFrame extends JFrame {
 
 		// Set up the sidePanel to hold the Players Stats (PlayerStatsPanel), Coin Bag (GoldPanel) and Inventory (InventoryPanel)
 		this.sidePanel.setLayout(new BorderLayout());
-		this.sidePanel.add(goldPanel, BorderLayout.CENTER);
+		this.sidePanel.add(infoPanel, BorderLayout.CENTER);
 		this.sidePanel.add(playerStats, BorderLayout.NORTH);
 		this.sidePanel.add(inventory, BorderLayout.SOUTH);
 
@@ -138,19 +138,10 @@ public class GameFrame extends JFrame {
 	public void updateGUI(Player player){
 		this.updatePlayerInventory(player.getInventory().returnContents());
 		this.updatePlayerFear(player.getFear());
-		this.updatePlayerGoldPanel();
 	}
 
 
-	private void updatePlayerGoldPanel() {
 
-		if(displayPlayersCoinBag){
-			this.goldPanel.displayPlayersCoinBag();
-		} else {
-			this.goldPanel.hidePlayersCoinBag();
-		}
-
-	}
 
 	/**
 	 * Updates the players Inventory display via the InventoryPanel
