@@ -70,14 +70,14 @@ public class GameCanvas extends JPanel {
 		}
 		//this works
 
-		for( Actor a : socketClient.getGameState().getActors() ){
+	/*	for( Actor a : socketClient.getGameState().getActors() ){
 
 			if(a instanceof Player){
 				if(((Player) a).getClientNum() == socketClient.getClientNum()){
 					this.getFrame().updateGUI((socketClient.getGameState().findPlayer(((Player) a).getClientNum())));
 				}
 			}
-		}
+		}*/
 
 	}
 
