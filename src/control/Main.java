@@ -36,6 +36,7 @@ public class Main {
     public static final int PLAYER_TWO_START_LOCATION_X = 125;
     public static final int PLAYER_TWO_START_LOCATION_Y = 75;
     public static final boolean DRAW_HITBOXES = false;
+    public static final int PORT = 32768;
     private static GameClient socketClient;
     private static GameServer socketServer;
     //private static PlayerController playerController;

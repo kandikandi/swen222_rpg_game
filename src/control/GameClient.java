@@ -28,7 +28,7 @@ public class GameClient extends Thread {
     private GameState gameState;
     Serialiser serial = new Serialiser();
     boolean handSakeComplete = false;
-    private int clientNum = -1;
+    private int clientNum = 0;
     Renderer renderer;
 
 
@@ -77,7 +77,7 @@ public class GameClient extends Thread {
 
         switch (type) {
             case UPDATE:
-                System.out.println("GameClient recieved UPDATE");
+                //System.out.println("GameClient recieved UPDATE");
                 ArrayList<Actor> recd;
                 try {
                     if (clientNum != -1) {
@@ -98,11 +98,12 @@ public class GameClient extends Thread {
             case LOGINCONFIRM:
                 System.out.println("GameClient recieved LOGINCONFIRM");
                 if (handSakeComplete) {
+                    System.out.println("GameClient already authenticated, LOGINCONFIRM not for me6");
                     break;
-                } {
+                } else {
                     //must make sure to call the overloaded child method
                     LoginConfirm loginConfirm = new LoginConfirm(data);
-                    clientNum =loginConfirm.getClientNumber();
+                    clientNum = loginConfirm.getClientNumber();
                     //String bytecode = (String) serial.deserialize(data);
                     //clientNum = Integer.parseInt(bytecode);
                     System.out.println("GameClient LOGINCONFIRM recieved...clientNum: " + clientNum);
@@ -137,7 +138,7 @@ public class GameClient extends Thread {
 
     //send data to the server
     public void sendData(byte[] data) {
-        DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, 32768);
+        DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, Main.PORT);
         try {
             socket.send(packet);
         } catch (IOException e) {

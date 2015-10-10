@@ -28,7 +28,7 @@ public class GameServer extends Thread {
 
     public GameServer() {
         try {
-            this.socket = new DatagramSocket(32768);
+            this.socket = new DatagramSocket(Main.PORT);
         } catch (SocketException e) {
             e.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class GameServer extends Thread {
     public void run() {
         while (true) {
             try {
-                Thread.sleep(10);
+                Thread.sleep(12);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -57,14 +57,13 @@ public class GameServer extends Thread {
             //Parse packet and update gameState
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
-            /*List<Actor> update = game.getActors();
-
             //Send out game view to clients
+            List<Actor> update = game.getActors();
             try {
                 sendDataToAllClients(serial.serialize(update));
             } catch (IOException e) {
                 e.printStackTrace();
-            }*/
+            }
 
         }
     }
@@ -74,12 +73,11 @@ public class GameServer extends Thread {
      * Multiple packet classes which so can deal with different types of data, eg login, update....
      */
 
-    private void parsePacket(byte[] data, InetAddress address, int port) {
+  synchronized   private void parsePacket(byte[] data, InetAddress address, int port) {
+        String packetID = new String(data).trim();
 
-        String message = new String(data).trim();
-
-        PacketTypes type = Packet.lookupPacket(message.substring(0, 1));
-
+        //TODO use enum class to work out type from packetID
+        PacketTypes type = Packet.lookupPacket(packetID.substring(0, 1));
         switch (type) {
 
             case LOGIN:
@@ -91,7 +89,7 @@ public class GameServer extends Thread {
                 }
 
                 //Process connection
-                addConnection(packet, address, port, packet.getUserName());
+                addConnection(packet, address, port);
 
                 if (Main.TEST_MODE) {
                     System.out.println("Player added, connected players == " + connectedPlayers.size());
@@ -140,12 +138,12 @@ public class GameServer extends Thread {
      * Creates a ClientInfo/ClientData object and add's to collection. Also tells game-state
      * create a player
      */
-    private void addConnection(PacketLogin packet, InetAddress hostAddress, int port, String userName) {
+   synchronized private void addConnection(PacketLogin packet, InetAddress hostAddress, int port) {
         int clientNum = connectedPlayers.size()+1;
         ClientData playerData = new ClientData(packet.getUserName(), hostAddress, port, clientNum);
         this.connectedPlayers.add(playerData);
         game.createPlayer(clientNum);
-        String toSend = Integer.toString(clientNum);
+        String toSend = "10"+Integer.toString(clientNum);
         System.out.println("GamerServer.addConnection() about to create send LoginConfirm packet out toSend: "+toSend);
         //TODO should only send confirmation packet to the intended client instead of publicly broadcast
         LoginConfirm confirmPacket = new LoginConfirm(toSend.getBytes());
@@ -154,7 +152,7 @@ public class GameServer extends Thread {
     }
 
     //converts data into datagrams and sends it down the socket
-    public void sendData(byte[] data, InetAddress ipAddress, int port) {
+   synchronized public void sendData(byte[] data, InetAddress ipAddress, int port) {
         DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);
         try {
             socket.send(packet);
@@ -164,7 +162,7 @@ public class GameServer extends Thread {
     }
 
     //for multiple players, calls send data for all connected players
-    public void sendDataToAllClients(byte[] data) {
+   synchronized public void sendDataToAllClients(byte[] data) {
         for (ClientData p : connectedPlayers) {
             sendData(data, p.getIpAddress(), p.getPort());
         }

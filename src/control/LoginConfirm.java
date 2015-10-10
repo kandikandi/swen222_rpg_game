@@ -1,7 +1,5 @@
 package control;
 
-
-
 /**Class for login packet, basically just creates a username atm*/
 
 public class LoginConfirm extends Packet{
@@ -17,7 +15,7 @@ public class LoginConfirm extends Packet{
 
     @Override
     public void writeData(GameClient client) {
-        client.sendData(getData());
+        //client.sendData(getData());
 
     }
 
@@ -29,9 +27,8 @@ public class LoginConfirm extends Packet{
 
     @Override
     public byte[] getData() {
-        String data = "10"+this.clientNum;
-        //String data = PacketTypes.LOGINCONFIRM+clientNum.toString()+clientNum.toString();
-        return data.getBytes();
+        System.out.println("LoginConfirm getData:"+"10"+this.clientNum);
+     return ("10"+this.clientNum).getBytes();
     }
 
     public int getClientNumber(){
