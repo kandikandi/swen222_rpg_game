@@ -32,19 +32,17 @@ public class ItemLabel extends JLabel {
 	private BufferedImage emptySlot; // The Image for an Empty Slot in the players Inventory (no item)
 	private JPopupMenu itemMenu = new JPopupMenu();
 	private ID itemID;
+	private InfoPanel inspectPanel;
 
 	/*
 	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
-	public ItemLabel(){
+	public ItemLabel(InfoPanel inspectItem, ID itemID){
 
+		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
-//		this.itemID = itemID;
-
-
-
-
+		this.itemID = itemID;
 
 		/*
 		 * Set up the JPopupMenu.
@@ -55,10 +53,11 @@ public class ItemLabel extends JLabel {
 		JMenuItem inspect = new JMenuItem("Inspect Item");
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.out.println(getItemLabelID().getID());
 				System.out.println("Item Inspected");
-				if(getLabel().getItemLabelID().getID() == 4){
-					GameFrame.displayPlayersCoinBag = true;
-
+				if(getLabel().getItemLabelID().getID() == 6){
+					System.out.println();
+					inspectPanel.getInspect();
 				}
 
 
@@ -90,7 +89,7 @@ public class ItemLabel extends JLabel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("Hide coins");
 				if(getLabel().getItemLabelID().getID() == 4){
-					GameFrame.displayPlayersCoinBag = false;
+
 
 				}
 

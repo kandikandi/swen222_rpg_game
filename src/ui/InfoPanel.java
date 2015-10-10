@@ -18,41 +18,47 @@ import javax.swing.border.Border;
  * @author newtondavi2 (David)
  *
  */
-public class GoldPanel extends JPanel {
+public class InfoPanel extends JPanel {
 
 	private Image backgroundImage;
+	private Image inspectedImage;
 
-	public GoldPanel() {
-		this.setPreferredSize(new Dimension(200,100));
-		this.setLayout(new GridLayout(1,3));
-		this.setBackground(new Color(204, 255, 255));
+	public InfoPanel() {
+		this.setPreferredSize(new Dimension(200,150));
+
 		this.createBorder();
-
 		try {
-			// load the imageName
-			backgroundImage = ImageIO.read(new File("GoldPanel_BG.png"));
+			backgroundImage = ImageIO.read(new File("GUI_InfoPanel"
+					+ ".png"));
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	//Currently displays the gold panel (not the actual gold count and label ------ incomplete)
-	public void displayPlayersCoinBag(){
-		//this.setBackground(new Color(240,230,210));
-		//this.revalidate();
-	}
-
-	//Hides the gold panel (not the actual gold count and labe ----- incomplete)
-	public void hidePlayersCoinBag(){
-		//this.setBackground(new Color(10,10,10));
-		//this.revalidate();
 	}
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		if(backgroundImage!= null){
 			g.drawImage(backgroundImage, 0, 0, null);
+
 		}
+		if(inspectedImage!= null){
+			g.drawImage(inspectedImage, 0, 0, null);
+
+		}
+
+	}
+
+	public void getInspect(){
+
+		try {
+			// load the imageName
+			inspectedImage = ImageIO.read(new File("KeyDescription.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		this.revalidate();
+		this.repaint();
 
 	}
 
