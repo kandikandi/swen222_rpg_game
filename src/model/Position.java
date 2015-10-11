@@ -1,11 +1,14 @@
 package model;
 
 import control.Main;
+import save.position.PositionAdapter;
 
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Created by cuan on 9/13/15.
@@ -16,6 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @XmlRootElement(name = "position") //TODO: Bonnie added this line!
+@XmlJavaTypeAdapter(PositionAdapter.class)
 public final class Position  implements Serializable {
     private int xPos, yPos;
     private final int bBoxXOffset, bBoxYOffset;

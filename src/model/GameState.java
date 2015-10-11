@@ -6,6 +6,9 @@ import java.awt.Rectangle;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import save.gamestate.GamestateAdapter;
 
 /**
  * The GameState class creates and manages the factory that creates the game
@@ -15,6 +18,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @XmlRootElement(namespace = "gamestate")
+@XmlJavaTypeAdapter(GamestateAdapter.class)
 public class GameState {
 
 	/**
@@ -22,7 +26,6 @@ public class GameState {
 	 *
 	 */
 	@XmlTransient
-	// TODO:Bonnie added this here!
 	private Tile[][] worldTiles;
 
 	/**
@@ -39,7 +42,6 @@ public class GameState {
 	 *
 	 */
 	@XmlTransient
-	// TODO: Bonnie added this here!
 	private final TestModeFactory factory;
 
 	/**
@@ -54,6 +56,10 @@ public class GameState {
 		if (isServer) {
 			actors = factory.createActorList();
 		}
+	}
+	
+	private GameState(){
+		factory = null;
 	}
 
 	/**

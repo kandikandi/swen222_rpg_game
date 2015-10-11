@@ -29,7 +29,6 @@ public class MainClient {
     public static final int PLAYER_TWO_START_LOCATION_Y = 75;
     public static final boolean DRAW_HITBOXES = false;
    // private static GameClient socketClient;
-    private static GameServer socketServer;
 
 
     public static void main(String[] args) {
@@ -41,7 +40,6 @@ public class MainClient {
                 String username = "00" + JOptionPane.showInputDialog(null, "enter username");
 
                 //Setup UI
-                //TODO: Bonnie added this extra argument!
                 GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
