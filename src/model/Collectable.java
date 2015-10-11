@@ -1,6 +1,5 @@
 package model;
 
-import view.ID;
 
 /**
  * A Collectable object is something that a Player can pickup and
@@ -11,25 +10,23 @@ import view.ID;
 public class Collectable extends Actor {
     boolean inContainer;
 
-    public Collectable(ID id, Position position, char imagePath,
+    public Collectable(Position position, char imagePath,
                        boolean collidable, boolean drawable) {
-        super(id, position, imagePath, collidable, drawable);
+        super(position, imagePath, collidable, drawable);
     }
 
     /**
      * Alternative constructor used if GameObject is already in container
      * at start of game. just has extra parameter container.
-     *
-     * @param id
-     * @param position
+     *  @param position
      * @param imagePath
      * @param collidable
      * @param drawable
      * @param container
      */
-    public Collectable(ID id, Position position, char imagePath,
+    public Collectable(Position position, char imagePath,
                        boolean collidable, boolean drawable, Container container) {
-        super(id, position, imagePath, collidable, drawable);
+        super(position, imagePath, collidable, drawable);
     }
 
     /**

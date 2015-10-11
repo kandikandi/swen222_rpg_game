@@ -1,12 +1,15 @@
+/*
 package view;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+*/
 /**
  * Created by cuan on 9/13/15.
  *
  * This enum class assigns an ID to each major object type in the game.
- */
+ *//*
+
 @XmlRootElement(name = "id") //TODO: Bonnie added this line!
 public enum ID {
 //    TILE(0),
@@ -28,16 +31,19 @@ public enum ID {
         value = nValue;
     }
 
-    /**
+    */
+/**
      *
      * 	???
      *
      * Getter method for ID value.
      *
      * @return ID value
-     */
+     *//*
+
     public int getID() {
         return value;
     }
 
 }
+*/

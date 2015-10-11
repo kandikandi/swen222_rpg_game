@@ -4,9 +4,7 @@ import control.Main;
 
 import java.util.*;
 import java.util.List;
-
 import view.ActorAssets;
-import view.ID;
 import view.TestWorlds;
 
 /**
@@ -107,7 +105,7 @@ public class Factory {
         int size = Main.TILE_SIZE;
         BoundingBox bbox = new BoundingBox(size, size, 50, 60);
         Position pos = new Position(x, y, bbox);
-        Actor tree = new Actor(ID.TREE, pos, ActorAssets.TREE.getAsciiCode(), true, true);
+        Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
         return tree;
     }
 
@@ -140,7 +138,7 @@ public class Factory {
         int size = Main.ITEM_SIZE;
         Position pos = new Position(xPos, yPos);
         char asciiCode = ActorAssets.ENEMY.getAsciiCode();
-        Enemy enemy = new Enemy(ID.ENEMY, pos, asciiCode, true, true);
+        Enemy enemy = new Enemy(pos, asciiCode, true, true);
         return enemy;
     }
 
@@ -150,7 +148,7 @@ public class Factory {
     public Door createDoor(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         char asciiCode = ActorAssets.DOOR.getAsciiCode();
-        Door door = new Door(ID.DOOR, pos, asciiCode, true, true);
+        Door door = new Door(pos, asciiCode, true, true);
         return door;
     }
 
@@ -160,7 +158,7 @@ public class Factory {
     public Key createKey(int xPos, int yPos) {
         Position pos = new Position(xPos, yPos);
         char asciiCode = ActorAssets.KEY.getAsciiCode();
-        Key key = new Key(ID.KEY, pos, asciiCode, true, true);
+        Key key = new Key(pos, asciiCode, true, true);
         key.setDescription("It looks like an ordinary key.");
         return key;
     }
@@ -172,7 +170,7 @@ public class Factory {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
         char asciiCode = ActorAssets.WALL.getAsciiCode();
-        Wall wall = new Wall(ID.WALL, pos, asciiCode, true, true);
+        Wall wall = new Wall(pos, asciiCode, true, true);
         return wall;
     }
 
@@ -186,7 +184,7 @@ public class Factory {
             loc = new Position(Main.PLAYER_TWO_START_LOCATION_X, Main.PLAYER_TWO_START_LOCATION_Y, bBox);
         }
         char asciiCode = ActorAssets.PLAYER.getAsciiCode();
-        Player player = new Player(ID.PLAYER, loc, asciiCode, true, true, clientNum);
+        Player player = new Player(loc, asciiCode, true, true, clientNum);
         // player.setInventory(createInventory(true, 10, 10));
         return player;
     }
@@ -198,7 +196,7 @@ public class Factory {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
         char asciiCode = ActorAssets.COIN.getAsciiCode();
-        Coin coin = new Coin(ID.KEY, pos, asciiCode, true, true);
+        Coin coin = new Coin(pos, asciiCode, true, true);
         return coin;
     }
 
@@ -209,7 +207,7 @@ public class Factory {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
         char asciiCode = ActorAssets.COINBAG.getAsciiCode();
-        CoinBag coinBag = new CoinBag(ID.KEY, pos, asciiCode, true, true);
+        CoinBag coinBag = new CoinBag(pos, asciiCode, true, true);
         return coinBag;
     }
 
@@ -222,7 +220,7 @@ public class Factory {
         int size = Main.ITEM_SIZE;
         BoundingBox bBox = pos.getBoundingBox();
         char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
-        Collectable collectable = new Collectable(ID.COLLECTABLE, pos,
+        Collectable collectable = new Collectable(pos,
                 asciiCode, true, true);
         return collectable;
     }
@@ -234,8 +232,7 @@ public class Factory {
         Position pos = new Position(xPos, yPos);
         int size = Main.ITEM_SIZE;
         char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
-        Container container = new Container(ID.CONTAINER, pos,
-                asciiCode, true, true);
+        Container container = new Container(pos,asciiCode, true, true);
         return container;
     }
 

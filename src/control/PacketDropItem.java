@@ -1,7 +1,6 @@
 package control;
 
 import view.ActorAssets;
-import view.ID;
 
 /**Class for item drop packet, basically just creates a username atm*/
 

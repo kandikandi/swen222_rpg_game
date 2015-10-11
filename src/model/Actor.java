@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 
 import save.actor.ActorAdapter;
-import view.ID;
+
 
 /**
  * Created by cuan on 9/13/15.
@@ -22,12 +22,12 @@ public class Actor implements Serializable {
     protected Position position;
     protected boolean collidable;
     protected boolean drawable;
-    protected ID id;
+    //protected ID id;
     protected char asciiCode;
     protected String actorDescription;
 
-    public Actor(ID id, Position position, char ascii, boolean collidable, boolean drawable) {
-        this.id = id;
+    public Actor(Position position, char ascii, boolean collidable, boolean drawable) {
+        //this.id = id;
         this.position = position;
         this.asciiCode = ascii;
         this.collidable = collidable;
@@ -43,10 +43,10 @@ public class Actor implements Serializable {
      *
      * @return GameObject's unique ID.
      */
-    @XmlElement(name = "id") //TODO:Bonnie added this here!
+   /* @XmlElement(name = "id") //TODO:Bonnie added this here!
     public ID getID() {
         return id;
-    }
+    }*/
 
     /**
      * Getter method for GameObject's Image.

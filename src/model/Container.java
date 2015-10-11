@@ -6,7 +6,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import view.ID;
 
 /**
  * This class provides for GameObjects that represent game items that store
@@ -23,31 +22,28 @@ public class Container extends Actor {
     protected ArrayList<Actor> items;
 
     /**
-     * @param id
      * @param position
      * @param imageName
      * @param collidable
      * @param drawable
      */
-    public Container(ID id, Position position, char imageName, boolean collidable,
+    public Container(Position position, char imageName, boolean collidable,
                      boolean drawable) {
-        super(id, position, imageName, collidable, drawable);
+        super(position, imageName, collidable, drawable);
         this.items = new ArrayList<Actor>();
     }
 
     /**
      * Alternative constructor with initial item. Primarily for testing
      * purposes.
-     *
-     * @param id
-     * @param position
+     *  @param position
      * @param imageName
      * @param collidable
      * @param drawable
      */
-    public Container(ID id, Position position, char imageName, boolean collidable,
+    public Container(Position position, char imageName, boolean collidable,
                      boolean drawable, Collectable... collectables) {
-        super(id, position, imageName, collidable, drawable);
+        super(position, imageName, collidable, drawable);
         this.items = new ArrayList<Actor>();
         for (Collectable collectable : collectables) {
             addItemToContainer(collectable);

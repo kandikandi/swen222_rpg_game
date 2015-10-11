@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import control.Main;
 import view.ActorAssets;
-import view.ID;
+
 
 /**
  * Created by cuan on 9/15/15.
@@ -40,13 +40,11 @@ public class Player extends Actor implements Serializable {
 	 * GameController gameController;
 	 */
 
-	public Player(ID id, Position position, char asciiCode, boolean collidable,
-			boolean drawable, int clientNum) {
-		super(id, position, asciiCode, collidable, drawable);
+	public Player(Position position, char asciiCode, boolean collidable,
+				  boolean drawable, int clientNum) {
+		super(position, asciiCode, collidable, drawable);
 		this.clientNum = clientNum;
-		this.inventory = new Inventory(ID.CONTAINER, position, asciiCode,
-				false, false);
-
+		this.inventory = new Inventory(position, asciiCode,false, false);
 		// ID id, Position position, char imagePath, boolean collidable,
 		// boolean drawable, int boundingBoxSize, Collectable... collectables
 

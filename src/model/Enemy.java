@@ -1,6 +1,5 @@
 package model;
 
-import view.ID;
 import java.util.Random;
 
 public class Enemy extends Actor {
@@ -21,9 +20,9 @@ public class Enemy extends Actor {
 						// Tick will increment and set attack depending on
 						// value.
 
-	public Enemy(ID id, Position location, char imagePath, boolean collidable,
-			boolean drawable) {
-		super(id, location, imagePath, collidable, drawable);
+	public Enemy(Position location, char imagePath, boolean collidable,
+				 boolean drawable) {
+		super(location, imagePath, collidable, drawable);
 		this.attackPoints = 1;
 		this.health = 100;
 		count = 0;

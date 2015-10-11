@@ -1,7 +1,5 @@
 package model;
 
-import view.ID;
-
 /**
  * A Wall object is a simple Actor which does not move and cannot
  * be moved through.
@@ -11,9 +9,9 @@ import view.ID;
 public class Wall extends Actor {
 	final boolean collidable = true;
 
-	public Wall(ID id, Position position, char ascii, boolean collidable,
+	public Wall(Position position, char ascii, boolean collidable,
 				boolean drawable) {
-		super(id, position, ascii, true, drawable);
+		super(position, ascii, true, drawable);
 
 	}
 
@@ -23,6 +21,6 @@ public class Wall extends Actor {
 
 
 	@Override
-	public void setCollidable(boolean collidable) {;}
+	public void setCollidable(boolean collidable) {}
 
 }
