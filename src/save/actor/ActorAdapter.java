@@ -52,7 +52,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			player.setAlive(aa.isAlive());
 			return player;
 		case "wall":
-			return new Wall(aa.getId(), aa.getPosition(), aa.getAsciiCode(), true, aa.isDrawable());
+			return new Wall( aa.getPosition(), aa.getAsciiCode(), true, aa.isDrawable());
 		}
 		return null;
 	}
@@ -92,7 +92,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 		aa.setBoundingBox(a.getBoundingBox());
 		aa.setCollidable(a.isCollidable());
 		aa.setDrawable(a.isDrawable());
-		aa.setId(a.getID());
+
 		aa.setPosition(a.getPosition());
 		return aa;
 	}

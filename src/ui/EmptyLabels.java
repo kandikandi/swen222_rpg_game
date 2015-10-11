@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import view.ID;
 
 
 /**
@@ -18,7 +17,7 @@ public class EmptyLabels extends JLabel {
 
 	BufferedImage emptySlot;
 	private int index;
-	ID id;
+//	ID id;
 	//private Item item;
 
 	public EmptyLabels(){
@@ -35,10 +34,10 @@ public class EmptyLabels extends JLabel {
 	//	public Item getItem(){
 	//
 	//	}
-
-	public ID getItemLabelID(){
-		return this.id;
-	}
+//
+//	public ID getItemLabelID(){
+//		return this.id;
+//	}
 
 
 }
