@@ -19,12 +19,13 @@ public class GameServer extends Thread {
 
     /**
      * This thread runs the server. It takes the input, checks it, then sends to all the clients.
-     **/
+     */
 
     private DatagramSocket socket;
     private GameState game;
     private ArrayList<ClientData> connectedPlayers = new ArrayList<ClientData>();
     private Serialiser serial = new Serialiser();
+    private boolean isRunning = true;
 
     public GameServer() {
         try {
@@ -39,7 +40,7 @@ public class GameServer extends Thread {
     }
 
     public void run() {
-        while (true) {
+        while (isRunning) {
             try {
                 Thread.sleep(12);
             } catch (InterruptedException e) {
@@ -73,7 +74,7 @@ public class GameServer extends Thread {
      * Multiple packet classes which so can deal with different types of data, eg login, update....
      */
 
-  synchronized   private void parsePacket(byte[] data, InetAddress address, int port) {
+    synchronized private void parsePacket(byte[] data, InetAddress address, int port) {
         String packetID = new String(data).trim();
 
         //TODO use enum class to work out type from packetID
@@ -82,15 +83,14 @@ public class GameServer extends Thread {
 
             case LOGIN:
                 PacketLogin packet = new PacketLogin(data);
-
+                //TODO: Use a propper logging library for TEST_MOVE=true instead of println
+                //TODO: remove this
                 if (Main.TEST_MODE) {
                     System.out.println("[" + address.getHostAddress() + ":" + port + "] " + packet.getUserName() + " has connected..");
                     System.out.println("");
                 }
-
                 //Process connection
                 addConnection(packet, address, port);
-
                 if (Main.TEST_MODE) {
                     System.out.println("Player added, connected players == " + connectedPlayers.size());
                     for (ClientData p : connectedPlayers) {
@@ -114,12 +114,13 @@ public class GameServer extends Thread {
                 String move = packetMove.getMove();
                 Player player = game.findPlayer(packetMove.getClientNum());
                 player.move(game, move);
-                //Send out game view to clients
-                try {
-                    sendDataToAllClients(serial.serialize(game));
-                } catch (IOException e) {
-                    e.printStackTrace();
+                //temp logic to test shutting down the server
+                //TODO: remove this logic when PacketDisconnect is implemented
+                if (move.equals("SPACE")) {
+                    System.out.println("GameServer MOVE: SPACE recieved");
+                    MainServer.shutDownServer();
                 }
+
 
                 break;
 
@@ -138,13 +139,13 @@ public class GameServer extends Thread {
      * Creates a ClientInfo/ClientData object and add's to collection. Also tells game-state
      * create a player
      */
-   synchronized private void addConnection(PacketLogin packet, InetAddress hostAddress, int port) {
-        int clientNum = connectedPlayers.size()+1;
+    synchronized private void addConnection(PacketLogin packet, InetAddress hostAddress, int port) {
+        int clientNum = connectedPlayers.size() + 1;
         ClientData playerData = new ClientData(packet.getUserName(), hostAddress, port, clientNum);
         this.connectedPlayers.add(playerData);
         game.createPlayer(clientNum);
-        String toSend = "10"+Integer.toString(clientNum);
-        System.out.println("GamerServer.addConnection() about to create send LoginConfirm packet out toSend: "+toSend);
+        String toSend = "10" + Integer.toString(clientNum);
+        System.out.println("GamerServer.addConnection() about to create send LoginConfirm packet out toSend: " + toSend);
         //TODO should only send confirmation packet to the intended client instead of publicly broadcast
         LoginConfirm confirmPacket = new LoginConfirm(toSend.getBytes());
         confirmPacket.writeData(this);
@@ -152,7 +153,7 @@ public class GameServer extends Thread {
     }
 
     //converts data into datagrams and sends it down the socket
-   synchronized public void sendData(byte[] data, InetAddress ipAddress, int port) {
+    synchronized public void sendData(byte[] data, InetAddress ipAddress, int port) {
         DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, port);
         try {
             socket.send(packet);
@@ -162,10 +163,14 @@ public class GameServer extends Thread {
     }
 
     //for multiple players, calls send data for all connected players
-   synchronized public void sendDataToAllClients(byte[] data) {
+    synchronized public void sendDataToAllClients(byte[] data) {
         for (ClientData p : connectedPlayers) {
             sendData(data, p.getIpAddress(), p.getPort());
         }
 
+    }
+
+    public void shutDownServer() {
+        isRunning = false;
     }
 }

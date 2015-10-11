@@ -35,7 +35,8 @@ public class PlayerController implements KeyListener  {
             break;
 
         case KeyEvent.VK_SPACE:
-        	thisPlayer.sendKeyPress("SPACE");
+			System.out.println("PlayerController keyPressed: SPACE");
+			thisPlayer.sendKeyPress("SPACE");
             break;
 		}
 
