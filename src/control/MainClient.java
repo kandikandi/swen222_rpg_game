@@ -48,10 +48,11 @@ public class MainClient {
                 gameFrame.pack();
 
                 GameState gameState = new GameState(isServer);
-                GameClient socketClient = new GameClient("localhost", gameState, gameCanvas);
+                GameClient socketClient = new GameClient("localhost"/*"130.195.4.152"*/, gameState, gameCanvas);
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
+
 
                 socketClient.start();
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());

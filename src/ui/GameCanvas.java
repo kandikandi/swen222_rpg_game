@@ -23,7 +23,7 @@ public class GameCanvas extends JPanel {
 	private int WIDTH;
 	private int HEIGHT;
 	private GameFrame frame;
-	private GameClient socketClient;
+	private GameClient gameClient;
 	private boolean clientSet = false;
 	//private final GameController gameController;
 
@@ -70,9 +70,9 @@ public class GameCanvas extends JPanel {
 		}
 		//this works
 		if(clientSet){
-			Player player = socketClient.getGameState().findPlayer(socketClient.getClientNum());
+			Player player = gameClient.getGameState().findPlayer(gameClient.getClientNum());
 			if(player != null){
-				this.getFrame().updateGUI(player);
+				this.getFrame().updateGUI(player, gameClient);
 			}
 
 		}
@@ -81,7 +81,7 @@ public class GameCanvas extends JPanel {
 	}
 
 	public void setSocketClient(GameClient client){
-		this.socketClient = client;
+		this.gameClient = client;
 		this.clientSet = true;
 	}
 

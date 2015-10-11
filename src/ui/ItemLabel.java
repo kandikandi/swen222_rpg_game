@@ -16,6 +16,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
+import control.GameClient;
+import control.PacketDropItem;
 import model.Player;
 import view.ID;
 
@@ -35,17 +37,19 @@ public class ItemLabel extends JLabel {
 	private ID itemID;
 	private InfoPanel inspectPanel;
 	private Player player;
+	private GameClient gameClient;
 
 	/*
 	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
-	public ItemLabel(InfoPanel inspectItem, ID itemID, Player player){
+	public ItemLabel(InfoPanel inspectItem, ID itemID, Player player, GameClient gameClient){
 
 		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
-		this.itemID = itemID;
+		//this.itemID = itemID;
 		this.player = player;
+		this.gameClient = gameClient;
 
 		/*
 		 * Set up the JPopupMenu.
@@ -54,6 +58,7 @@ public class ItemLabel extends JLabel {
 		this.addMouseListener(new PopupTriggerListener());
 
 		JMenuItem inspect = new JMenuItem("Inspect Item");
+
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(getItemLabelID().getID());
@@ -71,32 +76,48 @@ public class ItemLabel extends JLabel {
 		JMenuItem use = new JMenuItem("Use Item");
 		use.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Item used");
+				//=============USE PACKET CODE HERE===========
+
+				//
+				//
 
 
 			}
 		});
 		itemMenu.add(use);
 
-		JMenuItem destroy = new JMenuItem("Destroy Item");
-		destroy.addActionListener(new ActionListener() {
+		JMenuItem drop = new JMenuItem("Drop Item");
+		drop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Item Destroyed");
+				//=============DROP PACKET CODE HERE===========
+				if(getLabel().getItemLabelID().getID() == 6){
+
+				}
+				if(getLabel().getItemLabelID().getID() == 6){
+
+				}
+				if(getLabel().getItemLabelID().getID() == 6){
+
+				}
+				if(getLabel().getItemLabelID().getID() == 6){
+
+				}
+
+				String data = "5"+player.getClientNum()+"K";
+				PacketDropItem p = new PacketDropItem(data.getBytes());
+				p.writeData(gameClient);
+
+
+
+
+
+
+				//	player.dropItemID(itemID);
+				//	getLabel().setVisible(false);
 
 			}
 		});
-		itemMenu.add(destroy);
-
-		JMenuItem hide = new JMenuItem("Drop Item");
-		hide.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Dropping Item");
-				player.dropItemID(itemID);
-
-
-			}
-		});
-		itemMenu.add(hide);
+		itemMenu.add(drop);
 
 
 	}

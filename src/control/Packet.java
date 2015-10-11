@@ -6,7 +6,7 @@ package control;
 public abstract class Packet {
 	//TODO find out if LOGINCONFIRM is used, or should be used. Sounds like it would be usefull for syncing game.
 	public static enum PacketTypes{
-		LOGIN(0),LOGINCONFIRM(1),UPDATE(2), MOVE(3), DISCONNECT(4);
+		LOGIN(0),LOGINCONFIRM(1),UPDATE(2), MOVE(3), DISCONNECT(4), DROPITEM(5);
 
 		private int packetID;
 		private int clientNum;
@@ -28,6 +28,8 @@ public abstract class Packet {
 
 	public Packet(int packetID){
 		this.packetID = (byte)packetID;
+
+
 	}
 
 	public abstract void writeData(GameClient client);

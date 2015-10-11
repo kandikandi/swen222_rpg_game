@@ -16,6 +16,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import control.GameClient;
+import control.Main;
 import model.Actor;
 import model.Player;
 
@@ -58,29 +60,32 @@ public class InventoryPanel extends JPanel {
 	 * Updates the players inventory by clearing it and then refilling it by creating
 	 * the equivalent ItemLabels
 	 * @param player
+	 * @param gameClient
 	 */
-	public void update(Player player){
+	public void update(Player player, GameClient gameClient){
 			// Clear the Inventory every time it is updated
-
+			System.out.println(player.getInventory().returnContents());
 			items.clear();
 			this.removeAll();
 			this.revalidate();
 			int itemAmount = player.getInventory().returnContents().size();
 
 			// Put the inventory items into the inventory
-			for(int i = 0; i < player.getInventory().returnContents().size(); i++){
-				ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getID(), player);
-				newItem.setItemLabelID(player.getInventory().returnContents().get(i).getID());
 
-				itemChar = player.getInventory().returnContents().get(i).getAsciiCode();
-				itemImage = findImage(itemChar);
-				Image scaledImage = itemImage.getScaledInstance(60, 60,
-						Image.SCALE_SMOOTH);
+				for(int i = 0; i < player.getInventory().returnContents().size(); i++){
+					ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getID(), player, gameClient);
+					newItem.setItemLabelID(player.getInventory().returnContents().get(i).getID());
 
-				newItem.setIcon(new ImageIcon(scaledImage));
-				items.add(newItem);
+					itemChar = player.getInventory().returnContents().get(i).getAsciiCode();
+					itemImage = findImage(itemChar);
+					Image scaledImage = itemImage.getScaledInstance(60, 60,
+							Image.SCALE_SMOOTH);
 
-			}
+					newItem.setIcon(new ImageIcon(scaledImage));
+					items.add(newItem);
+
+				}
+
 
 			// Fill the remaining inventory slots with EmptyLabels
 			for(int i = itemAmount; i < 9; i++){

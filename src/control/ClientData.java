@@ -47,4 +47,8 @@ public class ClientData {
 		this.port = port;
 	}
 
+	public Player getPlayer(){
+		return player;
+	}
+
 }

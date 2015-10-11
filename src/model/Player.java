@@ -8,6 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import control.Main;
+import view.ActorAssets;
 import view.ID;
 
 /**
@@ -23,7 +24,7 @@ import view.ID;
 public class Player extends Actor implements Serializable {
 	@XmlTransient
 	// TODO: Bonnie added this line!
-	private int speed = 5;
+	private int speed = 10;
 	private Inventory inventory;
 	private boolean hasKey;
 	private boolean playerIsAttacking;
@@ -119,28 +120,32 @@ public class Player extends Actor implements Serializable {
 	 * @param collectable
 	 */
 	public void drop(Collectable collectable) {
+
 		if (collectable == null) {
 			return;
 		} else if (inventory == null) {
 			return;
 		} else {
-			Position pos = new Position(getPosition().getxPos()+100,getPosition().getyPos()+100);
-			inventory.setPosition(pos);
+			inventory.setPosition(this.getPosition());
 			inventory.removeItemFromContainer(collectable);
+			System.out.println(this.inventory.returnContents());
 		}
+
 	}
 
 
-	public void dropItemID(ID itemID) {
+	public void dropItemID(ActorAssets actorAsset) {
+		boolean itemDropped = false;
+			for(int i = 0; i < this.getInventory().returnContents().size(); i++){
+				if(!itemDropped){
+					if(this.getInventory().returnContents().get(i).getAsciiCode()==actorAsset.getAsciiCode()){
+						drop((Collectable) this.getInventory().returnContents().get(i));
+						itemDropped = true;
+						break;
 
-		for(Actor actor : this.getInventory().returnContents()){
-			if(actor.getID()==itemID){
-				System.out.println("fuck");
-				drop((Collectable) actor);
+					}
+				}
 			}
-		}
-
-
 	}
 
 

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import control.GameClient;
 import control.GameServer;
+import control.Main;
 import model.Actor;
 import model.Player;
 
@@ -31,6 +32,7 @@ public class GameFrame extends JFrame {
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
 	private GameClient socketClient; //TODO: Bonnie added this!
+
 
 	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 
@@ -133,9 +135,12 @@ public class GameFrame extends JFrame {
 	 * Players GoldPanel
 	 * Players InventoryPanel
 	 * @param player
+	 * @param socketClient
 	 */
-	public void updateGUI(Player player){
-		this.updatePlayerInventory(player);
+	public void updateGUI(Player player, GameClient gameClient){
+
+		this.updatePlayerInventory(player, gameClient);
+
 		this.updatePlayerFear(player.getFear());
 	}
 
@@ -146,8 +151,10 @@ public class GameFrame extends JFrame {
 	 * Updates the players Inventory display via the InventoryPanel
 	 * @param player
 	 */
-	public void updatePlayerInventory(Player player){
-		this.inventory.update(player);
+	public void updatePlayerInventory(Player player, GameClient gameClient){
+
+			this.inventory.update(player, gameClient);
+
 	}
 
 	/**
