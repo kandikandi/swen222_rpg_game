@@ -117,18 +117,18 @@ public class Player extends Actor implements Serializable {
 	 * This method removes a Collectable from the Inventory and places it where
 	 * the Player is standing.
 	 *
-	 * @param collectable
+	 * @param actor
 	 */
-	public void drop(Collectable collectable) {
+	public void drop(Actor actor) {
 
-		if (collectable == null) {
+		if (actor == null) {
 			return;
 		} else if (inventory == null) {
 			return;
 		} else {
 			inventory.setPosition(this.getPosition());
-			inventory.removeItemFromContainer(collectable);
-			System.out.println(this.inventory.returnContents());
+			inventory.removeItemFromContainer(actor);
+
 		}
 
 	}
@@ -138,8 +138,9 @@ public class Player extends Actor implements Serializable {
 		boolean itemDropped = false;
 			for(int i = 0; i < this.getInventory().returnContents().size(); i++){
 				if(!itemDropped){
+
 					if(this.getInventory().returnContents().get(i).getAsciiCode()==actorAsset.getAsciiCode()){
-						drop((Collectable) this.getInventory().returnContents().get(i));
+						drop(this.getInventory().returnContents().get(i));
 						itemDropped = true;
 						break;
 

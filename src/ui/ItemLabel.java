@@ -34,7 +34,7 @@ public class ItemLabel extends JLabel {
 	private Image itemImage;
 	private BufferedImage emptySlot; // The Image for an Empty Slot in the players Inventory (no item)
 	private JPopupMenu itemMenu = new JPopupMenu();
-	private ID itemID;
+	private char asciiCode;
 	private InfoPanel inspectPanel;
 	private Player player;
 	private GameClient gameClient;
@@ -42,12 +42,12 @@ public class ItemLabel extends JLabel {
 	/*
 	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
-	public ItemLabel(InfoPanel inspectItem, ID itemID, Player player, GameClient gameClient){
+	public ItemLabel(InfoPanel inspectItem, char c, Player player, GameClient gameClient){
 
 		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
-		//this.itemID = itemID;
+		this.asciiCode = c;
 		this.player = player;
 		this.gameClient = gameClient;
 
@@ -58,13 +58,11 @@ public class ItemLabel extends JLabel {
 		this.addMouseListener(new PopupTriggerListener());
 
 		JMenuItem inspect = new JMenuItem("Inspect Item");
-
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(getItemLabelID().getID());
+				System.out.println(getAscii());
 				System.out.println("Item Inspected");
-				if(getLabel().getItemLabelID().getID() == 6){
-					System.out.println();
+				if(getLabel().getAscii() == 'K'){
 					inspectPanel.getInspect();
 				}
 
@@ -90,20 +88,19 @@ public class ItemLabel extends JLabel {
 		drop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//=============DROP PACKET CODE HERE===========
-				if(getLabel().getItemLabelID().getID() == 6){
-
+				String data = "";
+				if(getLabel().getAscii() == 'K'){
+					System.out.println("Here");
+					data = "5"+player.getClientNum()+"K";
 				}
-				if(getLabel().getItemLabelID().getID() == 6){
-
+				if(getLabel().getAscii() == 'B'){
+					data = "5"+player.getClientNum()+"B";
 				}
-				if(getLabel().getItemLabelID().getID() == 6){
-
-				}
-				if(getLabel().getItemLabelID().getID() == 6){
-
+				if(getLabel().getAscii() == 'C'){
+					data = "5"+player.getClientNum()+"C";
 				}
 
-				String data = "5"+player.getClientNum()+"K";
+
 				PacketDropItem p = new PacketDropItem(data.getBytes());
 				p.writeData(gameClient);
 
@@ -123,14 +120,14 @@ public class ItemLabel extends JLabel {
 	}
 
 	// rough set of this item id
-	public void setItemLabelID(ID id){
-		this.itemID = id;
-
-	}
+//	public void setItemLabelID(ID id){
+//		this.itemID = id;
+//
+//	}
 
 	//rough get of this item label
-	public ID getItemLabelID(){
-		return this.itemID;
+	public char getAscii(){
+		return this.asciiCode;
 	}
 
 	//rough return of this label

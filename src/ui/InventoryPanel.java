@@ -64,7 +64,7 @@ public class InventoryPanel extends JPanel {
 	 */
 	public void update(Player player, GameClient gameClient){
 			// Clear the Inventory every time it is updated
-			System.out.println(player.getInventory().returnContents());
+
 			items.clear();
 			this.removeAll();
 			this.revalidate();
@@ -72,9 +72,10 @@ public class InventoryPanel extends JPanel {
 
 			// Put the inventory items into the inventory
 
-				for(int i = 0; i < player.getInventory().returnContents().size(); i++){
-					ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getID(), player, gameClient);
-					newItem.setItemLabelID(player.getInventory().returnContents().get(i).getID());
+			for(int i = 0; i < player.getInventory().returnContents().size(); i++){
+
+					ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getAsciiCode(), player, gameClient);
+					//newItem.setItemLabelID(player.getInventory().returnContents().get(i).getID());
 
 					itemChar = player.getInventory().returnContents().get(i).getAsciiCode();
 					itemImage = findImage(itemChar);

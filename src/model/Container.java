@@ -89,15 +89,15 @@ public class Container extends Actor {
     /**
      * Allows for an item to be removed to the list of items.
      */
-    public void removeItemFromContainer(Collectable collectable) {
-        if (collectable == null || numItemsInContainer() == 0) {
+    public void removeItemFromContainer(Actor actor) {
+        if (actor == null || numItemsInContainer() == 0) {
             return;
-        } else if (items.contains(collectable)) {
+        } else if (items.contains(actor)) {
         	Position pos = new Position(getPosition().getxPos()+100,getPosition().getyPos()+100);
-        	collectable.setPosition(pos); //update position
-            collectable.setCollidable(true);
-            collectable.setDrawable(true);
-            items.remove(collectable);
+        	actor.setPosition(pos); //update position
+            actor.setCollidable(true);
+            actor.setDrawable(true);
+            items.remove(actor);
             return;
         } else {
             return;

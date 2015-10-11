@@ -45,7 +45,7 @@ public class PlayerController implements KeyListener  {
 	@Override
 	public void keyReleased(KeyEvent e) {
 
-		switch (e.getKeyCode()){
+		/*switch (e.getKeyCode()){
 		case KeyEvent.VK_UP:
 			thisPlayer.sendKeyPress("UP");
             break;
@@ -65,7 +65,7 @@ public class PlayerController implements KeyListener  {
         case KeyEvent.VK_SPACE:
         	thisPlayer.sendKeyPress("SPACE");
             break;
-		}
+		}*/
 	}
 
 	@Override
