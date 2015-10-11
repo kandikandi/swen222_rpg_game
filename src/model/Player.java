@@ -33,6 +33,7 @@ public class Player extends Actor implements Serializable {
 	private int bravery = 0;
 	private int clientNum;
 
+
 	/*
 	 * @XmlTransient //TODO: Bonnie added this line! protected final
 	 * GameController gameController;
@@ -123,11 +124,25 @@ public class Player extends Actor implements Serializable {
 		} else if (inventory == null) {
 			return;
 		} else {
-			Position pos = new Position(getPosition().getxPos()+50,getPosition().getyPos()+50);
+			Position pos = new Position(getPosition().getxPos()+100,getPosition().getyPos()+100);
 			inventory.setPosition(pos);
 			inventory.removeItemFromContainer(collectable);
 		}
 	}
+
+
+	public void dropItemID(ID itemID) {
+
+		for(Actor actor : this.getInventory().returnContents()){
+			if(actor.getID()==itemID){
+				System.out.println("fuck");
+				drop((Collectable) actor);
+			}
+		}
+
+
+	}
+
 
 	/**
 	 * Getter method to return Inventory
@@ -302,6 +317,8 @@ public class Player extends Actor implements Serializable {
 	public Inventory getInventory() {
 		return this.inventory;
 	}
+
+
 
 	// ========================================================
 

@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
+import model.Player;
 import view.ID;
 
 
@@ -33,16 +34,18 @@ public class ItemLabel extends JLabel {
 	private JPopupMenu itemMenu = new JPopupMenu();
 	private ID itemID;
 	private InfoPanel inspectPanel;
+	private Player player;
 
 	/*
 	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
-	public ItemLabel(InfoPanel inspectItem, ID itemID){
+	public ItemLabel(InfoPanel inspectItem, ID itemID, Player player){
 
 		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
 		this.itemID = itemID;
+		this.player = player;
 
 		/*
 		 * Set up the JPopupMenu.
@@ -84,14 +87,12 @@ public class ItemLabel extends JLabel {
 		});
 		itemMenu.add(destroy);
 
-		JMenuItem hide = new JMenuItem("Hide Coins");
+		JMenuItem hide = new JMenuItem("Drop Item");
 		hide.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Hide coins");
-				if(getLabel().getItemLabelID().getID() == 4){
+				System.out.println("Dropping Item");
+				player.dropItemID(itemID);
 
-
-				}
 
 			}
 		});

@@ -12,6 +12,7 @@ import control.Packet.PacketTypes;
 import model.Actor;
 import model.GameException;
 import model.GameState;
+import save.DataStorage;
 import ui.GameCanvas;
 import view.GameCamera;
 import view.Renderer;
@@ -155,12 +156,24 @@ public class GameClient extends Thread {
     }
 
     // Added so GUI could get GameState via GameClient
-    /*public GameState getGameState(){
-        return game;
-	}*/
+    public GameState getGameState(){
+        return gameState;
+	}
 
     // Added so GUI can compare client number to update specific players inventory
     public int getClientNum() {
         return this.clientNum;
+    }
+
+    /**
+     * Bonnie added this here!
+     * Method to save the game state!
+     */
+    public void save() {
+        DataStorage.save(gameState);
+    }
+
+    public void load() {
+    	gameState = DataStorage.load();
     }
 }
