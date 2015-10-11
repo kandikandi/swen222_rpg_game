@@ -103,7 +103,7 @@ public class Factory {
      */
     private Actor createTree(int x, int y) {
         int size = Main.TILE_SIZE;
-        BoundingBox bbox = new BoundingBox(size, size, 50, 60);
+        BoundingBox bbox = new BoundingBox(size, size, 50, 90);
         Position pos = new Position(x, y, bbox);
         Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
         return tree;
@@ -178,7 +178,7 @@ public class Factory {
      * This method constructs a standard PlayerActor object.
      */
     public Player createPlayerActor(int clientNum) {
-        BoundingBox bBox = new BoundingBox(20, 20, 10, 10);
+        BoundingBox bBox = new BoundingBox(20, 20, 10, 15);
         Position loc = new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y, bBox);
         if (clientNum == 1) {
             loc = new Position(Main.PLAYER_TWO_START_LOCATION_X, Main.PLAYER_TWO_START_LOCATION_Y, bBox);

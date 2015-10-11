@@ -43,7 +43,7 @@ public final class Position  implements Serializable {
     }
 
     public BoundingBox getBoundingBox() {
-        boundingBox.setLocation(xPos+bBoxYOffset, yPos+bBoxYOffset);
+        boundingBox.setLocation(xPos+bBoxXOffset, yPos+bBoxYOffset);
         return boundingBox;
     }
 
@@ -53,7 +53,7 @@ public final class Position  implements Serializable {
      * @return value of xpos
      */
     @XmlElement(name = "xposition") //TODO: Bonnie added this line!
-    public Integer getxPos() {
+    public int getxPos() {
         return xPos;
     }
 
@@ -61,7 +61,7 @@ public final class Position  implements Serializable {
      * Setter function for x element.
      *
      */
-    public void setxPos(Integer xPos) {
+    public void setxPos(int xPos) {
         this.xPos = xPos;
     }
 
@@ -71,7 +71,7 @@ public final class Position  implements Serializable {
      * @return value of ypos
      */
     @XmlElement(name = "yposition") //TODO: Bonnie added this line!
-    public Integer getyPos() {
+    public int getyPos() {
         return yPos;
     }
 
@@ -79,7 +79,7 @@ public final class Position  implements Serializable {
      * Setter function for y element.
      *
      */
-    public void setyPos(Integer yPos) {
+    public void setyPos(int yPos) {
         this.yPos = yPos;
     }
 

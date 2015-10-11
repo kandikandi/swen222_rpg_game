@@ -2,10 +2,7 @@ package view;
 
 
 import control.Main;
-import model.Actor;
-import model.GameState;
-import model.Player;
-import model.Tile;
+import model.*;
 import ui.GameCanvas;
 import java.awt.*;
 import java.awt.List;
@@ -57,6 +54,18 @@ public final class Renderer {
         final int HALF_C_WIDTH = Main.C_WIDTH / 2;
         final int HALF_C_HEIGHT = Main.C_HEIGHT / 2;
 
+        Comparator<Actor> actorComparator = new Comparator<Actor>() {
+            @Override
+            public int compare(Actor actorA, Actor actorB) {
+                BoundingBox bboxA = actorA.getBoundingBox();
+                BoundingBox bboxB = actorB.getBoundingBox();
+                if(bboxA.getMaxY() > bboxB.getMaxY()){return 1;}
+                else if(bboxA.getMaxY() < bboxB.getMaxY()){return -1;}
+                else if(bboxA.getMaxX() > bboxB.getMaxX()){return 1;}
+                else if(bboxA.getMaxX() < bboxB.getMaxX()){return -1;}
+                return 0;
+            }
+        };
 
         // Look for all entities that contain the two components required to
         // draw it
@@ -69,7 +78,7 @@ public final class Renderer {
 
 
         camera.getActorView(gameState, playerNum)
-                .stream()
+                .stream().sorted(actorComparator)
                 .filter(actor -> actor.isDrawable())
                 .forEach(actor -> {
                     Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
