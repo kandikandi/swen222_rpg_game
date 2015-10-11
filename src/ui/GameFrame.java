@@ -103,7 +103,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				//socketClient.save();
+				socketClient.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
@@ -116,7 +116,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//socketClient.load();
+				socketClient.load();
 			}
 
 		});
