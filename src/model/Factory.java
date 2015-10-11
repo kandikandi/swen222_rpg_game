@@ -19,9 +19,9 @@ import view.TestWorlds;
  * a position for initial placement.
  */
 
-public class TestModeFactory {
+public class Factory {
 
-    public TestModeFactory() {
+    public Factory() {
 
     }
 

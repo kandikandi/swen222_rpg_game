@@ -41,7 +41,7 @@ public class GameState {
 	 */
 	@XmlTransient
 	// TODO: Bonnie added this here!
-	private final TestModeFactory factory;
+	private final Factory factory;
 
 	/**
 	 * The constructor creates the factory which constructs the Tiles and Actors
@@ -50,7 +50,7 @@ public class GameState {
 	 * @param isServer
 	 */
 	public GameState(boolean isServer) {
-		factory = new TestModeFactory();
+		factory = new Factory();
 		worldTiles = factory.createWorldTiles();
 		if (isServer) {
 			actors = factory.createActorList();
