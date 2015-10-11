@@ -60,6 +60,7 @@ public class InventoryPanel extends JPanel {
 	 */
 	public void update(ArrayList<Actor> inventory){
 			// Clear the Inventory every time it is updated
+
 			items.clear();
 			this.removeAll();
 			this.revalidate();

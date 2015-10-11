@@ -155,9 +155,9 @@ public class GameClient extends Thread {
     }
 
     // Added so GUI could get GameState via GameClient
-    /*public GameState getGameState(){
-        return game;
-	}*/
+    public GameState getGameState(){
+        return gameState;
+	}
 
     // Added so GUI can compare client number to update specific players inventory
     public int getClientNum() {

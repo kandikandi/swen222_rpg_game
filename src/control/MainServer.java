@@ -40,8 +40,7 @@ public class MainServer {
     private static GameServer socketServer;
     //private static PlayerController playerController;
 
-
-    public static void main(String[] args) {
+    public void launchServer() {
         EventQueue.invokeLater(new Runnable() {
                                    public void run() {
                                        boolean isServer = true;
@@ -52,14 +51,56 @@ public class MainServer {
 
                                        // Set up the gameFrame
                                        //TODO: Bonnie added this extra argument!
-                                       GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
+                                       //GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
                                        //Setup UI
-                                       GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
-                                       gameFrame.getContentPane().add(gameCanvas);
-                                       gameFrame.pack();
+                                       //GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+                                       //gameFrame.getContentPane().add(gameCanvas);
+                                       //gameFrame.pack();
 
                                    }
+
+                                   public void shutdownServer(){
+
+
+    							   }
+
                                }
         );
     }
+
+
+
+
+
+
+
+
+
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//                                   public void run() {
+//                                       boolean isServer = true;
+//                                       socketServer = new GameServer();
+//                                       socketServer.start();
+//                                       GameState gameState = new GameState(isServer);
+//                                       socketServer.setGame(gameState);
+//
+//                                       // Set up the gameFrame
+//                                       //TODO: Bonnie added this extra argument!
+//                                       GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
+//                                       //Setup UI
+//                                       GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+//                                       gameFrame.getContentPane().add(gameCanvas);
+//                                       gameFrame.pack();
+//
+//                                   }
+//
+//                                   public void shutdownServer(){
+//
+//
+//    							   }
+//
+//                               }
+//        );
+//    }
 }

@@ -32,7 +32,7 @@ public class MainClient {
     private static GameServer socketServer;
 
 
-    public static void main(String[] args) {
+    public void launchClient() {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -49,6 +49,7 @@ public class MainClient {
 
                 GameState gameState = new GameState(isServer);
                 GameClient socketClient = new GameClient("localhost", gameState, gameCanvas);
+                gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
 
@@ -64,4 +65,41 @@ public class MainClient {
         });
 
     }
+
+
+
+
+
+//    public static void main(String[] args) {
+//
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                boolean isServer = false;
+//
+//                String username = "00" + JOptionPane.showInputDialog(null, "enter username");
+//
+//                //Setup UI
+//                //TODO: Bonnie added this extra argument!
+//                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
+//                GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+//                gameFrame.getContentPane().add(gameCanvas);
+//                gameFrame.pack();
+//
+//                GameState gameState = new GameState(isServer);
+//                GameClient socketClient = new GameClient("localhost", gameState, gameCanvas);
+//                PlayerController playerController = new PlayerController(socketClient);
+//                gameFrame.addKeyListener(playerController);
+//
+//                socketClient.start();
+//                PacketLogin loginPacket = new PacketLogin(username.getBytes());
+//                loginPacket.writeData(socketClient);
+//
+//                 //EnemyController enemyController = new EnemyController(gameState);
+//                 //GameTimer gameTimer = new GameTimer(camera, renderer/*, enemyController*/);
+//                 //gameTimer.start();
+//            }
+//
+//        });
+//
+//    }
 }

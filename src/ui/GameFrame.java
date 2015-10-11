@@ -166,6 +166,15 @@ public class GameFrame extends JFrame {
 	public GameFrame getGameFrame(){
 		return this;
 	}
+	
+	
+	
+//	public static void main(String args[]){
+//		LoginScreen login = new LoginScreen();	
+//	}
+	
+	
+	
 
 
 	//	/**

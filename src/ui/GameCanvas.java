@@ -24,6 +24,7 @@ public class GameCanvas extends JPanel {
 	private int HEIGHT;
 	private GameFrame frame;
 	private GameClient socketClient;
+	private boolean clientSet = false;
 	//private final GameController gameController;
 
 	//TODO does this class need a reference to GameFrame?
@@ -33,8 +34,8 @@ public class GameCanvas extends JPanel {
 	 * @param WIDTH
 	 * @param HEIGHT
 	 */
-	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT/*, GameClient socketClient*/) {
-		//this.socketClient = socketClient;
+	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT) {
+
 		//this.gameController = gameController;
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
@@ -68,16 +69,20 @@ public class GameCanvas extends JPanel {
 			g2.drawImage(receivedImage,0,0,this);
 		}
 		//this works
-
-	/*	for( Actor a : socketClient.getGameState().getActors() ){
-
-			if(a instanceof Player){
-				if(((Player) a).getClientNum() == socketClient.getClientNum()){
-					this.getFrame().updateGUI((socketClient.getGameState().findPlayer(((Player) a).getClientNum())));
-				}
+		if(clientSet){
+			Player player = socketClient.getGameState().findPlayer(socketClient.getClientNum());
+			if(player != null){
+				this.getFrame().updateGUI(player);
 			}
-		}*/
 
+		}
+
+
+	}
+
+	public void setSocketClient(GameClient client){
+		this.socketClient = client;
+		this.clientSet = true;
 	}
 
 	/**

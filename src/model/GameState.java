@@ -144,6 +144,7 @@ public class GameState {
 	 * @return Player
 	 */
 	public Player findPlayer(int playerNum) {
+		if(actors != null){
 		for (Actor actor : actors) {
 			if (actor instanceof Player) {
 				Player player = (Player) actor;
@@ -151,6 +152,7 @@ public class GameState {
 					return player;
 				}
 			}
+		}
 		}
 		return null;
 	}
