@@ -168,16 +168,4 @@ public class GameServer extends Thread {
         }
 
     }
-
-    /**
-     * Bonnie added this here!
-     * Method to save the game state!
-     */
-    public void save() {
-        DataStorage.save(game);
-    }
-
-    public void load() {
-        game = DataStorage.load();
-    }
 }
