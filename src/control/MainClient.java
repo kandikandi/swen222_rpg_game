@@ -1,6 +1,7 @@
 package control;
 
 import java.awt.EventQueue;
+
 import javax.swing.JOptionPane;
 
 import view.GameCamera;
@@ -32,13 +33,13 @@ public class MainClient {
 
 
 
-    public void launchClient() {
+    public void launchClient(String username) {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 boolean isServer = false;
 
-                String username = "00" + JOptionPane.showInputDialog(null, "enter username");
+                //String username = "00" + JOptionPane.showInputDialog(null, "enter username");
 
                 //Setup UI
 
@@ -52,7 +53,6 @@ public class MainClient {
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
-
 
                 socketClient.start();
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());

@@ -1,5 +1,7 @@
 package ui;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,12 +20,14 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayer;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import control.GameServer;
@@ -38,6 +42,8 @@ public class LoginScreen extends JFrame {
 	private BufferedImage hostGameImage;
 	private BufferedImage joinGameImage;
 	private BufferedImage exitGameImage;
+	private BufferedImage login;
+	private BufferedImage serverStarted;
 	private int HEIGHT;
 	private int WIDTH;
 	private boolean isServer;
@@ -45,7 +51,9 @@ public class LoginScreen extends JFrame {
 	private JLabel bg = new JLabel();
 	private JLabel host = new JLabel();
 	private JLabel join = new JLabel();
-	private javax.swing.JLayeredPane layer = new javax.swing.JLayeredPane();
+	private boolean userNameEntered = false;
+	private boolean hosted = false;
+	String username = "00";
 
 	private boolean picked = false;
 
@@ -56,12 +64,15 @@ public class LoginScreen extends JFrame {
 			backgroundScreen = ImageIO.read(new File("LoginScreen(1).png"));
 			title = ImageIO.read(new File("Title.png"));
 			hostGameImage = ImageIO.read(new File("Host.png"));
-			joinGameImage = ImageIO.read(new File("Join.png"));
+			joinGameImage = ImageIO.read(new File("JoinGray.png"));
 			exitGameImage = ImageIO.read(new File("Exit.png"));
+			login = ImageIO.read(new File("loginButton.png"));
+			serverStarted = ImageIO.read(new File("serverStarted.png"));
 		} catch (IOException e) {
-			System.out.println("hi");
 			e.printStackTrace();
 		}
+
+		//this.setBackground(new Color(100,100,100));
 
 		this.HEIGHT = 600;
 		this.WIDTH = 1000;
@@ -69,11 +80,31 @@ public class LoginScreen extends JFrame {
 		//this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		//this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setSize(new Dimension(1000,600));
-		this.repaint();
-		this.add(layer);
 		this.pack();
 		this.revalidate();
 		this.setVisible(true);
+
+
+
+//		confirm.addActionListener(
+//				new ActionListener(){
+//
+//					public void actionPerformed(ActionEvent e){
+//						if(nameField.getText().length() <= 0 || nameField.getText().length() >= 13){
+//							JOptionPane.showMessageDialog(LoginScreen.this, "You have entered either to little or to many characters");
+//						}
+//						else {
+//							username = "OO";
+//							username = username + nameField.getText();
+//							nameField.setText(""); //resets text to be blank
+//							userNameEntered = true;
+//							repaint();
+//							//nameTitle.setText("Player " + (count + 1) + "'s Name:");
+//						}
+//					}
+//				}
+//				);
+//		getContentPane().add(confirm);
 
 //		addWindowListener(new WindowAdapter() {
 //
@@ -90,6 +121,8 @@ public class LoginScreen extends JFrame {
 //			}
 //		});
 
+
+
 		addMouseListener(
 				new MouseAdapter(){
 					private boolean isServer;
@@ -102,17 +135,22 @@ public class LoginScreen extends JFrame {
 						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 
 							System.out.println("Launching server");
+							hosted = true;
 							MainServer.main(null);
 
 						}
-						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476){
+						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
+
 							MainClient client = new MainClient();
-							client.launchClient();
+							client.launchClient(username);
 							dispose();
 
 						} else if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
-
 							dispose();
+
+						} else if( xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54){
+							String username = "00" + JOptionPane.showInputDialog(null, "enter username");
+							userNameEntered = true;
 						}
 					}
 				});
@@ -144,23 +182,43 @@ public class LoginScreen extends JFrame {
 					}
 					repaint();
 				}
-
-				if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476){
-					try {
-						joinGameImage = ImageIO.read(new File("JoinHover.png"));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				if(userNameEntered){
+					if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476){
+						try {
+							joinGameImage = ImageIO.read(new File("JoinHover.png"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						repaint();
+					} else {
+						try {
+							joinGameImage = ImageIO.read(new File("Join.png"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						repaint();
 					}
-					repaint();
-				} else {
-					try {
-						joinGameImage = ImageIO.read(new File("Join.png"));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+				}
+				if(!userNameEntered){
+					if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476){
+						try {
+							joinGameImage = ImageIO.read(new File("JoinGrayHover.png"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						repaint();
+					} else {
+						try {
+							joinGameImage = ImageIO.read(new File("JoinGray.png"));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						repaint();
 					}
-					repaint();
 				}
 
 				if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
@@ -180,6 +238,27 @@ public class LoginScreen extends JFrame {
 						e.printStackTrace();
 					}
 					repaint();
+				}
+
+				if(xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54 && !userNameEntered){
+
+					try {
+						login = ImageIO.read(new File("loginHover.png"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+
+
+				} else if(!userNameEntered){
+
+					try {
+						login = ImageIO.read(new File("loginButton.png"));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 
 
@@ -213,7 +292,16 @@ public class LoginScreen extends JFrame {
 		graphics.drawImage(joinGameImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
 		graphics.drawImage(title.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
 		graphics.drawImage(exitGameImage.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
+
+		if(!userNameEntered){
+			graphics.drawImage(login.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
+		}
+
+		if(hosted){
+			graphics.drawImage(serverStarted.getScaledInstance(getWidth(), getHeight(), Image.SCALE_SMOOTH), 0, 0, null);
+		}
 		g.drawImage(offScreen, 0, 0, null);
+
 	}
 
 //	private void checkIfServer(Boolean server, Boolean join){
