@@ -52,7 +52,7 @@ public class MainServer {
 
                                        // Set up the gameFrame
                                        //TODO: Bonnie added this extra argument!
-                                       GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
+                                       GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
                                        //Setup UI
                                        GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                                        gameFrame.getContentPane().add(gameCanvas);

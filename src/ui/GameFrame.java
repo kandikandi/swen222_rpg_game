@@ -2,6 +2,7 @@ package ui;
 
 import javax.swing.*;
 
+import control.GameClient;
 import control.GameServer;
 import model.Actor;
 import model.Player;
@@ -29,15 +30,13 @@ public class GameFrame extends JFrame {
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
-	private GameServer socketServer; //TODO: Bonnie added this!
+	private GameClient socketClient; //TODO: Bonnie added this!
 
 	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 
 	// TODO: Bonnie added extra argument here!
-	public GameFrame(String title, int WIDTH, int HEIGHT, GameServer socketServer) {
+	public GameFrame(String title, int WIDTH, int HEIGHT) {
 		super(title);
-
-		this.socketServer = socketServer;
 
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
@@ -104,7 +103,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				socketServer.save();
+				socketClient.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
@@ -117,7 +116,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				socketServer.load();
+				socketClient.load();
 			}
 
 		});
@@ -165,6 +164,10 @@ public class GameFrame extends JFrame {
 	 */
 	public GameFrame getGameFrame(){
 		return this;
+	}
+
+	public void add(GameClient socketClient) {
+		this.socketClient = socketClient;
 	}
 
 

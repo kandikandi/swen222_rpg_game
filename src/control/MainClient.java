@@ -42,7 +42,7 @@ public class MainClient {
 
                 //Setup UI
                 //TODO: Bonnie added this extra argument!
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();
@@ -51,6 +51,7 @@ public class MainClient {
                 GameClient socketClient = new GameClient("localhost", gameState, gameCanvas);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
+                gameFrame.add(socketClient);
 
                 socketClient.start();
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());

@@ -15,7 +15,6 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @XmlRootElement(namespace = "gamestate")
-// TODO: Bonnie added this here!
 public class GameState {
 
 	/**
