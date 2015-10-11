@@ -1,5 +1,5 @@
 package model;
-import view.ID;
+
 public class Door extends Actor {
 
 	private boolean open;
@@ -7,15 +7,14 @@ public class Door extends Actor {
 	/**
 	 * This class defines Door objects, which block the path of
 	 * Player objects unless the Player has a key.
-	 * @param id
 	 * @param position
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
 	 */
-	public Door(ID id, Position position, char imagePath, boolean collidable,
+	public Door(Position position, char imagePath, boolean collidable,
 				boolean drawable) {
-		super(id, position, imagePath, collidable, drawable);
+		super(position, imagePath, collidable, drawable);
 	}
 
 	/**

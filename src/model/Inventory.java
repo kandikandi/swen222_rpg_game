@@ -3,7 +3,6 @@ package model;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import view.ID;
 
 /**
  * An Inventory is a Container which a Player always has
@@ -23,17 +22,15 @@ public class Inventory extends Container {
 	/**
 	 * Constructor with owning player added on construction. Also can insert
 	 * items at same time.
-	 *
-	 * @param id
-	 * @param position
+	 *  @param position
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
 	 * @param collectables
 	 */
-	public Inventory(ID id, Position position, char imagePath, boolean collidable,
-			boolean drawable, Collectable... collectables) {
-		super(id, position, imagePath, false, false, collectables);
+	public Inventory(Position position, char imagePath, boolean collidable,
+					 boolean drawable, Collectable... collectables) {
+		super(position, imagePath, false, false, collectables);
 //		this.inventoryOwner = inventoryOwner;
 
 	}

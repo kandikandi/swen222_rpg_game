@@ -2,7 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-import view.ID;
 
 public class CoinBag extends Container {
 
@@ -12,16 +11,14 @@ public class CoinBag extends Container {
 	 * A CoinBag object can be picked up by a Player and placed into the
 	 * Player's Inventory. This increases the number of Coin objects a Player
 	 * can carry from 9 to 50 per CoinBag.
-	 *
-	 * @param id
-	 * @param position
+	 *  @param position
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
 	 */
-	public CoinBag(ID id, Position position, char imagePath,
-			boolean collidable, boolean drawable) {
-		super(id, position, imagePath, collidable, drawable);
+	public CoinBag(Position position, char imagePath,
+				   boolean collidable, boolean drawable) {
+		super(position, imagePath, collidable, drawable);
 		this.items = new ArrayList<Actor>();
 	}
 

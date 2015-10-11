@@ -1,21 +1,18 @@
 package model;
 
-import view.ID;
 
 public class Key extends Collectable {
 
 	/**
 	 * A Key object can be picked up by a Player and used to
 	 * open a Door.
-	 *
-	 * @param id
-	 * @param position
+	 *  @param position
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
 	 */
-	public Key(ID id, Position position, char imagePath, boolean collidable, boolean drawable) {
-		super(id, position, imagePath, collidable, drawable);
+	public Key(Position position, char imagePath, boolean collidable, boolean drawable) {
+		super(position, imagePath, collidable, drawable);
 
 	}
 

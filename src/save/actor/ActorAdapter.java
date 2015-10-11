@@ -28,13 +28,13 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 	public Actor unmarshal(AdaptedActor aa) throws Exception {
 		switch (aa.getType()) {
 		case "coin":
-			return new Coin(aa.getId(), aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
+			return new Coin(aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
 		case "coinbag":
-			return new CoinBag(aa.getId(), aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
+			return new CoinBag(aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
 		case "key":
-			return new Key(aa.getId(), aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
+			return new Key(aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
 		case "enemy":
-			Enemy enemy = new Enemy(aa.getId(), aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(),
+			Enemy enemy = new Enemy(aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(),
 					aa.isDrawable());
 			enemy.setAlive(aa.isAlive());
 			enemy.setAttackPoints(aa.getAttackPoints());
@@ -42,7 +42,7 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			enemy.setCount(aa.getCount());
 			return enemy;
 		case "player":
-			Player player = new Player(aa.getId(), aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(),
+			Player player = new Player(aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(),
 					aa.isDrawable(), aa.getClientNum());
 			player.setHasKey(aa.hasKey());
 			player.setFear(aa.getFear());

@@ -2,7 +2,6 @@ package save.actor;
 
 import model.BoundingBox;
 import model.Position;
-import view.ID;
 
 /**
  * Created on 05/10/2015
@@ -19,7 +18,7 @@ public class AdaptedActor {
 	private Position position;
 	private boolean collidable;
 	private boolean drawable;
-	private ID id;
+	//private ID id;
 	private BoundingBox boundingBox;
 	private char asciiCode;
 
@@ -162,13 +161,13 @@ public class AdaptedActor {
 		this.drawable = drawable;
 	}
 
-	public ID getId() {
+	/*public ID getId() {
 		return id;
-	}
+	}*/
 
-	public void setId(ID id) {
+	/*public void setId(ID id) {
 		this.id = id;
-	}
+	}*/
 
 	//TODO Cuan replaced getBoundingBoxSize to just boundingBox.
 	public BoundingBox getBoundingBox() {
