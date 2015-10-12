@@ -29,14 +29,6 @@ public class BoundingBox extends Rectangle {
         this.xOffset = 0;
         this.yOffset = 0;
     }
-
-//    protected int getXOffset() {
-//        return xOffset;
-//    }
-//
-//    protected int getYOffset() {
-//        return yOffset;
-//    }
     
     public int getXOffset(){
     	return xOffset;

@@ -60,7 +60,7 @@ public class Actor implements Serializable {
     /**
      * Getter method for this GameObject's position.
      *
-     * @return GameObject's Image.
+     * @return GameObject's Position.
      */
     public Position getPosition() {
         return position;
@@ -139,6 +139,14 @@ public class Actor implements Serializable {
      */
     public boolean isCollidable() {
         return collidable;
+    }
+
+
+    public void setX(int xPos){
+    	position.setxPos(xPos);
+    }
+    public void setY(int yPos){
+    	position.setxPos(yPos);
     }
 
     /**

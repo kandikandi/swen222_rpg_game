@@ -55,12 +55,7 @@ public class Collectable extends Actor {
         this.setCollidable(true);
     }
 
-    /**
-     * Setter for Position.
-     */
-    public void setPosition(Position position) {
-        this.position = position;
-    }
+
 
     @Override
     public void tick() {
