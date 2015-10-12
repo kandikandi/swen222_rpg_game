@@ -96,8 +96,8 @@ public class PlayerStatsPanel extends JPanel {
 	 * Updates the players three information Jlabels (Attack, Level, Gold)
 	 */
 	public void updateStats(){
-		setAttack();
-		setLevel();
+//		setAttack();
+//		setLevel();
 		setGold();
 	}
 
@@ -122,6 +122,12 @@ public class PlayerStatsPanel extends JPanel {
 		if(backgroundImage!= null){
 			g.drawImage(backgroundImage, 0, 0, null);
 		}
+
+	}
+
+	public void setCoins(int count) {
+		this.gold.setText("Gold: " + count            );
+		this.revalidate();
 
 	}
 }
