@@ -35,6 +35,11 @@ import control.Main;
 import control.MainClient;
 import control.MainServer;
 
+/**
+ * Main Method starts the game. The LoginScreen displays the options to set username and to either host or join a game.
+ * @author newtondavi2
+ *
+ */
 public class LoginScreen extends JFrame {
 
 	private BufferedImage backgroundScreen;
@@ -44,8 +49,8 @@ public class LoginScreen extends JFrame {
 	private BufferedImage exitGameImage;
 	private BufferedImage login;
 	private BufferedImage serverStarted;
-	private int HEIGHT;
-	private int WIDTH;
+	private int HEIGHT = 600;
+	private int WIDTH = 1000;
 	private boolean isServer;
 	private boolean clicked;
 	private JLabel bg = new JLabel();
@@ -72,56 +77,9 @@ public class LoginScreen extends JFrame {
 			e.printStackTrace();
 		}
 
-		//this.setBackground(new Color(100,100,100));
-
-		this.HEIGHT = 600;
-		this.WIDTH = 1000;
-
-		//this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
-		//this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		this.setSize(new Dimension(1000,600));
 		this.pack();
-		this.revalidate();
 		this.setVisible(true);
-
-
-
-//		confirm.addActionListener(
-//				new ActionListener(){
-//
-//					public void actionPerformed(ActionEvent e){
-//						if(nameField.getText().length() <= 0 || nameField.getText().length() >= 13){
-//							JOptionPane.showMessageDialog(LoginScreen.this, "You have entered either to little or to many characters");
-//						}
-//						else {
-//							username = "OO";
-//							username = username + nameField.getText();
-//							nameField.setText(""); //resets text to be blank
-//							userNameEntered = true;
-//							repaint();
-//							//nameTitle.setText("Player " + (count + 1) + "'s Name:");
-//						}
-//					}
-//				}
-//				);
-//		getContentPane().add(confirm);
-
-//		addWindowListener(new WindowAdapter() {
-//
-//			@Override
-//			public void windowClosing(WindowEvent we) {
-//
-//				String ObjButtons[] = {"Yes", "No"};
-//				int PromptResult = JOptionPane.showOptionDialog(null, "Are you sure you want to exit?", "Bed Time Story",
-//						JOptionPane.DEFAULT_OPTION, JOptionPane.WARNING_MESSAGE, null, ObjButtons, ObjButtons[1]);
-//				if (PromptResult == JOptionPane.YES_OPTION) {
-//
-//					System.exit(0);
-//				}
-//			}
-//		});
-
-
 
 		addMouseListener(
 				new MouseAdapter(){
@@ -131,23 +89,18 @@ public class LoginScreen extends JFrame {
 					public void mouseClicked(MouseEvent arg0){
 						int xCord = arg0.getX();
 						int yCord = arg0.getY();
-						System.out.println("x: " + xCord + "y " + yCord);
-						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 
+						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 							System.out.println("Launching server");
 							hosted = true;
 							MainServer.main(null);
-
 						}
 						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
-
 							MainClient client = new MainClient();
 							client.launchClient(username);
 							dispose();
-
 						} else if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
 							dispose();
-
 						} else if( xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54){
 							String username = "00" + JOptionPane.showInputDialog(null, "enter username");
 							userNameEntered = true;
@@ -157,18 +110,14 @@ public class LoginScreen extends JFrame {
 
 		addMouseMotionListener(new MouseMotionListener(){
 
-			/*
-			 * (non-Javadoc)
-			 * @see java.awt.event.MouseAdapter#mouseMoved(java.awt.event.MouseEvent)
-			 */
 			public void mouseMoved(MouseEvent arg0) {
 				int xCord = arg0.getX();
 				int yCord = arg0.getY();
+
 				if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 					try {
 						hostGameImage = ImageIO.read(new File("HostHover.png"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					repaint();
@@ -177,17 +126,16 @@ public class LoginScreen extends JFrame {
 					try {
 						hostGameImage = ImageIO.read(new File("Host.png"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					repaint();
 				}
+
 				if(userNameEntered){
 					if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476){
 						try {
 							joinGameImage = ImageIO.read(new File("JoinHover.png"));
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						repaint();
@@ -195,12 +143,12 @@ public class LoginScreen extends JFrame {
 						try {
 							joinGameImage = ImageIO.read(new File("Join.png"));
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						repaint();
 					}
 				}
+
 				if(!userNameEntered){
 					if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476){
 						try {
@@ -234,7 +182,6 @@ public class LoginScreen extends JFrame {
 					try {
 						exitGameImage = ImageIO.read(new File("Exit.png"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					repaint();
@@ -245,18 +192,14 @@ public class LoginScreen extends JFrame {
 					try {
 						login = ImageIO.read(new File("loginHover.png"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-
-
 
 				} else if(!userNameEntered){
 
 					try {
 						login = ImageIO.read(new File("loginButton.png"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -266,21 +209,15 @@ public class LoginScreen extends JFrame {
 
 			@Override
 			public void mouseDragged(MouseEvent e) {
-				// TODO Auto-generated method stub
-
 
 			}
 		});
 
-
-
-
-
 		// Center window in screen
-				Toolkit toolkit = Toolkit.getDefaultToolkit();
-				Dimension scrnsize = toolkit.getScreenSize();
-				setBounds((scrnsize.width - WIDTH) / 2,
-						(scrnsize.height - HEIGHT) / 2, WIDTH, HEIGHT);
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension scrnsize = toolkit.getScreenSize();
+		setBounds((scrnsize.width - WIDTH) / 2,
+				(scrnsize.height - HEIGHT) / 2, WIDTH, HEIGHT);
 
 	}
 
@@ -304,32 +241,8 @@ public class LoginScreen extends JFrame {
 
 	}
 
-//	private void checkIfServer(Boolean server, Boolean join){
-//
-//		if(server && !join){
-//			this.isServer = true;
-//		}
-//		if(!server && join){
-//			this.isServer = false;
-//		}
-//		this.picked = true;
-//		this.clicked = true;
-//		this.setVisible(false);
-//
-//	}
-
 	public static void main(String args[]){
-		  LoginScreen screen = new LoginScreen();
+		LoginScreen screen = new LoginScreen();
 	}
-
-	public boolean getResult() {
-		return this.isServer;
-	}
-
-	public boolean getClick() {
-		return this.clicked;
-	}
-
-
 
 }

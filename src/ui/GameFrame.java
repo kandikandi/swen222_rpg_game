@@ -11,6 +11,8 @@ import model.Player;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -50,20 +52,20 @@ public class GameFrame extends JFrame {
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CHANGE TO DO_NOTHING_ON_CLOSE
-		//this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-		//		addWindowListener(new WindowAdapter() {
-		//		    @Override
-		//		    public void windowClosing(WindowEvent we)
-		//		    {
-		//		        String ObjButtons[] = {"Yes","No"};
-		//		        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
-		//		        if(PromptResult==JOptionPane.YES_OPTION)
-		//		        {
-		//		            System.exit(0);
-		//		        }
-		//		    }
-		//		});
+				addWindowListener(new WindowAdapter() {
+				    @Override
+				    public void windowClosing(WindowEvent we)
+				    {
+				        String ObjButtons[] = {"Yes","No"};
+				        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+				        if(PromptResult==JOptionPane.YES_OPTION)
+				        {
+				            System.exit(0);
+				        }
+				    }
+				});
 
 		this.setupMenuBar();
 
@@ -144,9 +146,6 @@ public class GameFrame extends JFrame {
 		this.updatePlayerFear(player.getFear());
 	}
 
-
-
-
 	/**
 	 * Updates the players Inventory display via the InventoryPanel
 	 * @param player
@@ -176,22 +175,5 @@ public class GameFrame extends JFrame {
 	public void add(GameClient socketClient) {
 		this.socketClient = socketClient;
 	}
-
-
-	//	/**
-	//	 * Creates a New Game of BedTime Story and disposes of the current game
-	//	 */
-	//	public void newGame(){
-	//		BoardFrame f = new BoardFrame();
-	//		this.dispose();
-	//	}
-	//
-	//	/**
-	//	 * Saves the current game of BedTime Story
-	//	 */
-	//	public void saveGame(){
-	//		BoardFrame f = new BoardFrame();
-	//		this.dispose();
-	//	}
 
 }

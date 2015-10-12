@@ -31,7 +31,6 @@ import model.Player;
  */
 public class InventoryPanel extends JPanel {
 
-
 	private InfoPanel inspectItem;
 	private char itemChar;
 	private Image itemImage;
@@ -46,7 +45,6 @@ public class InventoryPanel extends JPanel {
 		this.setLayout(new GridLayout(3,3));
 		this.setBackground(new Color(204, 255, 255));
 		this.createBorder();
-
 
 		try {
 			// load the imageName
@@ -63,15 +61,14 @@ public class InventoryPanel extends JPanel {
 	 * @param gameClient
 	 */
 	public void update(Player player, GameClient gameClient){
-			// Clear the Inventory every time it is updated
 
+		// Clear the Inventory every time it is updated
 			items.clear();
 			this.removeAll();
 			this.revalidate();
 			int itemAmount = player.getInventory().returnContents().size();
 
 			// Put the inventory items into the inventory
-
 			for(int i = 0; i < player.getInventory().returnContents().size(); i++){
 
 					ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getAsciiCode(), player, gameClient);
@@ -101,7 +98,7 @@ public class InventoryPanel extends JPanel {
 
 			// Update the InventoryPanel
 			this.revalidate();
-//		}
+
 	}
 
 	public Image findImage(char c){

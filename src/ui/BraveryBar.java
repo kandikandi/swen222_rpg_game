@@ -60,10 +60,6 @@ public class BraveryBar extends JLabel {
 		int yPos = getHeight()/2 + stringHeight/3;
 		g.drawString(braveryStats, xPos, yPos);
 
-
-		/*if(displayedBravery == 0 ){
-			You level yay
-		}*/
 	}
 
 	/**

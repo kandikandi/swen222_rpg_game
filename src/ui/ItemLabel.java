@@ -51,22 +51,12 @@ public class ItemLabel extends JLabel {
 		this.player = player;
 		this.gameClient = gameClient;
 
-		/*
-		 * Set up the JPopupMenu.
-		 * This menu only displays when a ItemLabel is right clicked
-		 */
 		this.addMouseListener(new PopupTriggerListener());
 
 		JMenuItem inspect = new JMenuItem("Inspect Item");
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(getAscii());
-				System.out.println("Item Inspected");
-				if(getLabel().getAscii() == 'K'){
-					inspectPanel.getInspect();
-				}
-
-
+				inspectPanel.getInspect(getLabel().getAscii());
 			}
 		});
 		itemMenu.add(inspect);
@@ -76,10 +66,6 @@ public class ItemLabel extends JLabel {
 			public void actionPerformed(ActionEvent e) {
 				//=============USE PACKET CODE HERE===========
 
-				//
-				//
-
-
 			}
 		});
 		itemMenu.add(use);
@@ -87,7 +73,6 @@ public class ItemLabel extends JLabel {
 		JMenuItem drop = new JMenuItem("Drop Item");
 		drop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//=============DROP PACKET CODE HERE===========
 				String data = "";
 				if(getLabel().getAscii() == 'K'){
 					System.out.println("Here");
@@ -100,17 +85,8 @@ public class ItemLabel extends JLabel {
 					data = "5"+player.getClientNum()+"C";
 				}
 
-
 				PacketDropItem p = new PacketDropItem(data.getBytes());
 				p.writeData(gameClient);
-
-
-
-
-
-
-				//	player.dropItemID(itemID);
-				//	getLabel().setVisible(false);
 
 			}
 		});
@@ -118,12 +94,6 @@ public class ItemLabel extends JLabel {
 
 
 	}
-
-	// rough set of this item id
-//	public void setItemLabelID(ID id){
-//		this.itemID = id;
-//
-//	}
 
 	//rough get of this item label
 	public char getAscii(){
@@ -161,14 +131,5 @@ public class ItemLabel extends JLabel {
 		public void mouseClicked(MouseEvent ev) {
 		}
 	}
-
-
-	//	public void setItem(Item item){
-	//
-	//	}
-	//
-	//	public Item getItem(){
-	//
-	//	}
 
 }
