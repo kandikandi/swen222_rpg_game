@@ -76,8 +76,6 @@ public class GameCanvas extends JPanel {
 			}
 
 		}
-
-
 	}
 
 	public void setSocketClient(GameClient client){

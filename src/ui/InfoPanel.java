@@ -46,7 +46,6 @@ public class InfoPanel extends JPanel {
 			g.drawImage(inspectedImage, 0, 0, null);
 
 		}
-
 	}
 
 	public void getInspect(){
@@ -73,7 +72,6 @@ public class InfoPanel extends JPanel {
 		                          raisedbevel, loweredbevel);
 
 		this.setBorder(compound);
-
 	}
 
 }

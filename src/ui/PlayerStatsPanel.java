@@ -35,8 +35,6 @@ public class PlayerStatsPanel extends JPanel {
 	private JLabel gold = new JLabel("Gold:                     ");
 	private JLabel level = new JLabel("Level:                   ");
 
-
-
 	public PlayerStatsPanel(){
 		this.setPreferredSize(new Dimension(200,250));
 		this.setBackground(new Color(204, 255, 255));
@@ -77,9 +75,6 @@ public class PlayerStatsPanel extends JPanel {
 		// Set up this PlayerStatsPanel JPanel
 		this.add(playerInformation);
 		this.add(barPanel);
-
-
-
 
 	}
 
