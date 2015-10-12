@@ -14,18 +14,18 @@ public class EnemyController {
 		this.game = game;
 	}
 
+	/**
+	 * This method updates enemy state, including movement and attacking.
+	 *
+	 */
 	public void update() {
-		List<Actor> actors = game.getActors();
-		for (Actor actor : actors) {
-			if (actor instanceof Enemy) {
-				Enemy enemy = (Enemy) actor;
-				if(!enemy.getIsAlive()){
-					enemy=null;
-				}else{
+		List<Enemy> enemies = game.getEnemies();
+		for (Enemy enemy : enemies) {
+			if (!enemy.getIsAlive()) {
+				enemy = null;
+			} else {
 				enemy.tick(game);
-				}
 			}
 		}
 	}
-
 }

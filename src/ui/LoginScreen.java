@@ -58,9 +58,9 @@ public class LoginScreen extends JFrame {
 	private JLabel join = new JLabel();
 	private boolean userNameEntered = false;
 	private boolean hosted = false;
+	private boolean picked = false;
 	String username = "00";
 
-	private boolean picked = false;
 
 	public LoginScreen() {
 
@@ -91,8 +91,8 @@ public class LoginScreen extends JFrame {
 						int yCord = arg0.getY();
 
 						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
-							System.out.println("Launching server");
 							hosted = true;
+							repaint();
 							MainServer.main(null);
 						}
 						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
@@ -120,7 +120,7 @@ public class LoginScreen extends JFrame {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					repaint();
+
 				}
 				else {
 					try {
@@ -128,7 +128,7 @@ public class LoginScreen extends JFrame {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					repaint();
+
 				}
 
 				if(userNameEntered){
@@ -138,14 +138,14 @@ public class LoginScreen extends JFrame {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						repaint();
+
 					} else {
 						try {
 							joinGameImage = ImageIO.read(new File("Join.png"));
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-						repaint();
+				;
 					}
 				}
 
@@ -157,7 +157,7 @@ public class LoginScreen extends JFrame {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						repaint();
+
 					} else {
 						try {
 							joinGameImage = ImageIO.read(new File("JoinGray.png"));
@@ -165,7 +165,7 @@ public class LoginScreen extends JFrame {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						repaint();
+
 					}
 				}
 
@@ -176,7 +176,7 @@ public class LoginScreen extends JFrame {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					repaint();
+
 
 				} else {
 					try {
@@ -184,7 +184,7 @@ public class LoginScreen extends JFrame {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
-					repaint();
+
 				}
 
 				if(xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54 && !userNameEntered){
@@ -203,6 +203,9 @@ public class LoginScreen extends JFrame {
 						e.printStackTrace();
 					}
 				}
+
+
+				repaint();
 
 
 			}

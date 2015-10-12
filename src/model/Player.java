@@ -129,29 +129,29 @@ public class Player extends Actor implements Serializable {
 
 
 	public void dropItemID(ActorAssets actorAsset) {
-		boolean itemDropped = false;
+//		boolean itemDropped = false;
 			for(int i = 0; i < this.getInventory().returnContents().size(); i++){
-				if(!itemDropped){
+//				if(!itemDropped){
 
 					if(this.getInventory().returnContents().get(i).getAsciiCode()==actorAsset.getAsciiCode()){
 						drop(this.getInventory().returnContents().get(i));
-						itemDropped = true;
-						break;
+//						itemDropped = true;
+						return;
 
-					}
+//					}
 				}
 			}
 	}
 
 
-	/**
-	 * Getter method to return Inventory
-	 *
-	 * @return
-	 */
-	public Inventory getInventorytooScared() {
-		return inventory;
-	}
+//	/**
+//	 * Getter method to return Inventory
+//	 *
+//	 * @return
+//	 */
+//	public Inventory getInventorytooScared() {
+//		return inventory;
+//	}
 
 	/**
 	 * Getter for client number
@@ -169,7 +169,7 @@ public class Player extends Actor implements Serializable {
 	 */
 	public void setFear(int fear) {
 		this.fear = fear;
-		if (fear >= 1000) {
+		if (fear >= 150) {
 			tooScared();
 		}
 	}
@@ -197,14 +197,18 @@ public class Player extends Actor implements Serializable {
 	}
 
 	/**
-	 * When the Player's fear reaches the fear limit the Player dies and re-starts.
+	 * When the Player's fear reaches the fear limit the Player re-starts at start point.
 	 *
 	 */
 	private void tooScared() {
-		this.alive = false;
+//		this.alive = false;
 		this.getInventory().empty();
 		this.setFear(0);
-		this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y));
+		//this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y, Main.PLAYER_SIZE));
+		this.setX(Main.PLAYER_ONE_START_LOCATION_X);
+		this.setY(Main.PLAYER_ONE_START_LOCATION_Y);
+//		System.out.println(".......Player x"+this.getPosition().getxPos());
+
 	}
 
 	// ========================================================

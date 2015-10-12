@@ -147,7 +147,6 @@ public class InventoryPanel extends JPanel {
 	private void createBorder() {
 		//Compound borders
 		Border compound;
-
 		Border raisedbevel = BorderFactory.createRaisedBevelBorder();
 		Border loweredbevel = BorderFactory.createLoweredBevelBorder();
 		//This creates a nice frame.

@@ -15,6 +15,8 @@ import view.GameCamera;
 import ui.GameCanvas;
 import ui.GameFrame;
 import model.GameState;
+import model.Actor;
+import model.Enemy;
 import view.Renderer;
 
 public class MainServer {
@@ -50,8 +52,20 @@ public class MainServer {
 				socketServer.start();
 				GameState gameState = new GameState(isServer);
 				socketServer.setGame(gameState);
-
+//				runEnemies(gameState);
 			}
+
+//			private void runEnemies(GameState gameState) {
+//				while(true){
+//					for(Actor actor : gameState.getActors()){
+//						if(actor instanceof Enemy){
+//							Enemy enemy = (Enemy) actor;
+//							enemy.tick();
+//						}
+//					}
+//
+//				}
+//			}
 		});
 	}
 

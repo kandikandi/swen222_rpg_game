@@ -35,6 +35,7 @@ public class Enemy extends Actor {
 
 	// @Override
 	public void tick(GameState gameState) {
+		alternateAttacking();
 		if (moveType == 1) {
 			backAndForthMove(gameState);
 		} else if (moveType == 2) {
@@ -158,16 +159,16 @@ public class Enemy extends Actor {
 	 *
 	 *
 	 */
-//	private void alternateAttacking() {
-//		count++;
-//		if (count < 10) {
-//			setAttack(true);
-//		} else if (count >= 10 && count < 50) {
-//			setAttack(false);
-//		} else {
-//			count = 0;
-//		}
-//	}
+	private void alternateAttacking() {
+		count++;
+		if (count < 100) {
+			setAttack(true);
+		} else if (count >= 10 && count < 500) {
+			setAttack(false);
+		} else {
+			count = 0;
+		}
+	}
 
 	/**
 	 * Getter for whether is attacking.

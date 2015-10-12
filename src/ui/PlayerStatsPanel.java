@@ -95,11 +95,11 @@ public class PlayerStatsPanel extends JPanel {
 	/**
 	 * Updates the players three information Jlabels (Attack, Level, Gold)
 	 */
-	public void updateStats(){
-		setAttack();
-		setLevel();
-		setGold();
-	}
+//	public void updateStats(){
+//		setAttack();
+//		setLevel();
+//		setGold();
+//	}
 
 	public FearBar getFearBar(){
 		return fear;
@@ -122,6 +122,17 @@ public class PlayerStatsPanel extends JPanel {
 		if(backgroundImage!= null){
 			g.drawImage(backgroundImage, 0, 0, null);
 		}
+
+	}
+	public void setAttack(int count) {
+		this.attack.setText("Attack: " + count            );
+		this.revalidate();
+
+	}
+
+	public void setCoins(int count) {
+		this.gold.setText("Gold: " + count            );
+		this.revalidate();
 
 	}
 }

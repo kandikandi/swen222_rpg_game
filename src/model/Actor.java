@@ -59,14 +59,14 @@ public class Actor implements Serializable {
 		return asciiCode;
 	}
 
-	/**
-	 * Getter method for this GameObject's position.
-	 *
-	 * @return GameObject's Image.
-	 */
-	public Position getPosition() {
-		return position;
-	}
+    /**
+     * Getter method for this GameObject's position.
+     *
+     * @return GameObject's Position.
+     */
+    public Position getPosition() {
+        return position;
+    }
 
 	/**
 	 * Setter method for this GameObject's position.

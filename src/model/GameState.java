@@ -2,8 +2,11 @@ package model;
 
 import view.ActorAssets;
 import view.TestWorlds;
+
 import java.awt.Rectangle;
+import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -45,7 +48,6 @@ public class GameState {
 	// TODO: Bonnie added this here!
 	private final Factory factory;
 
-
 	/**
 	 * The constructor creates the factory which constructs the Tiles and Actors
 	 * for the server (and just the Tiles for the client).
@@ -60,7 +62,7 @@ public class GameState {
 		}
 	}
 
-	private GameState(){
+	private GameState() {
 		factory = new Factory();
 		worldTiles = factory.createWorldTiles();
 	}
@@ -72,6 +74,21 @@ public class GameState {
 	 */
 	public List<Actor> getActors() {
 		return actors;
+	}
+
+	/**
+	 * Getter for the list of active Enemy objects in the game.
+	 *
+	 * @return
+	 */
+	public ArrayList<Enemy> getEnemies() {
+	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+		for (Actor actor : actors) {
+			if (actor instanceof Enemy) {
+				enemies.add((Enemy) actor);
+			}
+		}
+		return enemies;
 	}
 
 	/**
@@ -133,7 +150,8 @@ public class GameState {
 	 */
 	public Actor enemyCollisionCheck(Position position) {
 		Rectangle boundingBox = new Rectangle(position.getxPos(),
-				position.getyPos(), ActorAssets.ENEMY.getWidth(), ActorAssets.ENEMY.getHeight());
+				position.getyPos(), ActorAssets.ENEMY.getWidth(),
+				ActorAssets.ENEMY.getHeight());
 		for (Actor actor : actors) {
 			if (actor.isCollidable() && !(actor instanceof Enemy)) {
 				if (actor.getBoundingBox().intersects(boundingBox)) {
@@ -145,22 +163,22 @@ public class GameState {
 	}
 
 	/**
-	 * This method returns a one of the two Player objects
-	 * depending the client number entered.
+	 * This method returns a one of the two Player objects depending the client
+	 * number entered.
 	 *
 	 * @param playerNum
 	 * @return Player
 	 */
 	public Player findPlayer(int playerNum) {
-		if(actors != null){
-		for (Actor actor : actors) {
-			if (actor instanceof Player) {
-				Player player = (Player) actor;
-				if (player.getClientNum() == playerNum) {
-					return player;
+		if (actors != null) {
+			for (Actor actor : actors) {
+				if (actor instanceof Player) {
+					Player player = (Player) actor;
+					if (player.getClientNum() == playerNum) {
+						return player;
+					}
 				}
 			}
-		}
 		}
 		return null;
 	}

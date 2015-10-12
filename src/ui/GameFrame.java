@@ -144,6 +144,13 @@ public class GameFrame extends JFrame {
 		this.updatePlayerInventory(player, gameClient);
 
 		this.updatePlayerFear(player.getFear());
+		this.updatePlayerCoins(player.getInventory().getCoinCount());
+		this.updatePlayerAttack(player.getAttackPoints());
+
+	}
+
+	public void updatePlayerAttack(int count){
+			this.playerStats.setAttack(count);
 	}
 
 	/**
@@ -162,6 +169,9 @@ public class GameFrame extends JFrame {
 	 */
 	public void updatePlayerFear(int fear){
 		this.playerStats.getFearBar().setCurrentFear(fear);
+	}
+	public void updatePlayerCoins(int count){
+		this.playerStats.setCoins(count);
 	}
 
 	/**

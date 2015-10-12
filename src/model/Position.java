@@ -33,6 +33,14 @@ public final class Position  implements Serializable {
         this.bBoxXOffset = boundingBox.getXOffset();
         this.bBoxYOffset = boundingBox.getYOffset();
     }
+    
+    public Position(int xPos, int yPos, int size){
+        this.boundingBox = new BoundingBox(size,size);
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.bBoxXOffset = boundingBox.getXOffset();
+        this.bBoxYOffset = boundingBox.getYOffset();
+    }
 
     public Position(int xPos, int yPos, BoundingBox boundingBox){
         this.xPos = xPos;
@@ -62,7 +70,8 @@ public final class Position  implements Serializable {
      *
      */
     public void setxPos(int xPos) {
-        this.xPos = xPos;
+        System.out.println(">>>>>>>> new xPos"+xPos);
+    	this.xPos = xPos;
     }
 
     /**
