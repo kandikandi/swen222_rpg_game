@@ -91,8 +91,8 @@ public class LoginScreen extends JFrame {
 						int yCord = arg0.getY();
 
 						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
-							System.out.println("Launching server");
 							hosted = true;
+							repaint();
 							MainServer.main(null);
 						}
 						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
