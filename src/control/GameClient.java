@@ -148,7 +148,6 @@ public class GameClient extends Thread {
     }
 
     public void sendKeyPress(String move) {
-
         String sendMove = "3" + clientNum + move;
         PacketMove movePacket = new PacketMove(sendMove.getBytes());
         movePacket.writeData(this);
@@ -174,6 +173,6 @@ public class GameClient extends Thread {
     }
 
     public void load() {
-    	gameState = DataStorage.load();
+    	gameState.setActors(DataStorage.load().getActors());
     }
 }

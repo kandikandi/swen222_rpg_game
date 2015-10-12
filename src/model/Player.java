@@ -18,9 +18,7 @@ import view.ActorAssets;
  */
 
 @XmlRootElement(name = "player")
-// TODO: Bonnie added this line!
-@XmlAccessorType(XmlAccessType.FIELD)
-// TODO: Bonnie added this line!
+//@XmlAccessorType(XmlAccessType.FIELD)
 public class Player extends Actor implements Serializable {
 	private int speed = 10;
 	private Inventory inventory;
@@ -318,6 +316,10 @@ public class Player extends Actor implements Serializable {
 	 */
 	public Inventory getInventory() {
 		return this.inventory;
+	}
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 

@@ -9,10 +9,12 @@ public class BoundingboxAdapter extends XmlAdapter<AdaptedBoundingbox, BoundingB
 	@Override
 	public AdaptedBoundingbox marshal(BoundingBox bb) throws Exception {
 		AdaptedBoundingbox abb = new AdaptedBoundingbox();
-		abb.setxOffset(bb.getXOffset());
-		abb.setyOffset(bb.getYOffset());
-		abb.setHeight(bb.height);
-		abb.setWidth(bb.width);
+		if(bb != null){
+			abb.setxOffset(bb.getXOffset());
+			abb.setyOffset(bb.getYOffset());
+			abb.setHeight(bb.height);
+			abb.setWidth(bb.width);
+		}
 		return abb;
 	}
 
