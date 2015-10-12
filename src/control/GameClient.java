@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.List;
 
 import control.Packet.PacketTypes;
 import model.Actor;
@@ -174,5 +175,11 @@ public class GameClient extends Thread {
 
     public void load() {
     	gameState.setActors(DataStorage.load().getActors());
+    	List<Actor> update = gameState.getActors();
+		try {
+			sendData(serial.serialize(update));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 }

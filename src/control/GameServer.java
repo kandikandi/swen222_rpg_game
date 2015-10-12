@@ -109,6 +109,15 @@ public class GameServer extends Thread {
 			break;
 
 		case UPDATE:
+            ArrayList<Actor> recd;
+			try {
+				recd = (ArrayList<Actor>) serial.deserialize(data);
+				game.setActors(recd);
+			} catch (ClassNotFoundException e1) {
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			break;
 
 		case MOVE:{
