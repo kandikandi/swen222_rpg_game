@@ -48,14 +48,33 @@ public class InfoPanel extends JPanel {
 		}
 	}
 
-	public void getInspect(){
+	public void getInspect(char c){
 
-		try {
-			// load the imageName
-			inspectedImage = ImageIO.read(new File("KeyDescription.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(c == 'K'){
+			try {
+				// load the imageName
+				inspectedImage = ImageIO.read(new File("KeyDescription.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		if(c == 'B'){
+			try {
+				// load the imageName
+				inspectedImage = ImageIO.read(new File("BagDescription.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(c == 'C'){
+			try {
+				// load the imageName
+				inspectedImage = ImageIO.read(new File("CoinDescription.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		this.revalidate();
 		this.repaint();
 

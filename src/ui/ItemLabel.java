@@ -56,11 +56,7 @@ public class ItemLabel extends JLabel {
 		JMenuItem inspect = new JMenuItem("Inspect Item");
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println(getAscii());
-				System.out.println("Item Inspected");
-				if(getLabel().getAscii() == 'K'){
-					inspectPanel.getInspect();
-				}
+				inspectPanel.getInspect(getLabel().getAscii());
 			}
 		});
 		itemMenu.add(inspect);
