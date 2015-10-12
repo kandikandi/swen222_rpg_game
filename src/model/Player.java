@@ -22,8 +22,6 @@ import view.ActorAssets;
 @XmlAccessorType(XmlAccessType.FIELD)
 // TODO: Bonnie added this line!
 public class Player extends Actor implements Serializable {
-	@XmlTransient
-	// TODO: Bonnie added this line!
 	private int speed = 10;
 	private Inventory inventory;
 	private boolean hasKey;

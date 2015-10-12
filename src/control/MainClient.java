@@ -53,6 +53,8 @@ public class MainClient {
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
+                gameFrame.add(socketClient);
+
 
                 socketClient.start();
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());

@@ -92,7 +92,6 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 		aa.setBoundingBox(a.getBoundingBox());
 		aa.setCollidable(a.isCollidable());
 		aa.setDrawable(a.isDrawable());
-
 		aa.setPosition(a.getPosition());
 		return aa;
 	}
