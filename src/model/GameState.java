@@ -17,7 +17,7 @@ import save.gamestate.GamestateAdapter;
  * other parts/packages of the game.
  *
  */
-@XmlRootElement(namespace = "gamestate")
+@XmlRootElement(name = "gamestate")
 @XmlJavaTypeAdapter(GamestateAdapter.class)
 public class GameState {
 
@@ -61,7 +61,8 @@ public class GameState {
 	}
 
 	private GameState(){
-		factory = null;
+		factory = new Factory();
+		worldTiles = factory.createWorldTiles();
 	}
 
 	/**

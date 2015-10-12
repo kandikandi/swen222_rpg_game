@@ -2,6 +2,9 @@ package model;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import save.inventory.InventoryAdapter;
 
 
 /**
@@ -12,6 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
+@XmlJavaTypeAdapter(InventoryAdapter.class)
 public class Inventory extends Container {
 
 	@XmlTransient //TODO: Bonnie added this line!

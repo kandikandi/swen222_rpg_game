@@ -1,6 +1,7 @@
 package save.actor;
 
 import model.BoundingBox;
+import model.Inventory;
 import model.Position;
 
 /**
@@ -18,9 +19,9 @@ public class AdaptedActor {
 	private Position position;
 	private boolean collidable;
 	private boolean drawable;
-	//private ID id;
-	private BoundingBox boundingBox;
 	private char asciiCode;
+	// for door
+	private boolean open;
 
 	// for the enemy
 	private int health;
@@ -32,37 +33,21 @@ public class AdaptedActor {
 	private int bravery;
 	private int clientNum;
 
+	private Inventory inventory;
+
 	// for both player and enemy
 	private int attackPoints;
 	private boolean alive;
 
-	// for door
-	private boolean open;
-
-	// for collectable
-	private boolean inContainer;
-
 	// so we know what type to instantiate
 	private String type;
 
-	public boolean isOpen() {
-		return open;
+	public Inventory getInventory() {
+		return inventory;
 	}
 
-	public void setOpen(boolean open) {
-		this.open = open;
-	}
-
-	public boolean isInContainer() {
-		return inContainer;
-	}
-
-	public void setInContainer(boolean inContainer) {
-		this.inContainer = inContainer;
-	}
-
-	public boolean isHasKey() {
-		return hasKey;
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
 	}
 
 	public boolean hasKey() {
@@ -97,20 +82,20 @@ public class AdaptedActor {
 		this.clientNum = clientNum;
 	}
 
-	public boolean isAlive() {
-		return alive;
-	}
-
-	public void setAlive(boolean alive) {
-		this.alive = alive;
-	}
-
 	public int getAttackPoints() {
 		return attackPoints;
 	}
 
 	public void setAttackPoints(int attackPoints) {
 		this.attackPoints = attackPoints;
+	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
 	}
 
 	public int getHealth() {
@@ -127,6 +112,14 @@ public class AdaptedActor {
 
 	public void setCount(int count) {
 		this.count = count;
+	}
+
+	public boolean isOpen() {
+		return open;
+	}
+
+	public void setOpen(boolean open) {
+		this.open = open;
 	}
 
 	public String getType() {
@@ -161,22 +154,6 @@ public class AdaptedActor {
 		this.drawable = drawable;
 	}
 
-	/*public ID getId() {
-		return id;
-	}*/
-
-	/*public void setId(ID id) {
-		this.id = id;
-	}*/
-
-	//TODO Cuan replaced getBoundingBoxSize to just boundingBox.
-	public BoundingBox getBoundingBox() {
-		return boundingBox;
-	}
-
-	public void setBoundingBox(BoundingBox boundingBox) {
-		this.boundingBox = boundingBox;
-	}
 	public char getAsciiCode() {
 		return asciiCode;
 	}

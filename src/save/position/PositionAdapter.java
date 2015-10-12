@@ -9,9 +9,11 @@ public class PositionAdapter extends XmlAdapter<AdaptedPosition, Position> {
 	@Override
 	public AdaptedPosition marshal(Position p) throws Exception {
 		AdaptedPosition ap = new AdaptedPosition();
-		ap.setBoundingBox(p.getBoundingBox());
-		ap.setxPos(p.getxPos());
-		ap.setyPos(p.getyPos());
+		if(p != null){
+			ap.setBoundingBox(p.getBoundingBox());
+			ap.setxPos(p.getxPos());
+			ap.setyPos(p.getyPos());
+		}
 		return ap;
 	}
 
