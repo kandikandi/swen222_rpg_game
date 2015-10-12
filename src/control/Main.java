@@ -31,10 +31,12 @@ public class Main {
     public static final String TITLE = "ECS BETA";
     public static final int PLAYER_SIZE = 45;
     public static final int ITEM_SIZE = 30;
-    public static final int PLAYER_ONE_START_LOCATION_X = 75;
-    public static final int PLAYER_ONE_START_LOCATION_Y = 75;
-    public static final int PLAYER_TWO_START_LOCATION_X = 125;
-    public static final int PLAYER_TWO_START_LOCATION_Y = 75;
+    public static final int PLAYER_ONE_START_LOCATION_X = 800;	//75
+    public static final int PLAYER_ONE_START_LOCATION_Y = 2000; // 75
+    public static final int PLAYER_TWO_START_LOCATION_X = 760; // 125
+    public static final int PLAYER_TWO_START_LOCATION_Y = 1960;  // 75
+
+
     public static final boolean DRAW_HITBOXES = false;
     public static final int PORT = 32768;
     private static GameClient socketClient;
