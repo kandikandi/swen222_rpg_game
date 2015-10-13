@@ -245,7 +245,11 @@ public class LoginScreen extends JFrame {
 	}
 
 	public static void main(String args[]){
-		LoginScreen screen = new LoginScreen();
+		//LoginScreen screen = new LoginScreen();
+		String dave = "Dave";
+		MainServer.main(null);
+		MainClient client = new MainClient();
+		client.launchClient(dave);
 	}
 
 }

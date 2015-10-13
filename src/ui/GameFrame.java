@@ -52,23 +52,23 @@ public class GameFrame extends JFrame {
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CHANGE TO DO_NOTHING_ON_CLOSE
-		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-
-				addWindowListener(new WindowAdapter() {
-				    @Override
-				    public void windowClosing(WindowEvent we)
-				    {
-				        String ObjButtons[] = {"Yes","No"};
-				        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
-				        if(PromptResult==JOptionPane.YES_OPTION)
-				        {
-
-				            System.exit(0);
-				        }
-				    }
-				});
-
-		this.setupMenuBar();
+//		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+//
+//				addWindowListener(new WindowAdapter() {
+//				    @Override
+//				    public void windowClosing(WindowEvent we)
+//				    {
+//				        String ObjButtons[] = {"Yes","No"};
+//				        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+//				        if(PromptResult==JOptionPane.YES_OPTION)
+//				        {
+//
+//				            System.exit(0);
+//				        }
+//				    }
+//				});
+//
+//		this.setupMenuBar();
 
 		// Set up the sidePanel to hold the Players Stats (PlayerStatsPanel), Coin Bag (GoldPanel) and Inventory (InventoryPanel)
 		this.sidePanel.setLayout(new BorderLayout());
