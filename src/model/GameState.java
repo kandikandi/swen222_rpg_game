@@ -81,6 +81,7 @@ public class GameState {
 		return actors;
 	}
 
+
 	/**
 	 * Getter for the list of active Enemy objects in the game.
 	 *
@@ -123,6 +124,14 @@ public class GameState {
 	public void createPlayer(int clientNum) {
 		Player player = factory.createPlayerActor(clientNum);
 		actors.add(player);
+	}
+
+	/**
+	 * Remove a specific player from the actor list (for client disconnections)
+	 *
+	 */
+	public void removePlayer(Player player){
+		actors.remove(player);
 	}
 
 	/**
@@ -187,6 +196,7 @@ public class GameState {
 		}
 		return null;
 	}
+
 
 	// ============== DEBUGGING =================
 	public void printGameObjectState() {

@@ -53,8 +53,9 @@ public class ActorAdapter extends XmlAdapter<AdaptedActor, Actor> {
 			return player;
 		case "wall":
 			return new Wall( aa.getPosition(), aa.getAsciiCode(), true, aa.isDrawable());
+		default:
+			return new Actor(aa.getPosition(), aa.getAsciiCode(), aa.isCollidable(), aa.isDrawable());
 		}
-		return null;
 	}
 
 	/**

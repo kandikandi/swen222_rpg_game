@@ -29,8 +29,6 @@ public class MainClient {
     public static final int PLAYER_TWO_START_LOCATION_X = 125;
     public static final int PLAYER_TWO_START_LOCATION_Y = 75;
     public static final boolean DRAW_HITBOXES = false;
-   // private static GameClient socketClient;
-
 
 
     public void launchClient(String username) {
@@ -39,9 +37,6 @@ public class MainClient {
             public void run() {
                 boolean isServer = false;
 
-                //String username = "00" + JOptionPane.showInputDialog(null, "enter username");
-
-                //Setup UI
 
                 GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
@@ -60,49 +55,11 @@ public class MainClient {
                 PacketLogin loginPacket = new PacketLogin(username.getBytes());
                 loginPacket.writeData(socketClient);
 
-                 //EnemyController enemyController = new EnemyController(gameState);
-                 //GameTimer gameTimer = new GameTimer(camera, renderer/*, enemyController*/);
-                 //gameTimer.start();
+
             }
 
         });
-
     }
-
-
-
-
-
-//    public static void main(String[] args) {
-//
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                boolean isServer = false;
-//
-//                String username = "00" + JOptionPane.showInputDialog(null, "enter username");
-//
-//                //Setup UI
-//                //TODO: Bonnie added this extra argument!
-//                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
-//                GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
-//                gameFrame.getContentPane().add(gameCanvas);
-//                gameFrame.pack();
-//
-//                GameState gameState = new GameState(isServer);
-//                GameClient socketClient = new GameClient("localhost", gameState, gameCanvas);
-//                PlayerController playerController = new PlayerController(socketClient);
-//                gameFrame.addKeyListener(playerController);
-//
-//                socketClient.start();
-//                PacketLogin loginPacket = new PacketLogin(username.getBytes());
-//                loginPacket.writeData(socketClient);
-//
-//                 //EnemyController enemyController = new EnemyController(gameState);
-//                 //GameTimer gameTimer = new GameTimer(camera, renderer/*, enemyController*/);
-//                 //gameTimer.start();
-//            }
-//
-//        });
-//
-//    }
 }
+
+

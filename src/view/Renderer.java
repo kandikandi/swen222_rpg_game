@@ -43,10 +43,13 @@ public final class Renderer {
         // paint scene background black
         drawBackground();
 
-        Player player = gameState.findPlayer(playerNum);
-        if(player== null ){
-            //System.out.println("Renderer renderScene() has null playerActor");
-            //return;
+        Player player = null;
+
+        while(player==null){
+        	player = gameState.findPlayer(playerNum);
+        	System.out.println(playerNum);
+        	System.out.println(player==null);
+
         }
 
         int playerX = player.getPosition().getxPos();

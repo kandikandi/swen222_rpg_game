@@ -4,7 +4,8 @@ import model.Player;
 
 import java.net.InetAddress;
 
-/**player control class for server to use to differentiate between clients*/
+/**player control class for server to use to differentiate between clients
+ * basically just stores variables with getters and setters for the clients*/
 
 public class ClientData {
 
@@ -14,13 +15,15 @@ public class ClientData {
 	private int clientNum;
 	private Player player;
 
-	//TODO maybe add Player reference in here, thus no need for costly search -- Cuan
+
 	public ClientData(String uname, InetAddress ipAddress, int port, int clientNum) {
 		this.username = uname;
 		this.setIpAddress(ipAddress);
 		this.setPort(port);
 		this.clientNum = clientNum;
 	}
+
+
 	public void setPlayer(Player player){this.player = player;}
 
 	public int getClientNum() {

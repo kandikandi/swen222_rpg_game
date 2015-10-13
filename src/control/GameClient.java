@@ -9,6 +9,8 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import control.Packet.PacketTypes;
 import model.Actor;
 import model.GameException;
@@ -20,24 +22,36 @@ import view.Renderer;
 
 public class GameClient extends Thread {
 
-    /**
-     * this thread is for the clients. I think this will eventually be the thread which takes the input from the players,
-     * but am not 100% sure yet. at the moment it doesn't really do much
+    /**The gameclient handles all data recieved from the server. Any packets passed in through the socket will be parsed for what type of packet then dealt
+     * with in the appropriate manner. The client communicates with the server and the renderer/UI only, it does not deal with any game logic. It has a game state,
+     * which it does not make any direct changes to, only updates with information recieved from server.
+     *
+     *@author mcleankand
      */
 
+	//socket number to server and ip address game is played on
     private InetAddress ipAddress;
     private DatagramSocket socket;
+
+    //gamestate to be updated by server communication
     private GameState gameState;
-    Serialiser serial = new Serialiser();
-    boolean handSakeComplete = false;
+
+    //For deserialising the actor list
+    private Serialiser serial = new Serialiser();
+
+    //which client, and whether the server knows its there
+    boolean handShakeComplete = false;
     private int clientNum = 0;
-    Renderer renderer;
+
+    //UI/Rendering
+    private Renderer renderer;
 
 
     public GameClient(String ipAddress, GameState gameState, GameCanvas gameCanvas) {
 
         this.gameState = gameState;
-        renderer = new Renderer(gameCanvas);
+        //game canvas is used only to to pass into the renderer, so is not stored in a variable inside client
+        this.renderer = new Renderer(gameCanvas);
 
         try {
             this.ipAddress = InetAddress.getByName(ipAddress);
@@ -49,6 +63,7 @@ public class GameClient extends Thread {
         }
     }
 
+    /**run method to loop through continuously*/
     public void run() {
         while (true) {
 
@@ -58,6 +73,7 @@ public class GameClient extends Thread {
                 e.printStackTrace();
             }
 
+            //wait for packet from the server
             byte[] data = new byte[60000];
             DatagramPacket packet = new DatagramPacket(data, data.length);
 
@@ -66,68 +82,79 @@ public class GameClient extends Thread {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+
+            //find out what kind of packet it is and deal with it
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
         }
     }
 
+    /** This method takes a data array, the address and port of the server which it recieves from the packet in the run method.
+     * It trims the packet and decides what it is from the first digit and deals with the information in the most appropriate manner
+     * decided by the switch case.
+     * @param data
+     * @param address
+     * @param port
+     */
+    @SuppressWarnings("unchecked")
+	private void parsePacket(byte[] data, InetAddress address, int port) {
 
-    private void parsePacket(byte[] data, InetAddress address, int port) {
-
+    	//Get the first digit in the packet, which will tell us what to do with the data
         String message = new String(data).trim();
         PacketTypes type = Packet.lookupPacket(message.substring(0, 1));
 
         switch (type) {
             case UPDATE:
-                //System.out.println("GameClient recieved UPDATE");
+            	//If an update, deserialise the data, update the state, then render the new scene
                 ArrayList<Actor> recd;
                 try {
                     if (clientNum != -1) {
-                        recd = (ArrayList<Actor>) serial.deserialize(data);
+                    	recd = (ArrayList<Actor>) serial.deserialize(data);
                         gameState.setActors(recd);
                         renderer.renderScene(gameState, clientNum);
                     } else {
                         System.out.println("GameClient received UPDATE packet before finishing handshake");
-                        //throw new GameException("GameClient received UPDATE packet before finishing handshake");
                         break;
                     }
-                } catch (ClassNotFoundException | IOException /*| GameException */e) {
+                } catch (ClassNotFoundException | IOException e) {
                     System.out.println(e.getMessage());
                     e.printStackTrace();
                 }
                 break;
 
             case LOGINCONFIRM:
+            	//If Loginconfirm, the server recieved the login packet, and is sending the client its number.
+            	//Client needs to update itself that it has completed a handshake.
                 System.out.println("GameClient recieved LOGINCONFIRM");
-                if (handSakeComplete) {
-                    System.out.println("GameClient already authenticated, LOGINCONFIRM not for me6");
+                //If handshake is already complete, an error mustve occured.
+                if (handShakeComplete) {
+                    System.out.println("GameClient already authenticated, LOGINCONFIRM not for me");
                     break;
                 } else {
                     //must make sure to call the overloaded child method
-                    LoginConfirm loginConfirm = new LoginConfirm(data);
+                    PacketLoginConfirm loginConfirm = new PacketLoginConfirm(data);
                     clientNum = loginConfirm.getClientNumber();
-                    //String bytecode = (String) serial.deserialize(data);
-                    //clientNum = Integer.parseInt(bytecode);
                     System.out.println("GameClient LOGINCONFIRM recieved...clientNum: " + clientNum);
-                    handSakeComplete = true;
+                    handShakeComplete = true;
                 }
 
                 break;
             case LOGIN:
-                //TODO remove this println and perhaps make it throw an exception
+                //Login packet should only be sent to a server
                 System.out.println("GameClient Error: received a login packet");
-                //clientNum = Packet.lookupClient(message.substring(1, 2));
                 break;
 
             case DISCONNECT:
-                try {
-                    throw new GameException("Client recieved disconnect packet error");
-                } catch (GameException e) {
-                    e.printStackTrace();
-                }
+                //The server has disconnected, so display a message
+                System.out.println("Server has disconnected");
+                JOptionPane.showMessageDialog(
+                	    null, "Server has disconnected...",
+                	    "Game error",
+                	    JOptionPane.ERROR_MESSAGE);
                 break;
 
             default:
+            	//An error has occured and the client does not know what this is
                 try {
                     throw new GameException("Client Packet Header Error");
                 } catch (GameException e) {
@@ -148,6 +175,7 @@ public class GameClient extends Thread {
         }
     }
 
+    //handle the sending of key presses
     public void sendKeyPress(String move) {
         String sendMove = "3" + clientNum + move;
         PacketMove movePacket = new PacketMove(sendMove.getBytes());

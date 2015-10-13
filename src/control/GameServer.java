@@ -21,8 +21,9 @@ import model.Player;
 public class GameServer extends Thread {
 
 	/**
-	 * This thread runs the server. It takes the input, checks it, then sends to
-	 * all the clients.
+	 * This thread runs the server. It takes input from the clients and deals with it appropriatly.
+	 * It also contains the methods used by Timer to send updates to all the clients
+	 * @author mcleankand
 	 */
 
 	private DatagramSocket socket;
@@ -31,7 +32,6 @@ public class GameServer extends Thread {
 	private Serialiser serial = new Serialiser();
 	private boolean isRunning = true;
 
-	private EnemyController enemyController;
 
 	public GameServer() {
 		try {
@@ -47,20 +47,24 @@ public class GameServer extends Thread {
 
 	public void run() {
 		while (isRunning) {
+
 			try {
 				Thread.sleep(12);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+
 			// Create empty packet
 			byte[] data = new byte[60000];
 			DatagramPacket packet = new DatagramPacket(data, data.length);
+
 			// Try to read buffer into packet
 			try {
 				socket.receive(packet);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 			// Parse packet and update gameState
 			parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
@@ -69,23 +73,6 @@ public class GameServer extends Thread {
 		}
 	}
 
-//	private void updateEnemies() {
-//		while (true) {
-//			try {
-//				Thread.sleep(30);
-//			} catch (InterruptedException e) {
-//				e.printStackTrace();
-//			}
-//			List<Actor> actors = game.getActors();
-//			for (Actor actor : actors) {
-//				if (actor instanceof Enemy) {
-//					Enemy enemy = (Enemy) actor;
-//					enemy.tick(game);
-//				}
-//			}
-//		}
-//	}
-
 	/**
 	 * Multiple packet classes which so can deal with different types of data,
 	 * eg login, update....
@@ -93,22 +80,23 @@ public class GameServer extends Thread {
 
 	synchronized private void parsePacket(byte[] data, InetAddress address,
 			int port) {
-		String packetID = new String(data).trim();
 
-		// TODO use enum class to work out type from packetID
+		//Trim string, parse first 2 digits so know who sent it and what type of data it is
+		String packetID = new String(data).trim();
 		PacketTypes type = Packet.lookupPacket(packetID.substring(0, 1));
+
+
 		switch (type) {
 
 		case LOGIN:
 			PacketLogin packet = new PacketLogin(data);
-			// TODO: Use a propper logging library for TEST_MOVE=true instead of
-			// println
-			// TODO: remove this
+
 			if (Main.TEST_MODE) {
 				System.out.println("[" + address.getHostAddress() + ":" + port
 						+ "] " + packet.getUserName() + " has connected..");
 				System.out.println("");
 			}
+
 			// Process connection
 			addConnection(packet, address, port);
 			if (Main.TEST_MODE) {
@@ -118,18 +106,31 @@ public class GameServer extends Thread {
 					System.out.println("Player: " + p.getUsername());
 				}
 			}
-			// Without any synchronisation this logic "crash starts" the client
-			// server communication cycle
-			// as well as the game engine cycle
-			// String username = "0" + connectedPlayers.size() +
-			// packet.getUserName();
-			// sendData(username.getBytes(), address, port);
+
 			break;
 
 		case DISCONNECT:
+			PacketDisconnect disconnect = new PacketDisconnect(data);
+			Player playerDisconnect = game.findPlayer(disconnect.getClientNum());
+
+			for(int i=0; i<connectedPlayers.size(); i++){
+				if(connectedPlayers.get(i).getClientNum()==disconnect.getClientNum()){
+					connectedPlayers.remove(i);
+					break;
+				}
+			}
+
+			game.removePlayer(playerDisconnect);
+
+			//If there is no longer any players connected, it means there is no one playing, so shutdown the server.
+			if(connectedPlayers.size()==0){
+				MainServer.shutDownServer();
+			}
+
 			break;
 
 		case UPDATE:
+			//For loading a game for a client
             ArrayList<Actor> recd;
 			try {
 				recd = (ArrayList<Actor>) serial.deserialize(data);
@@ -146,29 +147,32 @@ public class GameServer extends Thread {
 			String move = packetMove.getMove();
 			Player player = game.findPlayer(packetMove.getClientNum());
 			player.move(game, move);
-			// temp logic to test shutting down the server
-			// TODO: remove this logic when PacketDisconnect is implemented
+
 			if (move.equals("SPACE")) {
 				System.out.println("GameServer MOVE: SPACE recieved");
-				MainServer.shutDownServer();
+
 			}
 
 		}
 			break;
 
 		case DROPITEM: {
-			// TODO Fix variable scope
+
 			PacketDropItem packet1 = new PacketDropItem(data);
-			ActorAssets item = packet1.getAsset();/*
-												 * ActorAssets.getAssetName(packet1
-												 * .getAsset().getAsciiCode());
-												 */
+			ActorAssets item = packet1.getAsset();
 			Player player1 = game.findPlayer(packet1.getClientNum());
 			player1.dropItemID(item);
 
 		}
 
 			break;
+
+		case USEITEM: {
+			PacketUseItem packetUse = new PacketUseItem(data);
+			ActorAssets item = packetUse.getAsset();
+			Player playerUser = game.findPlayer(packetUse.getClientNum());
+			//playerUser.useItem(item);
+		}
 
 		default:
 			try {
@@ -183,35 +187,35 @@ public class GameServer extends Thread {
 
 	public void updateClients(){
 		// Send out game view to clients
-					List<Actor> update = game.getActors();
-					try {
-						sendDataToAllClients(serial.serialize(update));
-//						updateEnemies();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+		List<Actor> update = game.getActors();
+		try {
+			sendDataToAllClients(serial.serialize(update));
+			//updateEnemies();
+			} catch (IOException e) {
+			e.printStackTrace();
+			}
 	}
 
 	/**
 	 * Creates a ClientInfo/ClientData object and add's to collection. Also
 	 * tells game-state create a player
 	 */
-	synchronized private void addConnection(PacketLogin packet,
-			InetAddress hostAddress, int port) {
+	synchronized private void addConnection(PacketLogin packet,	InetAddress hostAddress, int port) {
+
 		int clientNum = connectedPlayers.size() + 1;
-		ClientData playerData = new ClientData(packet.getUserName(),
-				hostAddress, port, clientNum);
+
+		ClientData playerData = new ClientData(packet.getUserName(),hostAddress, port, clientNum);
 		this.connectedPlayers.add(playerData);
 		game.createPlayer(clientNum);
+
 		String toSend = "10" + Integer.toString(clientNum);
 		System.out
 				.println("GamerServer.addConnection() about to create send LoginConfirm packet out toSend: "
 						+ toSend);
-		// TODO should only send confirmation packet to the intended client
-		// instead of publicly broadcast
-		LoginConfirm confirmPacket = new LoginConfirm(toSend.getBytes());
+
+		PacketLoginConfirm confirmPacket = new PacketLoginConfirm(toSend.getBytes());
 		confirmPacket.writeData(this);
-		// sendData(serial.serialize(game.getActors()),hostAddress,port);
+
 	}
 
 	// converts data into datagrams and sends it down the socket

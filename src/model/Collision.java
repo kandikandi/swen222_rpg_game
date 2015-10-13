@@ -56,7 +56,7 @@ public class Collision {
 			// monster -
 			enemy.reduceHealth(player.getAttackPoints() + player.getBravery());
 		} else { // if neither is attacking both lose a little
-//			enemy.reduceHealth(1);
+			enemy.reduceHealth(1);
 			player.increaseFear(1);
 		}
 
