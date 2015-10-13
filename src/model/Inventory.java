@@ -122,7 +122,7 @@ public class Inventory extends Container {
 	}
 
 
-
+	//TODO: this wont work, its the equivalent of for(int i=0; i<5;i++){ i = null;}
 	public void eatCandy(){
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {

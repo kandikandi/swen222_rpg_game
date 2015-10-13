@@ -108,6 +108,7 @@ public class GameClient extends Thread {
             	//If an update, deserialise the data, update the state, then render the new scene
                 ArrayList<Actor> recd;
                 try {
+                    //System.out.println("GameClient: UPDATE parsed, clientnum: "+clientNum);
                     if (clientNum != -1) {
                     	recd = (ArrayList<Actor>) serial.deserialize(data);
                         gameState.setActors(recd);

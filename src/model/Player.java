@@ -91,11 +91,11 @@ public class Player extends Actor implements Serializable {
 			break;
 		case "SPACEDOWN":
 			playerIsAttacking = true;
-			System.out.println("Player attacking "+ playerIsAttacking);
+			//System.out.println("Player: attacking "+ playerIsAttacking);
 			break;
 		case "SPACEUP":
 			playerIsAttacking = false;
-			System.out.println("Player attacking "+ playerIsAttacking);
+			//System.out.println("Player: attacking "+ playerIsAttacking);
 			break;
 
 		}

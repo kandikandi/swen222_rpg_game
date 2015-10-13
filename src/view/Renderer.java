@@ -43,13 +43,12 @@ public final class Renderer {
         // paint scene background black
         drawBackground();
 
-        Player player = null;
+        Player player = gameState.findPlayer(playerNum);
 
-        while(player==null){
-        	player = gameState.findPlayer(playerNum);
+        if(player==null){
         	System.out.println(playerNum);
-        	System.out.println(player==null);
-
+        	System.out.println("Renderer cant cant player: "+playerNum);
+            return;
         }
 
         int playerX = player.getPosition().getxPos();

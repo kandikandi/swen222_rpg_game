@@ -25,14 +25,11 @@ public class GameTimer extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(10);
+				Thread.sleep(40);
 
-
-				enemyController.update();
-				gameServer.updateClients();
-				//not needed camera.performSystem();
-
-//				renderer.renderScene();
+				//enemyController.update();
+				//gameServer.updateClients();
+				//camera.performSystem();
 
 			} catch (Exception e) {
 				System.out.println("GameTimer Error");
