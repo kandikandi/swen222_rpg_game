@@ -24,29 +24,29 @@ public class PlayerController implements KeyListener {
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_UP:
-                thisPlayer.sendKeyPress("UP");
+                thisPlayer.sendKeyPress(getRotatedUp());
                 break;
 
             case KeyEvent.VK_DOWN:
-                thisPlayer.sendKeyPress("DOWN");
+                thisPlayer.sendKeyPress(getRotatedDown());
                 break;
 
             case KeyEvent.VK_LEFT:
-                thisPlayer.sendKeyPress("LEFT");
+                thisPlayer.sendKeyPress(getRotatedLeft());
                 break;
 
             case KeyEvent.VK_RIGHT:
-                thisPlayer.sendKeyPress("RIGHT");
+                thisPlayer.sendKeyPress(getRotatedRight());
                 break;
 
             case KeyEvent.VK_SPACE:
-                //System.out.println("PlayerController keyPressed: SPACE");
                 thisPlayer.sendKeyPress("SPACEDOWN");
                 break;
             case KeyEvent.VK_R:
-                System.out.println("PlayerController keyPressed: R");
-                Main.ROTATION+=1;
-                if (Main.ROTATION >= 4){Main.ROTATION = 0;}
+                Main.ROTATION += 1;
+                if (Main.ROTATION >= 4) {
+                    Main.ROTATION = 0;
+                }
                 break;
         }
 
@@ -63,8 +63,66 @@ public class PlayerController implements KeyListener {
 
     }
 
+
     @Override
     public void keyTyped(KeyEvent e) {
+    }
+
+    private String getRotatedUp() {
+        switch (Main.ROTATION) {
+            case 0:
+                return "UP";
+            case 1:
+                return "RIGHT";
+            case 2:
+                return "DOWN";
+            case 3:
+                return "LEFT";
+            default:
+                return "UP";
+        }
+    }
+    private String getRotatedDown(){
+        switch (Main.ROTATION){
+            case 0:
+                return  "DOWN";
+            case 1:
+                return  "LEFT";
+            case 2:
+                return  "UP";
+            case 3:
+                return "RIGHT";
+            default:
+                return  "DOWN";
+        }
+    }
+    private String getRotatedLeft(){
+        switch (Main.ROTATION){
+            case 0:
+                return  "LEFT";
+            case 1:
+                return  "UP";
+            case 2:
+                return  "RIGHT";
+            case 3:
+                return "DOWN";
+            default:
+                return  "LEFT";
+        }
+    }
+    private String getRotatedRight(){
+        switch (Main.ROTATION){
+            case 0:
+                return  "RIGHT";
+            case 1:
+                return  "DOWN";
+            case 2:
+                return  "LEFT";
+            case 3:
+                return "UP";
+            default:
+                return  "RIGHT";
+        }
     }
 
 }

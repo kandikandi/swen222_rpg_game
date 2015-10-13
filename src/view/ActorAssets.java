@@ -15,7 +15,7 @@ import java.util.Arrays;
 public enum ActorAssets {
 
     NOTHING('0',"tokenScarlet.png", Main.ITEM_SIZE,Main.ITEM_SIZE),
-    PLAYER('1',"front_girl.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    PLAYER('1',"front_girl.png",32,48),
     PLAYER2('2',"tokenPlum.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     COIN('C',"tempGameCoin.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     COINBAG('B',"tempGameCoinBag.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
@@ -27,7 +27,7 @@ public enum ActorAssets {
     ENEMY('E',"evilTemp.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     COLLECTABLE('B',"ring.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     WALL('W', "wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    TREE('T', "Tree1.png",40,140),
+    TREE('T', "Tree1.png",140,140),
     VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     SCHOOLWALL('S',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     CIRCUSWALL('M',"wall.jpg",Main.ITEM_SIZE, Main.ITEM_SIZE),
@@ -48,23 +48,12 @@ public enum ActorAssets {
 
         this.imagePath = imagePath;
         try {
-            image = ImageIO.read(new File(imagePath));
+            image = ImageIO.read(new File(imagePath)).getScaledInstance(width,height,Image.SCALE_FAST);
         } catch (IOException e) {
             System.out.printf("Error: cant load "+imagePath);
             System.out.printf(e.getMessage());
             e.printStackTrace();
         }
-    }
-
-    public int getWidth(){return width;}
-    public int getHeight(){return height;}
-
-    public char getAsciiCode() {
-        return asciiCode;
-    }
-
-    private Image getImage(){
-        return image;
     }
 
     public static ActorAssets getAssetName(char asciiCode) {
@@ -81,6 +70,18 @@ public enum ActorAssets {
             }
         }
         throw new IllegalArgumentException("Invalid asciiCode: "+asciiCode);
+    }
+
+    public int getWidth(){return width;}
+
+    public int getHeight(){return height;}
+
+    public char getAsciiCode() {
+        return asciiCode;
+    }
+
+    private Image getImage(){
+        return image;
     }
 
 }

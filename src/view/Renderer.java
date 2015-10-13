@@ -56,8 +56,8 @@ public final class Renderer {
         }*/
 
         //first find player position, this will become the origin
-        int playerX = player.getPosition().getxPos();
-        int playerY = player.getPosition().getyPos();
+        int originX = player.getPosition().getxPos()+(ActorAssets.PLAYER.getWidth()/2);
+        int originY = player.getPosition().getyPos()+(ActorAssets.PLAYER.getHeight()/2);
         final int HALF_C_WIDTH = Main.C_WIDTH / 2;
         final int HALF_C_HEIGHT = Main.C_HEIGHT / 2;
 
@@ -66,8 +66,8 @@ public final class Renderer {
         // draw it
         camera.getTileView(gameState, playerNum).forEach(tile -> {
             Image image = TileAssets.getAssetImage(tile.getAsciiCode());
-            int relativeX = tile.getPosition().getxPos() - playerX;
-            int relativeY = tile.getPosition().getyPos() - playerY;
+            int relativeX = tile.getPosition().getxPos() - originX;
+            int relativeY = tile.getPosition().getyPos() - originY;
             int x = RotationCalculator.getScreenX(relativeX,relativeY,Main.TILE_SIZE,Main.TILE_SIZE)+ HALF_C_WIDTH;
             int y = RotationCalculator.getScreenY(relativeX,relativeY,Main.TILE_SIZE,Main.TILE_SIZE) + HALF_C_HEIGHT;
             g2d.drawImage(image, x, y, Main.TILE_SIZE, Main.TILE_SIZE, null);
@@ -79,8 +79,8 @@ public final class Renderer {
                 .filter(actor -> actor.isDrawable())
                 .forEach(actor -> {
                     Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
-                    int relativeX = actor.getPosition().getxPos() - playerX;
-                    int relativeY = actor.getPosition().getyPos() - playerY;
+                    int relativeX = actor.getPosition().getxPos() - originX;
+                    int relativeY = actor.getPosition().getyPos() - originY;
                     int width = ActorAssets.getAssetName(actor.getAsciiCode()).getWidth();
                     int height = ActorAssets.getAssetName(actor.getAsciiCode()).getHeight();
                     int x = RotationCalculator.getScreenX(relativeX,relativeY,width,height) + HALF_C_WIDTH;
@@ -88,8 +88,8 @@ public final class Renderer {
                     g2d.drawImage(image, x, y, null);
 
                     if (Main.DRAW_HITBOXES) {
-                        int rX = actor.getBoundingBox().x - playerX;
-                        int rY = actor.getBoundingBox().y - playerY;
+                        int rX = actor.getBoundingBox().x - originX;
+                        int rY = actor.getBoundingBox().y - originY;
                         int w = actor.getBoundingBox().width;
                         int h = actor.getBoundingBox().height;
                         int x2 = RotationCalculator.getScreenX(rX,rY,width,height) + HALF_C_WIDTH;

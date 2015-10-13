@@ -29,12 +29,19 @@ import save.gamestate.GamestateAdapter;
 public class GameState {
 
 	/**
+	 * This factory creates the necessary game objects from the TIle and actor
+	 * maps.
+	 *
+	 */
+	@XmlTransient
+	// TODO: Bonnie added this here!
+	private final Factory factory;
+	/**
 	 * This array of Tiles holds all the game Tiles.
 	 *
 	 */
 	@XmlTransient
 	private Tile[][] worldTiles;
-
 	/**
 	 * This array holds all the active Actor object implementations in the game.
 	 *
@@ -43,15 +50,6 @@ public class GameState {
 	// @XmlElement(name = "actor") //TODO:Bonnie added this here!
 //	@XmlElementRef
 	private List<Actor> actors;
-
-	/**
-	 * This factory creates the necessary game objects from the TIle and actor
-	 * maps.
-	 *
-	 */
-	@XmlTransient
-	// TODO: Bonnie added this here!
-	private final Factory factory;
 
 	/**
 	 * The constructor creates the factory which constructs the Tiles and Actors
@@ -77,17 +75,25 @@ public class GameState {
 	 *
 	 * @return
 	 */
-	public List<Actor> getActors() {
+	synchronized public List<Actor> getActors() {
 		return actors;
 	}
 
+	/**
+	 * Setter for game Actor objects.
+	 *
+	 * @param actors
+	 */
+	synchronized public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
 
 	/**
 	 * Getter for the list of active Enemy objects in the game.
 	 *
 	 * @return
 	 */
-	public ArrayList<Enemy> getEnemies() {
+	synchronized public ArrayList<Enemy> getEnemies() {
 	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
 		for (Actor actor : actors) {
 			if (actor instanceof Enemy) {
@@ -107,21 +113,12 @@ public class GameState {
 	}
 
 	/**
-	 * Setter for game Actor objects.
-	 *
-	 * @param actors
-	 */
-	public void setActors(List<Actor> actors) {
-		this.actors = actors;
-	}
-
-	/**
 	 * This method adds a player to the game and provides a Player object that
 	 * represents each Player.
 	 *
 	 * @param clientNum
 	 */
-	public void createPlayer(int clientNum) {
+	synchronized public void createPlayer(int clientNum) {
 		Player player = factory.createPlayerActor(clientNum);
 		actors.add(player);
 	}
@@ -130,7 +127,7 @@ public class GameState {
 	 * Remove a specific player from the actor list (for client disconnections)
 	 *
 	 */
-	public void removePlayer(Player player){
+	synchronized public void removePlayer(Player player){
 		actors.remove(player);
 	}
 

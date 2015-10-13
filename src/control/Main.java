@@ -15,7 +15,7 @@ public class Main {
     public static final int PLAYER_ONE_START_LOCATION_Y = 74;//2000; // 75
     public static final int PLAYER_TWO_START_LOCATION_X = 100;//760; // 125
     public static final int PLAYER_TWO_START_LOCATION_Y = 100;//1960;  // 75
-    public static final boolean DRAW_HITBOXES = false;
+    public static final boolean DRAW_HITBOXES = true;
     public static final int PORT = 32768;
     public static int ROTATION = 0;
     private static ClientControl socketClient;

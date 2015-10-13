@@ -43,7 +43,7 @@ public class ServerControl extends Thread {
         }
     }
 
-    public void setGame(GameState game) {
+    synchronized public void setGame(GameState game) {
         this.game = game;
     }
 
@@ -185,7 +185,7 @@ public class ServerControl extends Thread {
 
     }
 
-    public void updateClients() {
+     synchronized public void updateClients() {
 
         for (ClientData p : connectedPlayers) {
             List<Actor> actorView = camera.getActorView(game,p.getClientNum());
