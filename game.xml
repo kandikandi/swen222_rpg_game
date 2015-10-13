@@ -19,9 +19,9 @@
         </actor>
         <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="coin">
             <asciicode>67</asciicode>
-            <collidable>false</collidable>
+            <collidable>true</collidable>
             <description>This is a class model.Coin</description>
-            <drawable>false</drawable>
+            <drawable>true</drawable>
             <position>
                 <boundingBox>
                     <height>40</height>
@@ -45,8 +45,8 @@
                     <xOffset>10</xOffset>
                     <yOffset>15</yOffset>
                 </boundingBox>
-                <xPos>290</xPos>
-                <yPos>90</yPos>
+                <xPos>100</xPos>
+                <yPos>100</yPos>
             </position>
             <alive>true</alive>
             <attackPoints>2</attackPoints>
@@ -56,7 +56,7 @@
             <inventory>
                 <asciicode>49</asciicode>
                 <collidable>false</collidable>
-                <description>This is a Cotainer with a limit of 10, it currently has 1 items!</description>
+                <description>This is a Cotainer with a limit of 10, it currently has 0 items!</description>
                 <drawable>false</drawable>
                 <position>
                     <boundingBox>
@@ -68,24 +68,7 @@
                     <xPos>100</xPos>
                     <yPos>100</yPos>
                 </position>
-                <itemsList>
-                    <item xsi:type="coin">
-                        <asciicode>67</asciicode>
-                        <collidable>false</collidable>
-                        <description>This is a class model.Coin</description>
-                        <drawable>false</drawable>
-                        <position>
-                            <boundingBox>
-<height>40</height>
-<width>40</width>
-<xOffset>0</xOffset>
-<yOffset>0</yOffset>
-                            </boundingBox>
-                            <xPos>280</xPos>
-                            <yPos>80</yPos>
-                        </position>
-                    </item>
-                </itemsList>
+                <itemsList/>
             </inventory>
         </actor>
     </actorsList>

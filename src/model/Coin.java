@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @author dalyandr
  *
  */
-//@XmlJavaTypeAdapter(CoinAdapter.class)
+@XmlJavaTypeAdapter(CoinAdapter.class)
 public class Coin extends Collectable {
 
 	public Coin(Position position, char imagePath, boolean collidable,
