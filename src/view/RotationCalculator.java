@@ -123,16 +123,13 @@ public class RotationCalculator {
                 screenX = relativeX;
                 break;
             case 1:
-                //screenX = rotateX(relativeX,relativeY,1);
-                screenX = relativeY;//-height;
+                screenX = relativeY;
                 break;
             case 2:
-                //screenX = rotateX(relativeX,relativeY,2);
-                screenX = (relativeX*-1);//-width;
+                screenX = (relativeX*-1) -width;
                 break;
             case 3:
-                //screenX = rotateX(relativeX,relativeY,3);
-                screenX = (relativeY*-1);
+                screenX = (relativeY*-1) - height;
                 break;
             default:
                 screenX = relativeX;
@@ -148,13 +145,13 @@ public class RotationCalculator {
                 screenY = relativeY;
                 break;
             case 1:
-                screenY = relativeX*-1;
+                screenY = (relativeX*-1)-width;
                 break;
             case 2:
-                screenY = (relativeY*-1);//+height;
+                screenY = (relativeY*-1)-height;
                 break;
             case 3:
-                screenY = relativeX;//+width;
+                screenY = relativeX;
                 break;
             default:
                 screenY = relativeY;
