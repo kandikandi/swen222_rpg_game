@@ -45,7 +45,7 @@ public class GameCamera {
             return null;
         }
         if(Main.TEST_MODE){
-            System.out.println("GameCamera: getTileView about to filter ["+worldTiles.length+"]["+worldTiles[0].length+"] Tiles");
+            //System.out.println("GameCamera: getTileView about to filter ["+worldTiles.length+"]["+worldTiles[0].length+"] Tiles");
         }
         int colMin, colMax, colCeiling, rowMin, rowMax, rowCeiling;
         int playerX = playerActor.getPosition().getxPos();

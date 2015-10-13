@@ -67,7 +67,7 @@ public class MainClient {
                 gameFrame.pack();
 
                 GameState gameState = new GameState(isServer);
-                ClientControl socketClient = new ClientControl("localhost", gameState, gameCanvas);
+                ClientControl socketClient = new ClientControl("localhost"/*"130.195.4.170"*/, gameState, gameCanvas);
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);

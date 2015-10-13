@@ -92,10 +92,6 @@ public class Container extends Actor {
         if (actor == null || numItemsInContainer() == 0) {
             return;
         } else if (items.contains(actor)) {
-        	Position pos = new Position(getPosition().getxPos()+35,getPosition().getyPos()+35); // drops off item slightly away fro player
-        	actor.setPosition(pos); //update position
-            actor.setCollidable(true);
-            actor.setDrawable(true);
             items.remove(actor);
             return;
         } else {

@@ -18,6 +18,7 @@ import javax.swing.border.Border;
 
 import control.ClientControl;
 import control.PacketDropItem;
+import control.PacketUseItem;
 import model.Player;
 
 
@@ -65,6 +66,17 @@ public class ItemLabel extends JLabel {
 		use.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//=============USE PACKET CODE HERE===========
+				String data = "";
+				System.out.println("Here");
+				if(getLabel().getAscii() == 'Z'){
+					data = "6"+player.getClientNum()+"Z";
+				}
+
+				PacketUseItem p = new PacketUseItem(data.getBytes());
+
+				p.writeData(clientControl);
+
+
 
 			}
 		});
@@ -83,6 +95,12 @@ public class ItemLabel extends JLabel {
 				}
 				if(getLabel().getAscii() == 'C'){
 					data = "5"+player.getClientNum()+"C";
+				}
+				if(getLabel().getAscii() == 'Z'){
+					data = "5"+player.getClientNum()+"Z";
+				}
+				if(getLabel().getAscii() == 'X'){
+					data = "5"+player.getClientNum()+"X";
 				}
 
 				PacketDropItem p = new PacketDropItem(data.getBytes());

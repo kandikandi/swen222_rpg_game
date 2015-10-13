@@ -74,6 +74,22 @@ public class InfoPanel extends JPanel {
 				e.printStackTrace();
 			}
 		}
+		if(c == 'Z'){
+			try {
+				// load the imageName
+				inspectedImage = ImageIO.read(new File("Candy_Description.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		if(c == 'X'){
+			try {
+				// load the imageName
+				inspectedImage = ImageIO.read(new File("SKey_Description.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		this.revalidate();
 		this.repaint();

@@ -169,7 +169,8 @@ public class ServerControl extends Thread {
                 PacketUseItem packetUse = new PacketUseItem(data);
                 ActorAssets item = packetUse.getAsset();
                 Player playerUser = game.findPlayer(packetUse.getClientNum());
-                //playerUser.useItem(item);
+                playerUser.eatCandy();
+
                 break;
             }
             default:

@@ -52,7 +52,7 @@ public final class Renderer {
         if(Main.TEST_MODE){
             int tilesReceived = camera.getTileView(gameState,playerNum).size();
             int actorReceived = camera.getActorView(gameState,playerNum).size();
-            System.out.println("Renderer recieved Tiles: "+tilesReceived+"   Actors: "+actorReceived);
+            //System.out.println("Renderer recieved Tiles: "+tilesReceived+"   Actors: "+actorReceived);
         }
 
         int playerX = player.getPosition().getxPos();

@@ -23,7 +23,7 @@ public enum ActorAssets {
     SPECIAL_DOOR('Y',"special_door.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     INVENTORY('I',"temp_inv.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     KEY('K',"tempGameKey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    SPECIAL_KEY('X',"otherkey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    SPECIAL_KEY('X',"SpecialKey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     ENEMY('E',"evilTemp.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     COLLECTABLE('B',"ring.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     WALL('W', "wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
@@ -31,7 +31,7 @@ public enum ActorAssets {
     VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     SCHOOLWALL('S',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     CIRCUSWALL('M',"wall.jpg",Main.ITEM_SIZE, Main.ITEM_SIZE),
-    CANDY('Z',"candy.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
+    CANDY('Z',"CandyCane.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
     ;
 
 

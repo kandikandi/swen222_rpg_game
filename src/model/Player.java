@@ -134,6 +134,10 @@ public class Player extends Actor implements Serializable {
 			return;
 		} else {
 			inventory.setPosition(this.getPosition());
+			Position pos = new Position(getPosition().getxPos()+35,getPosition().getyPos()+35); // drops off item slightly away fro player
+        	actor.setPosition(pos); //update position
+            actor.setCollidable(true);
+            actor.setDrawable(true);
 			inventory.removeItemFromContainer(actor);
 
 		}
@@ -187,11 +191,12 @@ public class Player extends Actor implements Serializable {
 		}
 	}
 
-	
-	
-	
-	
+
+
+
+
 	public void eatCandy(){
+		System.out.println("Here");
 		if(inventory.containsCandy()){
 			inventory.eatCandy();
 			if(fear>30){
@@ -200,10 +205,10 @@ public class Player extends Actor implements Serializable {
 				fear = 0;
 			}
 		}
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Getter for Player's fear level.
 	 *
@@ -324,7 +329,7 @@ public class Player extends Actor implements Serializable {
 	public void setBravery(int bravery) {
 		this.bravery = bravery;
 	}
-	
+
 	/**
 	 * Getter for Player bravery.
 	 *

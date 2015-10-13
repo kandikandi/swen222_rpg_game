@@ -126,7 +126,7 @@ public class Inventory extends Container {
 	public void eatCandy(){
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {
-				actor = null;
+				this.returnContents().remove(actor);
 				return;
 			}
 		}
