@@ -29,8 +29,8 @@
                     <xOffset>0</xOffset>
                     <yOffset>0</yOffset>
                 </boundingBox>
-                <xPos>240</xPos>
-                <yPos>120</yPos>
+                <xPos>280</xPos>
+                <yPos>80</yPos>
             </position>
         </actor>
         <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="player">
@@ -45,8 +45,8 @@
                     <xOffset>10</xOffset>
                     <yOffset>15</yOffset>
                 </boundingBox>
-                <xPos>230</xPos>
-                <yPos>120</yPos>
+                <xPos>290</xPos>
+                <yPos>90</yPos>
             </position>
             <alive>true</alive>
             <attackPoints>2</attackPoints>
@@ -81,8 +81,8 @@
 <xOffset>0</xOffset>
 <yOffset>0</yOffset>
                             </boundingBox>
-                            <xPos>240</xPos>
-                            <yPos>120</yPos>
+                            <xPos>280</xPos>
+                            <yPos>80</yPos>
                         </position>
                     </item>
                 </itemsList>

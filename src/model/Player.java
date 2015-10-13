@@ -21,7 +21,7 @@ import view.ActorAssets;
 
 //@XmlRootElement(name = "player")
 //@XmlAccessorType(XmlAccessType.FIELD)
-@XmlJavaTypeAdapter(PlayerAdapter.class)
+//@XmlJavaTypeAdapter(PlayerAdapter.class)
 public class Player extends Actor implements Serializable {
 	private int speed = 10;
 	private Inventory inventory;
