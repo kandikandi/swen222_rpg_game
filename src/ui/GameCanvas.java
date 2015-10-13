@@ -7,8 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import control.GameClient;
-import model.Actor;
+import control.ClientControl;
 import model.Player;
 
 /**
@@ -23,7 +22,7 @@ public class GameCanvas extends JPanel {
 	private int WIDTH;
 	private int HEIGHT;
 	private GameFrame frame;
-	private GameClient gameClient;
+	private ClientControl clientControl;
 	private boolean clientSet = false;
 	//private final GameController gameController;
 
@@ -70,16 +69,16 @@ public class GameCanvas extends JPanel {
 		}
 		//this works
 		if(clientSet){
-			Player player = gameClient.getGameState().findPlayer(gameClient.getClientNum());
+			Player player = clientControl.getGameState().findPlayer(clientControl.getClientNum());
 			if(player != null){
-				this.getFrame().updateGUI(player, gameClient);
+				this.getFrame().updateGUI(player, clientControl);
 			}
 
 		}
 	}
 
-	public void setSocketClient(GameClient client){
-		this.gameClient = client;
+	public void setSocketClient(ClientControl client){
+		this.clientControl = client;
 		this.clientSet = true;
 	}
 

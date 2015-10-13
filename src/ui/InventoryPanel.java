@@ -16,9 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import control.GameClient;
-import control.Main;
-import model.Actor;
+import control.ClientControl;
 import model.Player;
 
 
@@ -31,11 +29,11 @@ import model.Player;
  */
 public class InventoryPanel extends JPanel {
 
+	private final int maxItemSlots = 9; // The maximum amount of slots avaliable to the player
 	private InfoPanel inspectItem;
 	private char itemChar;
 	private Image itemImage;
 	private Image backgroundImage;
-	private final int maxItemSlots = 9; // The maximum amount of slots avaliable to the player
 	private ArrayList<JLabel> items = new ArrayList<JLabel>(); // The Inventory is made up of ItemLabels and EmptyLabels
 
 	public InventoryPanel(InfoPanel inspect){
@@ -58,9 +56,9 @@ public class InventoryPanel extends JPanel {
 	 * Updates the players inventory by clearing it and then refilling it by creating
 	 * the equivalent ItemLabels
 	 * @param player
-	 * @param gameClient
+	 * @param clientControl
 	 */
-	public void update(Player player, GameClient gameClient){
+	public void update(Player player, ClientControl clientControl){
 
 		// Clear the Inventory every time it is updated
 			items.clear();
@@ -71,7 +69,7 @@ public class InventoryPanel extends JPanel {
 			// Put the inventory items into the inventory
 			for(int i = 0; i < player.getInventory().returnContents().size(); i++){
 
-					ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getAsciiCode(), player, gameClient);
+					ItemLabel newItem = new ItemLabel(inspectItem, player.getInventory().returnContents().get(i).getAsciiCode(), player, clientControl);
 					//newItem.setItemLabelID(player.getInventory().returnContents().get(i).getID());
 
 					itemChar = player.getInventory().returnContents().get(i).getAsciiCode();

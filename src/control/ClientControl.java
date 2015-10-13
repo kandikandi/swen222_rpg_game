@@ -20,8 +20,10 @@ import ui.GameCanvas;
 import view.GameCamera;
 import view.Renderer;
 
-public class GameClient extends Thread {
+public class ClientControl extends Thread {
 
+    //which client, and whether the server knows its there
+    boolean handShakeComplete = false;
     /**The gameclient handles all data recieved from the server. Any packets passed in through the socket will be parsed for what type of packet then dealt
      * with in the appropriate manner. The client communicates with the server and the renderer/UI only, it does not deal with any game logic. It has a game state,
      * which it does not make any direct changes to, only updates with information recieved from server.
@@ -32,22 +34,17 @@ public class GameClient extends Thread {
 	//socket number to server and ip address game is played on
     private InetAddress ipAddress;
     private DatagramSocket socket;
-
     //gamestate to be updated by server communication
     private GameState gameState;
-
     //For deserialising the actor list
     private Serialiser serial = new Serialiser();
-
-    //which client, and whether the server knows its there
-    boolean handShakeComplete = false;
     private int clientNum = 0;
 
     //UI/Rendering
     private Renderer renderer;
 
 
-    public GameClient(String ipAddress, GameState gameState, GameCanvas gameCanvas) {
+    public ClientControl(String ipAddress, GameState gameState, GameCanvas gameCanvas) {
 
         this.gameState = gameState;
         //game canvas is used only to to pass into the renderer, so is not stored in a variable inside client
@@ -86,6 +83,8 @@ public class GameClient extends Thread {
             //find out what kind of packet it is and deal with it
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
+            renderer.renderScene(gameState, clientNum);
+
         }
     }
 
@@ -105,16 +104,16 @@ public class GameClient extends Thread {
 
         switch (type) {
             case UPDATE:
-            	//If an update, deserialise the data, update the state, then render the new scene
+            	//If an update, deserialize the data, update the local game state
                 ArrayList<Actor> recd;
+                System.out.println("ClientControl: UPDATE parsed, clientNum: "+clientNum);
                 try {
-                    //System.out.println("GameClient: UPDATE parsed, clientnum: "+clientNum);
                     if (clientNum != -1) {
                     	recd = (ArrayList<Actor>) serial.deserialize(data);
+                        System.out.println("ClientControl: finished deserialize, actorList length: "+recd.size());
                         gameState.setActors(recd);
-                        renderer.renderScene(gameState, clientNum);
                     } else {
-                        System.out.println("GameClient received UPDATE packet before finishing handshake");
+                        System.out.println("ClientControl received UPDATE packet before finishing handshake");
                         break;
                     }
                 } catch (ClassNotFoundException | IOException e) {
@@ -126,23 +125,23 @@ public class GameClient extends Thread {
             case LOGINCONFIRM:
             	//If Loginconfirm, the server recieved the login packet, and is sending the client its number.
             	//Client needs to update itself that it has completed a handshake.
-                System.out.println("GameClient recieved LOGINCONFIRM");
+                System.out.println("ClientControl recieved LOGINCONFIRM");
                 //If handshake is already complete, an error mustve occured.
                 if (handShakeComplete) {
-                    System.out.println("GameClient already authenticated, LOGINCONFIRM not for me");
+                    System.out.println("ClientControl already authenticated, LOGINCONFIRM not for me");
                     break;
                 } else {
                     //must make sure to call the overloaded child method
                     PacketLoginConfirm loginConfirm = new PacketLoginConfirm(data);
                     clientNum = loginConfirm.getClientNumber();
-                    System.out.println("GameClient LOGINCONFIRM recieved...clientNum: " + clientNum);
+                    System.out.println("ClientControl LOGINCONFIRM recieved...clientNum: " + clientNum);
                     handShakeComplete = true;
                 }
 
                 break;
             case LOGIN:
                 //Login packet should only be sent to a server
-                System.out.println("GameClient Error: received a login packet");
+                System.out.println("ClientControl Error: received a login packet");
                 break;
 
             case DISCONNECT:
@@ -184,7 +183,7 @@ public class GameClient extends Thread {
 
     }
 
-    // Added so GUI could get GameState via GameClient
+    // Added so GUI could get GameState via ClientControl
     public GameState getGameState(){
         return gameState;
 	}

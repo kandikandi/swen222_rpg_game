@@ -11,10 +11,10 @@ import java.awt.event.KeyListener;
 public class PlayerController implements KeyListener  {
 
 
-	private GameClient thisPlayer;
+	private ClientControl thisPlayer;
 
 
-	public PlayerController(GameClient client){
+	public PlayerController(ClientControl client){
 		thisPlayer = client;
 
 	}

@@ -2,18 +2,12 @@ package ui;
 
 import javax.swing.*;
 
-import control.GameClient;
-import control.GameServer;
-import control.Main;
-import model.Actor;
+import control.ClientControl;
 import model.Player;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 
 /**
  * The GameFrame holds the pieces which make up the GUI for Bedtime Story.
@@ -25,6 +19,7 @@ import java.util.ArrayList;
  */
 public class GameFrame extends JFrame {
 
+	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 	private final int WIDTH;
 	private final int HEIGHT;
 	private JMenuBar menu =  new JMenuBar();
@@ -33,10 +28,7 @@ public class GameFrame extends JFrame {
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
-	private GameClient socketClient; //TODO: Bonnie added this!
-
-
-	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
+	private ClientControl socketClient; //TODO: Bonnie added this!
 
 	// TODO: Bonnie added extra argument here!
 	public GameFrame(String title, int WIDTH, int HEIGHT) {
@@ -138,11 +130,11 @@ public class GameFrame extends JFrame {
 	 * Players GoldPanel
 	 * Players InventoryPanel
 	 * @param player
-	 * @param socketClient
+	 * @param clientControl
 	 */
-	public void updateGUI(Player player, GameClient gameClient){
+	public void updateGUI(Player player, ClientControl clientControl){
 
-		this.updatePlayerInventory(player, gameClient);
+		this.updatePlayerInventory(player, clientControl);
 
 		this.updatePlayerFear(player.getFear());
 		this.updatePlayerCoins(player.getInventory().getCoinCount());
@@ -158,9 +150,9 @@ public class GameFrame extends JFrame {
 	 * Updates the players Inventory display via the InventoryPanel
 	 * @param player
 	 */
-	public void updatePlayerInventory(Player player, GameClient gameClient){
+	public void updatePlayerInventory(Player player, ClientControl clientControl){
 
-			this.inventory.update(player, gameClient);
+			this.inventory.update(player, clientControl);
 
 	}
 
@@ -183,7 +175,7 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
-	public void add(GameClient socketClient) {
+	public void add(ClientControl socketClient) {
 		this.socketClient = socketClient;
 	}
 

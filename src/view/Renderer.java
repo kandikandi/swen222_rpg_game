@@ -47,7 +47,7 @@ public final class Renderer {
 
         if(player==null){
         	System.out.println(playerNum);
-        	System.out.println("Renderer cant cant player: "+playerNum);
+        	System.out.println("Renderer cant find player: "+playerNum);
             return;
         }
 
@@ -69,6 +69,10 @@ public final class Renderer {
             }
         };
 
+        if(Main.TEST_MODE){
+            System.out.print("Renderer: Tiles: "+camera.getTileView(gameState,playerNum).size()+" ");
+            System.out.println("Actors: "+camera.getActorView(gameState,playerNum).size());
+        }
         // Look for all entities that contain the two components required to
         // draw it
         camera.getTileView(gameState, playerNum).forEach(tile -> {

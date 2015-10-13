@@ -12,12 +12,12 @@ public class PacketDisconnect extends Packet {
 	}
 
 	@Override
-	public void writeData(GameClient client) {
+	public void writeData(ClientControl client) {
 		client.sendData(getData());
 	}
 
 	@Override
-	public void writeData(GameServer server) {
+	public void writeData(ServerControl server) {
 		server.sendDataToAllClients(getData());
 	}
 

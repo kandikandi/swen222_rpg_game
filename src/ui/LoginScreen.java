@@ -1,37 +1,21 @@
 package ui;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dialog;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JLayer;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
 
-import control.GameServer;
-import control.Main;
 import control.MainClient;
 import control.MainServer;
 
@@ -42,6 +26,7 @@ import control.MainServer;
  */
 public class LoginScreen extends JFrame {
 
+	String username = "00";
 	private BufferedImage backgroundScreen;
 	private BufferedImage title;
 	private BufferedImage hostGameImage;
@@ -59,7 +44,6 @@ public class LoginScreen extends JFrame {
 	private boolean userNameEntered = false;
 	private boolean hosted = false;
 	private boolean picked = false;
-	String username = "00";
 
 
 	public LoginScreen() {
@@ -224,6 +208,14 @@ public class LoginScreen extends JFrame {
 
 	}
 
+	public static void main(String args[]){
+		//LoginScreen screen = new LoginScreen();
+		String dave = "Dave";
+		MainServer.main(null);
+		MainClient client = new MainClient();
+		client.launchClient(dave);
+	}
+
 	public void paint(Graphics g){
 		BufferedImage offScreen = new BufferedImage(getWidth(),getHeight(),BufferedImage.TYPE_INT_RGB);
 		Graphics graphics = offScreen.getGraphics();
@@ -242,14 +234,6 @@ public class LoginScreen extends JFrame {
 		}
 		g.drawImage(offScreen, 0, 0, null);
 
-	}
-
-	public static void main(String args[]){
-		//LoginScreen screen = new LoginScreen();
-		String dave = "Dave";
-		MainServer.main(null);
-		MainClient client = new MainClient();
-		client.launchClient(dave);
 	}
 
 }

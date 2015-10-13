@@ -1,6 +1,5 @@
 package view;
 
-import control.GameClient;
 import control.Main;
 import model.Actor;
 import model.GameState;
@@ -19,11 +18,11 @@ public class GameCamera {
     //private Player playerActor;
     //private Tile[][] worldTiles;
     //private List<Tile> viewTiles;
-    //private GameClient client;
+    //private ClientControl client;
     //private List<Actor> worldActors;
 
 
-    public GameCamera(/*GameState gameState, GameClient client*/) {
+    public GameCamera(/*GameState gameState, ClientControl client*/) {
        /* this.client = client;
         this.gameState = gameState;
         //playerActor = gameState.findPlayer(client.getClientNum());

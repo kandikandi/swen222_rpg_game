@@ -16,7 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
-import control.GameClient;
+import control.ClientControl;
 import control.PacketDropItem;
 import model.Player;
 
@@ -37,19 +37,19 @@ public class ItemLabel extends JLabel {
 	private char asciiCode;
 	private InfoPanel inspectPanel;
 	private Player player;
-	private GameClient gameClient;
+	private ClientControl clientControl;
 
 	/*
 	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
-	public ItemLabel(InfoPanel inspectItem, char c, Player player, GameClient gameClient){
+	public ItemLabel(InfoPanel inspectItem, char c, Player player, ClientControl clientControl){
 
 		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
 		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
 		this.asciiCode = c;
 		this.player = player;
-		this.gameClient = gameClient;
+		this.clientControl = clientControl;
 
 		this.addMouseListener(new PopupTriggerListener());
 
@@ -86,7 +86,7 @@ public class ItemLabel extends JLabel {
 				}
 
 				PacketDropItem p = new PacketDropItem(data.getBytes());
-				p.writeData(gameClient);
+				p.writeData(clientControl);
 
 			}
 		});

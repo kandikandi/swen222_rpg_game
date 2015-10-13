@@ -1,22 +1,5 @@
 package control;
 
-import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.UIManager;
-
-import view.GameCamera;
-import ui.GameCanvas;
-import ui.GameFrame;
-import model.GameState;
-import view.Renderer;
-
 public class Main {
 
     public static final int F_WIDTH = 1000;
@@ -39,8 +22,8 @@ public class Main {
 
     public static final boolean DRAW_HITBOXES = false;
     public static final int PORT = 32768;
-    private static GameClient socketClient;
-    private static GameServer socketServer;
+    private static ClientControl socketClient;
+    private static ServerControl socketServer;
     //private static PlayerController playerController;
 
 
@@ -70,7 +53,7 @@ public class Main {
                        JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE,    new ImageIcon(image),
                        options, options[0]) == 0) {
                    isServer = true;
-                   socketServer = new GameServer();
+                   socketServer = new ServerControl();
                    socketServer.start();
                }
 
@@ -80,7 +63,7 @@ public class Main {
                     socketServer.setGame(gameState);
                 }
 
-                socketClient = new GameClient("localhost", gameState);
+                socketClient = new ClientControl("localhost", gameState);
                 socketClient.start();
 
                 PlayerController playerController = new PlayerController(socketClient);

@@ -2,13 +2,9 @@ package control;
 
 import java.awt.EventQueue;
 
-import javax.swing.JOptionPane;
-
-import view.GameCamera;
 import ui.GameCanvas;
 import ui.GameFrame;
 import model.GameState;
-import view.Renderer;
 
 public class MainClient {
 
@@ -30,21 +26,19 @@ public class MainClient {
     public static final int PLAYER_TWO_START_LOCATION_Y = 75;
     public static final boolean DRAW_HITBOXES = false;
 
-
-    public void launchClient(String username) {
-
+    //TODO delete this -- Cuan
+    static public void main(String[] args) {
+        String username = "cuan";
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 boolean isServer = false;
-
-
                 GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();
 
                 GameState gameState = new GameState(isServer);
-                GameClient socketClient = new GameClient("130.195.4.165", gameState, gameCanvas);
+                ClientControl socketClient = new ClientControl("localhost", gameState, gameCanvas);
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
@@ -52,7 +46,36 @@ public class MainClient {
 
 
                 socketClient.start();
-                PacketLogin loginPacket = new PacketLogin(username.getBytes());
+                PacketLogin loginPacket = new PacketLogin(("00" + username).getBytes());
+                loginPacket.writeData(socketClient);
+
+
+            }
+
+        });
+    }
+
+    public void launchClient(String username) {
+
+        EventQueue.invokeLater(new Runnable() {
+            public void run() {
+
+                boolean isServer = false;
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
+                GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
+                gameFrame.getContentPane().add(gameCanvas);
+                gameFrame.pack();
+
+                GameState gameState = new GameState(isServer);
+                ClientControl socketClient = new ClientControl("localhost", gameState, gameCanvas);
+                gameCanvas.setSocketClient(socketClient);
+                PlayerController playerController = new PlayerController(socketClient);
+                gameFrame.addKeyListener(playerController);
+                gameFrame.add(socketClient);
+
+
+                socketClient.start();
+                PacketLogin loginPacket = new PacketLogin(("00"+username).getBytes());
                 loginPacket.writeData(socketClient);
 
 
