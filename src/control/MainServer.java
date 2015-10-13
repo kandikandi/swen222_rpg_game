@@ -55,7 +55,7 @@ public class MainServer {
 				EnemyController enemyController = new EnemyController(gameState);
 				GameTimer gameTimer = new GameTimer(enemyController, socketServer);
 
-				gameTimer.start();
+				//gameTimer.start();
 
 			}
 

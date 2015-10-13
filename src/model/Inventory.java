@@ -123,7 +123,7 @@ public class Inventory extends Container {
 
 
 
-	public void eatCandy(){
+	/*public void eatCandy(){
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {
 				actor = null;
@@ -140,7 +140,7 @@ public class Inventory extends Container {
 			}
 		}
 		return false;
-	}
+	}*/
 
 
 	/**

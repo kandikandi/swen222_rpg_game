@@ -31,8 +31,7 @@ public enum ActorAssets {
     VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     SCHOOLWALL('S',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     CIRCUSWALL('M',"wall.jpg",Main.ITEM_SIZE, Main.ITEM_SIZE),
-    CANDY('Z',"candy.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
-    ;
+    CANDY('Z',"candy.png",Main.ITEM_SIZE, Main.ITEM_SIZE);
 
 
 
@@ -48,7 +47,7 @@ public enum ActorAssets {
 
         this.imagePath = imagePath;
         try {
-            image = ImageIO.read(new File(imagePath));
+            image = ImageIO.read(new File(imagePath)).getScaledInstance(width,height,Image.SCALE_FAST);
         } catch (IOException e) {
             System.out.printf("Error: cant load "+imagePath);
             System.out.printf(e.getMessage());

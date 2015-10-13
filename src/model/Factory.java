@@ -94,7 +94,7 @@ public class Factory {
                 if (actor == null) {
                     try {
                         throw new GameException(
-                                "TestModeFactory: failed to create actor");
+                                "Factory: failed to create actor");
                     } catch (GameException e) {
                         System.out.println(e.getMessage());
                         e.printStackTrace();
@@ -112,8 +112,9 @@ public class Factory {
         int size = Main.TILE_SIZE;
         Position pos = new Position(xPos, yPos);
         Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
-        Candy candy = new Candy(pos, ActorAssets.CANDY.getAsciiCode(), true, true);
-        return candy;
+        //Candy candy = new Candy(pos, ActorAssets.CANDY.getAsciiCode(), true, true);
+        //return candy;
+        return tree;
 	}
 
 	/**
@@ -121,7 +122,7 @@ public class Factory {
      */
     private Actor createTree(int x, int y) {
         int size = Main.TILE_SIZE;
-        BoundingBox bbox = new BoundingBox(size, size, 50, 90);
+        BoundingBox bbox = new BoundingBox(size, size, 40, 80);
         Position pos = new Position(x, y, bbox);
         Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
         return tree;
@@ -221,11 +222,11 @@ public class Factory {
      * This method constructs a standard PlayerActor object.
      */
     public Player createPlayerActor(int clientNum) {
-        BoundingBox bBox = new BoundingBox(20, 20, 10, 15);
+        BoundingBox bBox = new BoundingBox(26, 30, 7, 15);
         Position loc = new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y, bBox);
-        if (clientNum == 1) {
+        /*if (clientNum == 1) {
             loc = new Position(Main.PLAYER_TWO_START_LOCATION_X, Main.PLAYER_TWO_START_LOCATION_Y, bBox);
-        }
+        }*/
         char asciiCode = ActorAssets.PLAYER.getAsciiCode();
         Player player = new Player(loc, asciiCode, true, true, clientNum);
         // player.setInventory(createInventory(true, 10, 10));

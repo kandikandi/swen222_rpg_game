@@ -191,7 +191,7 @@ public class Player extends Actor implements Serializable {
 	
 	
 	
-	public void eatCandy(){
+	/*public void eatCandy(){
 		if(inventory.containsCandy()){
 			inventory.eatCandy();
 			if(fear>30){
@@ -201,7 +201,7 @@ public class Player extends Actor implements Serializable {
 			}
 		}
 		
-	}
+	}*/
 	
 	
 	/**

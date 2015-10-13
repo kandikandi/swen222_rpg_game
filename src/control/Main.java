@@ -28,8 +28,6 @@ public class Main {
     public static final int NUM_TILE_ROW = C_HEIGHT / TILE_SIZE;
     public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
     public static final boolean TEST_MODE = true;
-    public static final String TITLE = "ECS BETA";
-    public static final int PLAYER_SIZE = 45;
     public static final int ITEM_SIZE = 30;
     public static final int PLAYER_ONE_START_LOCATION_X = 800;	//75
     public static final int PLAYER_ONE_START_LOCATION_Y = 2000; // 75
@@ -39,8 +37,9 @@ public class Main {
 
     public static final boolean DRAW_HITBOXES = false;
     public static final int PORT = 32768;
-    private static GameClient socketClient;
-    private static GameServer socketServer;
+    //private static GameClient socketClient;
+    //private static GameServer socketServer;
+    public static  int ROTATION = 0;
     //private static PlayerController playerController;
 
 
