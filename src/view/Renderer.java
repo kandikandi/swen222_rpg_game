@@ -88,8 +88,8 @@ public final class Renderer {
                     g2d.drawImage(image, x, y, null);
 
                     if (Main.DRAW_HITBOXES) {
-                        int rX = actor.getBoundingBox().x - originX;
-                        int rY = actor.getBoundingBox().y - originY;
+                        int rX = actor.getPosition().getxPos() + actor.getBoundingBox().getXOffset() - originX;
+                        int rY = actor.getPosition().getyPos() + actor.getBoundingBox().getYOffset() - originY;
                         int w = actor.getBoundingBox().width;
                         int h = actor.getBoundingBox().height;
                         int x2 = RotationCalculator.getScreenX(rX,rY,width,height) + HALF_C_WIDTH;
