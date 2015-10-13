@@ -15,8 +15,8 @@ import save.inventory.InventoryAdapter;
  *
  *
  */
-@XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
-@XmlJavaTypeAdapter(InventoryAdapter.class)
+//@XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
+//@XmlJavaTypeAdapter(InventoryAdapter.class)
 //@XmlSeeAlso({Container.class})
 public class Inventory extends Container {
 
