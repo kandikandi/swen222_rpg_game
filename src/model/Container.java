@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
 
 
 /**
@@ -12,7 +14,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  * other items, such as an Inventory holding collectables.
  *
  */
-@XmlRootElement(name = "container") //TODO: Bonnie added this line!
+//@XmlRootElement(name = "container") //TODO: Bonnie added this line!
+@XmlTransient
 public class Container extends Actor {
 
     private int maximumItems = 10;

@@ -7,6 +7,9 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -21,7 +24,8 @@ import save.gamestate.GamestateAdapter;
  *
  */
 @XmlRootElement(name = "gamestate")
-@XmlJavaTypeAdapter(GamestateAdapter.class)
+//@XmlJavaTypeAdapter(GamestateAdapter.class)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GameState {
 
 	/**
@@ -37,6 +41,7 @@ public class GameState {
 	 */
 	// @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
 	// @XmlElement(name = "actor") //TODO:Bonnie added this here!
+//	@XmlElementRef
 	private List<Actor> actors;
 
 	/**

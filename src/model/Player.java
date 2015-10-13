@@ -6,8 +6,10 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import control.Main;
+import save.actors.PlayerAdapter;
 import view.ActorAssets;
 
 
@@ -19,6 +21,7 @@ import view.ActorAssets;
 
 @XmlRootElement(name = "player")
 //@XmlAccessorType(XmlAccessType.FIELD)
+//@XmlJavaTypeAdapter(PlayerAdapter.class)
 public class Player extends Actor implements Serializable {
 	private int speed = 10;
 	private Inventory inventory;
@@ -222,8 +225,8 @@ public class Player extends Actor implements Serializable {
 		this.getInventory().empty();
 		this.setFear(0);
 		//this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y, Main.PLAYER_SIZE));
-		this.setX(Main.PLAYER_ONE_START_LOCATION_X);
-		this.setY(Main.PLAYER_ONE_START_LOCATION_Y);
+//		this.setX(Main.PLAYER_ONE_START_LOCATION_X);
+//		this.setY(Main.PLAYER_ONE_START_LOCATION_Y);
 //		System.out.println(".......Player x"+this.getPosition().getxPos());
 
 	}
