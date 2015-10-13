@@ -13,16 +13,10 @@ import save.inventory.InventoryAdapter;
  *
  *
  */
-<<<<<<< HEAD
 @XmlRootElement(name = "inventory")
 // TODO: Bonnie added this line!
 @XmlJavaTypeAdapter(InventoryAdapter.class)
-// @XmlSeeAlso({Container.class})
-=
-//@XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
-//@XmlJavaTypeAdapter(InventoryAdapter.class)
-//@XmlSeeAlso({Container.class})
->>>>>>> f42ee099b291a612b894bfaceb82c33c277f5197
+// @XmlSeeAlso({Container.class}
 public class Inventory extends Container {
 
 	@XmlTransient
