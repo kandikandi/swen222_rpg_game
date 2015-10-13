@@ -7,8 +7,6 @@ package model;
  */
 public class Collision {
 
-
-
 	private final GameState gameState;
 
 	public Collision(GameState gameState) {
@@ -16,7 +14,7 @@ public class Collision {
 	}
 
 	public boolean canMove(Player player, Position proposedPosition) {
-		BoundingBox bBox = (BoundingBox)player.getBoundingBox().clone();
+		BoundingBox bBox = (BoundingBox) player.getBoundingBox().clone();
 
 		Actor collidingActor = gameState.playerCollisionCheck(proposedPosition); // gets
 																					// actor
@@ -56,7 +54,7 @@ public class Collision {
 			// monster -
 			enemy.reduceHealth(player.getAttackPoints() + player.getBravery());
 		} else { // if neither is attacking both lose a little
-//			enemy.reduceHealth(1);
+		// enemy.reduceHealth(1);
 			player.increaseFear(1);
 		}
 
@@ -71,15 +69,34 @@ public class Collision {
 	 * @return true if the player has a key
 	 */
 	public void useKeyInDoor(Player player, Door door) {
-		if (player.getInventory().containsKey()) {
-			door.setOpen();
-			Key key = player.getInventory().getKey();
-			player.getInventory().removeItemFromContainer(key);
-			key.setCollidable(false);
-			key.setDrawable(false);
-			key = null;
+		if (door.isSpecial()) {
+			if (player.getInventory().containsSpecialKey()) {
+				door.setOpen();
+				Key key = player.getInventory().getSpecialKey();
+				player.getInventory().removeItemFromContainer(key);
+				key.setCollidable(false);
+				key.setDrawable(false);
+				key = null;
+			} }
+		else {
+				if (player.getInventory().containsNormalKey()) {
+					door.setOpen();
+					Key key = player.getInventory().getNormalKey();
+					player.getInventory().removeItemFromContainer(key);
+					key.setCollidable(false);
+					key.setDrawable(false);
+					key = null;
+				}
+				else if (player.getInventory().containsKey()) {
+					door.setOpen();
+					Key key = player.getInventory().getKey();
+					player.getInventory().removeItemFromContainer(key);
+					key.setCollidable(false);
+					key.setDrawable(false);
+					key = null;
+				}
+			}
 		}
-	}
 
 	/**
 	 * This method adds a collectable to the inventory. TODO: if pickup is being

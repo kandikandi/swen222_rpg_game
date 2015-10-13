@@ -82,6 +82,101 @@ public class Inventory extends Container {
 		return null;
 	}
 
+
+
+
+	/**
+	 * Returns (first) key found in this Inventory.
+	 *
+	 * @return
+	 */
+	public Key getSpecialKey() {
+		for (Actor actor : items) {
+			if (actor instanceof Key) {
+				Key key = (Key) actor;
+				if(key.isSpecial()){
+				return key;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * Returns (first) normal key found in this Inventory.
+	 *
+	 * @return
+	 */
+	public Key getNormalKey() {
+		for (Actor actor : items) {
+			if (actor instanceof Key) {
+				Key key = (Key) actor;
+				if(!key.isSpecial()){
+				return key;
+				}
+			}
+		}
+		return null;
+	}
+
+
+
+	public void eatCandy(){
+		for (Actor actor : items) {
+			if (actor instanceof Candy) {
+				actor = null;
+				return;
+			}
+		}
+	}
+
+
+	public boolean containsCandy(){
+		for (Actor actor : items) {
+			if (actor instanceof Candy) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+
+	/**
+	 * This method is used to check whether a player has a key when near a door.
+	 *
+	 * @return
+	 */
+	public boolean containsSpecialKey() {
+		for (Actor actor : items) {
+			if (actor instanceof Key) {
+				Key key = (Key) actor;
+				if(key.isSpecial()){
+				return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * This method is used to check whether a player has a  normal key when near a door.
+	 *
+	 * @return
+	 */
+	public boolean containsNormalKey() {
+		for (Actor actor : items) {
+			if (actor instanceof Key) {
+				Key key = (Key) actor;
+				if(!key.isSpecial()){
+				return true;
+				}
+			}
+		}
+		return false;
+	}
+
+
+
 	/**
 	 * This method is used to check whether a player has a coinBag in the
 	 * inventory.

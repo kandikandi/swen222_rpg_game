@@ -174,6 +174,23 @@ public class Player extends Actor implements Serializable {
 		}
 	}
 
+	
+	
+	
+	
+	public void eatCandy(){
+		if(inventory.containsCandy()){
+			inventory.eatCandy();
+			if(fear>30){
+				fear-=30;
+			}else{
+				fear = 0;
+			}
+		}
+		
+	}
+	
+	
 	/**
 	 * Getter for Player's fear level.
 	 *
@@ -294,7 +311,7 @@ public class Player extends Actor implements Serializable {
 	public void setBravery(int bravery) {
 		this.bravery = bravery;
 	}
-
+	
 	/**
 	 * Getter for Player bravery.
 	 *

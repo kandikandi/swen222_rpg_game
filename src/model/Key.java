@@ -3,6 +3,8 @@ package model;
 
 public class Key extends Collectable {
 
+	private boolean special;
+
 	/**
 	 * A Key object can be picked up by a Player and used to
 	 * open a Door.
@@ -24,4 +26,23 @@ public class Key extends Collectable {
 		this.setDrawable(false);
 		this.setCollidable(false);
 	}
+
+	/**
+	 * Setter for special field.
+	 *
+	 * @param special
+	 */
+	public void setSpecial(boolean special){
+		this.special = special;
+	}
+
+	/**
+	 * Getter for special field.
+	 *
+	 * @param special
+	 */
+	public boolean isSpecial(){
+		return special;
+	}
+
 }
