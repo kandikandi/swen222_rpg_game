@@ -60,7 +60,7 @@ public class GameFrame extends JFrame {
 //				    }
 //				});
 //
-//		this.setupMenuBar();
+		this.setupMenuBar();
 
 		// Set up the sidePanel to hold the Players Stats (PlayerStatsPanel), Coin Bag (GoldPanel) and Inventory (InventoryPanel)
 		this.sidePanel.setLayout(new BorderLayout());
@@ -87,12 +87,16 @@ public class GameFrame extends JFrame {
 	public void setupMenuBar(){
 		menu.add(file);
 		file.getPopupMenu().setLightWeightPopupEnabled(false);
-		JMenuItem newG = new JMenuItem("New Game");
-		newG.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				//		    	newGame();
-			}
+
+		menu.add(file);
+		file.getPopupMenu().setLightWeightPopupEnabled(false);
+		JMenuItem about = new JMenuItem("Info/Instructions");
+		about.addActionListener(new ActionListener(){
+		    public void actionPerformed(ActionEvent e) {
+		    	getAbout();
+		    }
 		});
+		file.add(about);
 		JMenuItem saveG = new JMenuItem("Save Game");
 		saveG.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
@@ -118,9 +122,21 @@ public class GameFrame extends JFrame {
 
 		});
 		//=================================================//
-		file.add(newG);
+		file.add(about);
 		file.add(saveG);
 		file.add(loadG);
+	}
+
+	public void getAbout(){
+		int count = JOptionPane.OK_OPTION;
+		JOptionPane.showMessageDialog(null, "Bed Time Story created by: "
+				+ "\n Andrew, Cuan, Kandice, Bonnie and David."
+				+ "\nControls:"
+				+ "\n r: rotate"
+				+ "\n spacebar: attack"
+				+ "\n arrow keys: move"
+				+ "\nRight click on items in inventory for options. ", "",
+		        JOptionPane.OK_OPTION);
 	}
 
 	/**
