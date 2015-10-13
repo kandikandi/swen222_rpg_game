@@ -16,14 +16,12 @@ import save.actor.ActorAdapter;
 @XmlRootElement(name = "actor")
 // TODO:Bonnie added this here!
  @XmlJavaTypeAdapter(ActorAdapter.class)
-//@XmlSeeAlso({ Coin.class, CoinBag.class, Collectable.class, Door.class,
-//		Enemy.class, Key.class, Wall.class })
+//@XmlSeeAlso({ Coin.class, CoinBag.class, Collectable.class, Door.class, Enemy.class, Key.class, Wall.class, Player.class})
 public class Actor implements Serializable {
 	protected String imageName;
 	protected Position position;
 	protected boolean collidable;
 	protected boolean drawable;
-	// protected ID id;
 	protected char asciiCode;
 	protected String actorDescription;
 
@@ -34,6 +32,10 @@ public class Actor implements Serializable {
 		this.asciiCode = ascii;
 		this.collidable = collidable;
 		this.drawable = drawable;
+
+	}
+
+	private Actor(){
 
 	}
 
