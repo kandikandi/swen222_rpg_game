@@ -1,5 +1,6 @@
 package view;
 
+import control.ClientControl;
 import control.Main;
 import model.Actor;
 import model.GameState;
@@ -18,11 +19,11 @@ public class GameCamera {
     //private Player playerActor;
     //private Tile[][] worldTiles;
     //private List<Tile> viewTiles;
-    //private ClientControl client;
+    //private GameClient client;
     //private List<Actor> worldActors;
 
 
-    public GameCamera(/*GameState gameState, ClientControl client*/) {
+    public GameCamera(/*GameState gameState, GameClient client*/) {
        /* this.client = client;
         this.gameState = gameState;
         //playerActor = gameState.findPlayer(client.getClientNum());
@@ -35,19 +36,27 @@ public class GameCamera {
      *
      */
     public List<Tile> getTileView(GameState gameState, int playerNum) {
+
         List<Tile> viewTiles = new ArrayList<>();
-        //viewTiles.clear();
         Tile[][] worldTiles = gameState.getWorld();
         Player playerActor = gameState.findPlayer(playerNum);
         if(playerActor == null ){
             System.out.println("GameCamera getTileView has null playerActor");
             return null;
         }
+        if(Main.TEST_MODE){
+            System.out.println("GameCamera: getTileView about to filter ["+worldTiles.length+"]["+worldTiles[0].length+"] Tiles");
+        }
         int colMin, colMax, colCeiling, rowMin, rowMax, rowCeiling;
         int playerX = playerActor.getPosition().getxPos();
         int playerY = playerActor.getPosition().getyPos();
         colCeiling = worldTiles[0].length;
         rowCeiling = worldTiles.length;
+
+        /*colMin = 0;
+        colMax = colCeiling;
+        rowMin = 0;
+        rowMax = rowCeiling;*/
 
         colMin = calculateColMin(playerX);
         colMax = calculateColMax(playerX, colCeiling);
@@ -59,6 +68,7 @@ public class GameCamera {
                 viewTiles.add(worldTiles[j][i]);
             }
         }
+        System.out.println("GameCamera: getTileView about to return with... "+viewTiles.size()+" tiles");
         return viewTiles;
 
     }
@@ -72,25 +82,40 @@ public class GameCamera {
             System.out.println("GameCamera getActorView has null playerActor");
             return null;
         }
-        //System.out.println(playerActor.getBoundingBox().toString());
+        if(Main.TEST_MODE){
+            System.out.println("GameCamera: getActorView about to filter "+worldActors.size()+" Actors");
+        }
+
         final int hWidth = Main.C_WIDTH / 2;
         final int hHeight = Main.C_HEIGHT / 2;
         final int tSize = Main.TILE_SIZE;
         final int playerXPos = playerActor.getPosition().getxPos();
         final int PlayerYPos = playerActor.getPosition().getyPos();
+        final int minX = playerXPos - hWidth - tSize;
+        final int maxX = playerXPos + hWidth;
+        final int minY = PlayerYPos - hHeight - tSize;
+        final int maxY = PlayerYPos + hWidth;
         for (Actor actor : worldActors) {
             final int actorXPos = actor.getPosition().getxPos();
             final int actorYPos = actor.getPosition().getyPos();
-            if (actorXPos < (playerXPos - hWidth - tSize)) {
+            if (actorXPos < minX) {
+                System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" < xPos: "+actorXPos+" LIMIT: "+minX);
                 continue;
-            } else if (actorXPos > (playerXPos + hWidth)) {
+            } else if (actorXPos > maxX) {
+                System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" > xPos: "+actorXPos+" LIMIT: "+maxX);
                 continue;
-            } else if (actorYPos < (PlayerYPos - hHeight - tSize)) {
+            } else if (actorYPos < minY) {
+                System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" < yPos: "+actorYPos+" LIMIT: "+minY);
                 continue;
-            } else if (actorYPos > (PlayerYPos + hWidth)) {
+            } else if (actorYPos > maxY) {
+                System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" > yPos: "+actorYPos+" LIMIT: "+maxY);
                 continue;
             }
             viewActors.add(actor);
+        }
+
+        if(Main.TEST_MODE){
+            System.out.println("GameCamera: getActorView about to return with... "+viewActors.size()+" Actors");
         }
         return viewActors;
     }

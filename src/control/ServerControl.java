@@ -186,6 +186,17 @@ public class ServerControl extends Thread {
     public void updateClients() {
         // Send out game view to clients
         List<Actor> update = game.getActors();
+        if(Main.TEST_MODE){
+            Actor act = update.get(3);
+            int xPos = act.getPosition().getxPos();
+            int yPos = act.getPosition().getyPos();
+            char image = act.getImageName();
+            char asciiCode = act.getAsciiCode();
+            System.out.println("*********************************************************************");
+            System.out.println("ServerControl updateClients: first actor in list stats");
+            System.out.println("xPos: "+xPos+" yPos: "+yPos+" image: "+image+" asciiCode: "+asciiCode);
+            System.out.println("*********************************************************************");
+        }
         try {
             sendDataToAllClients(serial.serialize(update));
         } catch (IOException e) {

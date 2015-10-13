@@ -1,9 +1,9 @@
 package view;
 
-
 import control.Main;
 import model.*;
 import ui.GameCanvas;
+import view.GameCamera;
 import java.awt.*;
 import java.awt.List;
 import java.awt.image.BufferedImage;
@@ -44,11 +44,15 @@ public final class Renderer {
         drawBackground();
 
         Player player = gameState.findPlayer(playerNum);
-
         if(player==null){
-        	System.out.println(playerNum);
-        	System.out.println("Renderer cant find player: "+playerNum);
+            System.out.println("Renderer cant find player: "+playerNum);
             return;
+        }
+
+        if(Main.TEST_MODE){
+            int tilesReceived = camera.getTileView(gameState,playerNum).size();
+            int actorReceived = camera.getActorView(gameState,playerNum).size();
+            System.out.println("Renderer recieved Tiles: "+tilesReceived+"   Actors: "+actorReceived);
         }
 
         int playerX = player.getPosition().getxPos();
@@ -69,16 +73,13 @@ public final class Renderer {
             }
         };
 
-        if(Main.TEST_MODE){
-            System.out.print("Renderer: Tiles: "+camera.getTileView(gameState,playerNum).size()+" ");
-            System.out.println("Actors: "+camera.getActorView(gameState,playerNum).size());
-        }
         // Look for all entities that contain the two components required to
         // draw it
         camera.getTileView(gameState, playerNum).forEach(tile -> {
             Image image = TileAssets.getAssetImage(tile.getAsciiCode());
             int x = tile.getPosition().getxPos() - playerX + HALF_C_WIDTH;
             int y = tile.getPosition().getyPos() - playerY + HALF_C_HEIGHT;
+            //System.out.println("Renderer: tileX: "+x+" tileY: "+y);
             g2d.drawImage(image, x, y, Main.TILE_SIZE, Main.TILE_SIZE, null);
         });
 
