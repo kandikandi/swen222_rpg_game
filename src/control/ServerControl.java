@@ -47,6 +47,10 @@ public class ServerControl extends Thread {
         this.game = game;
     }
 
+    synchronized public GameState getGameState(){
+    	return game;
+    }
+
     public void run() {
         while (isRunning) {
 
@@ -70,7 +74,7 @@ public class ServerControl extends Thread {
             // Parse packet and update gameState
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
-            //updateClients();
+
 
 
         }
@@ -132,8 +136,7 @@ public class ServerControl extends Thread {
                 break;
 
             case UPDATE:
-                //TODO: Server should never recieve packet of type UPDATE, its for server to send not receive --Cuan
-                //For loading a game for a client
+            	//should never recieve an update error
                 try {
                     throw new GameException("Server should never recieve packet of type UPDATE");
                 } catch (GameException e) {
@@ -167,6 +170,7 @@ public class ServerControl extends Thread {
             break;
 
             case USEITEM: {
+
                 PacketUseItem packetUse = new PacketUseItem(data);
                 ActorAssets item = packetUse.getAsset();
                 Player playerUser = game.findPlayer(packetUse.getClientNum());
@@ -196,13 +200,6 @@ public class ServerControl extends Thread {
             }
         }
 
-        // Send out game view to clients
-        /*List<Actor> update = game.getActors();
-        try {
-            sendDataToAllClients(serial.serialize(update));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
     }
 
     /**

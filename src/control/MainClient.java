@@ -20,7 +20,7 @@ public class MainClient {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, null);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();
@@ -30,7 +30,7 @@ public class MainClient {
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
-                gameFrame.add(socketClient);
+//                gameFrame.add(socketClient);
 
 
                 socketClient.start();
@@ -43,13 +43,13 @@ public class MainClient {
         });
     }
 
-    public void launchClient(String username) {
+    public void launchClient(String username, MainServer server) {
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 
                 boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, server);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();
@@ -59,7 +59,7 @@ public class MainClient {
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
-                gameFrame.add(socketClient);
+//                gameFrame.add(socketClient);
 
 
                 socketClient.start();

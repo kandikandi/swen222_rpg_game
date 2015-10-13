@@ -19,7 +19,7 @@ import view.ActorAssets;
  * The player class holds the data for each player including position,
  */
 
-@XmlRootElement(name = "player")
+//@XmlRootElement(name = "player")
 //@XmlAccessorType(XmlAccessType.FIELD)
 //@XmlJavaTypeAdapter(PlayerAdapter.class)
 public class Player extends Actor implements Serializable {

@@ -44,6 +44,7 @@ public class LoginScreen extends JFrame {
 	private boolean userNameEntered = false;
 	private boolean hosted = false;
 	private boolean picked = false;
+	private MainServer server;
 
 
 	public LoginScreen() {
@@ -77,11 +78,12 @@ public class LoginScreen extends JFrame {
 						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 							hosted = true;
 							repaint();
-							MainServer.main(null);
+							//MainServer.main(null);
+							server = new MainServer();
 						}
 						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
 							MainClient client = new MainClient();
-							client.launchClient(username);
+							client.launchClient(username, server); //TODO: Bonnie added extra argument
 							dispose();
 						} else if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
 							dispose();
