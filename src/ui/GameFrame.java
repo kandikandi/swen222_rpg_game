@@ -3,6 +3,7 @@ package ui;
 import javax.swing.*;
 
 import control.ClientControl;
+import control.MainServer;
 import model.Player;
 
 import java.awt.*;
@@ -28,11 +29,14 @@ public class GameFrame extends JFrame {
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
-	private ClientControl socketClient; //TODO: Bonnie added this!
+//	private ClientControl socketClient; //TODO: Bonnie added this!
+	private MainServer server;
 
 	// TODO: Bonnie added extra argument here!
-	public GameFrame(String title, int WIDTH, int HEIGHT) {
+	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server) {
 		super(title);
+
+		this.server = server;
 
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
@@ -104,7 +108,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				socketClient.save();
+				server.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
@@ -117,7 +121,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				socketClient.load();
+				server.load();
 			}
 
 		});
@@ -191,8 +195,8 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
-	public void add(ClientControl socketClient) {
-		this.socketClient = socketClient;
-	}
+//	public void add(ClientControl socketClient) {
+//		this.socketClient = socketClient;
+//	}
 
 }
