@@ -64,14 +64,7 @@ public class GameServer extends Thread {
 			// Parse packet and update gameState
 			parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
-			// Send out game view to clients
-			List<Actor> update = game.getActors();
-			try {
-				sendDataToAllClients(serial.serialize(update));
-//				updateEnemies();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+
 
 		}
 	}
@@ -186,6 +179,17 @@ public class GameServer extends Thread {
 			break;
 		}
 
+	}
+
+	public void updateClients(){
+		// Send out game view to clients
+					List<Actor> update = game.getActors();
+					try {
+						sendDataToAllClients(serial.serialize(update));
+//						updateEnemies();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 	}
 
 	/**

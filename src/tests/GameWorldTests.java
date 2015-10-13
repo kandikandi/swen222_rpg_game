@@ -45,7 +45,7 @@ public class GameWorldTests {
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
-		System.out.println(player.getPosition().getxPos());
+//		System.out.println(player.getPosition().getxPos());
 		assertTrue(player.getPosition().getxPos()==380);
 	}
 
@@ -54,7 +54,7 @@ public class GameWorldTests {
 		GameState gameState =  makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
 
-		player.setPosition(new Position(250,350));
+		player.setPosition(new Position(250,350, 45));
 		gameState.printGameObjectState();
 		System.out.println(player.hasKey());
 		for(int i = 0; i<10;i++){
@@ -194,7 +194,7 @@ public class GameWorldTests {
 		}
 		Key key = new Key(pos,'a',false, false);
 		inv.addItemToContainer(key);
-		System.out.println(inv.numItemsInContainer());
+//		System.out.println(inv.numItemsInContainer());
 		assertTrue(inv.numItemsInContainer()==9);
 	}
 
@@ -216,11 +216,11 @@ public class GameWorldTests {
 		Player player = gameState.findPlayer(1);
 		player.setPosition(new Position(1700, 800));
 		Enemy enemy = new Enemy(new Position(1750,800),'a',true, true);
-		System.out.println(enemy.getHealth());
+//		System.out.println(enemy.getHealth());
 		for(int i = 0;i<10;i++){
 			player.move(gameState, "RIGHT");
 		}
-		System.out.println(enemy.getHealth());
+//		System.out.println(enemy.getHealth());
 		assertTrue(player.getFear()==6);
 	}
 

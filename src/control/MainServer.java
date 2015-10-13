@@ -52,6 +52,11 @@ public class MainServer {
 				socketServer.start();
 				GameState gameState = new GameState(isServer);
 				socketServer.setGame(gameState);
+				EnemyController enemyController = new EnemyController(gameState);
+				GameTimer gameTimer = new GameTimer(enemyController, socketServer);
+//				gameState.printGameObjectState();
+
+				gameTimer.start();
 //				runEnemies(gameState);
 			}
 
