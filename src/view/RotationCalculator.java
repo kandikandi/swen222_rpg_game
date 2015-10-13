@@ -115,7 +115,49 @@ public class RotationCalculator {
             }
         };
     }
+  /*  public static int getScreenX(int relativeX, int relativeY, int width, int height){
+        int screenX;
+        switch (Main.ROTATION){
+            case 0:
+                screenX = relativeX;
+                break;
+            case 1:
+                screenX = (relativeY*-1);
+                break;
+            case 2:
+                screenX = (relativeY*-1);
+                break;
+            case 3:
+                screenX = (relativeY*-1) - height;
+                break;
+            default:
+                screenX = relativeX;
+                break;
+        }
+        return screenX;
+    }
 
+    public static int getScreenY(int relativeX, int relativeY, int width, int height){
+        int screenY;
+        switch (Main.ROTATION){
+            case 0:
+                screenY = relativeY;
+                break;
+            case 1:
+                screenY = (relativeX*-1)-width;
+                break;
+            case 2:
+                screenY = (relativeY*-1)-height;
+                break;
+            case 3:
+                screenY = relativeX;
+                break;
+            default:
+                screenY = relativeY;
+                break;
+        }
+        return screenY;
+    }*/
     public static int getScreenX(int relativeX, int relativeY, int width, int height){
         int screenX;
         switch (Main.ROTATION){
