@@ -7,54 +7,54 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import save.inventory.InventoryAdapter;
 
-
 /**
- * An Inventory is a Container which a Player always has
- * in which game Collectable objects such as Coins and Keys
- * can be placed.
+ * An Inventory is a Container which a Player always has in which game
+ * Collectable objects such as Coins and Keys can be placed.
  *
  *
  */
-//@XmlRootElement(name = "inventory") //TODO: Bonnie added this line!
-//@XmlJavaTypeAdapter(InventoryAdapter.class)
-//@XmlSeeAlso({Container.class})
+@XmlRootElement(name = "inventory")
+// TODO: Bonnie added this line!
+@XmlJavaTypeAdapter(InventoryAdapter.class)
+// @XmlSeeAlso({Container.class}
 public class Inventory extends Container {
 
-	@XmlTransient //TODO: Bonnie added this line!
-	//final private Player inventoryOwner;
+	@XmlTransient
+	// TODO: Bonnie added this line!
+	// final private Player inventoryOwner;
 	final int maximumItems = 9;
-
 
 	/**
 	 * Constructor with owning player added on construction. Also can insert
 	 * items at same time.
-	 *  @param position
+	 *
+	 * @param position
 	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
 	 * @param collectables
 	 */
 	public Inventory(Position position, char imagePath, boolean collidable,
-					 boolean drawable, Collectable... collectables) {
+			boolean drawable, Collectable... collectables) {
 		super(position, imagePath, false, false, collectables);
-//		this.inventoryOwner = inventoryOwner;
+		// this.inventoryOwner = inventoryOwner;
 
 	}
 
-//	public Player getOwner() {
-//		return inventoryOwner;
-//	}
+	// public Player getOwner() {
+	// return inventoryOwner;
+	// }
 
 	/**
 	 * Position needs to update with player, so items within also move with
 	 * player.
 	 *
 	 */
-//	@XmlTransient //TODO: Bonnie added this line!
-//	@Override
-//	public Position getPosition() {
-//		return inventoryOwner.getPosition();
-//	}
+	// @XmlTransient //TODO: Bonnie added this line!
+	// @Override
+	// public Position getPosition() {
+	// return inventoryOwner.getPosition();
+	// }
 
 	/**
 	 * This method is used to check whether a player has a key when near a door.
@@ -84,9 +84,6 @@ public class Inventory extends Container {
 		return null;
 	}
 
-
-
-
 	/**
 	 * Returns (first) key found in this Inventory.
 	 *
@@ -96,8 +93,8 @@ public class Inventory extends Container {
 		for (Actor actor : items) {
 			if (actor instanceof Key) {
 				Key key = (Key) actor;
-				if(key.isSpecial()){
-				return key;
+				if (key.isSpecial()) {
+					return key;
 				}
 			}
 		}
@@ -113,8 +110,8 @@ public class Inventory extends Container {
 		for (Actor actor : items) {
 			if (actor instanceof Key) {
 				Key key = (Key) actor;
-				if(!key.isSpecial()){
-				return key;
+				if (!key.isSpecial()) {
+					return key;
 				}
 			}
 		}
@@ -122,8 +119,7 @@ public class Inventory extends Container {
 	}
 
 
-	//TODO: this wont work, its the equivalent of for(int i=0; i<5;i++){ i = null;}
-	public void eatCandy(){
+	public void eatCandy() {
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {
 				this.returnContents().remove(actor);
@@ -132,8 +128,7 @@ public class Inventory extends Container {
 		}
 	}
 
-
-	public boolean containsCandy(){
+	public boolean containsCandy() {
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {
 				return true;
@@ -141,7 +136,6 @@ public class Inventory extends Container {
 		}
 		return false;
 	}
-
 
 	/**
 	 * This method is used to check whether a player has a key when near a door.
@@ -152,8 +146,8 @@ public class Inventory extends Container {
 		for (Actor actor : items) {
 			if (actor instanceof Key) {
 				Key key = (Key) actor;
-				if(key.isSpecial()){
-				return true;
+				if (key.isSpecial()) {
+					return true;
 				}
 			}
 		}
@@ -161,7 +155,8 @@ public class Inventory extends Container {
 	}
 
 	/**
-	 * This method is used to check whether a player has a  normal key when near a door.
+	 * This method is used to check whether a player has a normal key when near
+	 * a door.
 	 *
 	 * @return
 	 */
@@ -169,15 +164,13 @@ public class Inventory extends Container {
 		for (Actor actor : items) {
 			if (actor instanceof Key) {
 				Key key = (Key) actor;
-				if(!key.isSpecial()){
-				return true;
+				if (!key.isSpecial()) {
+					return true;
 				}
 			}
 		}
 		return false;
 	}
-
-
 
 	/**
 	 * This method is used to check whether a player has a coinBag in the
@@ -224,8 +217,8 @@ public class Inventory extends Container {
 			addAllCoinsToCoinBag(coinBag);
 			return;
 		} else if (items.size() == maximumItems) {
-			for(Actor actor : items){
-				if(actor instanceof Coin){
+			for (Actor actor : items) {
+				if (actor instanceof Coin) {
 					coinBag.addItemToContainer((Coin) actor);
 				}
 			}
@@ -234,7 +227,7 @@ public class Inventory extends Container {
 			coinBag.setDrawable(false);
 			addAllCoinsToCoinBag(coinBag);
 			return;
-		}else{
+		} else {
 			return;
 		}
 	}
@@ -244,16 +237,20 @@ public class Inventory extends Container {
 	 * bag.
 	 */
 	private void addAllCoinsToCoinBag(CoinBag coinBag) {
-		if(getCoinBag()==null){return;}
+		if (getCoinBag() == null) {
+			return;
+		}
 		for (Actor actor : items) {
 			if (actor instanceof Coin) {
 				Coin coin = (Coin) actor;
-				coinBag.addItemToContainer(coin);
-				coin.setCollidable(false);
-				coin.setDrawable(false);
+				if (!coin.isSpecial()) { // don't add special coin to coinbag
+					coinBag.addItemToContainer(coin);
+					coin.setCollidable(false);
+					coin.setDrawable(false);
+				}
 			}
 		}
-		for(Actor actor : coinBag.items){
+		for (Actor actor : coinBag.items) {
 			Coin coin = (Coin) actor;
 			this.removeItemFromContainer(coin);
 			coin.setDrawable(false);
@@ -267,17 +264,23 @@ public class Inventory extends Container {
 	 * @return
 	 */
 	public int getCoinCount() {
+		int total = 0;
 		if (containsCoinBag()) {
-			return getCoinBag().numberOfCoinsInCoinBag();
+			total+= getCoinBag().numberOfCoinsInCoinBag();
 		} else {
-			int n = 0;
 			for (Actor actor : items) {
 				if (actor instanceof Coin) {
-					n++;
+					Coin coin = (Coin) actor;
+					if(coin.isSpecial()){
+						total+=100;
+					}else{
+						total++;
+					}
+
 				}
 			}
-			return n;
 		}
+		return total;
 	}
 
 	/**
@@ -288,8 +291,8 @@ public class Inventory extends Container {
 	public void addItemToContainer(Collectable collectable) {
 		if (collectable == null) {
 			return;
-		}else if(collectable instanceof Coin && containsCoinBag()){
-				getCoinBag().addItemToContainer((Coin) collectable);
+		} else if (collectable instanceof Coin && containsCoinBag()) {
+			getCoinBag().addItemToContainer((Coin) collectable);
 		} else if (items.size() < maximumItems) {
 			items.add(collectable);
 			collectable.setCollidable(false);

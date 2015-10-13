@@ -43,12 +43,6 @@ public class Enemy extends Actor {
 		} else if (moveType == 3) {
 			randomMove(gameState);
 		}
-		// }else if(moveType==4){
-		// sentryMove(gameState);
-		// }
-		else {
-
-		}
 
 	}
 

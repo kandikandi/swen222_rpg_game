@@ -154,6 +154,9 @@ public class GameWorldTests {
 		Coin coin = new Coin(pos,'a',false, false);
 		inv.addItemToContainer(coin);
 		inv.removeItemFromContainer(coin);
+		System.out.println(coin.isDrawable());
+		System.out.println(coin==null);
+		//System.out.println(inv.
 		assertTrue(coin.isDrawable());
 	}
 

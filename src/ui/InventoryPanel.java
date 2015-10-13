@@ -106,6 +106,7 @@ public class InventoryPanel extends JPanel {
 		switch(c){
 
 		case 'C':
+		case 'Q': // special coin
 			try {
 				image = ImageIO.read(new File("Inventory_Coin.png"));
 			} catch (IOException e1) {
