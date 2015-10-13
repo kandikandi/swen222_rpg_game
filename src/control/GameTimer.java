@@ -22,10 +22,10 @@ public class GameTimer extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				Thread.sleep(40);
+				Thread.sleep(33);
 
-				//enemyController.update();
-				//serverControl.updateClients();
+				enemyController.update();
+				serverControl.updateClients();
 				//camera.performSystem();
 
 			} catch (Exception e) {

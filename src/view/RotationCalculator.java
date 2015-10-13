@@ -116,22 +116,23 @@ public class RotationCalculator {
         };
     }
 
-    public static int getScreenX(int relativeX, int relativeY, int width, int height, int halfCWidth, int halfCHeight){
-        int xDif = relativeX - halfCWidth;
-        int yDif = (relativeY - halfCHeight)*-1;
+    public static int getScreenX(int relativeX, int relativeY, int width, int height){
         int screenX;
         switch (Main.ROTATION){
             case 0:
-                screenX = relativeX;;
+                screenX = relativeX;
                 break;
             case 1:
-                screenX = rotateX(xDif,yDif,1)-height;
+                //screenX = rotateX(relativeX,relativeY,1);
+                screenX = relativeY;//-height;
                 break;
             case 2:
-                screenX = rotateX(xDif,yDif,2)-width;
+                //screenX = rotateX(relativeX,relativeY,2);
+                screenX = (relativeX*-1);//-width;
                 break;
             case 3:
-                screenX = rotateX(xDif,yDif,3);
+                //screenX = rotateX(relativeX,relativeY,3);
+                screenX = (relativeY*-1);
                 break;
             default:
                 screenX = relativeX;
@@ -140,23 +141,20 @@ public class RotationCalculator {
         return screenX;
     }
 
-
-    public static int getScreenY(int relativeX, int relativeY, int width, int height, int halfCWidth, int halfCHeight){
-        int xDif = relativeX - halfCWidth;
-        int yDif = (relativeY - halfCHeight)*-1;
+    public static int getScreenY(int relativeX, int relativeY, int width, int height){
         int screenY;
         switch (Main.ROTATION){
             case 0:
-                screenY = relativeY;//+(height/2);
+                screenY = relativeY;
                 break;
             case 1:
-                screenY = rotateY(xDif,yDif,1);//+width/2;
+                screenY = relativeX*-1;
                 break;
             case 2:
-                screenY = rotateY(xDif,yDif,2)-height;
+                screenY = (relativeY*-1);//+height;
                 break;
             case 3:
-                screenY = rotateY(xDif,yDif,3)-width;
+                screenY = relativeX;//+width;
                 break;
             default:
                 screenY = relativeY;
@@ -165,21 +163,4 @@ public class RotationCalculator {
         return screenY;
     }
 
-    private static int rotateX(int oldX, int oldY, int count){
-        if(count == 0){return oldY;}
-        else{
-            int newX = oldY;
-            int newY = oldX*-1;
-            return rotateX(newX,newY,count-1);
-        }
-    }
-
-    private static int rotateY(int oldX, int oldY, int count){
-        if(count == 0){return oldX*-1;}
-        else{
-            int newX = oldY;
-            int newY = oldX*-1;
-            return rotateX(newX,newY,count-1);
-        }
-    }
 }

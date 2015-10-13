@@ -106,23 +106,10 @@ public class ClientControl extends Thread {
             case UPDATE:
             	//If an update, deserialize the data, update the local game state
                 ArrayList<Actor> recd;
-                //System.out.println("ClientControl: UPDATE parsed, clientNum: "+clientNum);
                 try {
                     if (clientNum != -1) {
                     	recd = (ArrayList<Actor>) serial.deserialize(data);
-                        System.out.println("ClientControl: finished deserialize, actorList length: "+recd.size());
                         gameState.setActors(recd);
-                        if(Main.TEST_MODE){
-                            Actor act = recd.get(3);
-                            int xPos = act.getPosition().getxPos();
-                            int yPos = act.getPosition().getyPos();
-                            char image = act.getImageName();
-                            char asciiCode = act.getAsciiCode();
-                            System.out.println("####################################################################");
-                            System.out.println("ClientControl updateClients: first actor in list stats");
-                            System.out.println("xPos: "+xPos+" yPos: "+yPos+" image: "+image+" asciiCode: "+asciiCode);
-                            System.out.println("####################################################################");
-                        }
                     } else {
                         System.out.println("ClientControl received UPDATE packet before finishing handshake");
                         break;

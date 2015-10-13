@@ -7,9 +7,6 @@ public class Main {
     public static final int C_WIDTH = 800;
     public static final int C_HEIGHT = 600;
     public static final int TILE_SIZE = 40;
-    //public static final int NUM_TILE_COL = C_WIDTH / TILE_SIZE;
-    //public static final int NUM_TILE_ROW = C_HEIGHT / TILE_SIZE;
-    //public static final int NUM_WORLD_TILES = NUM_TILE_COL + NUM_TILE_ROW;
     public static final boolean TEST_MODE = true;
     public static final String TITLE = "ECS BETA";
     public static final int PLAYER_SIZE = 45;
@@ -18,8 +15,6 @@ public class Main {
     public static final int PLAYER_ONE_START_LOCATION_Y = 74;//2000; // 75
     public static final int PLAYER_TWO_START_LOCATION_X = 100;//760; // 125
     public static final int PLAYER_TWO_START_LOCATION_Y = 100;//1960;  // 75
-
-
     public static final boolean DRAW_HITBOXES = false;
     public static final int PORT = 32768;
     public static int ROTATION = 0;
@@ -34,7 +29,6 @@ public class Main {
             public void run() {
                 boolean isServer = false;
                 *//**CONTROL**//*
-                //TODO if exceptions, might be because key-listener is created in static method(main)
                 //SERVER STUFF
 
                 //Set up Host/Join screen display
@@ -42,7 +36,7 @@ public class Main {
                 try {
                     image = ImageIO.read(new File("LoginScreen.png"));
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
+
                     e.printStackTrace();
                 }        UIManager UI=new UIManager();
 
@@ -58,7 +52,7 @@ public class Main {
                    socketServer.start();
                }
 
-                //TODO this chunk of logic wont like syncing
+
                 GameState gameState = new GameState(isServer);
                 if (isServer) {
                     socketServer.setGame(gameState);
@@ -79,7 +73,7 @@ public class Main {
 
                 *//**VIEW*//*
                 // Set up the gameFrame
-                //TODO: Bonnie added this extra argument!
+
                 GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, socketServer);
                 //Setup UI
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT, socketClient);

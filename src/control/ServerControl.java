@@ -17,6 +17,7 @@ import model.Enemy;
 import model.GameException;
 import model.GameState;
 import model.Player;
+import view.GameCamera;
 
 public class ServerControl extends Thread {
 
@@ -32,7 +33,7 @@ public class ServerControl extends Thread {
     private ArrayList<ClientData> connectedPlayers = new ArrayList<ClientData>();
     private Serialiser serial = new Serialiser();
     private boolean isRunning = true;
-
+    private GameCamera camera = new GameCamera();
 
     public ServerControl() {
         try {
@@ -49,11 +50,11 @@ public class ServerControl extends Thread {
     public void run() {
         while (isRunning) {
 
-            try {
+           /* try {
                 Thread.sleep(12);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             // Create empty packet
             byte[] data = new byte[60000];
@@ -69,7 +70,7 @@ public class ServerControl extends Thread {
             // Parse packet and update gameState
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
-            updateClients();
+            //updateClients();
 
 
         }
@@ -185,24 +186,23 @@ public class ServerControl extends Thread {
     }
 
     public void updateClients() {
-        // Send out game view to clients
-        List<Actor> update = game.getActors();
-        if(Main.TEST_MODE){
-            Actor act = update.get(3);
-            int xPos = act.getPosition().getxPos();
-            int yPos = act.getPosition().getyPos();
-            char image = act.getImageName();
-            char asciiCode = act.getAsciiCode();
-            System.out.println("*********************************************************************");
-            System.out.println("ServerControl updateClients: first actor in list stats");
-            System.out.println("xPos: "+xPos+" yPos: "+yPos+" image: "+image+" asciiCode: "+asciiCode);
-            System.out.println("*********************************************************************");
+
+        for (ClientData p : connectedPlayers) {
+            List<Actor> actorView = camera.getActorView(game,p.getClientNum());
+            try {
+                sendData(serial.serialize(actorView), p.getIpAddress(), p.getPort());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+
+        // Send out game view to clients
+        /*List<Actor> update = game.getActors();
         try {
             sendDataToAllClients(serial.serialize(update));
         } catch (IOException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     /**

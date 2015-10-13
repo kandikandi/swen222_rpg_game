@@ -22,7 +22,7 @@ public class EnemyController {
 		List<Enemy> enemies = game.getEnemies();
 		for (Enemy enemy : enemies) {
 			if (!enemy.getIsAlive()) {
-				enemy = null;
+				enemy = null; //TODO wont work -- Cuan
 			} else {
 				enemy.tick(game);
 			}
