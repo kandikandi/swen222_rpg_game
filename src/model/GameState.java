@@ -9,7 +9,9 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -23,7 +25,7 @@ import save.gamestate.GamestateAdapter;
  * other parts/packages of the game.
  *
  */
-@XmlRootElement(name = "gamestate")
+@XmlRootElement(namespace = "gamestate")
 //@XmlJavaTypeAdapter(GamestateAdapter.class)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GameState {
@@ -46,8 +48,8 @@ public class GameState {
 	 * This array holds all the active Actor object implementations in the game.
 	 *
 	 */
-	// @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
-	// @XmlElement(name = "actor") //TODO:Bonnie added this here!
+	 @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
+	 @XmlElement(name = "actor") //TODO:Bonnie added this here!
 //	@XmlElementRef
 	private List<Actor> actors;
 

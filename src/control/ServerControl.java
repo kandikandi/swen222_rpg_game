@@ -47,6 +47,10 @@ public class ServerControl extends Thread {
         this.game = game;
     }
 
+    synchronized public GameState getGameState(){
+    	return game;
+    }
+
     public void run() {
         while (isRunning) {
 
@@ -166,7 +170,7 @@ public class ServerControl extends Thread {
             break;
 
             case USEITEM: {
-            	
+
                 PacketUseItem packetUse = new PacketUseItem(data);
                 ActorAssets item = packetUse.getAsset();
                 Player playerUser = game.findPlayer(packetUse.getClientNum());

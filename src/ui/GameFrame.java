@@ -3,11 +3,15 @@ package ui;
 import javax.swing.*;
 
 import control.ClientControl;
+import control.MainServer;
 import model.Player;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 
 /**
  * The GameFrame holds the pieces which make up the GUI for Bedtime Story.
@@ -28,11 +32,14 @@ public class GameFrame extends JFrame {
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
-	private ClientControl socketClient; //TODO: Bonnie added this!
+//	private ClientControl socketClient; //TODO: Bonnie added this!
+	private MainServer server;
 
 	// TODO: Bonnie added extra argument here!
-	public GameFrame(String title, int WIDTH, int HEIGHT) {
+	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server) {
 		super(title);
+
+		this.server = server;
 
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
@@ -43,22 +50,22 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CHANGE TO DO_NOTHING_ON_CLOSE
-//		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-//
-//				addWindowListener(new WindowAdapter() {
-//				    @Override
-//				    public void windowClosing(WindowEvent we)
-//				    {
-//				        String ObjButtons[] = {"Yes","No"};
-//				        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
-//				        if(PromptResult==JOptionPane.YES_OPTION)
-//				        {
-//
-//				            System.exit(0);
-//				        }
-//				    }
-//				});
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CHANGE TO DO_NOTHING_ON_CLOSE
+		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+				addWindowListener(new WindowAdapter() {
+				    @Override
+				    public void windowClosing(WindowEvent we)
+				    {
+				        String ObjButtons[] = {"Yes","No"};
+				        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+				        if(PromptResult==JOptionPane.YES_OPTION)
+				        {
+
+				            System.exit(0);
+				        }
+				    }
+				});
 //
 		this.setupMenuBar();
 
@@ -104,7 +111,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				socketClient.save();
+				server.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
@@ -117,7 +124,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				socketClient.load();
+				server.load();
 			}
 
 		});
@@ -191,8 +198,8 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
-	public void add(ClientControl socketClient) {
-		this.socketClient = socketClient;
-	}
+//	public void add(ClientControl socketClient) {
+//		this.socketClient = socketClient;
+//	}
 
 }

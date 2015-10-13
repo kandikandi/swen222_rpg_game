@@ -2,6 +2,7 @@ package control;
 
 import java.awt.EventQueue;
 
+import save.DataStorage;
 import model.GameState;
 
 public class MainServer {
@@ -69,8 +70,15 @@ public class MainServer {
 
 	//TODO for you bonnie
 	public GameState getGameForSave(){
+		return socketServer.getGameState();
+	}
 
-		return null;
+	public void save() {
+		DataStorage.save(getGameForSave());
+	}
+
+	public void load() {
+		socketServer.getGameState().setActors(DataStorage.load().getActors());
 	}
 }
 

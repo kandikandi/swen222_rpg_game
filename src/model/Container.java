@@ -15,7 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 //@XmlRootElement(name = "container") //TODO: Bonnie added this line!
-@XmlTransient
+//@XmlTransient
 public class Container extends Actor {
 
     private int maximumItems = 10;

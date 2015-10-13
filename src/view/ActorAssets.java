@@ -31,7 +31,8 @@ public enum ActorAssets {
     VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     SCHOOLWALL('S',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     CIRCUSWALL('M',"wall.jpg",Main.ITEM_SIZE, Main.ITEM_SIZE),
-    CANDY('Z',"CandyCane.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
+    CANDY('Z',"CandyCane.png",Main.ITEM_SIZE, Main.ITEM_SIZE),
+    TREASURE('Q',"Treasure.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
     ;
 
 
