@@ -3,6 +3,7 @@ package model;
 public class Door extends Actor {
 
 	private boolean open;
+	private boolean special;
 
 	/**
 	 * This class defines Door objects, which block the path of
@@ -34,6 +35,25 @@ public class Door extends Actor {
 	 */
 	public boolean getIsOpen(){
 		return open;
+	}
+
+
+	/**
+	 * Setter for special field.
+	 *
+	 * @param special
+	 */
+	public void setSpecial(boolean special){
+		this.special = special;
+	}
+
+	/**
+	 * Getter for special field.
+	 *
+	 * @param special
+	 */
+	public boolean isSpecial(){
+		return special;
 	}
 
     /**

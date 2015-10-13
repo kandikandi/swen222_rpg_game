@@ -58,12 +58,18 @@ public class Factory {
                     case DOOR:
                         actor = createDoor(position.getxPos(), position.getyPos());
                         break;
+                    case SPECIAL_DOOR:
+                        actor = createSpecialDoor(position.getxPos(), position.getyPos(),true);
+                        break;
                     case ENEMY:
                         actor = createEnemyActor(position.getxPos(),
                                 position.getyPos());
                         break;
                     case KEY:
                         actor = createKey(position.getxPos(), position.getyPos());
+                        break;
+                    case SPECIAL_KEY:
+                        actor = createKey(position.getxPos(), position.getyPos(), true);
                         break;
                     case WALL:
                         actor = createWall(position.getxPos(), position.getyPos());
@@ -76,6 +82,9 @@ public class Factory {
                         break;
                     case SCHOOLWALL:
                         actor = createWall(position.getxPos(), position.getyPos());
+                        break;
+                    case CANDY:
+                        actor = createCandy(position.getxPos(), position.getyPos());
                         break;
                     case CIRCUSWALL:
                         actor = createWall(position.getxPos(), position.getyPos());
@@ -98,7 +107,16 @@ public class Factory {
         return actors;
     }
 
-    /**
+
+	private Actor createCandy(int xPos, int yPos) {
+        int size = Main.TILE_SIZE;
+        Position pos = new Position(xPos, yPos);
+        Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
+        Candy candy = new Candy(pos, ActorAssets.CANDY.getAsciiCode(), true, true);
+        return candy;
+	}
+
+	/**
      * This method constructs a Actor object with Tree assets.
      */
     private Actor createTree(int x, int y) {
@@ -153,6 +171,17 @@ public class Factory {
     }
 
     /**
+     * This method constructs a standard Door object.
+     */
+    public Door createSpecialDoor(int xPos, int yPos, boolean special) {
+        Position pos = new Position(xPos, yPos);
+        char asciiCode = ActorAssets.SPECIAL_DOOR.getAsciiCode();
+        Door door = new Door(pos, asciiCode, true, true);
+        door.setSpecial(special);
+        return door;
+    }
+
+    /**
      * This method constructs a standard Key object.
      */
     public Key createKey(int xPos, int yPos) {
@@ -162,6 +191,20 @@ public class Factory {
         key.setDescription("It looks like an ordinary key.");
         return key;
     }
+
+    /**
+     * This method constructs a special Key object.
+     */
+    private Actor createKey(int xPos, int yPos, boolean special) {
+        Position pos = new Position(xPos, yPos);
+        char asciiCode = ActorAssets.SPECIAL_KEY.getAsciiCode();
+        Key key = new Key(pos, asciiCode, true, true);
+        key.setSpecial(special);
+        key.setDescription("It looks like a special key.");
+        return key;
+	}
+
+
 
     /**
      * This method constructs a standard Wall object.

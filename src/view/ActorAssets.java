@@ -20,15 +20,19 @@ public enum ActorAssets {
     COIN('C',"tempGameCoin.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     COINBAG('B',"tempGameCoinBag.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     DOOR('D',"door.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    SPECIAL_DOOR('Y',"special_door.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     INVENTORY('I',"temp_inv.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     KEY('K',"tempGameKey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
+    SPECIAL_KEY('X',"otherkey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     ENEMY('E',"evilTemp.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
     COLLECTABLE('B',"ring.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     WALL('W', "wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     TREE('T', "Tree1.png",40,140),
     VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     SCHOOLWALL('S',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    CIRCUSWALL('M',"wall.jpg",Main.ITEM_SIZE, Main.ITEM_SIZE);
+    CIRCUSWALL('M',"wall.jpg",Main.ITEM_SIZE, Main.ITEM_SIZE),
+    CANDY('Z',"candy.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
+    ;
 
 
 
