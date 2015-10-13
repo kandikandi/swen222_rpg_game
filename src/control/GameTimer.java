@@ -5,14 +5,12 @@ package control;
  */
 public class GameTimer extends Thread {
 
-//	private GameCamera camera;
-//	private Renderer renderer;
+
 	private EnemyController enemyController;
 	private ServerControl serverControl;
 
 	public GameTimer(EnemyController enemyController, ServerControl serverControl) {
-//		this.camera = camera;
-//		this.renderer = rend;
+
 		this.serverControl = serverControl;
 		this.enemyController = enemyController;
 	}
@@ -26,7 +24,7 @@ public class GameTimer extends Thread {
 
 				enemyController.update();
 				serverControl.updateClients();
-				//camera.performSystem();
+
 
 			} catch (Exception e) {
 				System.out.println("GameTimer Error");
