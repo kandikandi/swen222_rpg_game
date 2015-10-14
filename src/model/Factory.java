@@ -18,10 +18,6 @@ import view.TestWorlds;
 
 public class Factory {
 
-	public Factory() {
-
-	}
-
 	/**
 	 * This method reads in an object mapfrom the View package and constructs
 	 * the required Actors instantiations.

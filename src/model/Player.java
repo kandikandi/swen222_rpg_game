@@ -2,6 +2,10 @@ package model;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
+
 import control.GlobalConst;
 import view.ActorAssets;
 
@@ -13,12 +17,14 @@ import view.ActorAssets;
  */
 
 //@XmlRootElement(name = "player")
-//@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.FIELD)
 //@XmlJavaTypeAdapter(PlayerAdapter.class)
 public class Player extends Actor implements Serializable {
+	@XmlTransient
 	private int speed = 10;
 	private Inventory inventory;
 	private boolean hasKey;
+	@XmlTransient
 	private boolean playerIsAttacking;
 	private int attackPoints = 2;
 	private int fear = 0; // if get too scared, you lose

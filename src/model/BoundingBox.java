@@ -38,4 +38,8 @@ public class BoundingBox extends Rectangle {
     public int getYOffset(){
     	return yOffset;
     }
+
+    public String toString(){
+    	return "width: " + width + " height: " + height + " xoffset: " + xOffset + " yoffset: " + yOffset;
+    }
 }

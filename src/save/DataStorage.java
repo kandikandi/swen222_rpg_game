@@ -58,23 +58,23 @@ public class DataStorage {
 	 */
 	public static GameState load() {
 		System.out.println("Loading Game...");
-		try {
-			JAXBContext context = JAXBContext.newInstance(GameState.class);
-			Unmarshaller um = context.createUnmarshaller();
-
-			File file = FileChooser.getFile(true);
-
-			GameState gamestate = (GameState) um.unmarshal(file);
-//			GameState gs = new GameState(false);
-//			gs.setActors(gamestate.getActors());
-
-			System.out.println("Game loaded!");
-			return gamestate;
-		} catch (JAXBException e) {
-			// System.out.println(e.getMessage());
-			e.printStackTrace();
-		}
-		return null;
+//		try {
+//			JAXBContext context = JAXBContext.newInstance(GameState.class);
+//			Unmarshaller um = context.createUnmarshaller();
+//
+//			File file = FileChooser.getFile(true);
+//
+//			GameState gamestate = (GameState) um.unmarshal(file);
+//
+//			System.out.println("Game loaded!");
+//			return gamestate;
+//		} catch (JAXBException e) {
+//			// System.out.println(e.getMessage());
+//			e.printStackTrace();
+//		}
+//		return null;
+		File file = FileChooser.getFile(true);
+		return Parser.parseFile(file);
 	}
 
 }

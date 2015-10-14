@@ -1,5 +1,8 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
 
 /**
  * A Collectable object is something that a Player can pickup and
@@ -7,6 +10,7 @@ package model;
  *
  * @author dalyandr
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Collectable extends Actor {
     boolean inContainer;
 
@@ -56,8 +60,16 @@ public class Collectable extends Actor {
     }
 
 
+    public boolean isInContainer() {
+		return inContainer;
+	}
 
-    @Override
-    public void tick() {    }
+	public void setInContainer(boolean inContainer) {
+		this.inContainer = inContainer;
+	}
+
+	@Override
+    public void tick() {
+    }
 
 }
