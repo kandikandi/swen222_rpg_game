@@ -1,5 +1,7 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
@@ -13,10 +15,10 @@ import save.inventory.InventoryAdapter;
  *
  *
  */
-@XmlRootElement(name = "inventory")
+//@XmlRootElement(name = "inventory")
 // TODO: Bonnie added this line!
-@XmlJavaTypeAdapter(InventoryAdapter.class)
-// @XmlSeeAlso({Container.class}
+//@XmlJavaTypeAdapter(InventoryAdapter.class)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Inventory extends Container {
 
 	@XmlTransient
@@ -35,7 +37,7 @@ public class Inventory extends Container {
 	 * @param collectables
 	 */
 	public Inventory(Position position, char imagePath, boolean collidable,
-			boolean drawable, Collectable... collectables) {
+			boolean drawable, Actor... collectables) {
 		super(position, imagePath, false, false, collectables);
 		// this.inventoryOwner = inventoryOwner;
 

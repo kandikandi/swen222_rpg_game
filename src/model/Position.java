@@ -96,7 +96,7 @@ public final class Position  implements Serializable {
      */
     @Override
     public String toString() {
-        return "Location; xPos:"+xPos+" yPos:"+yPos;
+        return "Location:: xPos: " + xPos + " yPos: " + yPos + "\nBoundingBox: " + boundingBox;
     }
 }
 

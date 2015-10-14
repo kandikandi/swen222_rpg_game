@@ -13,10 +13,11 @@ import save.actor.ActorAdapter;
 /**
  * Created by cuan on 9/13/15.
  */
-//@XmlRootElement(name = "actor")
+// @XmlRootElement(name = "actor")
 // TODO:Bonnie added this here!
 // @XmlJavaTypeAdapter(ActorAdapter.class)
-@XmlSeeAlso({ Coin.class, CoinBag.class, Collectable.class, Door.class, Enemy.class, Key.class, Wall.class, Player.class})
+@XmlSeeAlso({ Coin.class, CoinBag.class, Collectable.class, Door.class,
+		Enemy.class, Key.class, Wall.class, Player.class })
 public class Actor implements Serializable {
 	protected String imageName;
 	protected Position position;
@@ -35,7 +36,7 @@ public class Actor implements Serializable {
 
 	}
 
-	private Actor(){
+	private Actor() {
 
 	}
 
@@ -61,14 +62,14 @@ public class Actor implements Serializable {
 		return asciiCode;
 	}
 
-    /**
-     * Getter method for this GameObject's position.
-     *
-     * @return GameObject's Position.
-     */
-    public Position getPosition() {
-        return position;
-    }
+	/**
+	 * Getter method for this GameObject's position.
+	 *
+	 * @return GameObject's Position.
+	 */
+	public Position getPosition() {
+		return position;
+	}
 
 	/**
 	 * Setter method for this GameObject's position.
@@ -197,6 +198,12 @@ public class Actor implements Serializable {
 	// TODO:Bonnie added this here!
 	public char getAsciiCode() {
 		return asciiCode;
+	}
+
+	public String toString() {
+		return "Actor:: asciicode: " + asciiCode + " collidable: " + collidable
+				+ " drawable: " + drawable + " \ndescription: "
+				+ actorDescription + "\n" + position + "\n";
 	}
 
 }

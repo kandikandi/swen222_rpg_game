@@ -28,7 +28,7 @@ public class CoinBag extends Container {
 	 * @param collectable
 	 */
 	@Override
-	public void addItemToContainer(Collectable collectable) {
+	public void addItemToContainer(Actor collectable) {
 		if (collectable == null) {
 			return;
 		} else if (!(collectable instanceof Coin)) {
@@ -48,7 +48,7 @@ public class CoinBag extends Container {
 	 *
 	 * @param collectable
 	 */
-	public void removeItemFromContainer(Collectable collectable) {
+	public void removeItemFromContainer(Actor collectable) {
 		if (collectable == null || numItemsInContainer() == 0) {
 			return;
 		} else if (items.contains(collectable)) {

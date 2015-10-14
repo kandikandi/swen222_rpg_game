@@ -1,5 +1,7 @@
 package model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -10,7 +12,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  * @author dalyandr
  *
  */
-@XmlJavaTypeAdapter(CoinAdapter.class)
+//@XmlJavaTypeAdapter(CoinAdapter.class)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Coin extends Collectable {
 
 	boolean special; //special coin is worth more.

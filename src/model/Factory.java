@@ -28,7 +28,7 @@ public class Factory {
      * the required Actors instantiations.
      */
     public List<Actor> createActorList() {
-        //char[][] tileCode = TestWorlds.getSmallObjectMap();
+//        char[][] tileCode = TestWorlds.getSmallObjectMap();
         //char[][] tileCode = TestWorlds.getFullObjectMap();
         char[][] tileCode = TestWorlds.getMazeObjects();
         List<Actor> actors = new ArrayList<>();

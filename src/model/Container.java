@@ -45,10 +45,10 @@ public class Container extends Actor {
      * @param drawable
      */
     public Container(Position position, char imageName, boolean collidable,
-                     boolean drawable, Collectable... collectables) {
+                     boolean drawable, Actor... collectables) {
         super(position, imageName, collidable, drawable);
         this.items = new ArrayList<Actor>();
-        for (Collectable collectable : collectables) {
+        for (Actor collectable : collectables) {
             addItemToContainer(collectable);
         }
     }
@@ -58,7 +58,7 @@ public class Container extends Actor {
      * <p>
      * TODO: I think that the picked up item should be removed from list of actors
      */
-    public void addItemToContainer(Collectable collectable) {
+    public void addItemToContainer(Actor collectable) {
         // check if it's the kind of thing we can add to the container
         if (collectable == null) { //TODO: throw exception here
             return;

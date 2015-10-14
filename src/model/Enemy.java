@@ -2,19 +2,31 @@ package model;
 
 import java.util.Random;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Enemy extends Actor {
 
+	@XmlTransient
 	private boolean isAttacking;
 	private boolean alive = true;
 	private int attackPoints;
 	private int health;
+	@XmlTransient
 	private int horizontalSpeed;
+	@XmlTransient
 	private int verticalSpeed;
 	private int moveType;
+	@XmlTransient
 	private final int MAX_SPEED = 3;
 	// private int randomDirection; // 1-4
+	@XmlTransient
 	private final int startX;
+	@XmlTransient
 	private final int startY;
+	@XmlTransient
 	private int count; // just want way to alternate attacking and not
 						// attacking. Bit weird maybe.
 						// Tick will increment and set attack depending on

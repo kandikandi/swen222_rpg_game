@@ -20,6 +20,7 @@ public class AdaptedActor {
 	private boolean collidable;
 	private boolean drawable;
 	private char asciiCode;
+
 	// for door
 	private boolean open;
 

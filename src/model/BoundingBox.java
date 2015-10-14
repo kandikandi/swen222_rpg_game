@@ -29,12 +29,16 @@ public class BoundingBox extends Rectangle {
         this.xOffset = 0;
         this.yOffset = 0;
     }
-    
+
     public int getXOffset(){
     	return xOffset;
     }
-    
+
     public int getYOffset(){
     	return yOffset;
+    }
+
+    public String toString(){
+    	return "width: " + width + " height: " + height + " xoffset: " + xOffset + " yoffset: " + yOffset;
     }
 }
