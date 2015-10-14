@@ -131,7 +131,6 @@ public class GameState {
 	 */
 	synchronized public void removePlayer(Player player){
 		actors.remove(player);
-		System.out.println("Game removed the player");
 	}
 
 	/**

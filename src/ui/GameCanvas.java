@@ -24,9 +24,7 @@ public class GameCanvas extends JPanel {
 	private GameFrame frame;
 	private ClientControl clientControl;
 	private boolean clientSet = false;
-	//private final GameController gameController;
 
-	//TODO does this class need a reference to GameFrame?
 	/**
 	 * Constructs the GameCanvas, setting the Canvas to the current GameFrame
 	 * @param frame
@@ -35,7 +33,6 @@ public class GameCanvas extends JPanel {
 	 */
 	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT) {
 
-		//this.gameController = gameController;
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.frame = frame;
@@ -48,26 +45,18 @@ public class GameCanvas extends JPanel {
 	 * @param buffImg
 	 */
 	public void receiveBuffImage(BufferedImage buffImg) {
-		//System.out.println("GameCanvas receveBuffImage");
 		receivedImage = buffImg;
 		this.repaint();
-		//this works to - might be to quick
-		//if(gameController.getPlayer() != null){
-		//	this.getFrame().updateGUI(gameController.getPlayer());
-		//}
-
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-		//System.out.println("GameCanvas paintComponent");
 		Graphics2D g2 = (Graphics2D) g;
 		if(receivedImage == null){
 			g2.fillRect(0, 0, 800, 600);
 		}else{
 			g2.drawImage(receivedImage,0,0,this);
 		}
-		//this works
 		if(clientSet){
 			Player player = clientControl.getGameState().findPlayer(clientControl.getClientNum());
 			if(player != null){
@@ -77,6 +66,10 @@ public class GameCanvas extends JPanel {
 		}
 	}
 
+	/**
+	 * Sets the client
+	 * @param client
+	 */
 	public void setSocketClient(ClientControl client){
 		this.clientControl = client;
 		this.clientSet = true;

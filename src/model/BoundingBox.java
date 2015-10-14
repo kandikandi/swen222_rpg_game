@@ -11,6 +11,7 @@ import save.boundingbox.BoundingboxAdapter;
  * Created by lategacuan on 9/10/15.
  * This class will be used to collisions as well as the painter algro in renderer
  *
+ *
  */
 @XmlRootElement(name = "boundingbox")
 @XmlJavaTypeAdapter(BoundingboxAdapter.class)

@@ -16,27 +16,40 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Coin extends Collectable {
 
-	boolean special; //special coin is worth more.
+	boolean special; // a "special" coin is worth more (a level defined in
+						// inventory.)
 
 	public Coin(Position position, char imagePath, boolean collidable,
 			boolean drawable) {
 		super(position, imagePath, collidable, drawable);
 	}
 
-
+	/**
+	 * This second constructor is used to make a coin that is "special".
+	 *
+	 * @param position
+	 * @param imagePath
+	 * @param collidable
+	 * @param drawable
+	 * @param special
+	 */
 	public Coin(Position position, char imagePath, boolean collidable,
 			boolean drawable, boolean special) {
-	super(position, imagePath, collidable, drawable);
-	this.special = special;
-}
+		super(position, imagePath, collidable, drawable);
+		this.special = special;
+	}
 
-
+	/**
+	 * Getter for special boolean field.
+	 *
+	 * @return
+	 */
 	public boolean isSpecial() {
 		return special;
 	}
 }
 
-class CoinAdapter extends XmlAdapter<CoinAdapter, Coin>{
+class CoinAdapter extends XmlAdapter<CoinAdapter, Coin> {
 	private Position position;
 	private char asciiCode;
 	private boolean collidable;

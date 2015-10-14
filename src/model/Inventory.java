@@ -13,7 +13,6 @@ import save.inventory.InventoryAdapter;
  * An Inventory is a Container which a Player always has in which game
  * Collectable objects such as Coins and Keys can be placed.
  *
- *
  */
 //@XmlRootElement(name = "inventory")
 // TODO: Bonnie added this line!
@@ -39,24 +38,7 @@ public class Inventory extends Container {
 	public Inventory(Position position, char imagePath, boolean collidable,
 			boolean drawable, Actor... collectables) {
 		super(position, imagePath, false, false, collectables);
-		// this.inventoryOwner = inventoryOwner;
-
 	}
-
-	// public Player getOwner() {
-	// return inventoryOwner;
-	// }
-
-	/**
-	 * Position needs to update with player, so items within also move with
-	 * player.
-	 *
-	 */
-	// @XmlTransient //TODO: Bonnie added this line!
-	// @Override
-	// public Position getPosition() {
-	// return inventoryOwner.getPosition();
-	// }
 
 	/**
 	 * This method is used to check whether a player has a key when near a door.
@@ -120,7 +102,12 @@ public class Inventory extends Container {
 		return null;
 	}
 
-
+	/**
+	 * If the inventory has a Candy object, the Player can "eat"
+	 * it to reduce fear. The Candy is removed from the Inventory.
+	 *
+	 *
+	 */
 	public void eatCandy() {
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {
@@ -130,6 +117,12 @@ public class Inventory extends Container {
 		}
 	}
 
+	/**
+	 * This method returns whether this object has any Candy objects.
+	 *
+	 *
+	 * @return
+	 */
 	public boolean containsCandy() {
 		for (Actor actor : items) {
 			if (actor instanceof Candy) {
@@ -268,14 +261,14 @@ public class Inventory extends Container {
 	public int getCoinCount() {
 		int total = 0;
 		if (containsCoinBag()) {
-			total+= getCoinBag().numberOfCoinsInCoinBag();
+			total += getCoinBag().numberOfCoinsInCoinBag();
 		} else {
 			for (Actor actor : items) {
 				if (actor instanceof Coin) {
 					Coin coin = (Coin) actor;
-					if(coin.isSpecial()){
-						total+=100;
-					}else{
+					if (coin.isSpecial()) {
+						total += 100;
+					} else {
 						total++;
 					}
 

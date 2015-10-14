@@ -6,8 +6,6 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-
-
 /**
  * Empty Labels fill up the remaining spots in the players inventory
  * @author newtondavi2 (David)

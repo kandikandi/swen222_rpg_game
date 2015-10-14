@@ -31,8 +31,6 @@ public class PlayerStatsPanel extends JPanel {
 	private JPanel playerInformation = new JPanel(); // Holds JLabels showing players stats
 	private FearBar fear = new FearBar(0,150);
 
-	//private BraveryBar bravery = new BraveryBar(0,150);
-
 	// JLabels to display players stats (Held in JPanel playerInformation)
 	private JLabel attack = new JLabel("Attack:                 ");
 	private JLabel gold = new JLabel("Gold:                     ");
@@ -56,23 +54,12 @@ public class PlayerStatsPanel extends JPanel {
 		userName.setFont(new Font("dialog",Font.BOLD,18));
 		userName.setForeground(Color.BLACK);
 
-		// Set up Rotation Button
-
-
-
 		try {
 			// load the imageName
 			backgroundImage = ImageIO.read(new File("PlayerStats_BG.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		// Set up playerInformation JPanel
-//		playerInformation.setOpaque(false);
-//		playerInformation.add(attack);
-//		playerInformation.add(gold);
-//		playerInformation.add(userName);
-
 
 		labelPanel.setLayout(new BorderLayout());
 		labelPanel.setOpaque(false);
@@ -86,15 +73,15 @@ public class PlayerStatsPanel extends JPanel {
 		barPanel.setOpaque(false);
 		barPanel.add(fear, BorderLayout.NORTH);
 
-		//barPanel.add(bravery, BorderLayout.SOUTH);
-
 		// Set up this PlayerStatsPanel JPanel
-
 		this.add(labelPanel);
 		this.add(barPanel);
 
 	}
 
+	/**
+	 * Creates a Bevelled Border
+	 */
 	private void createBorder() {
 		//Compound borders
 		Border compound;
@@ -109,29 +96,8 @@ public class PlayerStatsPanel extends JPanel {
 
 	}
 
-	/**
-	 * Updates the players three information Jlabels (Attack, Level, Gold)
-	 */
-//	public void updateStats(){
-//		setAttack();
-//		setLevel();
-//		setGold();
-//	}
-
 	public FearBar getFearBar(){
 		return fear;
-	}
-
-	public void setAttack(){
-
-	}
-
-	public void setLevel(){
-
-	}
-
-	public void setGold(){
-
 	}
 
 	public void paintComponent(Graphics g){
@@ -141,17 +107,31 @@ public class PlayerStatsPanel extends JPanel {
 		}
 
 	}
+
+	/**
+	 * Sets players attack
+	 * @param count
+	 */
 	public void setAttack(int count) {
 		this.attack.setText("Attack: " + count            );
 		this.revalidate();
 
 	}
 
+	/**
+	 * Sets players coin count
+	 * @param count
+	 */
 	public void setCoins(int count) {
 		this.gold.setText("Gold: " + count            );
 		this.revalidate();
 
 	}
+
+	/**
+	 * Sets players username
+	 * @param name
+	 */
 	public void setUserName(String name) {
 		name = name.substring(2,name.length());
 		this.userName.setText("Name: " + name    );

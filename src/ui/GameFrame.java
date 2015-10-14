@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import control.ClientControl;
 
-import control.PacketDisconnect;
+import control.PacketDisconnectServer;
 
 import control.MainServer;
 
@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 /**
  * The GameFrame holds the pieces which make up the GUI for Bedtime Story.
  * This includes:
@@ -27,7 +26,6 @@ import java.awt.event.WindowEvent;
  */
 public class GameFrame extends JFrame {
 
-	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 	private final int WIDTH;
 	private final int HEIGHT;
 	private JMenuBar menu =  new JMenuBar();
@@ -67,16 +65,14 @@ public class GameFrame extends JFrame {
                 int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
                 if(PromptResult==JOptionPane.YES_OPTION)
                 {
-                	System.out.println("Sending a disconnection packet");
-		        	PacketDisconnect disconnectPlayer = new PacketDisconnect(("4"+socketClient.getClientNum()+socketClient.getName()).getBytes());
+                	// System.out.println("Sending a disconnection packet");
+		        	PacketDisconnectServer disconnectPlayer = new PacketDisconnectServer(("4"+socketClient.getClientNum()+socketClient.getName()).getBytes());
 		        	disconnectPlayer.writeData(socketClient);
 		        	System.exit(0);
 
                 }
             }
         });
-
-
 
 		this.setupMenuBar();
 
@@ -153,7 +149,9 @@ public class GameFrame extends JFrame {
 				+ "\n r: rotate"
 				+ "\n spacebar: attack"
 				+ "\n arrow keys: move"
-				+ "\nRight click on items in inventory for options. ", "",
+				+ "\nRight click on items in inventory for options"
+				+ "\n Collect the three special keys and unlock the treasure to win the game!. ", "",
+
 		        JOptionPane.OK_OPTION);
 	}
 
@@ -169,7 +167,6 @@ public class GameFrame extends JFrame {
 	public void updateGUI(Player player, ClientControl clientControl){
 
 		this.updatePlayerInventory(player, clientControl);
-
 		this.updatePlayerFear(player.getFear());
 		this.updatePlayerCoins(player.getInventory().getCoinCount());
 		this.updatePlayerAttack(player.getAttackPoints());
@@ -196,12 +193,27 @@ public class GameFrame extends JFrame {
 	public void updatePlayerFear(int fear){
 		this.playerStats.getFearBar().setCurrentFear(fear);
 	}
+
+	/**
+	 * Updates the players coin count
+	 * @param count
+	 */
 	public void updatePlayerCoins(int count){
 		this.playerStats.setCoins(count);
 	}
+
+	/**
+	 * Updates the players name
+	 * @param name
+	 */
 	public void updatePlayerName(String name){
 		this.playerStats.setUserName(name);
 	}
+
+	/**
+	 * Updates the players attack level
+	 * @param count
+	 */
 	public void updatePlayerAttack(int count){
 		this.playerStats.setAttack(count);
 }
@@ -215,8 +227,12 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
-//	public void add(ClientControl socketClient) {
-//		this.socketClient = socketClient;
-//	}
+	/**
+	 * Adds the client to the GameFrame
+	 * @param socketClient
+	 */
+	public void add(ClientControl socketClient) {
+		this.socketClient = socketClient;
+	}
 
 }

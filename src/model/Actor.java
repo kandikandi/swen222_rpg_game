@@ -36,12 +36,9 @@ public class Actor implements Serializable {
 
 	}
 
-	private Actor() {
+	private Actor() {}
 
-	}
-
-	public void tick() {
-	}
+	public void tick() {}
 
 	/**
 	 * Getter method for GameObject's unique ID.
@@ -198,12 +195,6 @@ public class Actor implements Serializable {
 	// TODO:Bonnie added this here!
 	public char getAsciiCode() {
 		return asciiCode;
-	}
-
-	public String toString() {
-		return "Actor:: asciicode: " + asciiCode + " collidable: " + collidable
-				+ " drawable: " + drawable + " \ndescription: "
-				+ actorDescription + "\n" + position + "\n";
 	}
 
 }

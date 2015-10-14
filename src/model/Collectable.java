@@ -60,7 +60,6 @@ public class Collectable extends Actor {
     }
 
 
-
     public boolean isInContainer() {
 		return inContainer;
 	}

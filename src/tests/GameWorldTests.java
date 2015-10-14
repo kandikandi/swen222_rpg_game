@@ -1,7 +1,6 @@
 package tests;
 
 import model.*;
-import view.*;
 import control.*;
 import static org.junit.Assert.*;
 
@@ -30,7 +29,6 @@ public class GameWorldTests {
 	public void test_player_move_collision() {
 		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		// gameState.printGameObjectState();
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
 		assertTrue(player.getPosition().getxPos() == 80);
@@ -52,12 +50,9 @@ public class GameWorldTests {
 		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
 		player.setPosition(new Position(250, 350, 45));
-		gameState.printGameObjectState();
-		System.out.println(player.hasKey());
 		for (int i = 0; i < 10; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		gameState.printGameObjectState();
 		assertTrue(player.getPosition().getxPos() == 340);
 	}
 
@@ -186,16 +181,15 @@ public class GameWorldTests {
 	public void test_player_collision_enemy_health_decrease() {
 		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		Position pos = new Position(1700,800,Main.PLAYER_SIZE);
+		Position pos = new Position(1700,800, GlobalConst.PLAYER_SIZE);
 		player.setPosition(pos);
 		player.setAttack(true);
-		Position pos2 = new Position(1750,800,Main.PLAYER_SIZE);
+		Position pos2 = new Position(1750,800, GlobalConst.PLAYER_SIZE);
 		Enemy enemy = new Enemy(pos2, 'a', true, true);
 		enemy.setAttack(false);
 		gameState.getActors().add(player);
 		gameState.getActors().add(enemy);
 		for (int i = 0; i < 10; i++) {
-			System.out.println(enemy.getHealth());
 			player.move(gameState, "RIGHT");
 		}
 		assertTrue(enemy.getHealth() == 82);

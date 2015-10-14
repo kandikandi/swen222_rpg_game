@@ -737,27 +737,7 @@
                     <xOffset>0</xOffset>
                     <yOffset>0</yOffset>
                 </boundingBox>
-                <xPos>812</xPos>
-                <yPos>40</yPos>
-            </position>
-            <alive>true</alive>
-            <attackPoints>1</attackPoints>
-            <health>100</health>
-            <moveType>1</moveType>
-        </actor>
-        <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="enemy">
-            <asciicode>69</asciicode>
-            <collidable>true</collidable>
-            <description>This is a class model.Enemy</description>
-            <drawable>true</drawable>
-            <position>
-                <boundingBox>
-                    <height>40</height>
-                    <width>40</width>
-                    <xOffset>0</xOffset>
-                    <yOffset>0</yOffset>
-                </boundingBox>
-                <xPos>880</xPos>
+                <xPos>800</xPos>
                 <yPos>40</yPos>
             </position>
             <alive>true</alive>
@@ -777,13 +757,33 @@
                     <xOffset>0</xOffset>
                     <yOffset>0</yOffset>
                 </boundingBox>
-                <xPos>960</xPos>
+                <xPos>919</xPos>
                 <yPos>40</yPos>
             </position>
             <alive>true</alive>
             <attackPoints>1</attackPoints>
             <health>100</health>
-            <moveType>2</moveType>
+            <moveType>1</moveType>
+        </actor>
+        <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="enemy">
+            <asciicode>69</asciicode>
+            <collidable>true</collidable>
+            <description>This is a class model.Enemy</description>
+            <drawable>true</drawable>
+            <position>
+                <boundingBox>
+                    <height>40</height>
+                    <width>40</width>
+                    <xOffset>0</xOffset>
+                    <yOffset>0</yOffset>
+                </boundingBox>
+                <xPos>921</xPos>
+                <yPos>40</yPos>
+            </position>
+            <alive>true</alive>
+            <attackPoints>1</attackPoints>
+            <health>100</health>
+            <moveType>1</moveType>
         </actor>
         <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wall">
             <asciicode>87</asciicode>
@@ -3103,7 +3103,7 @@
                     <xOffset>0</xOffset>
                     <yOffset>0</yOffset>
                 </boundingBox>
-                <xPos>249</xPos>
+                <xPos>252</xPos>
                 <yPos>326</yPos>
             </position>
             <alive>true</alive>
@@ -4029,9 +4029,9 @@
         </actor>
         <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="door">
             <asciicode>68</asciicode>
-            <collidable>true</collidable>
+            <collidable>false</collidable>
             <description>This is a Door! It is false!!!</description>
-            <drawable>true</drawable>
+            <drawable>false</drawable>
             <position>
                 <boundingBox>
                     <height>40</height>
@@ -4661,9 +4661,9 @@
         </actor>
         <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="key">
             <asciicode>88</asciicode>
-            <collidable>true</collidable>
+            <collidable>false</collidable>
             <description>It looks like a special key.</description>
-            <drawable>true</drawable>
+            <drawable>false</drawable>
             <position>
                 <boundingBox>
                     <height>40</height>
@@ -4679,9 +4679,9 @@
         </actor>
         <actor xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="coin">
             <asciicode>67</asciicode>
-            <collidable>true</collidable>
+            <collidable>false</collidable>
             <description>This is a class model.Coin</description>
-            <drawable>true</drawable>
+            <drawable>false</drawable>
             <position>
                 <boundingBox>
                     <height>40</height>
@@ -5565,13 +5565,13 @@
                     <xOffset>10</xOffset>
                     <yOffset>15</yOffset>
                 </boundingBox>
-                <xPos>250</xPos>
-                <yPos>130</yPos>
+                <xPos>210</xPos>
+                <yPos>520</yPos>
             </position>
             <inventory>
                 <asciicode>49</asciicode>
                 <collidable>false</collidable>
-                <description>This is a Cotainer with a limit of 10, it currently has 2 items!</description>
+                <description>This is a Cotainer with a limit of 10, it currently has 3 items!</description>
                 <drawable>false</drawable>
                 <position>
                     <boundingBox>
@@ -5601,10 +5601,10 @@
                         </position>
                         <inContainer>false</inContainer>
                     </item>
-                    <item xsi:type="key">
-                        <asciicode>75</asciicode>
+                    <item xsi:type="coin">
+                        <asciicode>67</asciicode>
                         <collidable>false</collidable>
-                        <description>It looks like an ordinary key.</description>
+                        <description>This is a class model.Coin</description>
                         <drawable>false</drawable>
                         <position>
                             <boundingBox>
@@ -5613,11 +5613,29 @@
 <xOffset>0</xOffset>
 <yOffset>0</yOffset>
                             </boundingBox>
-                            <xPos>200</xPos>
-                            <yPos>160</yPos>
+                            <xPos>440</xPos>
+                            <yPos>520</yPos>
                         </position>
                         <inContainer>false</inContainer>
                         <special>false</special>
+                    </item>
+                    <item xsi:type="key">
+                        <asciicode>88</asciicode>
+                        <collidable>false</collidable>
+                        <description>It looks like a special key.</description>
+                        <drawable>false</drawable>
+                        <position>
+                            <boundingBox>
+<height>40</height>
+<width>40</width>
+<xOffset>0</xOffset>
+<yOffset>0</yOffset>
+                            </boundingBox>
+                            <xPos>240</xPos>
+                            <yPos>520</yPos>
+                        </position>
+                        <inContainer>false</inContainer>
+                        <special>true</special>
                     </item>
                 </itemsList>
             </inventory>

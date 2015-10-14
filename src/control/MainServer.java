@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import save.DataStorage;
 import model.GameState;
 
+/**Responsible for starting up the server and initialising the game state, along with starting the game timer.
+ * This class has no UI, it is a background process only.
+ * @author mcleankand
+ *
+ */
 public class MainServer {
 
 	public static final int F_WIDTH = 1000;
@@ -41,31 +46,11 @@ public class MainServer {
 
 		});
 	}
-	
-	public static void shutDownServer(){
-		System.out.println("MainServer: shutDownServer() called");
-		socketServer.shutDownServer();
-		System.exit(0);
-	}
 
-	/*public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				boolean isServer = true;
-				socketServer = new ServerControl();
-				socketServer.start();
-				GameState gameState = new GameState(isServer);
-				socketServer.setGame(gameState);
-				EnemyController enemyController = new EnemyController(gameState);
-				GameTimer gameTimer = new GameTimer(enemyController, socketServer);
-				gameTimer.start();
+	/**For saving and loading games, server stores the most up to date version of the game state
+	 *
+	 */
 
-			}
-
-		});
-	}*/
-
-	//TODO for you bonnie
 	public GameState getGameForSave(){
 		return socketServer.getGameState();
 	}

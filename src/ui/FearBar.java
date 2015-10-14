@@ -25,21 +25,19 @@ public class FearBar extends JLabel {
 	private Image fearBarImage;
 	private int currentFear;
 	private int maxFear;
-	String info = "Fear: " + currentFear + "/" + maxFear; // String used to display the fear stats
+	private String info = "Fear: " + currentFear + "/" + maxFear;
 	private double displayedFear;
 
 	public FearBar(int currentFear, int maxFear){
-		setMaximumFear(maxFear);
-		setCurrentFear(currentFear);
+		this.setMaximumFear(maxFear);
+		this.setCurrentFear(currentFear);
 		this.currentFear = currentFear;
 		this.maxFear = maxFear;
 		this.setPreferredSize(new Dimension(180,50));
-//		this.setBorder(BorderFactory.createLineBorder(Color.BLACK,4));
 		this.setBackground(new Color(204, 255, 255));
 		this.createBorder();
 
 		try {
-			// load the imageName
 			fearBarImage = ImageIO.read(new File("Fear_Bar.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -63,14 +61,12 @@ public class FearBar extends JLabel {
 
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-
 		this.displayedFear = ((double)this.currentFear/(double)this.maxFear) * (double)getWidth(); // Keeps the ratio correct to display on (180,50)
 		g.setFont(new Font("dialog",Font.BOLD,16));
 		int stringLength = (int)g.getFontMetrics().getStringBounds(info, g).getWidth();
 		int stringHeight = (int)g.getFontMetrics().getStringBounds(info, g).getHeight();
 		int xPos = getWidth()/2 - stringLength/2;
 		int yPos = (getHeight()/2) + stringHeight/3;
-
 		g.drawImage(fearBarImage, 0, 0, (int) displayedFear, getHeight(), null);
 		g.setColor(Color.WHITE);
 		g.drawString(info, xPos, yPos);

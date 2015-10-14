@@ -1,13 +1,12 @@
 package model;
 
-import control.Main;
+import control.GlobalConst;
 import save.position.PositionAdapter;
 
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
@@ -26,7 +25,7 @@ public final class Position  implements Serializable {
     private final BoundingBox boundingBox;
 
     public Position(int xPos, int yPos){
-        int size = Main.TILE_SIZE;
+        int size = GlobalConst.TILE_SIZE;
         this.boundingBox = new BoundingBox(size,size);
         this.xPos = xPos;
         this.yPos = yPos;

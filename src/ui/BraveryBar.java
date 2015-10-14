@@ -1,3 +1,10 @@
+/*
+ * Bravery Bar for future implementation of Experiance points.
+ */
+
+
+
+
 //package ui;
 //
 //import java.awt.Color;
