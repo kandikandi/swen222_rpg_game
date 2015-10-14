@@ -9,28 +9,30 @@ Dreamland is a multi-player adventure game.
 ### Getting started ###
 
 To launch from Eclipse:
-1. Click "Run as Java Application" with "UIMain" configuration.
-2. Click on the "Login" button on the welcome screen, enter your name, and click "Ok".
-3. Click on "Host" to start the game server.
-4. Click "Join" to start the game as the first player.
+1.Click "Run as Java Application" with "UIMain" configuration.
+2.Click on the "Login" button on the welcome screen, enter your name, and click "Ok".
+3.Click on "Host" to start the game server.
+4.Click "Join" to start the game as the first player.
 
->>>>>> to add: join game as 2nd player.
+To join the game join game as 2nd player, follow the same steps above excluding 3.
 
 ### Controls   ###
 
-Player movement is controlled with up, down, left, and right arrows. 
-Collectable objects such as keys and coins are automatically picked up when you walk over them
-You can inspect an item in the inventory by right-clicking the image of the item and clicking "Inspect Item".
-You can drop an item in the inventory by right-clicking the image of the item and clicking "Drop Item".
+You control player movement with up, down, left, and right arrows. 
 
->>>>>> to add: rotate screen
+You automatically pick up collectable objects such as keys and coins by walking over them. They will appear in your inventory.
 
+You can inspect an item in the inventory by right-clicking the image of the item and clicking "Inspect Item". To drop an item in the inventory, you can right-click the image of the item and click "Drop Item". You can use an item, for example eating some candy, by right-clicking the image of the item in the inventory and clicking "Use item".
+
+You can rotate the orientation of the game map by pushing 'r'.
+
+You can defend against enemy attack by standing still and pushing the space bar (causing their health to reduce).
 
 ### Packages: ###
      
 1. Control: 
 
->>>>>
+This package includes the networking elements, as well as the game timer and enemy and player controllers.
 
 2. Model:
 
@@ -40,21 +42,21 @@ The GameState class contains a list of the active Actor objects in the game, and
 
 The Collision class is used to run the game collision logic. It is called from the moving Actor objects when they move and gets details of collisions from the GameState object.
 
-3. Save packages - save, save.actor, save.boundingbox, save gamestate, save.position:
+3. Save packages:
 
->>>>>
+These packages hold the classes that handle serialization and saving.
 
 4. Tests
 
-This class contains all the game tests.
+This package contains all the game tests.
 
 5. UI
 
->>>>>
+This package contains the GUI/Swing elements including the main gameFrame, the splash/login screen, and the information and display panels.
 
 6. View
 
->>>>>
+This package includes the Tile and Object maps, the actor assets, and the rendering classes.
     
 ### Authors ###
      D Newton
