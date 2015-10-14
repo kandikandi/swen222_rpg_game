@@ -11,7 +11,7 @@ import java.util.Arrays;
  */
 public enum TileAssets {
 
-    GRASS('g',"gridtile.png"),
+    GRASS('g',"grass 3.png"),
     STONE('s',"tokenScarlet.png"),
     WOOD('w',"tokenScarlet.png"),
     DIRT('v',"vege.png"),

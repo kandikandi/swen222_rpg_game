@@ -29,8 +29,8 @@ public class Factory {
      */
     public List<Actor> createActorList() {
         //char[][] tileCode = TestWorlds.getSmallObjectMap();
-        //char[][] tileCode = TestWorlds.getFullObjectMap();
-        char[][] tileCode = TestWorlds.getMazeObjects();
+        char[][] tileCode = TestWorlds.getFullObjectMap();
+        //char[][] tileCode = TestWorlds.getMazeObjects();
         List<Actor> actors = new ArrayList<>();
         for (int row = 0; row < tileCode.length; row++) {
             for (int col = 0; col < tileCode[0].length; col++) {
@@ -79,7 +79,10 @@ public class Factory {
                         actor = createWall(position.getxPos(), position.getyPos());
                         break;
                     case TREE:
-                        actor = createTree(position.getxPos(), position.getyPos());
+                    	actor = createTree(position.getxPos(), position.getyPos(), asciiCode);
+                        break;
+                    case TREE2:
+                    	actor = createTree(position.getxPos(), position.getyPos(), asciiCode);
                         break;
                     case VEGEWALL:
                         actor = createWall(position.getxPos(), position.getyPos());
@@ -96,6 +99,7 @@ public class Factory {
                 }
 
                 if (actor == null) {
+
                     try {
                         throw new GameException(
                                 "TestModeFactory: failed to create actor");
@@ -120,14 +124,15 @@ public class Factory {
         return candy;
 	}
 
+
 	/**
-     * This method constructs a Actor object with Tree assets.
+     * This method constructs a Actor object with Evil Tree assets.
      */
-    private Actor createTree(int x, int y) {
+    private Actor createTree(int x, int y, char c) {
         int size = Main.TILE_SIZE;
         BoundingBox bbox = new BoundingBox(size, size, 50, 90);
         Position pos = new Position(x, y, bbox);
-        Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
+        Actor tree = new Actor(pos, c, true, true);
         return tree;
     }
 
@@ -137,8 +142,8 @@ public class Factory {
      */
     public Tile[][] createWorldTiles() {
 //        char[][] tileCode = TestWorlds.getSmallMap();
-        //char[][] tileCode = TestWorlds.getFullMap();
-        char[][] tileCode = TestWorlds.getMazeTiles();
+        char[][] tileCode = TestWorlds.getFullMap();
+        //char[][] tileCode = TestWorlds.getMazeTiles();
         Tile[][] result = new Tile[tileCode.length][tileCode[0].length];
 
         for (int row = 0; row < tileCode.length; row++) {

@@ -28,6 +28,7 @@ public enum ActorAssets {
     COLLECTABLE('B',"ring.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
     WALL('W', "wall.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
     TREE('T', "Tree1.png",140,140),
+    TREE2('J', "Tree2.png",140,140),
     VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
     SCHOOLWALL('S',"wall.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
     CIRCUSWALL('M',"wall.jpg",Main.TILE_SIZE,Main.TILE_SIZE),

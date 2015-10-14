@@ -156,7 +156,7 @@ public class ItemLabel extends JLabel {
 		public void mouseReleased(MouseEvent ev) {
 			if (ev.isPopupTrigger()) {
 				itemMenu.show(ev.getComponent(), ev.getX(), ev.getY());
-				System.out.println("Hey");
+
 			}
 		}
 
