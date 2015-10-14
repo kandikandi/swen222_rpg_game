@@ -16,7 +16,7 @@ public class MainClient {
 
 
 
-    //TODO delete this -- Cuan
+   /* //TODO delete this -- Cuan
     static public void main(String[] args) {
         String username = "cuan";
         EventQueue.invokeLater(new Runnable() {
@@ -44,7 +44,7 @@ public class MainClient {
 
         });
     }
-
+*/
 
     public void launchClient(String username, MainServer server) {
 
