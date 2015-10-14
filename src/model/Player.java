@@ -236,14 +236,9 @@ public class Player extends Actor implements Serializable {
 	 *
 	 */
 	private void tooScared() {
-//		this.alive = false;
-		this.getInventory().empty();
 		this.setFear(0);
-		//this.setPosition(new Position(Main.PLAYER_ONE_START_LOCATION_X, Main.PLAYER_ONE_START_LOCATION_Y, Main.PLAYER_SIZE));
-//		this.setX(Main.PLAYER_ONE_START_LOCATION_X);
-//		this.setY(Main.PLAYER_ONE_START_LOCATION_Y);
-//		System.out.println(".......Player x"+this.getPosition().getxPos());
-
+		Position originalPosition = new Position(Main.PLAYER_ONE_START_LOCATION_X,Main.PLAYER_ONE_START_LOCATION_X,position.getBoundingBox());
+		this.setPosition(originalPosition);
 	}
 
 	// ========================================================
