@@ -42,34 +42,6 @@ public class MainServer {
 		});
 	}
 
-
-
-
-
-	public static void shutDownServer(){
-		System.out.println("MainServer: shutDownServer() called");
-		socketServer.shutDownServer();
-		System.exit(0);
-	}
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				boolean isServer = true;
-				socketServer = new ServerControl();
-				socketServer.start();
-				GameState gameState = new GameState(isServer);
-				socketServer.setGame(gameState);
-				EnemyController enemyController = new EnemyController(gameState);
-				GameTimer gameTimer = new GameTimer(enemyController, socketServer);
-				gameTimer.start();
-
-			}
-
-		});
-	}
-
-	//TODO for you bonnie
 	public GameState getGameForSave(){
 		return socketServer.getGameState();
 	}

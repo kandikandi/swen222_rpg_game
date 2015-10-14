@@ -22,8 +22,7 @@ import view.Renderer;
 
 public class ClientControl extends Thread {
 
-    //which client, and whether the server knows its there
-    boolean handShakeComplete = false;
+
     /**The gameclient handles all data recieved from the server. Any packets passed in through the socket will be parsed for what type of packet then dealt
      * with in the appropriate manner. The client communicates with the server and the renderer/UI only, it does not deal with any game logic. It has a game state,
      * which it does not make any direct changes to, only updates with information recieved from server.
@@ -34,12 +33,17 @@ public class ClientControl extends Thread {
 	//socket number to server and ip address game is played on
     private InetAddress ipAddress;
     private DatagramSocket socket;
+
     //gamestate to be updated by server communication
     private GameState gameState;
+
     //For deserialising the actor list
     private Serialiser serial = new Serialiser();
     private int clientNum = 0;
-    private boolean isRunning = true;
+
+    //which client, and whether the server knows its there
+    boolean handShakeComplete = false;
+
 
     //UI/Rendering
     private Renderer renderer;
@@ -64,7 +68,7 @@ public class ClientControl extends Thread {
 
     /**run method to loop through continuously*/
     public void run() {
-        while (isRunning) {
+        while (true) {
 
             try {
                 Thread.sleep(10);
@@ -149,13 +153,14 @@ public class ClientControl extends Thread {
                 System.out.println("ClientControl Error: received a login packet");
                 break;
 
-            case DISCONNECT:
+            case DISCONNECTCLIENTS:
                 //The server has disconnected, so display a message
                 System.out.println("Server has disconnected");
                 JOptionPane.showMessageDialog(
-                	    null, "Server has disconnected...",
+                	    null, "Server has disconnected...Exiting Game",
                 	    "Game error",
                 	    JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
                 break;
 
             default:
@@ -216,7 +221,4 @@ public class ClientControl extends Thread {
 		}
     }
 
-    public void shutDownClient(){
-    	isRunning = false;
-    }
 }

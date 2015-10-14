@@ -35,6 +35,7 @@ public class ServerControl extends Thread {
     private boolean isRunning = true;
     private GameCamera camera = new GameCamera();
 
+
     public ServerControl() {
         try {
             this.socket = new DatagramSocket(Main.PORT);
@@ -52,13 +53,8 @@ public class ServerControl extends Thread {
     }
 
     public void run() {
-        while (isRunning) {
+        while (true) {
 
-           /* try {
-                Thread.sleep(12);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }*/
 
             // Create empty packet
             byte[] data = new byte[60000];
@@ -115,9 +111,9 @@ public class ServerControl extends Thread {
                 }
                 break;
 
-            case DISCONNECT:
+            case DISCONNECTSERVER:
 
-                PacketDisconnect disconnect = new PacketDisconnect(data);
+                PacketDisconnectServer disconnect = new PacketDisconnectServer(data);
                 Player playerDisconnect = game.findPlayer(disconnect.getClientNum());
 
                 for (int i = 0; i < connectedPlayers.size(); i++) {
@@ -132,9 +128,14 @@ public class ServerControl extends Thread {
                 game.removePlayer(playerDisconnect);
                 System.out.println("Connected players == "+ connectedPlayers.size());
 
+                if(disconnect.getClientNum()==1){
+                	PacketDisconnectClients disconnectClients = new PacketDisconnectClients("7".getBytes());
+                	disconnectClients.writeData(this);
+                }
+
                 //If there is no longer any players connected, it means there is no one playing, so shutdown the server.
                 if (connectedPlayers.size() == 0) {
-                    MainServer.shutDownServer();
+                    System.exit(0);
                 }
 
                 break;
@@ -143,6 +144,16 @@ public class ServerControl extends Thread {
             	//should never recieve an update error
                 try {
                     throw new GameException("Server should never recieve packet of type UPDATE");
+                } catch (GameException e) {
+                    e.printStackTrace();
+                }
+
+                break;
+
+            case DISCONNECTCLIENTS:
+            	//should never recieve an update error
+                try {
+                    throw new GameException("Server should never recieve packet of type DISCONNECTCLIENTS");
                 } catch (GameException e) {
                     e.printStackTrace();
                 }
@@ -240,7 +251,4 @@ public class ServerControl extends Thread {
 
     }
 
-    public void shutDownServer() {
-        isRunning = false;
-    }
 }

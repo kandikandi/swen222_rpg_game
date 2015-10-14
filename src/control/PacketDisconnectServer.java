@@ -1,11 +1,11 @@
 package control;
 
-public class PacketDisconnect extends Packet {
+public class PacketDisconnectServer extends Packet {
 
 	private String username;
 	private int clientNum;
 
-	public PacketDisconnect(byte[] data) {
+	public PacketDisconnectServer(byte[] data) {
 		super(4);
 		this.clientNum = getClientNum(data);
 
