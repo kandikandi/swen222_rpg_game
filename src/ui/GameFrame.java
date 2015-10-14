@@ -190,7 +190,6 @@ public class GameFrame extends JFrame {
 		this.playerStats.setCoins(count);
 	}
 	public void updatePlayerName(String name){
-		System.out.println(name);
 		this.playerStats.setUserName(name);
 	}
 	public void updatePlayerAttack(int count){

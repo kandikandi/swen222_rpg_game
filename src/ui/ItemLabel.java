@@ -67,7 +67,6 @@ public class ItemLabel extends JLabel {
 			public void actionPerformed(ActionEvent e) {
 				//=============USE PACKET CODE HERE===========
 				String data = "";
-				System.out.println("Here");
 				if(getLabel().getAscii() == 'Z'){
 					data = "6"+player.getClientNum()+"Z";
 				}
@@ -87,7 +86,6 @@ public class ItemLabel extends JLabel {
 			public void actionPerformed(ActionEvent e) {
 				String data = "";
 				if(getLabel().getAscii() == 'K'){
-					System.out.println("Here");
 					data = "5"+player.getClientNum()+"K";
 				}
 				if(getLabel().getAscii() == 'B'){
@@ -101,6 +99,9 @@ public class ItemLabel extends JLabel {
 				}
 				if(getLabel().getAscii() == 'X'){
 					data = "5"+player.getClientNum()+"X";
+				}
+				if(getLabel().getAscii() == 'Q'){
+					data = "5"+player.getClientNum()+"Q";
 				}
 
 				PacketDropItem p = new PacketDropItem(data.getBytes());

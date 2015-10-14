@@ -88,7 +88,9 @@ public class LoginScreen extends JFrame {
 						} else if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
 							dispose();
 						} else if( xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54){
-							username = "00" + JOptionPane.showInputDialog(null, "enter username");
+							while(username.length() > 10 || username.length() < 3 ){
+								username = "00" + JOptionPane.showInputDialog(null, "enter username");
+							}
 							userNameEntered = true;
 						}
 					}
