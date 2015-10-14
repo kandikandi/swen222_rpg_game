@@ -30,11 +30,11 @@ You can defend against enemy attack by standing still and pushing the space bar 
 
 ### Packages: ###
      
-1. Control: 
+Control: 
 
 This package includes the networking elements, as well as the game timer and enemy and player controllers.
 
-2. Model:
+Model:
 
 This package contains most of the game element objects. Most objects are subtypes of the Actor class, which includes its Position on the Board and can return a BoundingBox for collision logic purposes. The Actor subtypes are the moving actors (Player and Enemy), the Container class (which has subtypes CoinBag and Inventory), the Collectable class (which has subtypes Key and coin), as well as Door and Wall.
 
@@ -42,22 +42,26 @@ The GameState class contains a list of the active Actor objects in the game, and
 
 The Collision class is used to run the game collision logic. It is called from the moving Actor objects when they move and gets details of collisions from the GameState object.
 
-3. Save packages:
+Save packages:
 
 These packages hold the classes that handle serialization and saving.
 
-4. Tests
+Tests
 
 This package contains all the game tests.
 
-5. UI
+UI
 
 This package contains the GUI/Swing elements including the main gameFrame, the splash/login screen, and the information and display panels.
 
-6. View
+View
 
 This package includes the Tile and Object maps, the actor assets, and the rendering classes.
-    
+
+Images
+
+This package holds the game images.
+
 ### Authors ###
      D Newton
      C Lategan
