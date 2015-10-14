@@ -58,7 +58,6 @@ public class Collectable extends Actor {
 
 
     @Override
-    public void tick() {
-    }
+    public void tick() {    }
 
 }

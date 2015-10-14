@@ -11,6 +11,7 @@ import save.boundingbox.BoundingboxAdapter;
  * Created by lategacuan on 9/10/15.
  * This class will be used to collisions as well as the painter algro in renderer
  *
+ *
  */
 @XmlRootElement(name = "boundingbox")
 @XmlJavaTypeAdapter(BoundingboxAdapter.class)
@@ -29,11 +30,11 @@ public class BoundingBox extends Rectangle {
         this.xOffset = 0;
         this.yOffset = 0;
     }
-    
+
     public int getXOffset(){
     	return xOffset;
     }
-    
+
     public int getYOffset(){
     	return yOffset;
     }

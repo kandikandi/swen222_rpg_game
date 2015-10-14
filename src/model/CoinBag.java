@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class CoinBag extends Container {
 
-	private final int maximumItems = 50;
+	private final int maximumItems = 1000;
 
 	/**
 	 * A CoinBag object can be picked up by a Player and placed into the
@@ -80,7 +80,7 @@ public class CoinBag extends Container {
 			actorDescription = " ";
 		}
 		return "This is a CoinBag, it contains " + numberOfCoinsInCoinBag()
-				+ " coins!";
+				+ " coins! It can hold "+maximumItems+ " coins.";
 	}
 
 }
