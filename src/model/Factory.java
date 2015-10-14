@@ -28,9 +28,9 @@ public class Factory {
      * the required Actors instantiations.
      */
     public List<Actor> createActorList() {
-//        char[][] tileCode = TestWorlds.getSmallObjectMap();
-        char[][] tileCode = TestWorlds.getFullObjectMap();
-        //char[][] tileCode = TestWorlds.getMazeObjects();
+        //char[][] tileCode = TestWorlds.getSmallObjectMap();
+        //char[][] tileCode = TestWorlds.getFullObjectMap();
+        char[][] tileCode = TestWorlds.getMazeObjects();
         List<Actor> actors = new ArrayList<>();
         for (int row = 0; row < tileCode.length; row++) {
             for (int col = 0; col < tileCode[0].length; col++) {
@@ -137,8 +137,8 @@ public class Factory {
      */
     public Tile[][] createWorldTiles() {
 //        char[][] tileCode = TestWorlds.getSmallMap();
-        char[][] tileCode = TestWorlds.getFullMap();
-        //char[][] tileCode = TestWorlds.getMazeTiles();
+        //char[][] tileCode = TestWorlds.getFullMap();
+        char[][] tileCode = TestWorlds.getMazeTiles();
         Tile[][] result = new Tile[tileCode.length][tileCode[0].length];
 
         for (int row = 0; row < tileCode.length; row++) {
