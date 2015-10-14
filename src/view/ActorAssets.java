@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 
 /**
@@ -50,7 +51,8 @@ public enum ActorAssets {
 
         this.imagePath = imagePath;
         try {
-            image = ImageIO.read(new File(imagePath)).getScaledInstance(width,height,Image.SCALE_FAST);
+            URL url = getClass().getResource(imagePath);
+            image = ImageIO.read(url).getScaledInstance(width,height,Image.SCALE_FAST);
         } catch (IOException e) {
             System.out.printf("Error: cant load "+imagePath);
             System.out.printf(e.getMessage());

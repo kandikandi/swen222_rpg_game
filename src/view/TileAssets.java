@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 
 /**
@@ -25,7 +26,8 @@ public enum TileAssets {
     TileAssets(final char nAsciiCode, final String imagePath){
         asciiCode = nAsciiCode;
         try {
-            image = ImageIO.read(new File(imagePath));
+            URL url = getClass().getResource(imagePath);
+            image = ImageIO.read(url);
         } catch (IOException e) {
             System.out.printf("Error: cant load "+imagePath);
             System.out.printf(e.getMessage());

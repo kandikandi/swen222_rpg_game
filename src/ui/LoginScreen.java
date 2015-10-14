@@ -133,7 +133,7 @@ public class LoginScreen extends JFrame {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-				;
+						;
 					}
 				}
 
