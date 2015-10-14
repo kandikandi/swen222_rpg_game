@@ -29,17 +29,39 @@ import model.Player;
 import model.Position;
 import model.Wall;
 
+/**
+ * Created on 14/10/15
+ *
+ * Class for the loading of the game state
+ *
+ * @author Bonnie Liao
+ *
+ */
 public class Parser {
 
+	/**
+	 * Method used to start the initial loading. Load is using the SAX xml
+	 * parser library
+	 *
+	 * @param file
+	 *            to load from
+	 * @return the loaded game state
+	 */
 	public static GameState parseFile(File file) {
+		// make sax factory
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 		try {
+			// make sax parser
 			SAXParser saxParser = saxParserFactory.newSAXParser();
+			// make the handler
 			XMLHandler handler = new XMLHandler();
+			// start the parsing
 			saxParser.parse(file, handler);
 
+			// parsing finished by now, so get the loaded list of actors
 			List<Actor> actorList = handler.getActorList();
 
+			// make a new game state and add the actors then return!
 			GameState gs = new GameState(true);
 			gs.setActors(actorList);
 			return gs;
@@ -51,15 +73,28 @@ public class Parser {
 
 }
 
+/**
+ * Created on 14/10/15
+ *
+ * Handler used for the loading and does the working for the different types of
+ * actors
+ *
+ * @author Bonnie Liao
+ *
+ */
 class XMLHandler extends DefaultHandler {
 
+	// the list of actors
 	private List<Actor> actorList = new ArrayList<Actor>();
+
+	// fields for the different actors and objects for the parsing
 	private ParserActor pactor = null;
 	private ParserPosition pposition = null;
 	private ParserBBox pboundingBox = null;
 	private ParserActor pitem;
 	private ParserActor pinven;
 
+	// the final actors and objects
 	private Actor actor;
 	private Position position;
 	private BoundingBox boundingBox;
@@ -107,7 +142,7 @@ class XMLHandler extends DefaultHandler {
 	// for enemy
 	private boolean moveType = false;
 
-	//for player
+	// for player
 	private boolean bfear = false;
 	private boolean bbravery = false;
 	private boolean bclientNum = false;
@@ -124,7 +159,6 @@ class XMLHandler extends DefaultHandler {
 	private boolean key = false;
 	private boolean candy = false;
 	private boolean player = false;
-	private boolean binventory = false;
 
 	// flags for items
 	private boolean icoin = false;
@@ -137,8 +171,9 @@ class XMLHandler extends DefaultHandler {
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
 
+		// checks the 'start' tag of the xml code and sets a flag for each set
+		// of information
 		if (qName.equalsIgnoreCase("actor")) {
-			// initialize Employee object and set id attribute
 			pactor = new ParserActor();
 		} else if (qName.equalsIgnoreCase("asciicode")) {
 			bascii = true;
@@ -182,7 +217,6 @@ class XMLHandler extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase("moveType")) {
 			moveType = true;
 		} else if (qName.equalsIgnoreCase("inventory")) {
-			binventory = true;
 			pinven = new ParserActor();
 		} else if (qName.equalsIgnoreCase("hasKey")) {
 			hasKey = true;
@@ -199,6 +233,8 @@ class XMLHandler extends DefaultHandler {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
+		// checks the 'end' tag and makes the actors and objects depending on
+		// the different flags
 		if (qName.equalsIgnoreCase("actor")) {
 			if (coin) {
 				actor = createCoin(pactor);
@@ -228,12 +264,10 @@ class XMLHandler extends DefaultHandler {
 						pactor.isCollidable(), pactor.isDrawable());
 				actor.setDescription(pactor.getActorDescription());
 				candy = false;
-			}
-			else if(player){
+			} else if (player) {
 				actor = createPlayer(pactor);
 				player = false;
-			}
-			else {
+			} else {
 				actor = new Actor(position, pactor.getAsciiCode(),
 						pactor.isCollidable(), pactor.isDrawable());
 				actor.setDescription(pactor.getActorDescription());
@@ -249,9 +283,14 @@ class XMLHandler extends DefaultHandler {
 			} else if (ikey) {
 				item = createKey(pitem);
 				ikey = false;
-			} else if(icoinBag){
+			} else if (icoinBag) {
 				item = createCoinBag(pitem);
 				icoinBag = false;
+			} else if (icandy) {
+				item = new Candy(position, pitem.getAsciiCode(),
+						pitem.isCollidable(), pitem.isDrawable());
+				item.setDescription(pitem.getActorDescription());
+				icandy = false;
 			}
 			itemsList.add(item);
 		} else if (qName.equalsIgnoreCase("position")) {
@@ -264,13 +303,20 @@ class XMLHandler extends DefaultHandler {
 		} else if (qName.equalsIgnoreCase("inventory")) {
 			inventory = new Inventory(pinven.getPosition(),
 					pinven.getAsciiCode(), pinven.isCollidable(),
-					pinven.isDrawable(), new Actor[]{});
-			for(Actor act : itemsList){
+					pinven.isDrawable(), new Actor[] {});
+			for (Actor act : itemsList) {
 				inventory.addItemToContainer(act);
 			}
 		}
 	}
 
+	/**
+	 * Creates a player with the given info
+	 *
+	 * @param act
+	 *            the parser actor
+	 * @return actor
+	 */
 	private Actor createPlayer(ParserActor act) {
 		Player a = new Player(position, act.getAsciiCode(), act.isCollidable(),
 				act.isDrawable(), act.getClientNum());
@@ -288,6 +334,13 @@ class XMLHandler extends DefaultHandler {
 
 	}
 
+	/**
+	 * Creates a key, or special key
+	 *
+	 * @param act
+	 *            act the parser actor
+	 * @return key
+	 */
 	private Actor createKey(ParserActor act) {
 		Key a = new Key(position, act.getAsciiCode(), act.isCollidable(),
 				act.isDrawable());
@@ -305,6 +358,13 @@ class XMLHandler extends DefaultHandler {
 		return a;
 	}
 
+	/**
+	 * Creates the enemy from the parser actor
+	 *
+	 * @param act
+	 *            parser actor
+	 * @return enemy
+	 */
 	private Actor createEnemy(ParserActor act) {
 		Enemy a = new Enemy(position, act.getAsciiCode(), act.isCollidable(),
 				act.isDrawable());
@@ -318,6 +378,13 @@ class XMLHandler extends DefaultHandler {
 		return a;
 	}
 
+	/**
+	 * Creates a door from the parser actor
+	 *
+	 * @param act
+	 *            parser actor
+	 * @return door
+	 */
 	private Actor createDoor(ParserActor act) {
 		Door a = new Door(position, act.getAsciiCode(), act.isCollidable(),
 				act.isDrawable());
@@ -334,6 +401,13 @@ class XMLHandler extends DefaultHandler {
 		return a;
 	}
 
+	/**
+	 * Creates a collectable from the parser actor
+	 *
+	 * @param act
+	 *            parser actor
+	 * @return collectable
+	 */
 	private Actor createCollectable(ParserActor act) {
 		Collectable a = new Collectable(position, act.getAsciiCode(),
 				act.isCollidable(), act.isDrawable());
@@ -345,6 +419,13 @@ class XMLHandler extends DefaultHandler {
 		return a;
 	}
 
+	/**
+	 * Creates a coin bag from the parser actor
+	 *
+	 * @param act
+	 *            parser actor
+	 * @return coin bag
+	 */
 	private CoinBag createCoinBag(ParserActor act) {
 		CoinBag a = new CoinBag(position, act.getAsciiCode(),
 				act.isCollidable(), act.isDrawable());
@@ -355,6 +436,13 @@ class XMLHandler extends DefaultHandler {
 		return a;
 	}
 
+	/**
+	 * Creates a coin from the parser actor
+	 *
+	 * @param act
+	 *            parser actor
+	 * @return coin
+	 */
 	private Coin createCoin(ParserActor act) {
 		Coin a = new Coin(position, act.getAsciiCode(), act.isCollidable(),
 				act.isDrawable());
@@ -376,6 +464,8 @@ class XMLHandler extends DefaultHandler {
 	public void characters(char ch[], int start, int length)
 			throws SAXException {
 		String token = new String(ch, start, length);
+		// based on the flags, gets the information and sets it to the parser
+		// classes
 		if (bascii) {
 			if (items) {
 				pitem.setAsciiCode((char) Integer.parseInt(token));
@@ -465,20 +555,18 @@ class XMLHandler extends DefaultHandler {
 		} else if (moveType) {
 			pactor.setMoveType(Integer.parseInt(token));
 			moveType = false;
-		}  else if (hasKey) {
+		} else if (hasKey) {
 			if (token.equals("true"))
 				hasKey = true;
 			else
 				hasKey = false;
-		} else if(bfear){
+		} else if (bfear) {
 			pactor.setFear(Integer.parseInt(token));
 			bfear = false;
-		}
-		else if(bbravery){
+		} else if (bbravery) {
 			pactor.setBravery(Integer.parseInt(token));
 			bbravery = false;
-		}
-		else if(bclientNum){
+		} else if (bclientNum) {
 			pactor.setClientNum(Integer.parseInt(token));
 			bclientNum = false;
 		}
@@ -508,6 +596,12 @@ class XMLHandler extends DefaultHandler {
 		}
 	}
 
+	/**
+	 * sets the flags
+	 *
+	 * @param asciiCode
+	 *            the unique asciicode code for each object
+	 */
 	private void setActor(char asciiCode) {
 		ActorAssets asset = ActorAssets.getAssetName(asciiCode);
 		switch (asset) {
@@ -545,12 +639,17 @@ class XMLHandler extends DefaultHandler {
 			player = true;
 			break;
 		case INVENTORY:
-			binventory = true;
 			break;
 		}
 	}
 }
 
+/**
+ * Parser class
+ *
+ * @author Bonnie Liao
+ *
+ */
 class ParserActor {
 	private char asciiCode;
 	private Position position;
