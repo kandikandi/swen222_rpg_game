@@ -34,13 +34,14 @@ public class GameFrame extends JFrame {
 	private InventoryPanel inventory;
 //	private ClientControl socketClient; //TODO: Bonnie added this!
 	private MainServer server;
+	private String name;
 
 	// TODO: Bonnie added extra argument here!
-	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server) {
+	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server, String userName) {
 		super(title);
 
+		this.name = userName;
 		this.server = server;
-
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
 		this.infoPanel = new InfoPanel();
@@ -162,12 +163,11 @@ public class GameFrame extends JFrame {
 		this.updatePlayerFear(player.getFear());
 		this.updatePlayerCoins(player.getInventory().getCoinCount());
 		this.updatePlayerAttack(player.getAttackPoints());
+		this.updatePlayerName(this.name);
 
 	}
 
-	public void updatePlayerAttack(int count){
-			this.playerStats.setAttack(count);
-	}
+
 
 	/**
 	 * Updates the players Inventory display via the InventoryPanel
@@ -189,6 +189,14 @@ public class GameFrame extends JFrame {
 	public void updatePlayerCoins(int count){
 		this.playerStats.setCoins(count);
 	}
+	public void updatePlayerName(String name){
+		System.out.println(name);
+		this.playerStats.setUserName(name);
+	}
+	public void updatePlayerAttack(int count){
+		this.playerStats.setAttack(count);
+}
+
 
 	/**
 	 * Returns the GameFrame currently being used for the game

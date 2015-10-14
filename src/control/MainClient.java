@@ -20,7 +20,7 @@ public class MainClient {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, null);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, null, null);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();
@@ -49,7 +49,7 @@ public class MainClient {
             public void run() {
 
                 boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, server);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, server, username);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();

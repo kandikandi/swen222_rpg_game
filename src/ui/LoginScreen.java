@@ -26,7 +26,7 @@ import control.MainServer;
  */
 public class LoginScreen extends JFrame {
 
-	String username = "00";
+	private String username = "00";
 	private BufferedImage backgroundScreen;
 	private BufferedImage title;
 	private BufferedImage hostGameImage;
@@ -88,7 +88,7 @@ public class LoginScreen extends JFrame {
 						} else if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
 							dispose();
 						} else if( xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54){
-							String username = "00" + JOptionPane.showInputDialog(null, "enter username");
+							username = "00" + JOptionPane.showInputDialog(null, "enter username");
 							userNameEntered = true;
 						}
 					}

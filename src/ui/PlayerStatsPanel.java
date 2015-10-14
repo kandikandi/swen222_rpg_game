@@ -28,12 +28,12 @@ public class PlayerStatsPanel extends JPanel {
 	private JPanel barPanel = new JPanel(); // Holds both the FearBar and BraveryBar
 	private JPanel playerInformation = new JPanel(); // Holds JLabels showing players stats
 	private FearBar fear = new FearBar(0,150);
-	private BraveryBar bravery = new BraveryBar(0,150);
+	//private BraveryBar bravery = new BraveryBar(0,150);
 
 	// JLabels to display players stats (Held in JPanel playerInformation)
 	private JLabel attack = new JLabel("Attack:                 ");
 	private JLabel gold = new JLabel("Gold:                     ");
-	private JLabel level = new JLabel("Level:                   ");
+	private JLabel userName = new JLabel("Name:                ");
 
 	public PlayerStatsPanel(){
 		this.setPreferredSize(new Dimension(200,250));
@@ -50,8 +50,8 @@ public class PlayerStatsPanel extends JPanel {
 		gold.setForeground(Color.BLACK);
 
 		// Set up Level JLabel
-		level.setFont(new Font("dialog",Font.BOLD,16));
-		level.setForeground(Color.BLACK);
+		userName.setFont(new Font("dialog",Font.BOLD,16));
+		userName.setForeground(Color.BLACK);
 
 		try {
 			// load the imageName
@@ -64,13 +64,13 @@ public class PlayerStatsPanel extends JPanel {
 		playerInformation.setOpaque(false);
 		playerInformation.add(attack);
 		playerInformation.add(gold);
-		playerInformation.add(level);
+		playerInformation.add(userName);
 
 		// Set up barPanel JPanel
 		barPanel.setLayout(new BorderLayout());
 		barPanel.setOpaque(false);
 		barPanel.add(fear, BorderLayout.NORTH);
-		barPanel.add(bravery, BorderLayout.SOUTH);
+		//barPanel.add(bravery, BorderLayout.SOUTH);
 
 		// Set up this PlayerStatsPanel JPanel
 		this.add(playerInformation);
@@ -135,4 +135,11 @@ public class PlayerStatsPanel extends JPanel {
 		this.revalidate();
 
 	}
+	public void setUserName(String name) {
+		name = name.substring(2,name.length());
+		this.userName.setText("Name: " + name    );
+		this.revalidate();
+
+	}
+
 }
