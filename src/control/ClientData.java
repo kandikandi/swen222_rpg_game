@@ -16,13 +16,14 @@ public class ClientData {
 	private Player player;
 
 
+
 	public ClientData(String uname, InetAddress ipAddress, int port, int clientNum) {
 		this.username = uname;
 		this.setIpAddress(ipAddress);
 		this.setPort(port);
 		this.clientNum = clientNum;
-	}
 
+	}
 
 	public void setPlayer(Player player){this.player = player;}
 

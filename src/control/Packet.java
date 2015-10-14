@@ -21,7 +21,7 @@ public abstract class Packet {
 		return PacketTypes.UPDATE;
 	}
 
-	//TODO fix this up if time
+	
 	public static PacketTypes lookupPacket(String packetID) {
 		try{
 		return lookupPacket(Integer.parseInt(packetID));
@@ -61,7 +61,7 @@ public abstract class Packet {
 
 
 	public static enum PacketTypes{
-		LOGIN(0),LOGINCONFIRM(1),UPDATE(2), MOVE(3), DISCONNECT(4), DROPITEM(5), USEITEM(6);
+		LOGIN(0),LOGINCONFIRM(1),UPDATE(2), MOVE(3), DISCONNECTSERVER(4), DROPITEM(5), USEITEM(6), DISCONNECTCLIENTS(7);
 
 		private int packetID;
 		private int clientNum;

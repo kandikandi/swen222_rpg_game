@@ -4,7 +4,7 @@ import javax.swing.*;
 
 import control.ClientControl;
 
-import control.PacketDisconnect;
+import control.PacketDisconnectServer;
 
 import control.MainServer;
 
@@ -31,7 +31,7 @@ public class GameFrame extends JFrame {
 	private final int WIDTH;
 	private final int HEIGHT;
 	private JMenuBar menu =  new JMenuBar();
-	private JMenu file = new JMenu("File");
+	private JMenu file = new JMenu("File"); 
 	private JPanel sidePanel = new JPanel();
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
@@ -39,6 +39,7 @@ public class GameFrame extends JFrame {
 	private ClientControl socketClient; //TODO: Bonnie added this!
 	private MainServer server;
 	private String name;
+
 
 	// TODO: Bonnie added extra argument here!
 	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server, String userName) {
@@ -68,7 +69,7 @@ public class GameFrame extends JFrame {
                 if(PromptResult==JOptionPane.YES_OPTION)
                 {
                 	System.out.println("Sending a disconnection packet");
-		        	PacketDisconnect disconnectPlayer = new PacketDisconnect(("4"+socketClient.getClientNum()+socketClient.getName()).getBytes());
+		        	PacketDisconnectServer disconnectPlayer = new PacketDisconnectServer(("4"+socketClient.getClientNum()+socketClient.getName()).getBytes());
 		        	disconnectPlayer.writeData(socketClient);
 		        	System.exit(0);
 
@@ -215,8 +216,8 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
-//	public void add(ClientControl socketClient) {
-//		this.socketClient = socketClient;
-//	}
+	public void add(ClientControl socketClient) {
+		this.socketClient = socketClient;
+	}
 
 }

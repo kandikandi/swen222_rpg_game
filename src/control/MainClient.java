@@ -15,37 +15,6 @@ public class MainClient {
     public static final String TITLE = "ECS BETA";
 
 
-
-   /* //TODO delete this -- Cuan
-    static public void main(String[] args) {
-        String username = "cuan";
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, null, null);
-                GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
-                gameFrame.getContentPane().add(gameCanvas);
-                gameFrame.pack();
-
-                GameState gameState = new GameState(isServer);
-                ClientControl socketClient = new ClientControl("localhost", gameState, gameCanvas);
-                gameCanvas.setSocketClient(socketClient);
-                PlayerController playerController = new PlayerController(socketClient);
-                gameFrame.addKeyListener(playerController);
-//                gameFrame.add(socketClient);
-
-
-                socketClient.start();
-                PacketLogin loginPacket = new PacketLogin(("00" + username).getBytes());
-                loginPacket.writeData(socketClient);
-
-
-            }
-
-        });
-    }
-*/
-
     public void launchClient(String username, MainServer server) {
 
 
@@ -63,7 +32,7 @@ public class MainClient {
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
-//                gameFrame.add(socketClient);
+                gameFrame.add(socketClient);
 
 
                 socketClient.start();
