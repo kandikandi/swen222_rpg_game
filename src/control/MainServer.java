@@ -41,17 +41,14 @@ public class MainServer {
 
 		});
 	}
-
-
-
-
-
+	
 	public static void shutDownServer(){
 		System.out.println("MainServer: shutDownServer() called");
 		socketServer.shutDownServer();
+		System.exit(0);
 	}
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				boolean isServer = true;
@@ -66,7 +63,7 @@ public class MainServer {
 			}
 
 		});
-	}
+	}*/
 
 	//TODO for you bonnie
 	public GameState getGameForSave(){

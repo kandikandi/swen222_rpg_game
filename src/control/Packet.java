@@ -39,9 +39,13 @@ public abstract class Packet {
 		return -1;
 	}
 
-	public abstract void writeData(ClientControl client);
+	public void writeData(ClientControl client){
+		client.sendData(getData());
+	}
 
-	public abstract void writeData(ServerControl server);
+	public void writeData(ServerControl server){
+		server.sendDataToAllClients(getData());
+	}
 
 	public String readData(byte[] data){
 		String message = new String(data).trim();
@@ -55,7 +59,7 @@ public abstract class Packet {
 
 	public abstract byte[] getData();
 
-	//TODO find out if LOGINCONFIRM is used, or should be used. Sounds like it would be usefull for syncing game.
+
 	public static enum PacketTypes{
 		LOGIN(0),LOGINCONFIRM(1),UPDATE(2), MOVE(3), DISCONNECT(4), DROPITEM(5), USEITEM(6);
 

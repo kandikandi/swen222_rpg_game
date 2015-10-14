@@ -39,6 +39,7 @@ public class ClientControl extends Thread {
     //For deserialising the actor list
     private Serialiser serial = new Serialiser();
     private int clientNum = 0;
+    private boolean isRunning = true;
 
     //UI/Rendering
     private Renderer renderer;
@@ -60,9 +61,10 @@ public class ClientControl extends Thread {
         }
     }
 
+
     /**run method to loop through continuously*/
     public void run() {
-        while (true) {
+        while (isRunning) {
 
             try {
                 Thread.sleep(10);
@@ -86,6 +88,8 @@ public class ClientControl extends Thread {
             renderer.renderScene(gameState, clientNum);
 
         }
+
+
     }
 
     /** This method takes a data array, the address and port of the server which it recieves from the packet in the run method.
@@ -102,8 +106,11 @@ public class ClientControl extends Thread {
         String message = new String(data).trim();
         PacketTypes type = Packet.lookupPacket(message.substring(0, 1));
 
+
+
         switch (type) {
             case UPDATE:
+
             	//If an update, deserialize the data, update the local game state
                 ArrayList<Actor> recd;
                 try {
@@ -207,5 +214,9 @@ public class ClientControl extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+    }
+
+    public void shutDownClient(){
+    	isRunning = false;
     }
 }

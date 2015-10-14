@@ -19,220 +19,193 @@ public class GameWorldTests {
 
 	@Test
 	public void test_player_move_no_collision() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		//System.out.println(player.getPosition().getxPos() );
+
 		player.move(gameState, "RIGHT");
-		//System.out.println(player.getPosition().getxPos() );
-		assertTrue(player.getPosition().getxPos()==130);
+		assertTrue(player.getPosition().getxPos() == 110);
 	}
 
 	@Test
 	public void test_player_move_collision() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		//gameState.printGameObjectState();
+		// gameState.printGameObjectState();
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
-		assertTrue(player.getPosition().getxPos()==120);
+		assertTrue(player.getPosition().getxPos() == 80);
 	}
 
 	@Test
 	public void test_player_move_locked_door() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(385,350));
+		player.setPosition(new Position(385, 350));
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
-//		System.out.println(player.getPosition().getxPos());
-		assertTrue(player.getPosition().getxPos()==380);
+		assertTrue(player.getPosition().getxPos() == 385);
 	}
 
 	@Test
 	public void test_player_move_key_door() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-
-		player.setPosition(new Position(250,350, 45));
+		player.setPosition(new Position(250, 350, 45));
 		gameState.printGameObjectState();
 		System.out.println(player.hasKey());
-		for(int i = 0; i<10;i++){
+		for (int i = 0; i < 10; i++) {
 			player.move(gameState, "RIGHT");
 		}
 		gameState.printGameObjectState();
-		assertTrue(player.getPosition().getxPos()==300);
+		assertTrue(player.getPosition().getxPos() == 340);
 	}
 
 	@Test
 	public void test_player_pickup_coin_no_coinbag() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(1100,1100));
-		for(int i = 0; i<5;i++){
+		player.setPosition(new Position(1100, 1100));
+		for (int i = 0; i < 5; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		assertTrue(player.getInventory().getCoinCount()==1);
+		assertTrue(player.getInventory().getCoinCount() == 1);
 	}
 
 	@Test
 	public void test_correct_number_of_coins_inventory() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(1100,1100));
-		for(int i = 0; i<5;i++){
+		player.setPosition(new Position(1100, 1100));
+		for (int i = 0; i < 5; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		assertTrue(player.getInventory().getCoinCount()==1);
+
+		assertTrue(player.getInventory().getCoinCount() == 1);
 	}
 
 	@Test
 	public void test_correct_number_items_inventory() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(1100,1100));
-		for(int i = 0; i<5;i++){
+		player.setPosition(new Position(1100, 1100));
+		for (int i = 0; i < 5; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		assertTrue(player.getInventory().numItemsInContainer()==1);
+		assertTrue(player.getInventory().numItemsInContainer() == 1);
 	}
 
 	@Test
 	public void test_player_pickup_coin_with_coinbag() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(1400,1100));
-		for(int i = 0; i<50;i++){
+		player.setPosition(new Position(1400, 1100));
+		for (int i = 0; i < 50; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		assertTrue(player.getInventory().getCoinBag().numItemsInContainer()==1);
+		assertTrue(player.getInventory().getCoinBag().numItemsInContainer() == 1);
 	}
 
 	@Test
 	public void test_player_pickup__coinbag() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(1400,1100));
-		for(int i = 0; i<50;i++){
+		player.setPosition(new Position(1400, 1100));
+		for (int i = 0; i < 50; i++) {
 			player.move(gameState, "RIGHT");
 		}
 		assertTrue(player.getInventory().containsCoinBag());
 	}
 
-
 	@Test
 	public void test_player_pickup_coin_full_inventory() {
-		GameState gameState =  makeStandardGameObjects();
-		Position pos = new Position(1,1);
-		Inventory inv = new Inventory(pos,'a',false, false);
-		// Position position, char imagePath, boolean collidable,boolean drawable
-		for(int i = 0;i<100;i++){
-			Coin coin = new Coin(pos,'a',false, false);
+		GameState gameState = makeStandardGameObjects();
+		Position pos = new Position(1, 1);
+		Inventory inv = new Inventory(pos, 'a', false, false);
+		// Position position, char imagePath, boolean collidable,boolean
+		// drawable
+		for (int i = 0; i < 100; i++) {
+			Coin coin = new Coin(pos, 'a', false, false);
 			inv.addItemToContainer(coin);
 		}
-		assertTrue(inv.numItemsInContainer()==9);
+		assertTrue(inv.numItemsInContainer() == 9);
 	}
 
 	@Test
 	public void test_player_drop_coin_no_longer_in_inventory() {
-		GameState gameState =  makeStandardGameObjects();
-		Position pos = new Position(1,1);
+		GameState gameState = makeStandardGameObjects();
+		Position pos = new Position(1, 1);
 		Player player = gameState.findPlayer(1);
 		Inventory inv = player.getInventory();
-		Coin coin = new Coin(pos,'a',false, false);
+		Coin coin = new Coin(pos, 'a', false, false);
 		inv.addItemToContainer(coin);
 		inv.removeItemFromContainer(coin);
-		assertTrue(inv.numItemsInContainer()==0);
-	}
-
-	@Test
-	public void test_player_drop_coin_now_drawable() {
-		GameState gameState =  makeStandardGameObjects();
-		Position pos = new Position(1,1);
-		Player player = gameState.findPlayer(1);
-		Inventory inv = player.getInventory();
-		Coin coin = new Coin(pos,'a',false, false);
-		inv.addItemToContainer(coin);
-		inv.removeItemFromContainer(coin);
-		System.out.println(coin.isDrawable());
-		System.out.println(coin==null);
-		//System.out.println(inv.
-		assertTrue(coin.isDrawable());
-	}
-
-	@Test
-	public void test_player_drop_coin_now_collidable() {
-		GameState gameState =  makeStandardGameObjects();
-		Position pos = new Position(1,1);
-		Player player = gameState.findPlayer(1);
-		Inventory inv = player.getInventory();
-		Coin coin = new Coin(pos,'a',false, false);
-		inv.addItemToContainer(coin);
-		inv.removeItemFromContainer(coin);
-		assertTrue(coin.isCollidable());
+		assertTrue(inv.numItemsInContainer() == 0);
 	}
 
 	@Test
 	public void test_player_full_inventory_pickup_coinbag() {
-		GameState gameState =  makeStandardGameObjects();
-		Position pos = new Position(1,1);
-		Inventory inv = new Inventory(pos,'a',false, false);
-		for(int i = 0;i<100;i++){
-			Coin coin = new Coin(pos,'a',false, false);
+		GameState gameState = makeStandardGameObjects();
+		Position pos = new Position(1, 1);
+		Inventory inv = new Inventory(pos, 'a', false, false);
+		for (int i = 0; i < 100; i++) {
+			Coin coin = new Coin(pos, 'a', false, false);
 			inv.addItemToContainer(coin);
 		}
-		CoinBag coinBag = new CoinBag(pos,'a',false, false);
+		CoinBag coinBag = new CoinBag(pos, 'a', false, false);
 		inv.addItemToContainer(coinBag);
-		assertTrue(inv.numItemsInContainer()==1);
+		assertTrue(inv.numItemsInContainer() == 1);
 	}
 
 	@Test
 	public void test_player_full_inventory_pickup_key() {
-		GameState gameState =  makeStandardGameObjects();
-		Position pos = new Position(1,1);
-		Inventory inv = new Inventory(pos,'a',false, false);
-		for(int i = 0;i<100;i++){
-			Coin coin = new Coin(pos,'a',false, false);
+		GameState gameState = makeStandardGameObjects();
+		Position pos = new Position(1, 1);
+		Inventory inv = new Inventory(pos, 'a', false, false);
+		for (int i = 0; i < 100; i++) {
+			Coin coin = new Coin(pos, 'a', false, false);
 			inv.addItemToContainer(coin);
 		}
-		Key key = new Key(pos,'a',false, false);
+		Key key = new Key(pos, 'a', false, false);
 		inv.addItemToContainer(key);
-//		System.out.println(inv.numItemsInContainer());
-		assertTrue(inv.numItemsInContainer()==9);
+		assertTrue(inv.numItemsInContainer() == 9);
 	}
-
 
 	@Test
 	public void test_player_collision_enemy_player_fear_increase() {
-		GameState gameState =  makeStandardGameObjects();
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
 		player.setPosition(new Position(750, 800));
-		for(int i = 0;i<10;i++){
+		for (int i = 0; i < 10; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		assertTrue(player.getFear()==6);
+		assertTrue(player.getFear() == 7);
 	}
 
 	@Test
-	public void test_player_collision_enemy_enemy_health_decrease() {
-		GameState gameState =  makeStandardGameObjects();
+	public void test_player_collision_enemy_health_decrease() {
+		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		player.setPosition(new Position(1700, 800));
-		Enemy enemy = new Enemy(new Position(1750,800),'a',true, true);
-//		System.out.println(enemy.getHealth());
-		for(int i = 0;i<10;i++){
+		Position pos = new Position(1700,800,Main.PLAYER_SIZE);
+		player.setPosition(pos);
+		player.setAttack(true);
+		Position pos2 = new Position(1750,800,Main.PLAYER_SIZE);
+		Enemy enemy = new Enemy(pos2, 'a', true, true);
+		enemy.setAttack(false);
+		gameState.getActors().add(player);
+		gameState.getActors().add(enemy);
+		for (int i = 0; i < 10; i++) {
+			System.out.println(enemy.getHealth());
 			player.move(gameState, "RIGHT");
 		}
-//		System.out.println(enemy.getHealth());
-		assertTrue(player.getFear()==6);
+		assertTrue(enemy.getHealth() == 82);
 	}
 
-
-	///////////////////////////////////////////////////////////////////
-	//																 //
-	//						HELPER METHODS							 //
-	//																 //
-	///////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////
+	// //
+	// HELPER METHODS //
+	// //
+	// /////////////////////////////////////////////////////////////////
 
 	/**
 	 * Helper method which sets up key objects for the tests.
@@ -254,7 +227,7 @@ public class GameWorldTests {
 		actors.add(coinBag);
 		Door door = factory.createDoor(350, 350);
 		actors.add(door);
-		Key key = factory.createKey(300,350);
+		Key key = factory.createKey(300, 350);
 		actors.add(key);
 		Wall wall = factory.createWall(90, 75);
 		actors.add(wall);

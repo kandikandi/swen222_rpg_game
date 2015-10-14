@@ -14,13 +14,15 @@ public class MainClient {
     public static final int C_HEIGHT = 600;
     public static final String TITLE = "ECS BETA";
 
-    //TODO delete this -- Cuan
+
+
+   /* //TODO delete this -- Cuan
     static public void main(String[] args) {
         String username = "cuan";
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, null);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, null, null);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();
@@ -42,14 +44,16 @@ public class MainClient {
 
         });
     }
+*/
 
     public void launchClient(String username, MainServer server) {
+
 
         EventQueue.invokeLater(new Runnable() {
             public void run() {
 
                 boolean isServer = false;
-                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, server);
+                GameFrame gameFrame = new GameFrame(TITLE, F_WIDTH, F_HEIGHT, server, username);
                 GameCanvas gameCanvas = new GameCanvas(gameFrame, C_WIDTH, C_HEIGHT);
                 gameFrame.getContentPane().add(gameCanvas);
                 gameFrame.pack();

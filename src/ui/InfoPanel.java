@@ -90,6 +90,14 @@ public class InfoPanel extends JPanel {
 				e.printStackTrace();
 			}
 		}
+		if(c == 'Q'){
+			try {
+				// load the imageName
+				inspectedImage = ImageIO.read(new File("Treasure_Description.png"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 
 		this.revalidate();
 		this.repaint();
