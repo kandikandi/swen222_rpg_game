@@ -1,35 +1,33 @@
 package view;
 
+import java.util.Arrays;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Arrays;
 
 /**
  * Created by cuan on 9/21/15.
  */
 public enum TileAssets {
 
-    GRASS('g',"grass 3.png"),
-    STONE('s',"tokenScarlet.png"),
-    WOOD('w',"tokenScarlet.png"),
-    DIRT('v',"vege.png"),
-    CIRCUS('c',"tempB.png"),
-    SCHOOL('b',"school_floor.png");
+    GRASS('g', "grass 3.png"),
+    STONE('s', "tokenScarlet.png"),
+    WOOD('w', "tokenScarlet.png"),
+    DIRT('v', "vege.png"),
+    CIRCUS('c', "tempB.png"),
+    SCHOOL('b', "school_floor.png");
 
 
     private final char asciiCode;
     private Image image;
 
-    TileAssets(final char nAsciiCode, final String imagePath){
+    TileAssets(final char nAsciiCode, final String imagePath) {
         asciiCode = nAsciiCode;
         try {
-            URL url = getClass().getResource(imagePath);
-            image = ImageIO.read(url);
+            image = ImageIO.read(new File(imagePath));
         } catch (IOException e) {
-            System.out.printf("Error: cant load "+imagePath);
+            System.out.printf("Error: cant load " + imagePath);
             System.out.printf(e.getMessage());
             e.printStackTrace();
         }
@@ -38,17 +36,18 @@ public enum TileAssets {
     public char getAsciiCode() {
         return asciiCode;
     }
-    public Image getImage(){
+
+    public Image getImage() {
         return image;
     }
 
     public static Image getAssetImage(char asciiCode) {
-        for(TileAssets item: TileAssets.values()){
-            if(item.getAsciiCode() == asciiCode){
+        for (TileAssets item : TileAssets.values()) {
+            if (item.getAsciiCode() == asciiCode) {
                 return item.getImage();
             }
         }
-        throw new IllegalArgumentException("Invalid imagePath: "+asciiCode);
+        throw new IllegalArgumentException("Invalid imagePath: " + asciiCode);
     }
 
     public static TileAssets getAssetName(char asciiCode) {

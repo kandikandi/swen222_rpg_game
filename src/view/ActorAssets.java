@@ -1,13 +1,10 @@
 package view;
 
-import control.Main;
-
+import control.GlobalConst;
 import javax.imageio.ImageIO;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Arrays;
 
 /**
@@ -15,26 +12,26 @@ import java.util.Arrays;
  */
 public enum ActorAssets {
 
-    NOTHING('0',"tokenScarlet.png", Main.TILE_SIZE,Main.TILE_SIZE),
-    PLAYER('1',"front_girl.png",32,48),
-    PLAYER2('2',"tokenPlum.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    COIN('C',"tempGameCoin.png",Main.TILE_SIZE,Main.TILE_SIZE),
-    COINBAG('B',"tempGameCoinBag.png",Main.TILE_SIZE,Main.TILE_SIZE),
-    DOOR('D',"door.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
-    SPECIAL_DOOR('Y',"special_door.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
-    INVENTORY('I',"temp_inv.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
-    KEY('K',"tempGameKey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    SPECIAL_KEY('X',"SpecialKey.png",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    ENEMY('E',"evilTemp.png",Main.TILE_SIZE,Main.TILE_SIZE),
-    COLLECTABLE('B',"ring.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
-    WALL('W', "wall.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
+    NOTHING('0', "tokenScarlet.png", 40,40),
+    PLAYER('1', "front_girl.png",32,48),
+    PLAYER2('2', "tokenPlum.png",GlobalConst.ITEM_SIZE,GlobalConst.ITEM_SIZE),
+    COIN('C', "tempGameCoin.png",40,40),
+    COINBAG('B', "tempGameCoinBag.png",40,40),
+    DOOR('D', "door.jpg",40,40),
+    SPECIAL_DOOR('Y', "special_door.jpg",40,40),
+    INVENTORY('I', "temp_inv.jpg",40,40),
+    KEY('K', "tempGameKey.png",40,40),
+    SPECIAL_KEY('X', "SpecialKey.png",GlobalConst.ITEM_SIZE,GlobalConst.ITEM_SIZE),
+    ENEMY('E', "evilTemp.png",40,40),
+    COLLECTABLE('B', "ring.jpg",40,40),
+    WALL('W', "wall.jpg",40,40),
     TREE('T', "Tree1.png",140,140),
     TREE2('J', "Tree2.png",140,140),
-    VEGEWALL('V',"wall.jpg",Main.ITEM_SIZE,Main.ITEM_SIZE),
-    SCHOOLWALL('S',"wall.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
-    CIRCUSWALL('M',"wall.jpg",Main.TILE_SIZE,Main.TILE_SIZE),
-    CANDY('Z',"CandyCane.png",Main.ITEM_SIZE, Main.ITEM_SIZE),
-    TREASURE('Q',"Treasure.png",Main.ITEM_SIZE, Main.ITEM_SIZE)
+    VEGEWALL('V', "wall.jpg",GlobalConst.ITEM_SIZE,GlobalConst.ITEM_SIZE),
+    SCHOOLWALL('S', "wall.jpg",40,40),
+    CIRCUSWALL('M', "wall.jpg",40,40),
+    CANDY('Z', "CandyCane.png",GlobalConst.ITEM_SIZE, GlobalConst.ITEM_SIZE),
+    TREASURE('Q', "Treasure.png",GlobalConst.ITEM_SIZE, GlobalConst.ITEM_SIZE)
     ;
 
 
@@ -51,8 +48,7 @@ public enum ActorAssets {
 
         this.imagePath = imagePath;
         try {
-            URL url = getClass().getResource(imagePath);
-            image = ImageIO.read(url).getScaledInstance(width,height,Image.SCALE_FAST);
+            image = ImageIO.read(new File(imagePath)).getScaledInstance(width,height,Image.SCALE_FAST);
         } catch (IOException e) {
             System.out.printf("Error: cant load "+imagePath);
             System.out.printf(e.getMessage());
@@ -89,4 +85,3 @@ public enum ActorAssets {
     }
 
 }
-

@@ -1,6 +1,6 @@
 package model;
 
-import control.Main;
+import control.GlobalConst;
 
 import java.util.*;
 import java.util.List;
@@ -38,9 +38,9 @@ public class Factory {
 				if (asciiCode == '0') {
 					continue;
 				}
-				Position position = new Position(col * Main.TILE_SIZE, row
-						* Main.TILE_SIZE);
-				int size = Main.ITEM_SIZE;
+				Position position = new Position(col * GlobalConst.TILE_SIZE, row
+						* GlobalConst.TILE_SIZE);
+				int size = GlobalConst.ITEM_SIZE;
 				ActorAssets asset = ActorAssets.getAssetName(asciiCode);
 				Actor actor = null;
 				switch (asset) {
@@ -120,7 +120,7 @@ public class Factory {
 	}
 
 	private Actor createCandy(int xPos, int yPos) {
-		int size = Main.TILE_SIZE;
+		int size = GlobalConst.TILE_SIZE;
 		Position pos = new Position(xPos, yPos);
 		Actor tree = new Actor(pos, ActorAssets.TREE.getAsciiCode(), true, true);
 		Candy candy = new Candy(pos, ActorAssets.CANDY.getAsciiCode(), true,
@@ -132,7 +132,7 @@ public class Factory {
 	 * This method constructs a Actor object with Evil Tree assets.
 	 */
 	private Actor createTree(int x, int y, char c) {
-		int size = Main.TILE_SIZE;
+		int size = GlobalConst.TILE_SIZE;
 		BoundingBox bbox = new BoundingBox(size, size, 50, 90);
 		Position pos = new Position(x, y, bbox);
 		Actor tree = new Actor(pos, c, true,
@@ -153,7 +153,7 @@ public class Factory {
 		for (int row = 0; row < tileCode.length; row++) {
 			for (int col = 0; col < tileCode[0].length; col++) {
 				char asciiCode = tileCode[row][col];
-				final int tileSize = Main.TILE_SIZE;
+				final int tileSize = GlobalConst.TILE_SIZE;
 				BoundingBox bBox = new BoundingBox(tileSize, tileSize, 0, 0);
 				Position position = new Position(col * tileSize,
 						row * tileSize, bBox);
@@ -167,7 +167,7 @@ public class Factory {
 	 * This method constructs a standard EnemyActor object.
 	 */
 	public Enemy createEnemyActor(int xPos, int yPos) {
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		Position pos = new Position(xPos, yPos);
 		char asciiCode = ActorAssets.ENEMY.getAsciiCode();
 		Enemy enemy = new Enemy(pos, asciiCode, true, true);
@@ -223,7 +223,7 @@ public class Factory {
 	 */
 	public Wall createWall(int xPos, int yPos) {
 		Position pos = new Position(xPos, yPos);
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		char asciiCode = ActorAssets.WALL.getAsciiCode();
 		Wall wall = new Wall(pos, asciiCode, true, true);
 		return wall;
@@ -234,11 +234,11 @@ public class Factory {
 	 */
 	public Player createPlayerActor(int clientNum) {
 		BoundingBox bBox = new BoundingBox(20, 20, 10, 15);
-		Position loc = new Position(Main.PLAYER_ONE_START_LOCATION_X,
-				Main.PLAYER_ONE_START_LOCATION_Y, bBox);
+		Position loc = new Position(GlobalConst.PLAYER_ONE_START_LOCATION_X,
+				GlobalConst.PLAYER_ONE_START_LOCATION_Y, bBox);
 		if (clientNum == 1) {
-			loc = new Position(Main.PLAYER_TWO_START_LOCATION_X,
-					Main.PLAYER_TWO_START_LOCATION_Y, bBox);
+			loc = new Position(GlobalConst.PLAYER_TWO_START_LOCATION_X,
+					GlobalConst.PLAYER_TWO_START_LOCATION_Y, bBox);
 		}
 		char asciiCode = ActorAssets.PLAYER.getAsciiCode();
 		Player player = new Player(loc, asciiCode, true, true, clientNum);
@@ -251,7 +251,7 @@ public class Factory {
 	 */
 	public Coin createCoin(int xPos, int yPos) {
 		Position pos = new Position(xPos, yPos);
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		char asciiCode = ActorAssets.COIN.getAsciiCode();
 		Coin coin = new Coin(pos, asciiCode, true, true);
 		return coin;
@@ -262,7 +262,7 @@ public class Factory {
 	 */
 	public Coin createSpecialCoin(int xPos, int yPos) {
 		Position pos = new Position(xPos, yPos);
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		char asciiCode = ActorAssets.TREASURE.getAsciiCode();
 		Coin specialCoin = new Coin(pos, asciiCode, true, true, true);
 		return specialCoin;
@@ -273,7 +273,7 @@ public class Factory {
 	 */
 	public CoinBag createCoinBag(int xPos, int yPos) {
 		Position pos = new Position(xPos, yPos);
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		char asciiCode = ActorAssets.COINBAG.getAsciiCode();
 		CoinBag coinBag = new CoinBag(pos, asciiCode, true, true);
 		return coinBag;
@@ -285,7 +285,7 @@ public class Factory {
 
 	public Collectable createCollectable(int xPos, int yPos) {
 		Position pos = new Position(xPos, yPos);
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		BoundingBox bBox = pos.getBoundingBox();
 		char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
 		Collectable collectable = new Collectable(pos, asciiCode, true, true);
@@ -297,7 +297,7 @@ public class Factory {
 	 */
 	public Container createContainer(int xPos, int yPos) {
 		Position pos = new Position(xPos, yPos);
-		int size = Main.ITEM_SIZE;
+		int size = GlobalConst.ITEM_SIZE;
 		char asciiCode = ActorAssets.COLLECTABLE.getAsciiCode();
 		Container container = new Container(pos, asciiCode, true, true);
 		return container;

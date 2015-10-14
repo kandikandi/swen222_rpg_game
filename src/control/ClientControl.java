@@ -17,7 +17,6 @@ import model.GameException;
 import model.GameState;
 import save.DataStorage;
 import ui.GameCanvas;
-import view.GameCamera;
 import view.Renderer;
 
 public class ClientControl extends Thread {
@@ -99,7 +98,6 @@ public class ClientControl extends Thread {
 
             //find out what kind of packet it is and deal with it
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
-
             //Once everything is updated, rerender the scene with the new state
             renderer.renderScene(gameState, clientNum);
 
@@ -134,9 +132,6 @@ public class ClientControl extends Thread {
                     if (clientNum != 0) { //if a valid client
                     	recd = (ArrayList<Actor>) serial.deserialize(data);
                         gameState.setActors(recd);
-                    } else {
-                        System.out.println("ClientControl received UPDATE packet before finishing handshake");
-                        break;
                     }
                 } catch (ClassNotFoundException | IOException e) {
                     System.out.println(e.getMessage());
@@ -152,12 +147,12 @@ public class ClientControl extends Thread {
 
                 //If handshake is already complete, an error must've occurred.
                 if (handShakeComplete) {
-                    System.out.println("ClientControl already authenticated, LOGINCONFIRM not for me");
+                    //System.out.println("ClientControl already authenticated, LOGINCONFIRM not for me");
                     break;
                 } else {
                     PacketLoginConfirm loginConfirm = new PacketLoginConfirm(data);
                     clientNum = loginConfirm.getClientNumber();
-                    System.out.println("ClientControl LOGINCONFIRM recieved...clientNum: " + clientNum);
+                    //System.out.println("ClientControl LOGINCONFIRM recieved...clientNum: " + clientNum);
                     handShakeComplete = true;
                 }
 
@@ -177,7 +172,7 @@ public class ClientControl extends Thread {
             case DISCONNECTCLIENTS:
 
                 //The server has disconnected, so display a message and exit the game
-                System.out.println("Server has disconnected");
+                //System.out.println("Server has disconnected");
                 JOptionPane.showMessageDialog(
                 	    null, "Host Player has disconnected...exiting game",
                 	    "Game error",
@@ -204,7 +199,7 @@ public class ClientControl extends Thread {
      * @param data
      */
     public void sendData(byte[] data) {
-        DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, Main.PORT);
+        DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, GlobalConst.PORT);
         try {
             socket.send(packet);
         } catch (IOException e) {

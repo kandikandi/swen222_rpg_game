@@ -65,7 +65,7 @@ public class GameFrame extends JFrame {
                 int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
                 if(PromptResult==JOptionPane.YES_OPTION)
                 {
-                	System.out.println("Sending a disconnection packet");
+                	// System.out.println("Sending a disconnection packet");
 		        	PacketDisconnectServer disconnectPlayer = new PacketDisconnectServer(("4"+socketClient.getClientNum()+socketClient.getName()).getBytes());
 		        	disconnectPlayer.writeData(socketClient);
 		        	System.exit(0);

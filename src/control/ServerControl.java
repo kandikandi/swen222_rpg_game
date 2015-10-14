@@ -8,12 +8,10 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
-import save.DataStorage;
 import view.ActorAssets;
 //import view.ID;
 import control.Packet.PacketTypes;
 import model.Actor;
-import model.Enemy;
 import model.GameException;
 import model.GameState;
 import model.Player;
@@ -38,7 +36,7 @@ public class ServerControl extends Thread {
 
     public ServerControl() {
         try {
-            this.socket = new DatagramSocket(Main.PORT);
+            this.socket = new DatagramSocket(GlobalConst.PORT);
         } catch (SocketException e) {
             e.printStackTrace();
         }
@@ -48,8 +46,8 @@ public class ServerControl extends Thread {
         this.game = game;
     }
 
-    synchronized public GameState getGameState(){
-    	return game;
+    synchronized public GameState getGameState() {
+        return game;
     }
 
     public void run() {
@@ -71,8 +69,6 @@ public class ServerControl extends Thread {
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
 
-
-
         }
     }
 
@@ -92,10 +88,10 @@ public class ServerControl extends Thread {
         switch (type) {
 
             case LOGIN:
-            	//New client is logging in
+                //New client is logging in
                 PacketLogin packet = new PacketLogin(data);
 
-                if (Main.TEST_MODE) {
+                if (GlobalConst.TEST_MODE) {
                     System.out.println("[" + address.getHostAddress() + ":" + port
                             + "] " + packet.getUserName() + " has connected..");
                     System.out.println("");
@@ -103,7 +99,7 @@ public class ServerControl extends Thread {
 
                 // Process connection
                 addConnection(packet, address, port);
-                if (Main.TEST_MODE) {
+                if (GlobalConst.TEST_MODE) {
                     System.out.println("Player added, connected players == "
                             + connectedPlayers.size());
                     for (ClientData p : connectedPlayers) {
@@ -113,7 +109,7 @@ public class ServerControl extends Thread {
                 break;
 
             case DISCONNECTSERVER:
-            	//Has recieved a disconnection request from a client
+                //Has recieved a disconnection request from a client
                 PacketDisconnectServer disconnect = new PacketDisconnectServer(data);
                 Player playerDisconnect = game.findPlayer(disconnect.getClientNum());
 
@@ -124,14 +120,14 @@ public class ServerControl extends Thread {
                     }
                 }
 
-                System.out.println("Server removed player::" + disconnect.getClientNum());
+                //System.out.println("Server removed player::" + disconnect.getClientNum());
 
                 game.removePlayer(playerDisconnect);
-                System.out.println("Connected players == "+ connectedPlayers.size());
+                //System.out.println("Connected players == "+ connectedPlayers.size());
 
-                if(disconnect.getClientNum()==1){
-                	PacketDisconnectClients disconnectClients = new PacketDisconnectClients("7".getBytes());
-                	disconnectClients.writeData(this);
+                if (disconnect.getClientNum() == 1) {
+                    PacketDisconnectClients disconnectClients = new PacketDisconnectClients("7".getBytes());
+                    disconnectClients.writeData(this);
                 }
 
                 //If there is no longer any players connected, it means there is no one playing, so shutdown the server.
@@ -142,7 +138,7 @@ public class ServerControl extends Thread {
                 break;
 
             case UPDATE:
-            	//should never recieve an update error
+                //should never recieve an update error
                 try {
                     throw new GameException("Server should never recieve packet of type UPDATE");
                 } catch (GameException e) {
@@ -152,7 +148,7 @@ public class ServerControl extends Thread {
                 break;
 
             case DISCONNECTCLIENTS:
-            	//should never recieve an update error
+                //should never recieve an update error
                 try {
                     throw new GameException("Server should never recieve packet of type DISCONNECTCLIENTS");
                 } catch (GameException e) {
@@ -162,7 +158,7 @@ public class ServerControl extends Thread {
                 break;
 
             case MOVE: {
-            	//Inform Gamestate of a move from a client
+                //Inform Gamestate of a move from a client
                 PacketMove packetMove = new PacketMove(data);
                 String move = packetMove.getMove();
                 Player player = game.findPlayer(packetMove.getClientNum());
@@ -171,7 +167,7 @@ public class ServerControl extends Thread {
             break;
 
             case DROPITEM: {
-            	//Inform state a client dropped an item
+                //Inform state a client dropped an item
                 PacketDropItem packet1 = new PacketDropItem(data);
                 ActorAssets item = packet1.getAsset();
                 Player player1 = game.findPlayer(packet1.getClientNum());
@@ -180,7 +176,7 @@ public class ServerControl extends Thread {
             break;
 
             case USEITEM: {
-            	//Inform gamestate a client used an item
+                //Inform gamestate a client used an item
                 PacketUseItem packetUse = new PacketUseItem(data);
                 ActorAssets item = packetUse.getAsset();
                 Player playerUser = game.findPlayer(packetUse.getClientNum());
@@ -189,7 +185,7 @@ public class ServerControl extends Thread {
                 break;
             }
             default:
-            	//should never get here so if it does, an error has occurred
+                //should never get here so if it does, an error has occurred
                 try {
                     throw new GameException("Server Packet Header Error");
                 } catch (GameException e) {
@@ -200,13 +196,14 @@ public class ServerControl extends Thread {
 
     }
 
-    /**Update all the clients with changes that have occurred in the world
+    /**
+     * Update all the clients with changes that have occurred in the world
      * of their cameras.
      */
-     synchronized public void updateClients() {
+    synchronized public void updateClients() {
 
         for (ClientData p : connectedPlayers) {
-            List<Actor> actorView = camera.getActorView(game,p.getClientNum());
+            List<Actor> actorView = camera.getActorView(game, p.getClientNum());
             try {
                 sendData(serial.serialize(actorView), p.getIpAddress(), p.getPort());
             } catch (IOException e) {
@@ -223,29 +220,23 @@ public class ServerControl extends Thread {
     synchronized private void addConnection(PacketLogin packet, InetAddress hostAddress, int port) {
 
         int clientNum = connectedPlayers.size() + 1;
-
         ClientData playerData = new ClientData(packet.getUserName(), hostAddress, port, clientNum);
         this.connectedPlayers.add(playerData);
         game.createPlayer(clientNum);
-
         String toSend = "10" + Integer.toString(clientNum);
-        System.out
-                .println("GamerServer.addConnection() about to create send LoginConfirm packet out toSend: "
-                        + toSend);
-
         PacketLoginConfirm confirmPacket = new PacketLoginConfirm(toSend.getBytes());
         confirmPacket.writeData(this);
 
     }
 
-    /** converts data into datagrams and sends it down the socket
+    /**
+     * converts data into datagrams and sends it down the socket
      *
      * @param data
      * @param ipAddress
      * @param port
      */
-    synchronized public void sendData(byte[] data, InetAddress ipAddress,
-                                      int port) {
+    synchronized public void sendData(byte[] data, InetAddress ipAddress, int port) {
         DatagramPacket packet = new DatagramPacket(data, data.length,
                 ipAddress, port);
         try {
@@ -255,10 +246,11 @@ public class ServerControl extends Thread {
         }
     }
 
-   /** as above, for multiple players, calls send data for all connected players
-    *
-    * @param data
-    */
+    /**
+     * as above, for multiple players, calls send data for all connected players
+     *
+     * @param data
+     */
     synchronized public void sendDataToAllClients(byte[] data) {
         for (ClientData p : connectedPlayers) {
             sendData(data, p.getIpAddress(), p.getPort());

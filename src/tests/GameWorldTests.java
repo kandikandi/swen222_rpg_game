@@ -1,7 +1,6 @@
 package tests;
 
 import model.*;
-import view.*;
 import control.*;
 import static org.junit.Assert.*;
 
@@ -182,10 +181,10 @@ public class GameWorldTests {
 	public void test_player_collision_enemy_health_decrease() {
 		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		Position pos = new Position(1700,800,Main.PLAYER_SIZE);
+		Position pos = new Position(1700,800, GlobalConst.PLAYER_SIZE);
 		player.setPosition(pos);
 		player.setAttack(true);
-		Position pos2 = new Position(1750,800,Main.PLAYER_SIZE);
+		Position pos2 = new Position(1750,800, GlobalConst.PLAYER_SIZE);
 		Enemy enemy = new Enemy(pos2, 'a', true, true);
 		enemy.setAttack(false);
 		gameState.getActors().add(player);

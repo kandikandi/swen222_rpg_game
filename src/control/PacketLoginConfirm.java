@@ -13,20 +13,15 @@ public class PacketLoginConfirm extends Packet{
     public PacketLoginConfirm(byte[] data) {
         super(1);
         this.clientNum = readData(data);
-        System.out.println("LoginConfirm constructor: clientNum.... ");
-        System.out.println(clientNum);
     }
 
     @Override
     public byte[] getData() {
-        System.out.println("LoginConfirm getData:"+"10"+this.clientNum);
      return ("10"+this.clientNum).getBytes();
     }
 
     public int getClientNumber(){
-        System.out.println("LoginConfirm.getClientNumber");
         int result = Integer.parseInt(clientNum);
-        System.out.println(result);
         return result;
 
 

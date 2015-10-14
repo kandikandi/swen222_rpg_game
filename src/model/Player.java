@@ -2,14 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
-
-import control.Main;
-import save.actors.PlayerAdapter;
+import control.GlobalConst;
 import view.ActorAssets;
 
 
@@ -222,7 +215,7 @@ public class Player extends Actor implements Serializable {
 	 */
 	private void tooScared() {
 		this.setFear(0);
-		Position originalPosition = new Position(Main.PLAYER_ONE_START_LOCATION_X,Main.PLAYER_ONE_START_LOCATION_X,position.getBoundingBox());
+		Position originalPosition = new Position(GlobalConst.PLAYER_ONE_START_LOCATION_X, GlobalConst.PLAYER_ONE_START_LOCATION_X,position.getBoundingBox());
 		this.setPosition(originalPosition);
 	}
 

@@ -17,13 +17,11 @@ public class PacketUseItem extends Packet {
     	super(6);
 		clientNum = getClientNum(data);
 	    this.asciiString = readData(data);
-	    System.out.println("PacketUse item construct: " + clientNum);
     }
 
 	@Override
 	public byte[] getData() {
 		String result = "6"+clientNum+this.asciiString;
-    	System.out.println("Packetuseitem: " + result);
     	return result.getBytes();
 	}
 

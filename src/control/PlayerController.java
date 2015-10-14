@@ -46,9 +46,9 @@ public class PlayerController implements KeyListener {
                 thisPlayer.sendKeyPress("SPACEDOWN");
                 break;
             case KeyEvent.VK_R:
-                Main.ROTATION += 1;
-                if (Main.ROTATION >= 4) {
-                    Main.ROTATION = 0;
+                GlobalConst.ROTATION += 1;
+                if (GlobalConst.ROTATION >= 4) {
+                    GlobalConst.ROTATION = 0;
                 }
                 break;
         }
@@ -76,7 +76,7 @@ public class PlayerController implements KeyListener {
     }
 
     private String getRotatedUp() {
-        switch (Main.ROTATION) {
+        switch (GlobalConst.ROTATION) {
             case 0:
                 return "UP";
             case 1:
@@ -90,7 +90,7 @@ public class PlayerController implements KeyListener {
         }
     }
     private String getRotatedDown(){
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
                 return  "DOWN";
             case 1:
@@ -104,7 +104,7 @@ public class PlayerController implements KeyListener {
         }
     }
     private String getRotatedLeft(){
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
                 return  "LEFT";
             case 1:
@@ -118,7 +118,7 @@ public class PlayerController implements KeyListener {
         }
     }
     private String getRotatedRight(){
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
                 return  "RIGHT";
             case 1:

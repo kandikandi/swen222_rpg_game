@@ -1,6 +1,6 @@
 package view;
 
-import control.Main;
+import control.GlobalConst;
 import model.*;
 import java.util.Comparator;
 
@@ -11,7 +11,7 @@ public class RotationCalculator {
 
     public static Comparator<Tile> getTileComparator(){
         Comparator<Tile> result;
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
                 result = northTileComparator();
                 break;
@@ -32,7 +32,7 @@ public class RotationCalculator {
     }
     public static Comparator<Actor> getActorComparator(){
         Comparator<Actor> result;
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
                 result = northActorComparator();
                 break;
@@ -142,44 +142,46 @@ public class RotationCalculator {
     }
 
     public static int getScreenX(int relativeX, int relativeY, int width, int height){
+        int HALF_C_WIDTH = GlobalConst.C_WIDTH/2;
         int screenX;
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
-                screenX = relativeX;
+                screenX = relativeX + HALF_C_WIDTH;
                 break;
             case 1:
-                screenX = relativeY;
+                screenX = relativeY+ HALF_C_WIDTH;
                 break;
             case 2:
-                screenX = (relativeX*-1) -width;
+                screenX = (relativeX*-1) - width + HALF_C_WIDTH;
                 break;
             case 3:
-                screenX = (relativeY*-1) - height;
+                screenX = (relativeY*-1) - height + HALF_C_WIDTH;
                 break;
             default:
-                screenX = relativeX;
+                screenX = relativeX + HALF_C_WIDTH;
                 break;
         }
         return screenX;
     }
 
     public static int getScreenY(int relativeX, int relativeY, int width, int height){
+        int HALF_C_HEIGHT = GlobalConst.C_HEIGHT/2;
         int screenY;
-        switch (Main.ROTATION){
+        switch (GlobalConst.ROTATION){
             case 0:
-                screenY = relativeY;
+                screenY = relativeY + HALF_C_HEIGHT;
                 break;
             case 1:
-                screenY = (relativeX*-1)-width;
+                screenY = (relativeX*-1)-width + HALF_C_HEIGHT;
                 break;
             case 2:
-                screenY = (relativeY*-1)-height;
+                screenY = (relativeY*-1)-height + HALF_C_HEIGHT;
                 break;
             case 3:
-                screenY = relativeX;
+                screenY = relativeX + HALF_C_HEIGHT;
                 break;
             default:
-                screenY = relativeY;
+                screenY = relativeY + HALF_C_HEIGHT;
                 break;
         }
         return screenY;
