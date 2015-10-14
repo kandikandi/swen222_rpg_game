@@ -12,17 +12,6 @@ public class PacketLogin extends Packet{
 	}
 
 	@Override
-	public void writeData(ClientControl client) {
-		client.sendData(getData());
-
-	}
-
-	@Override
-	public void writeData(ServerControl server) {
-
-	}
-
-	@Override
 	public byte[] getData() {
 		return ("00"+this.username).getBytes();
 	}

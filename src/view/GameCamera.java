@@ -36,27 +36,15 @@ public class GameCamera {
      *
      */
     public List<Tile> getTileView(GameState gameState, int playerNum) {
-
         List<Tile> viewTiles = new ArrayList<>();
         Tile[][] worldTiles = gameState.getWorld();
         Player playerActor = gameState.findPlayer(playerNum);
-        if(playerActor == null ){
-            //System.out.println("GameCamera getTileView has null playerActor");
-            return null;
-        }
-        if(Main.TEST_MODE){
-            //System.out.println("GameCamera: getTileView about to filter ["+worldTiles.length+"]["+worldTiles[0].length+"] Tiles");
-        }
+        if(playerActor == null ){ return null; }
         int colMin, colMax, colCeiling, rowMin, rowMax, rowCeiling;
         int playerX = playerActor.getPosition().getxPos();
         int playerY = playerActor.getPosition().getyPos();
         colCeiling = worldTiles[0].length;
         rowCeiling = worldTiles.length;
-
-        /*colMin = 0;
-        colMax = colCeiling;
-        rowMin = 0;
-        rowMax = rowCeiling;*/
 
         colMin = calculateColMin(playerX);
         colMax = calculateColMax(playerX, colCeiling);
@@ -68,7 +56,6 @@ public class GameCamera {
                 viewTiles.add(worldTiles[j][i]);
             }
         }
-        //System.out.println("GameCamera: getTileView about to return with... "+viewTiles.size()+" tiles");
         return viewTiles;
 
     }
@@ -81,9 +68,6 @@ public class GameCamera {
         if(playerActor == null ){
             //System.out.println("GameCamera getActorView has null playerActor");
             return null;
-        }
-        if(Main.TEST_MODE){
-            //System.out.println("GameCamera: getActorView about to filter "+worldActors.size()+" Actors");
         }
 
         final int hWidth = Main.C_WIDTH / 2;
@@ -99,14 +83,11 @@ public class GameCamera {
             final int actorXPos = actor.getPosition().getxPos();
             final int actorYPos = actor.getPosition().getyPos();
             if (actorXPos < minX) {
-                //System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" < xPos: "+actorXPos+" LIMIT: "+minX);
                 continue;
             } else if (actorXPos > maxX) {
-               // System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" > xPos: "+actorXPos+" LIMIT: "+maxX);
-                continue;
+               continue;
             } else if (actorYPos < minY) {
-                //System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" < yPos: "+actorYPos+" LIMIT: "+minY);
-                continue;
+               continue;
             } else if (actorYPos > maxY) {
                 //System.out.println("GameCamera filtering actor: "+actor.getAsciiCode()+" > yPos: "+actorYPos+" LIMIT: "+maxY);
                 continue;
@@ -114,9 +95,6 @@ public class GameCamera {
             viewActors.add(actor);
         }
 
-        if(Main.TEST_MODE){
-            //System.out.println("GameCamera: getActorView about to return with... "+viewActors.size()+" Actors");
-        }
         return viewActors;
     }
 

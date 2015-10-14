@@ -106,7 +106,6 @@ public class InventoryPanel extends JPanel {
 		switch(c){
 
 		case 'C':
-		case 'Q': // special coin
 			try {
 				image = ImageIO.read(new File("Inventory_Coin.png"));
 			} catch (IOException e1) {
@@ -143,6 +142,15 @@ public class InventoryPanel extends JPanel {
 		case 'Z':
 		try {
 			image = ImageIO.read(new File("Inventory_Candy.png")); ///////
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		break;
+
+		case 'Q':
+		try {
+			image = ImageIO.read(new File("Inventory_Treasure.png")); ///////
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

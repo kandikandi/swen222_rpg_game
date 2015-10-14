@@ -12,16 +12,6 @@ public class PacketDisconnect extends Packet {
 	}
 
 	@Override
-	public void writeData(ClientControl client) {
-		client.sendData(getData());
-	}
-
-	@Override
-	public void writeData(ServerControl server) {
-		server.sendDataToAllClients(getData());
-	}
-
-	@Override
 	public byte[] getData() {
 		return ("4"+clientNum+this.username).getBytes();
 	}

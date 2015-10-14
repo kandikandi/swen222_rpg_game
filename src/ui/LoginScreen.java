@@ -26,7 +26,7 @@ import control.MainServer;
  */
 public class LoginScreen extends JFrame {
 
-	String username = "00";
+	private String username = "00";
 	private BufferedImage backgroundScreen;
 	private BufferedImage title;
 	private BufferedImage hostGameImage;
@@ -68,7 +68,7 @@ public class LoginScreen extends JFrame {
 
 		addMouseListener(
 				new MouseAdapter(){
-					private boolean isServer;
+					boolean isServer = false;
 					private boolean isJoin;
 
 					public void mouseClicked(MouseEvent arg0){
@@ -78,8 +78,11 @@ public class LoginScreen extends JFrame {
 						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 							hosted = true;
 							repaint();
-							//MainServer.main(null);
+
+							MainServer.main(null);
+							isServer = true;
 							server = new MainServer();
+
 						}
 						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
 							MainClient client = new MainClient();
@@ -88,7 +91,9 @@ public class LoginScreen extends JFrame {
 						} else if(xCord > 953 && xCord < 980 && yCord > 18 && yCord < 46){
 							dispose();
 						} else if( xCord > 10 && xCord < 201 && yCord > 10 && yCord < 54){
-							String username = "00" + JOptionPane.showInputDialog(null, "enter username");
+							while(username.length() > 10 || username.length() < 3 ){
+								username = "00" + JOptionPane.showInputDialog(null, "enter username");
+							}
 							userNameEntered = true;
 						}
 					}

@@ -49,12 +49,6 @@ public final class Renderer {
             return;
         }
 
-        /*if(Main.TEST_MODE){
-            int tilesReceived = camera.getTileView(gameState,playerNum).size();
-            int actorReceived = camera.getActorView(gameState,playerNum).size();
-            System.out.println("Renderer recieved Tiles: "+tilesReceived+"   Actors: "+actorReceived);
-        }*/
-
         //first find player position, this will become the origin
         int originX = player.getPosition().getxPos();//+(ActorAssets.PLAYER.getWidth()/2);
         int originY = player.getPosition().getyPos();//+(ActorAssets.PLAYER.getHeight()/2);
@@ -78,29 +72,24 @@ public final class Renderer {
                 .stream().sorted(actorComparator)
                 .filter(actor -> actor.isDrawable())
                 .forEach(actor -> {
-                    Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
-                    int width = ActorAssets.getAssetName(actor.getAsciiCode()).getWidth();
-                    int height = ActorAssets.getAssetName(actor.getAsciiCode()).getHeight();
-                    int relativeX = actor.getPosition().getxPos() /*+ (width/2)*/ - originX;
-                    int relativeY = actor.getPosition().getyPos() /*+ (height/2)*/ - originY;
+                    int width = actor.getBoundingBox().width;
+                    int height = actor.getBoundingBox().height;
+                    int relativeX = actor.getPosition().getBoundingBox().x - originX;
+                    int relativeY = actor.getPosition().getBoundingBox().y - originY;
                     int x = RotationCalculator.getScreenX(relativeX,relativeY,width,height) + HALF_C_WIDTH;
                     int y = RotationCalculator.getScreenY(relativeX,relativeY,width,height) + HALF_C_HEIGHT;
-                    g2d.drawImage(image, x, y, null);
+                    Image image = ActorAssets.getAssetImage(actor.getAsciiCode());
+                    int imageX = x - actor.getBoundingBox().getXOffset();
+                    int imageY = y - actor.getBoundingBox().getYOffset();
+                    g2d.drawImage(image, imageX, imageY, null);
 
                     if (Main.DRAW_HITBOXES) {
-                        /*int rX = actor.getPosition().getxPos() + actor.getBoundingBox().getXOffset() - originX;
-                        int rY = actor.getPosition().getyPos() + actor.getBoundingBox().getYOffset() - originY;*/
-                        int rX = actor.getPosition().getBoundingBox().x - originX;
-                        int rY = actor.getPosition().getBoundingBox().y - originY;
-                        int w = actor.getBoundingBox().width;
-                        int h = actor.getBoundingBox().height;
-                        int x2 = RotationCalculator.getScreenX(rX,rY,w,height) + HALF_C_WIDTH;
-                        int y2 = RotationCalculator.getScreenY(rX,rY,h,height) + HALF_C_HEIGHT;
                         g2d.setColor(new Color(255, 126, 241));
-                        g2d.fillRect(x2,y2,w,h);
+                        g2d.fillRect(x,y,width,height);
                     }
 
                 });
+
         gameCanvas.receiveBuffImage(buffImg);
     }
 

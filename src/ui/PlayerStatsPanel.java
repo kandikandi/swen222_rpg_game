@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
@@ -25,15 +26,17 @@ import javax.swing.border.Border;
 public class PlayerStatsPanel extends JPanel {
 
 	private Image backgroundImage;
+	private JPanel labelPanel = new JPanel();
 	private JPanel barPanel = new JPanel(); // Holds both the FearBar and BraveryBar
 	private JPanel playerInformation = new JPanel(); // Holds JLabels showing players stats
 	private FearBar fear = new FearBar(0,150);
-	private BraveryBar bravery = new BraveryBar(0,150);
+
+	//private BraveryBar bravery = new BraveryBar(0,150);
 
 	// JLabels to display players stats (Held in JPanel playerInformation)
 	private JLabel attack = new JLabel("Attack:                 ");
 	private JLabel gold = new JLabel("Gold:                     ");
-	private JLabel level = new JLabel("Level:                   ");
+	private JLabel userName = new JLabel("Name:                ");
 
 	public PlayerStatsPanel(){
 		this.setPreferredSize(new Dimension(200,250));
@@ -42,16 +45,20 @@ public class PlayerStatsPanel extends JPanel {
 		playerInformation.setLayout(new BoxLayout(playerInformation, BoxLayout.Y_AXIS));
 
 		// Set up Attack JLabel
-		attack.setFont(new Font("dialog",Font.BOLD,16));
+		attack.setFont(new Font("dialog",Font.BOLD,18));
 		attack.setForeground(Color.BLACK);
 
 		// Set up Gold JLabel
-		gold.setFont(new Font("dialog",Font.BOLD,16));
+		gold.setFont(new Font("dialog",Font.BOLD,18));
 		gold.setForeground(Color.BLACK);
 
 		// Set up Level JLabel
-		level.setFont(new Font("dialog",Font.BOLD,16));
-		level.setForeground(Color.BLACK);
+		userName.setFont(new Font("dialog",Font.BOLD,18));
+		userName.setForeground(Color.BLACK);
+
+		// Set up Rotation Button
+
+
 
 		try {
 			// load the imageName
@@ -61,19 +68,29 @@ public class PlayerStatsPanel extends JPanel {
 		}
 
 		// Set up playerInformation JPanel
-		playerInformation.setOpaque(false);
-		playerInformation.add(attack);
-		playerInformation.add(gold);
-		playerInformation.add(level);
+//		playerInformation.setOpaque(false);
+//		playerInformation.add(attack);
+//		playerInformation.add(gold);
+//		playerInformation.add(userName);
+
+
+		labelPanel.setLayout(new BorderLayout());
+		labelPanel.setOpaque(false);
+		labelPanel.add(attack, BorderLayout.NORTH);
+		labelPanel.add(gold, BorderLayout.CENTER);
+		labelPanel.add(userName, BorderLayout.SOUTH);
+
 
 		// Set up barPanel JPanel
 		barPanel.setLayout(new BorderLayout());
 		barPanel.setOpaque(false);
 		barPanel.add(fear, BorderLayout.NORTH);
-		barPanel.add(bravery, BorderLayout.SOUTH);
+
+		//barPanel.add(bravery, BorderLayout.SOUTH);
 
 		// Set up this PlayerStatsPanel JPanel
-		this.add(playerInformation);
+
+		this.add(labelPanel);
 		this.add(barPanel);
 
 	}
@@ -135,4 +152,11 @@ public class PlayerStatsPanel extends JPanel {
 		this.revalidate();
 
 	}
+	public void setUserName(String name) {
+		name = name.substring(2,name.length());
+		this.userName.setText("Name: " + name    );
+		this.revalidate();
+
+	}
+
 }

@@ -39,6 +39,7 @@ public class ItemLabel extends JLabel {
 	private InfoPanel inspectPanel;
 	private Player player;
 	private ClientControl clientControl;
+	private boolean sendPacket = false;
 
 	/*
 	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
@@ -66,15 +67,17 @@ public class ItemLabel extends JLabel {
 		use.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//=============USE PACKET CODE HERE===========
+				sendPacket = false;
 				String data = "";
-				System.out.println("Here");
 				if(getLabel().getAscii() == 'Z'){
 					data = "6"+player.getClientNum()+"Z";
+					sendPacket = true;
 				}
-
-				PacketUseItem p = new PacketUseItem(data.getBytes());
-
-				p.writeData(clientControl);
+				if(sendPacket){
+					System.out.println("Here");
+					PacketUseItem p = new PacketUseItem(data.getBytes());
+					p.writeData(clientControl);
+				}
 
 
 
@@ -85,26 +88,37 @@ public class ItemLabel extends JLabel {
 		JMenuItem drop = new JMenuItem("Drop Item");
 		drop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				sendPacket = false;
 				String data = "";
 				if(getLabel().getAscii() == 'K'){
-					System.out.println("Here");
 					data = "5"+player.getClientNum()+"K";
+					sendPacket = true;
 				}
 				if(getLabel().getAscii() == 'B'){
 					data = "5"+player.getClientNum()+"B";
+					sendPacket = true;
 				}
 				if(getLabel().getAscii() == 'C'){
 					data = "5"+player.getClientNum()+"C";
+					sendPacket = true;
 				}
 				if(getLabel().getAscii() == 'Z'){
 					data = "5"+player.getClientNum()+"Z";
+					sendPacket = true;
 				}
 				if(getLabel().getAscii() == 'X'){
 					data = "5"+player.getClientNum()+"X";
+					sendPacket = true;
+				}
+				if(getLabel().getAscii() == 'Q'){
+					data = "5"+player.getClientNum()+"Q";
+					sendPacket = true;
 				}
 
-				PacketDropItem p = new PacketDropItem(data.getBytes());
-				p.writeData(clientControl);
+				if(sendPacket = true){
+					PacketDropItem p = new PacketDropItem(data.getBytes());
+					p.writeData(clientControl);
+				}
 
 			}
 		});
