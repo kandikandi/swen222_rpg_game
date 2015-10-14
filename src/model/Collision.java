@@ -130,7 +130,7 @@ public class Collision {
 				player.getInventory().removeItemFromContainer(key);
 				key.setCollidable(false);
 				key.setDrawable(false);
-				key = null;
+				//key = null;
 			}
 		} else {
 			if (player.getInventory().containsNormalKey()) {
@@ -139,14 +139,7 @@ public class Collision {
 				player.getInventory().removeItemFromContainer(key);
 				key.setCollidable(false);
 				key.setDrawable(false);
-				key = null;
-			} else if (player.getInventory().containsKey()) {
-				door.setOpen();
-				Key key = player.getInventory().getKey();
-				player.getInventory().removeItemFromContainer(key);
-				key.setCollidable(false);
-				key.setDrawable(false);
-				key = null;
+				//key = null;
 			}
 		}
 	}
