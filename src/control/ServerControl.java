@@ -126,8 +126,11 @@ public class ServerControl extends Thread {
                     }
                 }
 
+                System.out.println("Server removed player::" + disconnect.getClientNum());
+
                 game.removePlayer(playerDisconnect);
-                //TODO: find out how to properly close server process
+                System.out.println("Connected players == "+ connectedPlayers.size());
+
                 //If there is no longer any players connected, it means there is no one playing, so shutdown the server.
                 if (connectedPlayers.size() == 0) {
                     MainServer.shutDownServer();
@@ -142,15 +145,7 @@ public class ServerControl extends Thread {
                 } catch (GameException e) {
                     e.printStackTrace();
                 }
-                /*    ArrayList<Actor> recd;
-                try {
-                    recd = (ArrayList<Actor>) serial.deserialize(data);
-                    game.setActors(recd);
-                } catch (ClassNotFoundException e1) {
-                    e1.printStackTrace();
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }*/
+
                 break;
 
             case MOVE: {

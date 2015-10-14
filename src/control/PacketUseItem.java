@@ -15,17 +15,6 @@ public class PacketUseItem extends Packet {
     }
 
 	@Override
-	public void writeData(ClientControl client) {
-		 client.sendData(getData());
-	}
-
-	@Override
-	public void writeData(ServerControl server) {
-
-
-	}
-
-	@Override
 	public byte[] getData() {
 		String result = "6"+clientNum+this.asciiString;
     	System.out.println("Packetuseitem: " + result);

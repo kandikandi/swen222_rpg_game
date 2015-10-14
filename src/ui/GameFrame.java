@@ -3,7 +3,11 @@ package ui;
 import javax.swing.*;
 
 import control.ClientControl;
+
+import control.PacketDisconnect;
+
 import control.MainServer;
+
 import model.Player;
 
 import java.awt.*;
@@ -32,7 +36,7 @@ public class GameFrame extends JFrame {
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
-//	private ClientControl socketClient; //TODO: Bonnie added this!
+	private ClientControl socketClient; //TODO: Bonnie added this!
 	private MainServer server;
 	private String name;
 
@@ -51,23 +55,29 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
 
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // CHANGE TO DO_NOTHING_ON_CLOSE
+
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
-				addWindowListener(new WindowAdapter() {
-				    @Override
-				    public void windowClosing(WindowEvent we)
-				    {
-				        String ObjButtons[] = {"Yes","No"};
-				        int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
-				        if(PromptResult==JOptionPane.YES_OPTION)
-				        {
+        addWindowListener(new WindowAdapter() {
 
-				            System.exit(0);
-				        }
-				    }
-				});
-//
+            @Override
+            public void windowClosing(WindowEvent we)
+            {
+                String ObjButtons[] = {"Yes","No"};
+                int PromptResult = JOptionPane.showOptionDialog(null,"Are you sure!?","",JOptionPane.DEFAULT_OPTION,JOptionPane.WARNING_MESSAGE,null,ObjButtons,ObjButtons[1]);
+                if(PromptResult==JOptionPane.YES_OPTION)
+                {
+                	System.out.println("Sending a disconnection packet");
+		        	PacketDisconnect disconnectPlayer = new PacketDisconnect(("4"+socketClient.getClientNum()+socketClient.getName()).getBytes());
+		        	disconnectPlayer.writeData(socketClient);
+		        	System.exit(0);
+
+                }
+            }
+        });
+
+
+
 		this.setupMenuBar();
 
 		// Set up the sidePanel to hold the Players Stats (PlayerStatsPanel), Coin Bag (GoldPanel) and Inventory (InventoryPanel)

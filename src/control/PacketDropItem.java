@@ -18,17 +18,6 @@ public class PacketDropItem extends Packet{
     }
 
     @Override
-    public void writeData(ClientControl client) {
-        client.sendData(getData());
-
-    }
-
-    @Override
-    public void writeData(ServerControl server) {
-
-    }
-
-    @Override
     public byte[] getData() {
     	String result = "5"+clientNum+this.asciiString;
     	System.out.println("Packetdropitem: " + result);

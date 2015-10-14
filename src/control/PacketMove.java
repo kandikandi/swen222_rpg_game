@@ -13,17 +13,6 @@ public class PacketMove extends Packet {
 	}
 
 	@Override
-	public void writeData(ClientControl client) {
-		client.sendData(getData());
-
-	}
-
-	@Override
-	public void writeData(ServerControl server) {
-
-	}
-
-	@Override
 	public byte[] getData() {
 		return ("3"+clientNum+this.move).getBytes();
 	}

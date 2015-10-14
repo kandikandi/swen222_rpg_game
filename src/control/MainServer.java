@@ -49,6 +49,7 @@ public class MainServer {
 	public static void shutDownServer(){
 		System.out.println("MainServer: shutDownServer() called");
 		socketServer.shutDownServer();
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {
