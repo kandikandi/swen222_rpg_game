@@ -116,6 +116,7 @@ public class ServerControl extends Thread {
                 break;
 
             case DISCONNECT:
+
                 PacketDisconnect disconnect = new PacketDisconnect(data);
                 Player playerDisconnect = game.findPlayer(disconnect.getClientNum());
 

@@ -13,7 +13,6 @@ public class MainClient {
     public static final int C_WIDTH = 800;
     public static final int C_HEIGHT = 600;
     public static final String TITLE = "ECS BETA";
-	private static ClientControl socketClient;
 
 
 
@@ -29,7 +28,7 @@ public class MainClient {
                 gameFrame.pack();
 
                 GameState gameState = new GameState(isServer);
-                socketClient = new ClientControl("localhost", gameState, gameCanvas);
+                ClientControl socketClient = new ClientControl("localhost", gameState, gameCanvas);
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
