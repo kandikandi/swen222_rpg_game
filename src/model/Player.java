@@ -44,9 +44,6 @@ public class Player extends Actor implements Serializable {
 		super(position, asciiCode, collidable, drawable);
 		this.clientNum = clientNum;
 		this.inventory = new Inventory(position, asciiCode,false, false);
-		// ID id, Position position, char imagePath, boolean collidable,
-		// boolean drawable, int boundingBoxSize, Collectable... collectables
-
 	}
 
 	@Override
@@ -144,31 +141,20 @@ public class Player extends Actor implements Serializable {
 
 	}
 
-
+	/**
+	 * This method allows a message from the inventory to "drop" an item to be actioned
+	 * in our inventory.
+	 *
+	 * @param actorAsset
+	 */
 	public void dropItemID(ActorAssets actorAsset) {
-//		boolean itemDropped = false;
 			for(int i = 0; i < this.getInventory().returnContents().size(); i++){
-//				if(!itemDropped){
-
 					if(this.getInventory().returnContents().get(i).getAsciiCode()==actorAsset.getAsciiCode()){
 						drop(this.getInventory().returnContents().get(i));
-//						itemDropped = true;
 						return;
-
-//					}
 				}
 			}
 	}
-
-
-//	/**
-//	 * Getter method to return Inventory
-//	 *
-//	 * @return
-//	 */
-//	public Inventory getInventorytooScared() {
-//		return inventory;
-//	}
 
 	/**
 	 * Getter for client number
@@ -191,12 +177,12 @@ public class Player extends Actor implements Serializable {
 		}
 	}
 
-
-
-
-
+	/**
+	 * If a Player has a Candy object inside the Inventory, the Player
+	 * can "eat" it to reduce fear levels.
+	 *
+	 */
 	public void eatCandy(){
-		System.out.println("Here");
 		if(inventory.containsCandy()){
 			inventory.eatCandy();
 			if(fear>30){
@@ -205,7 +191,6 @@ public class Player extends Actor implements Serializable {
 				fear = 0;
 			}
 		}
-
 	}
 
 
