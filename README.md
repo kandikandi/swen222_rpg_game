@@ -1,24 +1,27 @@
-# README #
-
 # Dreamland Game #
 
-### Summary ###
+## Summary ##
 
 Dreamland is a multi-player adventure game.
 
-### Getting started ###
+## Getting started ##
 
 To launch from Eclipse:
-1.Click "Run as Java Application" with "UIMain" configuration.
-2.Click on the "Login" button on the welcome screen, enter your name, and click "Ok".
-3.Click on "Host" to start the game server.
-4.Click "Join" to start the game as the first player.
 
-To join the game join game as 2nd player, follow the same steps above excluding 3.
+[1] Right-click ui package and click "Run as Java Application".
 
-### Controls   ###
+[2] Click on the "Login" button on the welcome screen, enter your name, and click "Ok".
 
-You control player movement with up, down, left, and right arrows. 
+[3] Click on "Host" to start the game server.
+
+[4] Click "Join" to start the game as the first player.
+
+To join the game join game as the 2nd player, modify line 25 in model.GameConst so serverIP variable
+matches server's IP address.
+
+## Controls   ##
+
+You control player movement with up, down, left, and right arrows.
 
 You automatically pick up collectable objects such as keys and coins by walking over them. They will appear in your inventory.
 
@@ -28,13 +31,13 @@ You can rotate the orientation of the game map by pushing 'r'.
 
 You can defend against enemy attack by standing still and pushing the space bar (causing their health to reduce).
 
-### Packages: ###
-     
-Control: 
+## Packages: ##
+
+#### Control: ####
 
 This package includes the networking elements, as well as the game timer and enemy and player controllers.
 
-Model:
+#### Model: ####
 
 This package contains most of the game element objects. Most objects are subtypes of the Actor class, which includes its Position on the Board and can return a BoundingBox for collision logic purposes. The Actor subtypes are the moving actors (Player and Enemy), the Container class (which has subtypes CoinBag and Inventory), the Collectable class (which has subtypes Key and coin), as well as Door and Wall.
 
@@ -42,31 +45,29 @@ The GameState class contains a list of the active Actor objects in the game, and
 
 The Collision class is used to run the game collision logic. It is called from the moving Actor objects when they move and gets details of collisions from the GameState object.
 
-Save packages:
+#### Save packages: ####
 
 These packages hold the classes that handle serialization and saving.
 
-Tests
+#### Tests: ####
 
 This package contains all the game tests.
 
-UI
+#### UI: ####
 
 This package contains the GUI/Swing elements including the main gameFrame, the splash/login screen, and the information and display panels.
 
-View
+#### View: ####
 
 This package includes the Tile and Object maps, the actor assets, and the rendering classes.
 
-Images
+#### Images: ####
 
 This package holds the game images.
 
-### Authors ###
+## Authors ##
      D Newton
      C Lategan
      K McLean
      B Liao
      A Daly
-
-##
