@@ -16,7 +16,8 @@ To launch from Eclipse:
 
 [4] Click "Join" to start the game as the first player.
 
-To join the game join game as the 2nd player, follow the same steps above excluding [3].
+To join the game join game as the 2nd player, modify line 25 in model.GameConst so serverIP variable
+matches server's IP address.
 
 ## Controls   ##
 
@@ -65,8 +66,10 @@ This package includes the Tile and Object maps, the actor assets, and the render
 This package holds the game images.
 
 ## Authors ##
-    D Newton
-    C Lategan
-    K McLean
-    B Liao
-    A Daly
+     D Newton
+     C Lategan
+     K McLean
+     B Liao
+     A Daly
+
+##

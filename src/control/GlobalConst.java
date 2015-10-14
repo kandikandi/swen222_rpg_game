@@ -18,8 +18,13 @@ public class GlobalConst {
     public static final int PLAYER_ONE_START_LOCATION_Y = 74;
     public static final int PLAYER_TWO_START_LOCATION_X = 100;
     public static final int PLAYER_TWO_START_LOCATION_Y = 100;
-
-    public static final int PORT = 32768;
     public static int ROTATION = 0;
+
+    // Game Hosts address
+    public static final int PORT = 32768;
+    public static final String serverIP = "localhost"; // change to host's IP if required.
+
+
+
 
 }
