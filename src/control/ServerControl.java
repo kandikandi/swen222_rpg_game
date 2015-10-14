@@ -92,6 +92,7 @@ public class ServerControl extends Thread {
         switch (type) {
 
             case LOGIN:
+            	//New client is logging in
                 PacketLogin packet = new PacketLogin(data);
 
                 if (Main.TEST_MODE) {
@@ -112,7 +113,7 @@ public class ServerControl extends Thread {
                 break;
 
             case DISCONNECTSERVER:
-
+            	//Has recieved a disconnection request from a client
                 PacketDisconnectServer disconnect = new PacketDisconnectServer(data);
                 Player playerDisconnect = game.findPlayer(disconnect.getClientNum());
 
@@ -161,6 +162,7 @@ public class ServerControl extends Thread {
                 break;
 
             case MOVE: {
+            	//Inform Gamestate of a move from a client
                 PacketMove packetMove = new PacketMove(data);
                 String move = packetMove.getMove();
                 Player player = game.findPlayer(packetMove.getClientNum());
@@ -169,6 +171,7 @@ public class ServerControl extends Thread {
             break;
 
             case DROPITEM: {
+            	//Inform state a client dropped an item
                 PacketDropItem packet1 = new PacketDropItem(data);
                 ActorAssets item = packet1.getAsset();
                 Player player1 = game.findPlayer(packet1.getClientNum());
@@ -177,7 +180,7 @@ public class ServerControl extends Thread {
             break;
 
             case USEITEM: {
-
+            	//Inform gamestate a client used an item
                 PacketUseItem packetUse = new PacketUseItem(data);
                 ActorAssets item = packetUse.getAsset();
                 Player playerUser = game.findPlayer(packetUse.getClientNum());
@@ -186,6 +189,7 @@ public class ServerControl extends Thread {
                 break;
             }
             default:
+            	//should never get here so if it does, an error has occurred
                 try {
                     throw new GameException("Server Packet Header Error");
                 } catch (GameException e) {
@@ -196,6 +200,9 @@ public class ServerControl extends Thread {
 
     }
 
+    /**Update all the clients with changes that have occurred in the world
+     * of their cameras.
+     */
      synchronized public void updateClients() {
 
         for (ClientData p : connectedPlayers) {
@@ -231,7 +238,12 @@ public class ServerControl extends Thread {
 
     }
 
-    // converts data into datagrams and sends it down the socket
+    /** converts data into datagrams and sends it down the socket
+     *
+     * @param data
+     * @param ipAddress
+     * @param port
+     */
     synchronized public void sendData(byte[] data, InetAddress ipAddress,
                                       int port) {
         DatagramPacket packet = new DatagramPacket(data, data.length,
@@ -243,7 +255,10 @@ public class ServerControl extends Thread {
         }
     }
 
-    // for multiple players, calls send data for all connected players
+   /** as above, for multiple players, calls send data for all connected players
+    *
+    * @param data
+    */
     synchronized public void sendDataToAllClients(byte[] data) {
         for (ClientData p : connectedPlayers) {
             sendData(data, p.getIpAddress(), p.getPort());

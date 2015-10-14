@@ -1,7 +1,8 @@
 package control;
 
-/**
- * Created by cuan on 9/9/15.
+/**GameTimer is the game clock. It is responsible for updating the servers gamestate with enemy movement
+ * as well as instructing the server to send updates to its clients on a regular loop.
+ * @authors mcleankand && lategacuan
  */
 public class GameTimer extends Thread {
 

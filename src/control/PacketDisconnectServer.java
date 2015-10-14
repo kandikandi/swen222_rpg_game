@@ -1,5 +1,10 @@
 package control;
 
+/**Packet which will deal with the situation of a client disconnecting from the server.
+ * The server needs to know which client disconnected so they can be removed fully from the game.
+ * @author mcleankand
+ *
+ */
 public class PacketDisconnectServer extends Packet {
 
 	private String username;

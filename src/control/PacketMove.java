@@ -1,5 +1,9 @@
 package control;
 
+/**Packet move sends through any keypresses made in clientControl to the server to be looked at by the logic
+ * @author mcleankand
+ *
+ */
 public class PacketMove extends Packet {
 
 	private String move;

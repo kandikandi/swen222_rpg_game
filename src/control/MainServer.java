@@ -5,6 +5,11 @@ import java.awt.EventQueue;
 import save.DataStorage;
 import model.GameState;
 
+/**Responsible for starting up the server and initialising the game state, along with starting the game timer.
+ * This class has no UI, it is a background process only.
+ * @author mcleankand
+ *
+ */
 public class MainServer {
 
 	public static final int F_WIDTH = 1000;
@@ -41,6 +46,10 @@ public class MainServer {
 
 		});
 	}
+
+	/**For saving and loading games, server stores the most up to date version of the game state
+	 *
+	 */
 
 	public GameState getGameForSave(){
 		return socketServer.getGameState();

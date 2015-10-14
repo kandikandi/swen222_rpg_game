@@ -1,11 +1,16 @@
 package control;
 
 import java.awt.EventQueue;
-
 import ui.GameCanvas;
 import ui.GameFrame;
 import model.GameState;
 
+/**Sets up each Player with a client, a renderer and a GUI
+ * and logs them in to the server. Runs on a seperate main method to the server in order to keep
+ * all clients seperate from the server
+ * @author lategacuan && mcleankand
+ *
+ */
 public class MainClient {
 
     public static final int F_WIDTH = 1000;

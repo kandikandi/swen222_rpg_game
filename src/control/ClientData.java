@@ -5,7 +5,8 @@ import model.Player;
 import java.net.InetAddress;
 
 /**player control class for server to use to differentiate between clients
- * basically just stores variables with getters and setters for the clients*/
+ * basically just stores variables with getters and setters for the clients
+ * @author mcleankand*/
 
 public class ClientData {
 
@@ -13,9 +14,9 @@ public class ClientData {
 	private InetAddress ipAddress;
 	private int port;
 	private int clientNum;
+
+	//Specific actor that this client controls
 	private Player player;
-
-
 
 	public ClientData(String uname, InetAddress ipAddress, int port, int clientNum) {
 		this.username = uname;
@@ -25,6 +26,10 @@ public class ClientData {
 
 	}
 
+	/**Player is not set when client data is created to avoid cycles in the serialiser
+	 *
+	 * @param player
+	 */
 	public void setPlayer(Player player){this.player = player;}
 
 	public int getClientNum() {

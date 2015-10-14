@@ -1,6 +1,10 @@
 package control;
 
-/**Class for login packet, basically just creates a username atm*/
+/**Class for login packet. Informs the server that the client is there and what the
+ * players username is.
+ * @author mcleankand
+ *
+ */
 
 public class PacketLogin extends Packet{
 

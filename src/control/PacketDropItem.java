@@ -2,7 +2,12 @@ package control;
 
 import view.ActorAssets;
 
-/**Class for item drop packet, basically just creates a username atm*/
+/**Class for item drop packet.
+ *The asciistring informs the server which item is being dropped, so it can update its
+ *gamestate by adding it into its actor list.
+ *@author newtondavi
+ *
+ */
 
 public class PacketDropItem extends Packet{
 
