@@ -13,6 +13,9 @@ public class MainClient {
     public static final int C_WIDTH = 800;
     public static final int C_HEIGHT = 600;
     public static final String TITLE = "ECS BETA";
+	private static ClientControl socketClient;
+
+
 
     //TODO delete this -- Cuan
     static public void main(String[] args) {
@@ -26,7 +29,7 @@ public class MainClient {
                 gameFrame.pack();
 
                 GameState gameState = new GameState(isServer);
-                ClientControl socketClient = new ClientControl("localhost", gameState, gameCanvas);
+                socketClient = new ClientControl("localhost", gameState, gameCanvas);
                 gameCanvas.setSocketClient(socketClient);
                 PlayerController playerController = new PlayerController(socketClient);
                 gameFrame.addKeyListener(playerController);
@@ -42,6 +45,8 @@ public class MainClient {
 
         });
     }
+
+
 
     public void launchClient(String username) {
 

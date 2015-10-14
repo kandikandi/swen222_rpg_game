@@ -14,18 +14,6 @@ public class PacketLoginConfirm extends Packet{
     }
 
     @Override
-    public void writeData(ClientControl client) {
-
-
-    }
-
-    @Override
-    public void writeData(ServerControl server) {
-        server.sendDataToAllClients(getData());
-    }
-
-
-    @Override
     public byte[] getData() {
         System.out.println("LoginConfirm getData:"+"10"+this.clientNum);
      return ("10"+this.clientNum).getBytes();
