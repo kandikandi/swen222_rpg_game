@@ -28,8 +28,8 @@ public class Factory {
      * the required Actors instantiations.
      */
     public List<Actor> createActorList() {
-        char[][] tileCode = TestWorlds.getSmallObjectMap();
-        //char[][] tileCode = TestWorlds.getFullObjectMap();
+//        char[][] tileCode = TestWorlds.getSmallObjectMap();
+        char[][] tileCode = TestWorlds.getFullObjectMap();
         //char[][] tileCode = TestWorlds.getMazeObjects();
         List<Actor> actors = new ArrayList<>();
         for (int row = 0; row < tileCode.length; row++) {
@@ -47,6 +47,9 @@ public class Factory {
                 switch (asset) {
                     case COIN:
                         actor = createCoin(position.getxPos(), position.getyPos());
+                        break;
+                    case TREASURE:
+                        actor = createSpecialCoin(position.getxPos(), position.getyPos());
                         break;
                     case COINBAG:
                         actor = createCoinBag(position.getxPos(),
@@ -133,8 +136,8 @@ public class Factory {
      * the required Tile objects.
      */
     public Tile[][] createWorldTiles() {
-        char[][] tileCode = TestWorlds.getSmallMap();
-        //char[][] tileCode = TestWorlds.getFullMap();
+//        char[][] tileCode = TestWorlds.getSmallMap();
+        char[][] tileCode = TestWorlds.getFullMap();
         //char[][] tileCode = TestWorlds.getMazeTiles();
         Tile[][] result = new Tile[tileCode.length][tileCode[0].length];
 
@@ -234,6 +237,9 @@ public class Factory {
         return player;
     }
 
+
+
+
     /**
      * This method constructs a standard Coin object.
      */
@@ -244,6 +250,18 @@ public class Factory {
         Coin coin = new Coin(pos, asciiCode, true, true);
         return coin;
     }
+
+    /**
+     * This method constructs a special Coin object.
+     */
+    public Coin createSpecialCoin(int xPos, int yPos) {
+        Position pos = new Position(xPos, yPos);
+        int size = Main.ITEM_SIZE;
+        char asciiCode = ActorAssets.TREASURE.getAsciiCode();
+        Coin specialCoin = new Coin(pos, asciiCode, true, true, true);
+        return specialCoin;
+    }
+
 
     /**
      * This method constructs a standard CoinBag object.

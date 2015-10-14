@@ -3,7 +3,11 @@ package ui;
 import javax.swing.*;
 
 import control.ClientControl;
+
 import control.PacketDisconnect;
+
+import control.MainServer;
+
 import model.Player;
 
 import java.awt.*;
@@ -33,11 +37,15 @@ public class GameFrame extends JFrame {
 	private InfoPanel infoPanel;
 	private InventoryPanel inventory;
 	private ClientControl socketClient; //TODO: Bonnie added this!
+	private MainServer server;
+	private String name;
 
 	// TODO: Bonnie added extra argument here!
-	public GameFrame(String title, int WIDTH, int HEIGHT) {
+	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server, String userName) {
 		super(title);
 
+		this.name = userName;
+		this.server = server;
 		this.setLayout(new BorderLayout());
 		this.playerStats = new PlayerStatsPanel();
 		this.infoPanel = new InfoPanel();
@@ -46,6 +54,7 @@ public class GameFrame extends JFrame {
 		this.HEIGHT = HEIGHT;
 		this.setVisible(true);
 		this.getContentPane().setPreferredSize(new Dimension(WIDTH,HEIGHT));
+
 
 		this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 
@@ -66,6 +75,7 @@ public class GameFrame extends JFrame {
                 }
             }
         });
+
 
 
 		this.setupMenuBar();
@@ -112,7 +122,7 @@ public class GameFrame extends JFrame {
 
 				//=================================================//
 				//TODO: Bonnie here adding add some lines for save!
-				socketClient.save();
+				server.save();
 				//TODO: Bonnie ends here!
 				//=================================================//
 			}
@@ -125,7 +135,7 @@ public class GameFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				socketClient.load();
+				server.load();
 			}
 
 		});
@@ -163,12 +173,11 @@ public class GameFrame extends JFrame {
 		this.updatePlayerFear(player.getFear());
 		this.updatePlayerCoins(player.getInventory().getCoinCount());
 		this.updatePlayerAttack(player.getAttackPoints());
+		this.updatePlayerName(this.name);
 
 	}
 
-	public void updatePlayerAttack(int count){
-			this.playerStats.setAttack(count);
-	}
+
 
 	/**
 	 * Updates the players Inventory display via the InventoryPanel
@@ -190,6 +199,13 @@ public class GameFrame extends JFrame {
 	public void updatePlayerCoins(int count){
 		this.playerStats.setCoins(count);
 	}
+	public void updatePlayerName(String name){
+		this.playerStats.setUserName(name);
+	}
+	public void updatePlayerAttack(int count){
+		this.playerStats.setAttack(count);
+}
+
 
 	/**
 	 * Returns the GameFrame currently being used for the game
@@ -199,8 +215,8 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
-	public void add(ClientControl socketClient) {
-		this.socketClient = socketClient;
-	}
+//	public void add(ClientControl socketClient) {
+//		this.socketClient = socketClient;
+//	}
 
 }

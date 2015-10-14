@@ -147,6 +147,15 @@ public class InventoryPanel extends JPanel {
 			e.printStackTrace();
 		}
 		break;
+
+		case 'Q':
+		try {
+			image = ImageIO.read(new File("Inventory_Treasure.png")); ///////
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		break;
 		}
 
 		return image;

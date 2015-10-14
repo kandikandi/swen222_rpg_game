@@ -47,6 +47,10 @@ public class ServerControl extends Thread {
         this.game = game;
     }
 
+    synchronized public GameState getGameState(){
+    	return game;
+    }
+
     public void run() {
         while (isRunning) {
 
