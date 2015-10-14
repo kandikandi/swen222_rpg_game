@@ -48,7 +48,7 @@ public class ItemLabel extends JLabel {
 
 		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
-		this.setIcon(new ImageIcon()); // ------------- currently not set to items imageName
+		this.setIcon(new ImageIcon());
 		this.asciiCode = c;
 		this.player = player;
 		this.clientControl = clientControl;
@@ -74,7 +74,6 @@ public class ItemLabel extends JLabel {
 					sendPacket = true;
 				}
 				if(sendPacket){
-					System.out.println("Here");
 					PacketUseItem p = new PacketUseItem(data.getBytes());
 					p.writeData(clientControl);
 				}

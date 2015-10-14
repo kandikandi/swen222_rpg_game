@@ -16,7 +16,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-
 /**
  * The GameFrame holds the pieces which make up the GUI for Bedtime Story.
  * This includes:
@@ -27,11 +26,10 @@ import java.awt.event.WindowEvent;
  */
 public class GameFrame extends JFrame {
 
-	public static boolean displayPlayersCoinBag; // ------------ROUGH (REMOVE THIS IN FUTURE DONT USE STATIC)
 	private final int WIDTH;
 	private final int HEIGHT;
 	private JMenuBar menu =  new JMenuBar();
-	private JMenu file = new JMenu("File"); 
+	private JMenu file = new JMenu("File");
 	private JPanel sidePanel = new JPanel();
 	private PlayerStatsPanel playerStats;
 	private InfoPanel infoPanel;
@@ -39,7 +37,6 @@ public class GameFrame extends JFrame {
 	private ClientControl socketClient; //TODO: Bonnie added this!
 	private MainServer server;
 	private String name;
-
 
 	// TODO: Bonnie added extra argument here!
 	public GameFrame(String title, int WIDTH, int HEIGHT, MainServer server, String userName) {
@@ -76,8 +73,6 @@ public class GameFrame extends JFrame {
                 }
             }
         });
-
-
 
 		this.setupMenuBar();
 
@@ -154,7 +149,9 @@ public class GameFrame extends JFrame {
 				+ "\n r: rotate"
 				+ "\n spacebar: attack"
 				+ "\n arrow keys: move"
-				+ "\nRight click on items in inventory for options. ", "",
+				+ "\nRight click on items in inventory for options"
+				+ "\n Collect the three special keys and unlock the treasure to win the game!. ", "",
+
 		        JOptionPane.OK_OPTION);
 	}
 
@@ -170,7 +167,6 @@ public class GameFrame extends JFrame {
 	public void updateGUI(Player player, ClientControl clientControl){
 
 		this.updatePlayerInventory(player, clientControl);
-
 		this.updatePlayerFear(player.getFear());
 		this.updatePlayerCoins(player.getInventory().getCoinCount());
 		this.updatePlayerAttack(player.getAttackPoints());
@@ -197,12 +193,27 @@ public class GameFrame extends JFrame {
 	public void updatePlayerFear(int fear){
 		this.playerStats.getFearBar().setCurrentFear(fear);
 	}
+
+	/**
+	 * Updates the players coin count
+	 * @param count
+	 */
 	public void updatePlayerCoins(int count){
 		this.playerStats.setCoins(count);
 	}
+
+	/**
+	 * Updates the players name
+	 * @param name
+	 */
 	public void updatePlayerName(String name){
 		this.playerStats.setUserName(name);
 	}
+
+	/**
+	 * Updates the players attack level
+	 * @param count
+	 */
 	public void updatePlayerAttack(int count){
 		this.playerStats.setAttack(count);
 }
@@ -216,6 +227,10 @@ public class GameFrame extends JFrame {
 		return this;
 	}
 
+	/**
+	 * Adds the client to the GameFrame
+	 * @param socketClient
+	 */
 	public void add(ClientControl socketClient) {
 		this.socketClient = socketClient;
 	}

@@ -142,7 +142,6 @@ public class LoginScreen extends JFrame {
 						try {
 							joinGameImage = ImageIO.read(new File("JoinGrayHover.png"));
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
@@ -150,7 +149,6 @@ public class LoginScreen extends JFrame {
 						try {
 							joinGameImage = ImageIO.read(new File("JoinGray.png"));
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 
@@ -161,7 +159,6 @@ public class LoginScreen extends JFrame {
 					try {
 						exitGameImage = ImageIO.read(new File("exitHover.png"));
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -214,10 +211,6 @@ public class LoginScreen extends JFrame {
 
 	public static void main(String args[]){
 		LoginScreen screen = new LoginScreen();
-//		String dave = "Dave";
-//		MainServer.main(null);
-//		MainClient client = new MainClient();
-//		client.launchClient(dave);
 	}
 
 	public void paint(Graphics g){

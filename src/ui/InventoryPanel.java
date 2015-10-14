@@ -99,6 +99,11 @@ public class InventoryPanel extends JPanel {
 
 	}
 
+	/**
+	 * Loads the images to be displayed in the inventory for the ItemLabels.
+	 * @param c
+	 * @return
+	 */
 	public Image findImage(char c){
 
 		Image image = null;
@@ -170,6 +175,9 @@ public class InventoryPanel extends JPanel {
 
 	}
 
+	/**
+	 * Creates a bevelled border
+	 */
 	private void createBorder() {
 		//Compound borders
 		Border compound;

@@ -48,6 +48,10 @@ public class InfoPanel extends JPanel {
 		}
 	}
 
+	/**
+	 * Loads the image to display information on the item inspected.
+	 * @param c
+	 */
 	public void getInspect(char c){
 
 		if(c == 'K'){
@@ -104,6 +108,9 @@ public class InfoPanel extends JPanel {
 
 	}
 
+	/**
+	 * Creates a Compound beveled border.
+	 */
 	private void createBorder() {
 		//Compound borders
 		Border compound;
