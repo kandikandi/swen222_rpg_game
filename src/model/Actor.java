@@ -35,12 +35,9 @@ public class Actor implements Serializable {
 
 	}
 
-	private Actor(){
+	private Actor(){}
 
-	}
-
-	public void tick() {
-	}
+	public void tick() {}
 
 	/**
 	 * Getter method for GameObject's unique ID.

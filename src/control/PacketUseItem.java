@@ -2,6 +2,12 @@ package control;
 
 import view.ActorAssets;
 
+/**This packet is for informing the server that a player wishes to use a health item to decrease their
+ * fear level.
+ * @author mcleankand
+ *
+ */
+
 public class PacketUseItem extends Packet {
 
 	private String asciiString;

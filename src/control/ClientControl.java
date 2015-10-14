@@ -22,8 +22,7 @@ import view.Renderer;
 
 public class ClientControl extends Thread {
 
-    //which client, and whether the server knows its there
-    boolean handShakeComplete = false;
+
     /**The gameclient handles all data recieved from the server. Any packets passed in through the socket will be parsed for what type of packet then dealt
      * with in the appropriate manner. The client communicates with the server and the renderer/UI only, it does not deal with any game logic. It has a game state,
      * which it does not make any direct changes to, only updates with information recieved from server.
@@ -34,16 +33,29 @@ public class ClientControl extends Thread {
 	//socket number to server and ip address game is played on
     private InetAddress ipAddress;
     private DatagramSocket socket;
+
     //gamestate to be updated by server communication
     private GameState gameState;
+
     //For deserialising the actor list
     private Serialiser serial = new Serialiser();
+
+    //Clients identification to server
     private int clientNum = 0;
-    private boolean isRunning = true;
+
+    //Confirmation that the client is logged in with server
+    boolean handShakeComplete = false;
 
     //UI/Rendering
     private Renderer renderer;
 
+
+    /**Constructor takes an Ip Address, a state, and the canvas associated with this client
+     * it will also construct the socket that data will be passed through to and from the server
+     * @param ipAddress
+     * @param gameState
+     * @param gameCanvas
+     */
 
     public ClientControl(String ipAddress, GameState gameState, GameCanvas gameCanvas) {
 
@@ -62,9 +74,11 @@ public class ClientControl extends Thread {
     }
 
 
-    /**run method to loop through continuously*/
+    /**run method to loop through continuously, sleep for 10ms, then wait for input from server before proceeding any further
+     * */
+
     public void run() {
-        while (isRunning) {
+        while (true) {
 
             try {
                 Thread.sleep(10);
@@ -72,10 +86,11 @@ public class ClientControl extends Thread {
                 e.printStackTrace();
             }
 
-            //wait for packet from the server
+            //buffer to store data from the server.
             byte[] data = new byte[60000];
             DatagramPacket packet = new DatagramPacket(data, data.length);
 
+            //Wait until the socket has mail
             try {
                 socket.receive(packet);
             } catch (IOException e) {
@@ -85,6 +100,7 @@ public class ClientControl extends Thread {
             //find out what kind of packet it is and deal with it
             parsePacket(packet.getData(), packet.getAddress(), packet.getPort());
 
+            //Once everything is updated, rerender the scene with the new state
             renderer.renderScene(gameState, clientNum);
 
         }
@@ -109,12 +125,13 @@ public class ClientControl extends Thread {
 
 
         switch (type) {
+
             case UPDATE:
 
             	//If an update, deserialize the data, update the local game state
                 ArrayList<Actor> recd;
                 try {
-                    if (clientNum != -1) {
+                    if (clientNum != 0) { //if a valid client
                     	recd = (ArrayList<Actor>) serial.deserialize(data);
                         gameState.setActors(recd);
                     } else {
@@ -125,18 +142,19 @@ public class ClientControl extends Thread {
                     System.out.println(e.getMessage());
                     e.printStackTrace();
                 }
+
                 break;
 
             case LOGINCONFIRM:
+
             	//If Loginconfirm, the server recieved the login packet, and is sending the client its number.
             	//Client needs to update itself that it has completed a handshake.
-                System.out.println("ClientControl recieved LOGINCONFIRM");
-                //If handshake is already complete, an error mustve occured.
+
+                //If handshake is already complete, an error must've occurred.
                 if (handShakeComplete) {
                     System.out.println("ClientControl already authenticated, LOGINCONFIRM not for me");
                     break;
                 } else {
-                    //must make sure to call the overloaded child method
                     PacketLoginConfirm loginConfirm = new PacketLoginConfirm(data);
                     clientNum = loginConfirm.getClientNumber();
                     System.out.println("ClientControl LOGINCONFIRM recieved...clientNum: " + clientNum);
@@ -144,22 +162,33 @@ public class ClientControl extends Thread {
                 }
 
                 break;
+
             case LOGIN:
+
                 //Login packet should only be sent to a server
-                System.out.println("ClientControl Error: received a login packet");
+            	 try {
+                     throw new GameException("Client recieved a login request...");
+                 } catch (GameException e) {
+                     e.printStackTrace();
+                 }
+
                 break;
 
-            case DISCONNECT:
-                //The server has disconnected, so display a message
+            case DISCONNECTCLIENTS:
+
+                //The server has disconnected, so display a message and exit the game
                 System.out.println("Server has disconnected");
                 JOptionPane.showMessageDialog(
-                	    null, "Server has disconnected...",
+                	    null, "Host Player has disconnected...exiting game",
                 	    "Game error",
                 	    JOptionPane.ERROR_MESSAGE);
+                System.exit(0);
+
                 break;
 
             default:
-            	//An error has occured and the client does not know what this is
+
+            	//Client doesnt know what this packet is..
                 try {
                     throw new GameException("Client Packet Header Error");
                 } catch (GameException e) {
@@ -170,7 +199,10 @@ public class ClientControl extends Thread {
 
     }
 
-    //send data to the server
+    /**Method that takes a byte array and writes it to the server socket. Called by the Packet class and its children
+     *
+     * @param data
+     */
     public void sendData(byte[] data) {
         DatagramPacket packet = new DatagramPacket(data, data.length, ipAddress, Main.PORT);
         try {
@@ -180,7 +212,10 @@ public class ClientControl extends Thread {
         }
     }
 
-    //handle the sending of key presses
+    /**Method for constructing a movePacket and writing it to the server
+     * Different to the prev method as takes a button press as a String instead of a byte array
+     * @param move
+     */
     public void sendKeyPress(String move) {
         String sendMove = "3" + clientNum + move;
         PacketMove movePacket = new PacketMove(sendMove.getBytes());
@@ -188,15 +223,19 @@ public class ClientControl extends Thread {
 
     }
 
-    // Added so GUI could get GameState via ClientControl
+
+    /**GETTERS AND SETTERS
+     *
+     * @return
+     */
     public GameState getGameState(){
         return gameState;
 	}
 
-    // Added so GUI can compare client number to update specific players inventory
     public int getClientNum() {
         return this.clientNum;
     }
+
 
     /**
      * Bonnie added this here!
@@ -216,7 +255,4 @@ public class ClientControl extends Thread {
 		}
     }
 
-    public void shutDownClient(){
-    	isRunning = false;
-    }
 }

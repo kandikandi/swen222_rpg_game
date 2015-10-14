@@ -30,7 +30,6 @@ public class GameWorldTests {
 	public void test_player_move_collision() {
 		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
-		// gameState.printGameObjectState();
 		player.move(gameState, "LEFT");
 		player.move(gameState, "LEFT");
 		assertTrue(player.getPosition().getxPos() == 80);
@@ -52,12 +51,9 @@ public class GameWorldTests {
 		GameState gameState = makeStandardGameObjects();
 		Player player = gameState.findPlayer(1);
 		player.setPosition(new Position(250, 350, 45));
-		gameState.printGameObjectState();
-		System.out.println(player.hasKey());
 		for (int i = 0; i < 10; i++) {
 			player.move(gameState, "RIGHT");
 		}
-		gameState.printGameObjectState();
 		assertTrue(player.getPosition().getxPos() == 340);
 	}
 
@@ -195,7 +191,6 @@ public class GameWorldTests {
 		gameState.getActors().add(player);
 		gameState.getActors().add(enemy);
 		for (int i = 0; i < 10; i++) {
-			System.out.println(enemy.getHealth());
 			player.move(gameState, "RIGHT");
 		}
 		assertTrue(enemy.getHealth() == 82);

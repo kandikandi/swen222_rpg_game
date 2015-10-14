@@ -68,7 +68,7 @@ public class LoginScreen extends JFrame {
 
 		addMouseListener(
 				new MouseAdapter(){
-					boolean isServer = false;
+					private boolean isServer = false;
 					private boolean isJoin;
 
 					public void mouseClicked(MouseEvent arg0){
@@ -78,12 +78,9 @@ public class LoginScreen extends JFrame {
 						if(xCord > 459 && xCord < 540 && yCord > 358 && yCord < 406){
 							hosted = true;
 							repaint();
-
-							MainServer.main(null);
-							isServer = true;
 							server = new MainServer();
-
 						}
+
 						else if(xCord > 450 && xCord < 542 && yCord > 435 && yCord < 476 && userNameEntered){
 							MainClient client = new MainClient();
 							client.launchClient(username, server); //TODO: Bonnie added extra argument

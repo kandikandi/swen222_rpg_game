@@ -4,8 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The observer that waits for keypresses and sends them to the client to send on
- *
+ * The observer that waits for keypresses and informs the client of
+ *what they are in the form of a string to send on to the server
  * @author mcleankand
  */
 public class PlayerController implements KeyListener {
@@ -20,6 +20,9 @@ public class PlayerController implements KeyListener {
     }
 
 
+    /**Key pressed will react to starting to attack(space), and movement (up,down,...)
+     * and rotate hot key (r)
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         switch (e.getKeyCode()) {
@@ -52,18 +55,22 @@ public class PlayerController implements KeyListener {
 
     }
 
+    /**Key released responds only to the space bar being released, as this will indicate that
+     * the player has stopped attacking
+     */
     @Override
     public void keyReleased(KeyEvent e) {
         switch (e.getKeyCode()) {
             case KeyEvent.VK_SPACE:
-                //System.out.println("PlayerController keyPressed: SPACE");
                 thisPlayer.sendKeyPress("SPACEUP");
                 break;
         }
 
     }
 
-
+    /**Key typed refers to entering in a specific rotation
+     *
+     */
     @Override
     public void keyTyped(KeyEvent e) {
     }

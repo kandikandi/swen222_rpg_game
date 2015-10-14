@@ -1,11 +1,16 @@
 package control;
 
-public class PacketDisconnect extends Packet {
+/**Packet which will deal with the situation of a client disconnecting from the server.
+ * The server needs to know which client disconnected so they can be removed fully from the game.
+ * @author mcleankand
+ *
+ */
+public class PacketDisconnectServer extends Packet {
 
 	private String username;
 	private int clientNum;
 
-	public PacketDisconnect(byte[] data) {
+	public PacketDisconnectServer(byte[] data) {
 		super(4);
 		this.clientNum = getClientNum(data);
 

@@ -1,6 +1,10 @@
 package control;
 
-/**Class for login packet, basically just creates a username atm*/
+/**The packet class responsible for returning a handshake to the server and informing the client
+ * what its client number is.
+ * @author mcleankand
+ *
+ */
 
 public class PacketLoginConfirm extends Packet{
 
