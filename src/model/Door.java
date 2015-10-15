@@ -1,26 +1,25 @@
 package model;
 
-import java.awt.Image;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Door extends Actor {
 
-	boolean open;
+	private boolean open;
+	private boolean special;
 
 	/**
 	 * This class defines Door objects, which block the path of
 	 * Player objects unless the Player has a key.
-	 *
-	 * @param id
 	 * @param position
-	 * @param image
+	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
-	 * @param boundingBoxSize
 	 */
-	public Door(ID id, Position position, Image image, boolean collidable,
-			boolean drawable, int boundingBoxSize) {
-		super(id, position, image, collidable, drawable, boundingBoxSize);
-
+	public Door(Position position, char imagePath, boolean collidable,
+				boolean drawable) {
+		super(position, imagePath, collidable, drawable);
 	}
 
 	/**
@@ -28,20 +27,50 @@ public class Door extends Actor {
 	 * Player object to pass over it.
 	 *
 	 */
-	public void open() {
-		open = true;
-		collidable = false;
+	public void setOpen() {
+		this.setCollidable(false);
+		this.setDrawable(false);
 	}
 
+	/**
+	 * Getter for whether door is open.
+	 *
+	 * @return
+	 */
 	public boolean getIsOpen(){
 		return open;
 	}
 
-	@Override
-	public void tick() {
-		// TODO Auto-generated method stub
 
+	/**
+	 * Setter for special field.
+	 *
+	 * @param special
+	 */
+	public void setSpecial(boolean special){
+		this.special = special;
 	}
+
+	/**
+	 * Getter for special field.
+	 *
+	 * @param special
+	 */
+	public boolean isSpecial(){
+		return special;
+	}
+
+    /**
+	 * Returns description of Door, as well as whether it's open.
+	 *
+	 */
+	@Override
+	public String getDescription() {
+		return "This is a Door! It is "+getIsOpen()+"!!!";
+	}
+
+	@Override
+	public void tick() {}
 
 
 

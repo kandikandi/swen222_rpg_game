@@ -1,120 +1,207 @@
 package model;
 
-import control.GameController;
-import control.GameKeyListener;
-import control.Main;
-import factory.AbstractFactory;
-import factory.ServerModeFactory;
-import factory.TestModeFactory;
+import view.ActorAssets;
+import view.TestWorlds;
 
 import java.awt.Rectangle;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import save.gamestate.GamestateAdapter;
 
 /**
- * This class will be a central
- *
- * @author dalyandr
+ * The GameState class creates and manages the factory that creates the game
+ * elements, such as Players, Tiles,and other Actors. It then also maintains and
+ * manages the objects. It is a central source of game state information for
+ * other parts/packages of the game.
  *
  */
-@XmlRootElement(namespace = "gamestate") //TODO: Bonnie added this line!
-@XmlAccessorType(XmlAccessType.FIELD) //TODO: Bonnie added this line!
+@XmlRootElement(namespace = "gamestate")
+//@XmlJavaTypeAdapter(GamestateAdapter.class)
+@XmlAccessorType(XmlAccessType.FIELD)
 public class GameState {
-	@XmlElementWrapper(name = "tilesList") //TODO: Bonnie added this line!
-	@XmlElement(name = "tile") //TODO: Bonnie added this line!
+
+	/**
+	 * This factory creates the necessary game objects from the TIle and actor
+	 * maps.
+	 *
+	 */
+	@XmlTransient
+	// TODO: Bonnie added this here!
+	private final Factory factory;
+	/**
+	 * This array of Tiles holds all the game Tiles.
+	 *
+	 */
+	@XmlTransient
 	private Tile[][] worldTiles;
+	/**
+	 * This array holds all the active Actor object implementations in the game.
+	 *
+	 */
+	 @XmlElementWrapper(name = "actorsList") //TODO:Bonnie added this here!
+	 @XmlElement(name = "actor") //TODO:Bonnie added this here!
+//	@XmlElementRef
+	private List<Actor> actors;
 
-	private  Player player;
-
-	@XmlElementWrapper(name = "actors") //TODO: Bonnie added this line!
-	@XmlElement(name = "actor") //TODO: Bonnie added this line!
-	private  List<Actor> actors; // list of all GameObjects in
-													// Game.
-	private final AbstractFactory factory;
-
-	@XmlTransient //TODO: Bonnie added this line!
-	private final GameController gameController;
-
-
-	public GameState(GameController gameController) {
-		this.gameController = gameController;
-		this.actors = new ArrayList<>();
-		worldTiles = new Tile[Main.NUM_TILE_ROW][Main.NUM_TILE_COL];
-		if (Main.TEST_MODE) {
-			factory = new TestModeFactory(gameController);
-			worldTiles = factory.createWorldTiles();
-			player = factory.createPlayerActor(gameController.getKeyListener());
+	/**
+	 * The constructor creates the factory which constructs the Tiles and Actors
+	 * for the server (and just the Tiles for the client).
+	 *
+	 * @param isServer
+	 */
+	public GameState(boolean isServer) {
+		factory = new Factory();
+		worldTiles = factory.createWorldTiles();
+		if (isServer) {
 			actors = factory.createActorList();
-			actors.add(player);
-			player.setInventory(factory.createInventory(true, 10, 10));
-		} else {
-			factory = new ServerModeFactory(gameController);
 		}
-
 	}
 
-	/*
-	 * This method gets called by GameObject objects checking to see if their
-	 * proposed new location would result in a collision and returns (the first)
-	 * object that the GameObject would collide with.
-	 */
-	public  Actor checkCollision(Rectangle newBoundingBox) {
-		for (Actor actor : actors) {
-			if (actor.isCollidable()){
-				if (actor.getBoundingBox().intersects(newBoundingBox)
-					&& !(actor instanceof Player)
-					&& !(actor instanceof Inventory)) {
-					return actor;
-			}
-					}
-		}
-		return null;
-
+	private GameState() {
+		factory = new Factory();
+		worldTiles = factory.createWorldTiles();
 	}
 
 	/**
-	 * Returns list of all Actors.
+	 * Getter for the list of active Actor objects in the game.
 	 *
 	 * @return
 	 */
-	public  List<Actor> getAllActors() {
+	synchronized public List<Actor> getActors() {
 		return actors;
 	}
 
 	/**
+	 * Setter for game Actor objects.
+	 *
+	 * @param actors
+	 */
+	synchronized public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
+	/**
+	 * Getter for the list of active Enemy objects in the game.
 	 *
 	 * @return
 	 */
-	public  Player getPlayer() {
-		return player;
+	synchronized public ArrayList<Enemy> getEnemies() {
+	ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+		for (Actor actor : actors) {
+			if (actor instanceof Enemy) {
+				enemies.add((Enemy) actor);
+			}
+		}
+		return enemies;
 	}
 
+	/**
+	 * Getter for 2-D array of Tiles.
+	 *
+	 * @return
+	 */
 	public Tile[][] getWorld() {
 		return worldTiles;
 	}
 
-	// ////////// Debuggin printout
+	/**
+	 * This method adds a player to the game and provides a Player object that
+	 * represents each Player.
+	 *
+	 * @param clientNum
+	 */
+	synchronized public void createPlayer(int clientNum) {
+		Player player = factory.createPlayerActor(clientNum);
+		actors.add(player);
+	}
+
+	/**
+	 * Remove a specific player from the actor list (for client disconnections)
+	 *
+	 */
+	synchronized public void removePlayer(Player player){
+		actors.remove(player);
+	}
+
+	/**
+	 * The Collision class controls the collision logic. This helps that process
+	 * by providing the first colliding object that is in the Player object's
+	 * proposed location.
+	 *
+	 * @param position
+	 * @return
+	 */
+	public Actor playerCollisionCheck(Position position) {
+		BoundingBox boundingBox = position.getBoundingBox();
+		for (Actor actor : actors) {
+			if (actor.isCollidable() && !(actor instanceof Player)) {
+				if (actor.getBoundingBox().intersects(boundingBox)) {
+					return actor;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * The Collision class controls the collision logic. This helps that process
+	 * by providing the first colliding object that is in the Enemy object's
+	 * proposed location.
+	 *
+	 * @param position
+	 * @return
+	 */
+	public Actor enemyCollisionCheck(Position position) {
+		Rectangle boundingBox = new Rectangle(position.getxPos(),
+				position.getyPos(), ActorAssets.ENEMY.getWidth(),
+				ActorAssets.ENEMY.getHeight());
+		for (Actor actor : actors) {
+			if (actor.isCollidable() && !(actor instanceof Enemy)) {
+				if (actor.getBoundingBox().intersects(boundingBox)) {
+					return actor;
+				}
+			}
+		}
+		return null;
+	}
+
+	/**
+	 * This method returns a one of the two Player objects depending the client
+	 * number entered.
+	 *
+	 * @param playerNum
+	 * @return Player
+	 */
+	public Player findPlayer(int playerNum) {
+		if (actors != null) {
+			for (Actor actor : actors) {
+				if (actor instanceof Player) {
+					Player player = (Player) actor;
+					if (player.getClientNum() == playerNum) {
+						return player;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+
+	// ============== DEBUGGING =================
 	public void printGameObjectState() {
 		for (Actor actor : actors) {
 			actor.printState();
 		}
 	}
-
-	// ////////////// TEMPORARY FOR TESTS ONLY/////////////////////
-	public void addActor(Actor... actorList) {
-		for (Actor actor : actorList) {
-			actors.add(actor);
-		}
-
-	}
-	// ////////////////////////////////////////////////
 
 }

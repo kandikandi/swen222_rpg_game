@@ -7,12 +7,12 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import control.GameController;
-import model.GameState;
+import control.ClientControl;
+import model.Player;
 
 /**
  * The GameCanvas receives images via its receiveBuffImage(BufferedImage buffimg) method,
- * this image is then drawn to display on the canvas
+ * this imageName is then drawn to display on the canvas
  * @author newtondavi2 (David)
  *
  */
@@ -22,23 +22,21 @@ public class GameCanvas extends JPanel {
 	private int WIDTH;
 	private int HEIGHT;
 	private GameFrame frame;
-	private final GameController gameController;
+	private ClientControl clientControl;
+	private boolean clientSet = false;
 
-	//TODO does this class need a reference to GameFrame?
 	/**
 	 * Constructs the GameCanvas, setting the Canvas to the current GameFrame
-	 * @param gameController
 	 * @param frame
 	 * @param WIDTH
 	 * @param HEIGHT
 	 */
-	public GameCanvas(GameController gameController, GameFrame frame, int WIDTH, int HEIGHT) {
-		this.gameController = gameController;
+	public GameCanvas(GameFrame frame, int WIDTH, int HEIGHT) {
+
 		this.WIDTH = WIDTH;
 		this.HEIGHT = HEIGHT;
 		this.frame = frame;
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-		this.setFocusable(true);
 
 	}
 
@@ -49,28 +47,32 @@ public class GameCanvas extends JPanel {
 	public void receiveBuffImage(BufferedImage buffImg) {
 		receivedImage = buffImg;
 		this.repaint();
-		//this works to - might be to quick
-		if(gameController.getPlayer() != null){
-			this.getFrame().updateGUI(gameController.getPlayer());
-		}
-		frame.requestFocus();
-
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-		//System.out.println("GameCanvas paintComponent");
 		Graphics2D g2 = (Graphics2D) g;
 		if(receivedImage == null){
 			g2.fillRect(0, 0, 800, 600);
 		}else{
 			g2.drawImage(receivedImage,0,0,this);
 		}
-		//this works
-//		if(GameState.getPlayer() != null){
-//			this.getFrame().updateGUI(GameState.getPlayer());
-//		}
+		if(clientSet){
+			Player player = clientControl.getGameState().findPlayer(clientControl.getClientNum());
+			if(player != null){
+				this.getFrame().updateGUI(player, clientControl);
+			}
 
+		}
+	}
+
+	/**
+	 * Sets the client
+	 * @param client
+	 */
+	public void setSocketClient(ClientControl client){
+		this.clientControl = client;
+		this.clientSet = true;
 	}
 
 	/**

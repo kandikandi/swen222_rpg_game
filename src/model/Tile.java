@@ -1,16 +1,6 @@
 package model;
 
-import control.DIR;
-import system.GameException;
-
-import java.awt.*;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
+import java.io.Serializable;
 
 /**
  * Created by cuan on 9/13/15.
@@ -20,33 +10,25 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  *
  */
-@XmlRootElement(name = "tile") //TODO: Bonnie added this line!
-public final class Tile  {
-    private final Image image;
+//@XmlRootElement(name = "tile") //TODO: Bonnie added this line!
+
+public final class Tile  implements Serializable{
+    private final char asciiCode;
     private final Position position;
 
-    public Tile(Image image, Position position) {
+    public Tile(char asciiCode, Position position) {
         this.position = position;
-        this.image = image;
+        this.asciiCode = asciiCode;
     }
 
-    /**
-     * Getter for Tile image.
-     *
-     * @return tile Image
-     */
-//    @XmlElement(name = "image") //TODO: Bonnie added this line!
-    @XmlTransient //TODO: Bonnie added this line!
-    public Image getImage(){
-    	return image;
+    //@XmlElement(name = "imageName") //TODO: Bonnie added this line!
+    //@XmlTransient //TODO: Bonnie added this line!
+
+    public char getAsciiCode(){
+        return asciiCode;
     }
 
-    /**
-     * Getter for Tile position.
-     *
-     * @return Tile position
-     */
-    @XmlElement(name = "position") //TODO: Bonnie added this line!
+    //@XmlElement(name = "position") //TODO: Bonnie added this line!
     public Position getPosition(){
     	return position;
     }

@@ -1,7 +1,13 @@
 package model;
 
+import control.GlobalConst;
+import save.position.PositionAdapter;
+
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 /**
  * Created by cuan on 9/13/15.
@@ -10,15 +16,42 @@ import javax.xml.bind.annotation.XmlRootElement;
  * position. This class is also final so it can be safely used as a
  * key for a map to a game-world object.
  */
+
 @XmlRootElement(name = "position") //TODO: Bonnie added this line!
-public final class Position {
+@XmlJavaTypeAdapter(PositionAdapter.class)
+public final class Position  implements Serializable {
     private int xPos, yPos;
-    private int hashCode;
+    private final int bBoxXOffset, bBoxYOffset;
+    private final BoundingBox boundingBox;
 
     public Position(int xPos, int yPos){
+        int size = GlobalConst.TILE_SIZE;
+        this.boundingBox = new BoundingBox(size,size);
         this.xPos = xPos;
         this.yPos = yPos;
-        generateHash();
+        this.bBoxXOffset = boundingBox.getXOffset();
+        this.bBoxYOffset = boundingBox.getYOffset();
+    }
+
+    public Position(int xPos, int yPos, int size){
+        this.boundingBox = new BoundingBox(size,size);
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.bBoxXOffset = boundingBox.getXOffset();
+        this.bBoxYOffset = boundingBox.getYOffset();
+    }
+
+    public Position(int xPos, int yPos, BoundingBox boundingBox){
+        this.xPos = xPos;
+        this.yPos = yPos;
+        this.boundingBox = boundingBox;
+        this.bBoxXOffset = boundingBox.getXOffset();
+        this.bBoxYOffset = boundingBox.getYOffset();
+    }
+
+    public BoundingBox getBoundingBox() {
+        boundingBox.setLocation(xPos+bBoxXOffset, yPos+bBoxYOffset);
+        return boundingBox;
     }
 
     /**
@@ -36,7 +69,7 @@ public final class Position {
      *
      */
     public void setxPos(int xPos) {
-        this.xPos = xPos;
+    	this.xPos = xPos;
     }
 
     /**
@@ -57,58 +90,12 @@ public final class Position {
         this.yPos = yPos;
     }
 
-    /**
-     * Called on construction of location object.
-     * Uses the grid co-ord and fine co-ord ints
-     * to generate a unique hashcode with a Bijective
-     * function
-     *
-     */
-    private int generateHash() {
-        int hash = bijectiveAlgorithm(xPos,yPos);
-        return hash;
-    }
-
-    /**
-     * A Bijective Algorithm to generate unique hash codes for
-     * any X and Y.
-     *
-     */
-    private int bijectiveAlgorithm(int x, int y){
-        int value = ( y +  ((x+1)/2));
-        return x +  ( value * value);
-    }
-
-    /**
-     * Hash code is calculated on position to allow for easy
-     * Key mapping to game-world object values.
-     */
-    @Override
-    public int hashCode() {
-        return hashCode;
-    }
-
-    /**
-     * Equals is calculated on hash code thus based on position
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if(obj==null){return false;}
-    	Position other;
-        try{
-            other = (Position) obj;
-            return this.hashCode() == other.hashCode();
-        } catch (ClassCastException e){
-            System.out.println(toString()+" "+hashCode()+" against "+obj.toString());
-            throw e;
-        }
-    }
-
-    /**
+     /**
      * This method prints out the x and y values of the position.
      */
     @Override
     public String toString() {
-        return "Location; xPos:"+xPos+" yPos:"+yPos;
+        return "Location:: xPos: " + xPos + " yPos: " + yPos + "\nBoundingBox: " + boundingBox;
     }
 }
+

@@ -1,31 +1,48 @@
 package model;
 
-import java.awt.Image;
 
 public class Key extends Collectable {
+
+	private boolean special;
 
 	/**
 	 * A Key object can be picked up by a Player and used to
 	 * open a Door.
-	 *
-	 * @param id
-	 * @param position
-	 * @param image
+	 *  @param position
+	 * @param imagePath
 	 * @param collidable
 	 * @param drawable
-	 * @param boundingBoxSize
 	 */
-	public Key(ID id, Position position, Image image, boolean collidable, boolean drawable, int boundingBoxSize) {
-		super(id, position, image, collidable, drawable, boundingBoxSize);
+	public Key(Position position, char imagePath, boolean collidable, boolean drawable) {
+		super(position, imagePath, collidable, drawable);
 
 	}
 
 	/**
-	 * When a Player is near a Door and has a key, this method sets the key to not visible
-	 * or collidable.
+	 * When a Player collides with a Door and has a key, this method sets the key to not visible
+	 * or collidable. The door will be set to open and become non-collidable.
 	 */
 	public void useInDoor(){
-		drawable = false;
-		collidable = false;
+		this.setDrawable(false);
+		this.setCollidable(false);
 	}
+
+	/**
+	 * Setter for special field.
+	 *
+	 * @param special
+	 */
+	public void setSpecial(boolean special){
+		this.special = special;
+	}
+
+	/**
+	 * Getter for special field.
+	 *
+	 * @param special
+	 */
+	public boolean isSpecial(){
+		return special;
+	}
+
 }

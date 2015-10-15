@@ -11,13 +11,18 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import javax.swing.border.Border;
 
-import model.ID;
+import control.ClientControl;
+import control.PacketDropItem;
+import control.PacketUseItem;
+import model.Player;
+
+
+
 
 /**
  * The ItemLabel extends JLabel, it is used for each item type received from
@@ -30,34 +35,30 @@ public class ItemLabel extends JLabel {
 	private Image itemImage;
 	private BufferedImage emptySlot; // The Image for an Empty Slot in the players Inventory (no item)
 	private JPopupMenu itemMenu = new JPopupMenu();
-	private ID itemID;
+	private char asciiCode;
+	private InfoPanel inspectPanel;
+	private Player player;
+	private ClientControl clientControl;
+	private boolean sendPacket = false;
 
 	/*
-	 * The constructor will take in an items ID so that it can create its inventory image for the ItemLabels ImageIcon.
+	 * The constructor will take in an items ID so that it can create its inventory imageName for the ItemLabels ImageIcon.
 	 */
-	public ItemLabel(){
+	public ItemLabel(InfoPanel inspectItem, char c, Player player, ClientControl clientControl){
 
+		this.inspectPanel = inspectItem;
 		this.setPreferredSize(new Dimension(50,50));
-		this.setIcon(new ImageIcon()); // ------------- currently not set to items image
-//		this.itemID = itemID;
+		this.setIcon(new ImageIcon());
+		this.asciiCode = c;
+		this.player = player;
+		this.clientControl = clientControl;
 
-		/*
-		 * Set up the JPopupMenu.
-		 * This menu only displays when a ItemLabel is right clicked
-		 */
 		this.addMouseListener(new PopupTriggerListener());
 
 		JMenuItem inspect = new JMenuItem("Inspect Item");
-
 		inspect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Item Inspected");
-				if(getLabel().getItemLabelID().getID() == 4){
-					GameFrame.displayPlayersCoinBag = true;
-
-				}
-
-
+				inspectPanel.getInspect(getLabel().getAscii());
 			}
 		});
 		itemMenu.add(inspect);
@@ -65,46 +66,69 @@ public class ItemLabel extends JLabel {
 		JMenuItem use = new JMenuItem("Use Item");
 		use.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Item used");
+				//=============USE PACKET CODE HERE===========
+				sendPacket = false;
+				String data = "";
+				if(getLabel().getAscii() == 'Z'){
+					data = "6"+player.getClientNum()+"Z";
+					sendPacket = true;
+				}
+				if(sendPacket){
+					PacketUseItem p = new PacketUseItem(data.getBytes());
+					p.writeData(clientControl);
+				}
+
 
 
 			}
 		});
 		itemMenu.add(use);
 
-		JMenuItem destroy = new JMenuItem("Destroy Item");
-		destroy.addActionListener(new ActionListener() {
+		JMenuItem drop = new JMenuItem("Drop Item");
+		drop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("Item Destroyed");
+				sendPacket = false;
+				String data = "";
+				if(getLabel().getAscii() == 'K'){
+					data = "5"+player.getClientNum()+"K";
+					sendPacket = true;
+				}
+				if(getLabel().getAscii() == 'B'){
+					data = "5"+player.getClientNum()+"B";
+					sendPacket = true;
+				}
+				if(getLabel().getAscii() == 'C'){
+					data = "5"+player.getClientNum()+"C";
+					sendPacket = true;
+				}
+				if(getLabel().getAscii() == 'Z'){
+					data = "5"+player.getClientNum()+"Z";
+					sendPacket = true;
+				}
+				if(getLabel().getAscii() == 'X'){
+					data = "5"+player.getClientNum()+"X";
+					sendPacket = true;
+				}
+				if(getLabel().getAscii() == 'Q'){
+					data = "5"+player.getClientNum()+"Q";
+					sendPacket = true;
+				}
 
-			}
-		});
-		itemMenu.add(destroy);
-
-		JMenuItem hide = new JMenuItem("Hide Coins");
-		hide.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("Hide coins");
-				if(getLabel().getItemLabelID().getID() == 4){
-					GameFrame.displayPlayersCoinBag = false;
-
+				if(sendPacket = true){
+					PacketDropItem p = new PacketDropItem(data.getBytes());
+					p.writeData(clientControl);
 				}
 
 			}
 		});
-		itemMenu.add(hide);
+		itemMenu.add(drop);
 
-	}
-
-	// rough set of this item id
-	public void setItemLabelID(ID id){
-		this.itemID = id;
 
 	}
 
 	//rough get of this item label
-	public ID getItemLabelID(){
-		return this.itemID;
+	public char getAscii(){
+		return this.asciiCode;
 	}
 
 	//rough return of this label
@@ -119,7 +143,6 @@ public class ItemLabel extends JLabel {
 	 */
 	class PopupTriggerListener extends MouseAdapter {
 
-
 		Border selectedBorder = BorderFactory.createLineBorder(Color.GREEN, 1);
 
 		public void mousePressed(MouseEvent ev) {
@@ -132,20 +155,12 @@ public class ItemLabel extends JLabel {
 		public void mouseReleased(MouseEvent ev) {
 			if (ev.isPopupTrigger()) {
 				itemMenu.show(ev.getComponent(), ev.getX(), ev.getY());
+
 			}
 		}
 
 		public void mouseClicked(MouseEvent ev) {
 		}
 	}
-
-
-	//	public void setItem(Item item){
-	//
-	//	}
-	//
-	//	public Item getItem(){
-	//
-	//	}
 
 }

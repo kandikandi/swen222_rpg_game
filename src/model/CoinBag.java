@@ -1,51 +1,62 @@
 package model;
 
-import java.awt.Image;
 import java.util.ArrayList;
+
 
 public class CoinBag extends Container {
 
-	private final int maximumItems = 10;
+	private final int maximumItems = 1000;
 
-	public CoinBag(ID id, Position position, Image image, boolean collidable,
-			boolean drawable, int boundingBoxSize) {
-		super(id, position, image, collidable, drawable, boundingBoxSize);
+	/**
+	 * A CoinBag object can be picked up by a Player and placed into the
+	 * Player's Inventory. This increases the number of Coin objects a Player
+	 * can carry from 9 to 50 per CoinBag.
+	 *  @param position
+	 * @param imagePath
+	 * @param collidable
+	 * @param drawable
+	 */
+	public CoinBag(Position position, char imagePath,
+				   boolean collidable, boolean drawable) {
+		super(position, imagePath, collidable, drawable);
 		this.items = new ArrayList<Actor>();
 	}
 
 	/**
 	 * Allows for an item to be added to the list of items.
 	 *
-	 * @param Collectable
+	 * @param collectable
 	 */
 	@Override
-	public boolean addItemToContainer(Collectable collectable) {
+	public void addItemToContainer(Actor collectable) {
 		if (collectable == null) {
-			return false;
-		}else if (! (collectable instanceof Coin) ){
-			return false;
+			return;
+		} else if (!(collectable instanceof Coin)) {
+			return;
 		} else if (items.size() < maximumItems) {
-			items.add(collectable);
-			return true;
+			items.add((Coin) collectable);
+			collectable.setCollidable(false);
+			collectable.setDrawable(false);
+			return;
 		} else {
-			return false;
+			return;
 		}
 	}
 
 	/**
 	 * Allows for an item to be removed from the list of items.
 	 *
-	 * @param gameObject
+	 * @param collectable
 	 */
-	public boolean removeItemFromContainer(Collectable collectable) {
-		if (collectable == null || numberOfObjectInContainer() == 0) {
-			return false;
+	public void removeItemFromContainer(Actor collectable) {
+		if (collectable == null || numItemsInContainer() == 0) {
+			return;
 		} else if (items.contains(collectable)) {
 			collectable.setPosition(position); // update position
 			items.remove(collectable);
-			return true;
+			return;
 		} else {
-			return false;
+			return;
 		}
 
 	}
@@ -57,6 +68,19 @@ public class CoinBag extends Container {
 	 */
 	public int numberOfCoinsInCoinBag() {
 		return items.size();
+	}
+
+	/**
+	 * Returns description of bag, as well as number of coins within.
+	 *
+	 */
+	@Override
+	public String getDescription() {
+		if (this.actorDescription == null) {
+			actorDescription = " ";
+		}
+		return "This is a CoinBag, it contains " + numberOfCoinsInCoinBag()
+				+ " coins! It can hold "+maximumItems+ " coins.";
 	}
 
 }

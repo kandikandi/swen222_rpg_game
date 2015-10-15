@@ -1,56 +1,68 @@
 package model;
 
-
 import java.awt.*;
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import save.actor.ActorAdapter;
 
 /**
  * Created by cuan on 9/13/15.
- *
- *
- *
  */
-public abstract class Actor implements Tickable {
-	protected Image image;
+// @XmlRootElement(name = "actor")
+// TODO:Bonnie added this here!
+// @XmlJavaTypeAdapter(ActorAdapter.class)
+@XmlSeeAlso({ Coin.class, CoinBag.class, Collectable.class, Door.class,
+		Enemy.class, Key.class, Wall.class, Player.class })
+public class Actor implements Serializable {
+	protected String imageName;
 	protected Position position;
 	protected boolean collidable;
 	protected boolean drawable;
-	protected ID id;
-	protected int boundingBoxSize;
+	protected char asciiCode;
+	protected String actorDescription;
 
-    public Actor(ID id, Position position, Image image, boolean collidable, boolean drawable, int boundingBoxSize) {
-    	this.id = id;
-    	this.position = position;
-    	this.image = image;
-    	this.collidable = collidable;
-    	this.drawable = drawable;
-    	this.boundingBoxSize = boundingBoxSize;
-    }
+	public Actor(Position position, char ascii, boolean collidable,
+			boolean drawable) {
+		// this.id = id;
+		this.position = position;
+		this.asciiCode = ascii;
+		this.collidable = collidable;
+		this.drawable = drawable;
 
+	}
 
-    abstract public void tick();
+	private Actor() {}
 
-    /**
+	public void tick() {}
+
+	/**
 	 * Getter method for GameObject's unique ID.
 	 *
 	 * @return GameObject's unique ID.
 	 */
-	public ID getID() {
-		return id;
-	}
+	/*
+	 * @XmlElement(name = "id") //TODO:Bonnie added this here! public ID getID()
+	 * { return id; }
+	 */
 
 	/**
 	 * Getter method for GameObject's Image.
 	 *
-	 * @return  GameObject's Image.
+	 * @return GameObject's Image.
 	 */
-	public Image getImage() {
-		return image;
+	public char getImageName() {
+		return asciiCode;
 	}
 
 	/**
 	 * Getter method for this GameObject's position.
 	 *
-	 * @return GameObject's Image.
+	 * @return GameObject's Position.
 	 */
 	public Position getPosition() {
 		return position;
@@ -65,49 +77,124 @@ public abstract class Actor implements Tickable {
 		this.position = position;
 	}
 
-    /**
-     * Returns bounding box - currently treats everything as a square of size boundingBoxSize.
-     *
-     * @return
-     */
-    public Rectangle getBoundingBox(){
-		return new Rectangle(position.getxPos(),position.getyPos(), boundingBoxSize, boundingBoxSize);
-    }
+	/**
+	 * Getter method for this GameObject's description.
+	 *
+	 * @return GameObject's description String.
+	 */
+	public String getDescription() {
+		if (this.actorDescription == null) {
+			actorDescription = "This is a " + this.getClass();
+		}
+		return actorDescription;
+	}
 
-    /**
-     * Getter for collidable field.
-     *
-     * @return whether or not collidable
-     */
-    public boolean isCollidable(){
-    	return collidable;
-    }
+	/**
+	 * Setter method for this GameObject's position.
+	 *
+	 * @return GameObject's Image.
+	 */
+	public void setDescription(String description) {
+		this.actorDescription = description;
+	}
 
-    public void setCollidable(boolean collidable){
-    	this.collidable = collidable;
-    }
-    public void setDrawable(boolean drawable){
-    	this.drawable = drawable;
-    }
+	/**
+	 * Returns bounding box - currently treats everything as a square of size
+	 * boundingBoxSize.
+	 *
+	 * @return
+	 */
+	public BoundingBox getBoundingBox() {
+		return position.getBoundingBox();
+		// return new Rectangle(position.getxPos(), position.getyPos(),
+		// boundingBoxSize, boundingBoxSize);
+	}
 
-    /**
-     * Getter for drawable field.
-     *
-     * @return whether or not drawable.
-     */
+	// ==============================================================================
+	// Bonnie added this!
+	// @XmlElement(name = "boundingBoxSize") //TODO:Bonnie added this here!
+	// public int getBoundingBoxSize(){
+	// return boundingBoxSize;
+	// }
+	//
+	// public void setImageName(String imageName) {
+	// this.imageName = imageName;
+	// }
+	//
+	// public void setId(ID id) {
+	// this.id = id;
+	// }
+	//
+	// public void setBoundingBoxSize(int boundingBoxSize) {
+	// this.boundingBoxSize = boundingBoxSize;
+	// }
+	//
+	// public void setAsciiCode(char asciiCode) {
+	// this.asciiCode = asciiCode;
+	// }
+
+	// ===========================================================================
+
+	/**
+	 * Getter for collidable field.
+	 *
+	 * @return whether or not collidable
+	 */
+	public boolean isCollidable() {
+		return collidable;
+	}
+
+	/**
+	 * Setter for collidable field.
+	 */
+	public void setCollidable(boolean collidable) {
+		this.collidable = collidable;
+	}
+
+	/**
+	 * Method to dictate how the actor will act will colliding with other actors
+	 * Since this method is not abstract and has not logic, if its not
+	 * over-ridden by a concrete subclass nothing will happen
+	 *
+	 * @param actor
+	 */
+	protected void collide(Actor actor) {
+	}
+
+	/**
+	 * Setter for drawable field.
+	 */
+	public void setDrawable(boolean drawable) {
+		this.drawable = drawable;
+	}
+
+	/**
+	 * Getter for drawable field.
+	 *
+	 * @return whether or not drawable.
+	 */
 	public boolean isDrawable() {
 		return drawable;
 	}
 
+	/**
+	 * Mini-debug helper printout
+	 */
+	public void printState() {
+		System.out.println(this.getClass() + " " + getPosition().toString()
+				+ "\ncollidable: " + isCollidable() + " drawable: "
+				+ isDrawable() + "\n");
+	}
 
-    /**
-     * Mini-debug helper printout
-     */
-    public void printState(){
-    	System.out.println(this.getClass()+" "+getPosition().toString()+"\ncollidable: "+isCollidable() + " drawable: " + isDrawable()+"\n");
-    }
-
-
+	/**
+	 * Getter for object ascii code.
+	 *
+	 * @return
+	 */
+	@XmlElement(name = "asciicode")
+	// TODO:Bonnie added this here!
+	public char getAsciiCode() {
+		return asciiCode;
+	}
 
 }
-
