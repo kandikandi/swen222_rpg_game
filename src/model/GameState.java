@@ -16,8 +16,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import save.gamestate.GamestateAdapter;
-
 /**
  * The GameState class creates and manages the factory that creates the game
  * elements, such as Players, Tiles,and other Actors. It then also maintains and
@@ -26,7 +24,6 @@ import save.gamestate.GamestateAdapter;
  *
  */
 @XmlRootElement(namespace = "gamestate")
-//@XmlJavaTypeAdapter(GamestateAdapter.class)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class GameState {
 
