@@ -8,14 +8,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import save.actor.ActorAdapter;
 
 /**
  * Created by cuan on 9/13/15.
  */
-// @XmlRootElement(name = "actor")
-// TODO:Bonnie added this here!
-// @XmlJavaTypeAdapter(ActorAdapter.class)
 @XmlSeeAlso({ Coin.class, CoinBag.class, Collectable.class, Door.class,
 		Enemy.class, Key.class, Wall.class, Player.class })
 public class Actor implements Serializable {

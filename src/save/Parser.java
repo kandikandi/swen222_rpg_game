@@ -167,6 +167,8 @@ class XMLHandler extends DefaultHandler {
 	private boolean ikey = false;
 	private boolean icandy = false;
 
+	private boolean binven = false;
+
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -218,6 +220,7 @@ class XMLHandler extends DefaultHandler {
 			moveType = true;
 		} else if (qName.equalsIgnoreCase("inventory")) {
 			pinven = new ParserActor();
+			binven  = true;
 		} else if (qName.equalsIgnoreCase("hasKey")) {
 			hasKey = true;
 		} else if (qName.equalsIgnoreCase("fear")) {
@@ -307,6 +310,7 @@ class XMLHandler extends DefaultHandler {
 			for (Actor act : itemsList) {
 				inventory.addItemToContainer(act);
 			}
+			binven = false;
 		}
 	}
 
@@ -322,11 +326,15 @@ class XMLHandler extends DefaultHandler {
 				act.isDrawable(), act.getClientNum());
 		a.setDescription(act.getActorDescription());
 		a.setInventory(inventory);
-		a.setHasKey(hasKey);
+		if(hasKey){
+			a.setHasKey(true);
+		}
+		else a.setHasKey(false);
 		hasKey = false;
 		a.setAttackPoints(act.getAttackpoints());
 		a.setFear(act.getFear());
-		a.setAlive(alive);
+		if(alive) a.setAlive(true);
+		else a.setAlive(false);
 		alive = false;
 		a.setBravery(act.getBravery());
 		a.setClientNum(act.getClientNum());
@@ -470,7 +478,11 @@ class XMLHandler extends DefaultHandler {
 			if (items) {
 				pitem.setAsciiCode((char) Integer.parseInt(token));
 				setItem(pitem.getAsciiCode());
-			} else {
+			} 
+			else if(binven){
+				pinven.setAsciiCode((char) Integer.parseInt(token));
+			}
+			else {
 				pactor.setAsciiCode((char) Integer.parseInt(token));
 				setActor(pactor.getAsciiCode());
 			}
@@ -479,11 +491,13 @@ class XMLHandler extends DefaultHandler {
 			if (token.equals("true")) {
 				if (items)
 					pitem.setCollidable(true);
+				else if(binven) pinven.setCollidable(true);
 				else
 					pactor.setCollidable(true);
 			} else {
 				if (items)
 					pitem.setCollidable(false);
+				else if(binven) pinven.setCollidable(false);
 				else
 					pactor.setCollidable(false);
 			}
@@ -492,11 +506,13 @@ class XMLHandler extends DefaultHandler {
 			if (token.equals("true")) {
 				if (items)
 					pitem.setDrawable(true);
+				else if(binven) pinven.setDrawable(true);
 				else
 					pactor.setDrawable(true);
 			} else {
 				if (items)
 					pitem.setDrawable(false);
+				else if(binven) pinven.setDrawable(false);
 				else
 					pactor.setDrawable(false);
 			}
@@ -504,6 +520,7 @@ class XMLHandler extends DefaultHandler {
 		} else if (bdesc) {
 			if (items)
 				pitem.setActorDescription(token);
+			else if(binven) pinven.setActorDescription(token);
 			else
 				pactor.setActorDescription(token);
 			bdesc = false;

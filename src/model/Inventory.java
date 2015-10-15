@@ -7,16 +7,11 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import save.inventory.InventoryAdapter;
-
 /**
  * An Inventory is a Container which a Player always has in which game
  * Collectable objects such as Coins and Keys can be placed.
  *
  */
-//@XmlRootElement(name = "inventory")
-// TODO: Bonnie added this line!
-//@XmlJavaTypeAdapter(InventoryAdapter.class)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Inventory extends Container {
 
