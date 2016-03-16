@@ -1,5 +1,7 @@
 # Dreamland Game #
 
+***This is a game created for the SWEN222 game project for Victoria University of Wellington. My role in this was to design the network that allowed the game to be played by multiple players.**
+
 ## Summary ##
 
 Dreamland is a multi-player adventure game.
